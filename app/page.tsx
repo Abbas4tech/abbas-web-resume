@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Container from "./layout/container";
+import Container from "./pages/Container";
 
 export default function Home() {
   return (

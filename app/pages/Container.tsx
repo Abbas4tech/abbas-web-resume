@@ -1,11 +1,33 @@
 import React from "react";
+import { Entry, EntrySkeletonType, createClient } from "contentful";
+import Navbar from "../components/Navbar";
+import { contentful } from "../utils/data";
+import { ContentType } from "../utils/enums";
+import { Themes } from "../utils/types";
 
-const Container = (): React.JSX.Element => {
+const Container = async () => {
+  const client = createClient({
+    accessToken: contentful.accessToken,
+    space: contentful.space,
+  });
+
+  let commonData: Entry<EntrySkeletonType, undefined, string>[] = [];
+
+  try {
+    const response = await client.getEntries({
+      content_type: ContentType.USERINFO,
+    });
+    commonData = response.items;
+    console.log(commonData[0].fields.profilePicture);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    commonData = [];
+  }
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        {/* Page content here */}
         <div className="navbar bg-base-300 w-full">
           <div className="flex-none lg:hidden">
             <label
@@ -28,17 +50,13 @@ const Container = (): React.JSX.Element => {
               </svg>
             </label>
           </div>
-          <div className="mx-2 flex-1 px-2">Navbar Title</div>
-          <div className="hidden flex-none lg:block">
-            <ul className="menu menu-horizontal">
-              {/* Navbar menu content here */}
-              <li>
-                <a>Navbar Item 1</a>
-              </li>
-              <li>
-                <a>Navbar Item 2</a>
-              </li>
-            </ul>
+          <h1 className=" text-2xl mx-2 flex-1 px-2 text-primary">
+            {commonData &&
+              commonData.length > 0 &&
+              (commonData[0].fields.title as string)}
+          </h1>
+          <div className="hidden flex-none lg:flex items-center">
+            <Navbar themes={commonData[0].fields.themes as Themes} />
           </div>
         </div>
       </div>
@@ -49,7 +67,6 @@ const Container = (): React.JSX.Element => {
           className="drawer-overlay"
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          {/* Sidebar content here */}
           <li>
             <a>Sidebar Item 1</a>
           </li>
