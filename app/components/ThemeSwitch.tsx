@@ -16,18 +16,14 @@ const ThemeSwitch = ({ themes }: { themes: Themes }): React.JSX.Element => {
         className="px-4 py-2 tooltip tooltip-left"
         data-tip="Theme"
       >
-        <TbColorSwatch className="text-primary" size={25} />
+        <TbColorSwatch className="" size={25} />
       </div>
       <ul
         tabIndex={0}
         className="dropdown-content menu bg-base-100 rounded-md z-[1] w-36 p-2 shadow"
       >
         {themes.map((theme) => (
-          <li
-            className="text-secondary"
-            key={useId()}
-            onClick={() => changeTheme(theme)}
-          >
+          <li className="" key={useId()} onClick={() => changeTheme(theme)}>
             <a>{theme}</a>
           </li>
         ))}

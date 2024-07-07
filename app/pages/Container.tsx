@@ -27,55 +27,67 @@ const Container = async () => {
   }
 
   return (
-    <div className="drawer lg:drawer-open">
-      <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
-        <div className="navbar bg-base-300 w-full">
-          <div className="flex-none lg:hidden">
+    <>
+      <main className="w-full container h-screen md:text-lg overflow-hidden text-sm mx-auto">
+        <header>
+          <nav className="navbar bg-base-100 h-10 md:h-20">
+            <div className="navbar-start">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-circle drawer-button lg:hidden"
+                htmlFor="my-drawer-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6h16M4 12h16M4 18h7"
+                  />
+                </svg>
+              </label>
+
+              <h1 className="text-lg normal-case lg:text-2xl p-2">
+                {commonData.title}
+              </h1>
+            </div>
+
+            <div className="navbar-end">
+              <Navbar themes={commonData.themes} />
+            </div>
+          </nav>
+        </header>
+        <div className="drawer lg:drawer-open">
+          <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content flex flex-col items-center justify-center bg-base-200">
+            {/* Page content here */}
+            <h1>Abbas Content</h1>
+          </div>
+          <div className="drawer-side">
             <label
               htmlFor="my-drawer-2"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block h-6 w-6 stroke-current"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
-            </label>
-          </div>
-          <h1 className=" text-2xl mx-2 flex-1 px-2 text-primary">
-            {commonData.title}
-          </h1>
-          <div className="hidden flex-none lg:flex items-center">
-            <Navbar themes={commonData.themes} />
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className="menu bg-base-300 min-h-full w-80 p-4">
+              {/* Sidebar content here */}
+              <li>
+                <a>Sidebar Item 1</a>
+              </li>
+              <li>
+                <a>Sidebar Item 2</a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-      <div className="drawer-side">
-        <label
-          htmlFor="my-drawer-2"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-          <li>
-            <a>Sidebar Item 1</a>
-          </li>
-          <li>
-            <a>Sidebar Item 2</a>
-          </li>
-        </ul>
-      </div>
-    </div>
+      </main>
+    </>
   );
 };
 
