@@ -1,9 +1,9 @@
 import React from "react";
 import { Entry, EntrySkeletonType, createClient } from "contentful";
 import Navbar from "../components/Navbar";
-import { contentful } from "../utils/data";
+import { contentful, getCommonInfo } from "../utils/data";
 import { ContentType } from "../utils/enums";
-import { Themes } from "../utils/types";
+import { Themes, CommonData } from "../utils/types";
 
 const Container = async () => {
   const client = createClient({
@@ -11,17 +11,19 @@ const Container = async () => {
     space: contentful.space,
   });
 
-  let commonData: Entry<EntrySkeletonType, undefined, string>[] = [];
+  let commonData: CommonData = {} as CommonData;
 
   try {
     const response = await client.getEntries({
       content_type: ContentType.USERINFO,
     });
-    commonData = response.items;
-    console.log(commonData[0].fields.profilePicture);
+
+    commonData = getCommonInfo(
+      response.items[0] as Entry<EntrySkeletonType, undefined, string>
+    );
   } catch (error) {
     console.error("Error fetching data:", error);
-    commonData = [];
+    commonData = {} as CommonData;
   }
 
   return (
@@ -51,12 +53,10 @@ const Container = async () => {
             </label>
           </div>
           <h1 className=" text-2xl mx-2 flex-1 px-2 text-primary">
-            {commonData &&
-              commonData.length > 0 &&
-              (commonData[0].fields.title as string)}
+            {commonData.title}
           </h1>
           <div className="hidden flex-none lg:flex items-center">
-            <Navbar themes={commonData[0].fields.themes as Themes} />
+            <Navbar themes={commonData.themes} />
           </div>
         </div>
       </div>

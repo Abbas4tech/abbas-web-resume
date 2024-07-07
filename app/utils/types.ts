@@ -14,4 +14,9 @@ export type CommonData = {
   };
   themes: Themes;
   role: string;
+  resume: {
+    title: string;
+    src: string;
+    description: string;
+  };
 };
