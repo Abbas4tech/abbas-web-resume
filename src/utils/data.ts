@@ -26,6 +26,7 @@ export const getCommonInfo = (
       description: response?.fields?.resume?.fields.description,
     },
     themes: response?.fields?.themes as Themes,
+    pages: response.fields.pages,
   } as CommonData;
   console.log(data);
   return data;

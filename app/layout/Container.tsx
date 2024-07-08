@@ -1,11 +1,16 @@
 import React from "react";
 import { Entry, EntrySkeletonType, createClient } from "contentful";
-import Navbar from "../components/Navbar";
-import { contentful, getCommonInfo } from "../utils/data";
-import { ContentType } from "../utils/enums";
-import { Themes, CommonData } from "../utils/types";
+import Navbar from "../../src/components/Navbar";
+import { contentful, getCommonInfo } from "../../src/utils/data";
+import { ContentType } from "../../src/utils/enums";
+import { Themes, CommonData } from "../../src/utils/types";
+import Sidebar from "./Sidebar";
 
-const Container = async () => {
+interface ContainerProps {
+  children: React.ReactNode;
+}
+
+const Container = async ({ children }: ContainerProps) => {
   const client = createClient({
     accessToken: contentful.accessToken,
     space: contentful.space,
@@ -68,23 +73,9 @@ const Container = async () => {
           <div className="drawer-content flex flex-col items-center justify-center bg-base-200">
             {/* Page content here */}
             <h1>Abbas Content</h1>
+            {children}
           </div>
-          <div className="drawer-side">
-            <label
-              htmlFor="my-drawer-2"
-              aria-label="close sidebar"
-              className="drawer-overlay"
-            ></label>
-            <ul className="menu bg-base-300 min-h-full w-80 p-4">
-              {/* Sidebar content here */}
-              <li>
-                <a>Sidebar Item 1</a>
-              </li>
-              <li>
-                <a>Sidebar Item 2</a>
-              </li>
-            </ul>
-          </div>
+          <Sidebar pages={commonData.pages} />
         </div>
       </main>
     </>

@@ -1,9 +1,9 @@
-import Container from "./pages/Container";
+import Container from "./layout/Container";
 
-export default function Home() {
+export default function Home({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Container />
+      <Container>{children}</Container>
     </>
   );
 }

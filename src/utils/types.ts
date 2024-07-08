@@ -19,4 +19,5 @@ export type CommonData = {
     src: string;
     description: string;
   };
+  pages: string[];
 };
