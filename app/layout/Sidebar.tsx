@@ -1,7 +1,13 @@
-import { CommonData } from "@/src/utils/types";
+"use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Sidebar = ({ pages }: { pages: string[] }) => {
+  const router = useRouter();
+  const changePage = (page: string): void => {
+    router.push(`/${[page]}`);
+  };
+
   return (
     <>
       <div className="drawer-side">
@@ -13,7 +19,11 @@ const Sidebar = ({ pages }: { pages: string[] }) => {
         <ul className="menu bg-base-300 gap-2 min-h-full w-80 p-4">
           {/* Sidebar content here */}
           {pages.map((page: string) => (
-            <li key={page} className="">
+            <li
+              key={page}
+              onClick={() => changePage(page.toLowerCase())}
+              className=""
+            >
               <a>{page}</a>
             </li>
           ))}

@@ -1,9 +1,9 @@
 import React from "react";
 import { Entry, EntrySkeletonType, createClient } from "contentful";
-import Navbar from "../../src/components/Navbar";
-import { contentful, getCommonInfo } from "../../src/utils/data";
-import { ContentType } from "../../src/utils/enums";
-import { Themes, CommonData } from "../../src/utils/types";
+import Navbar from "@components/Navbar";
+import { contentful, getCommonInfo } from "@utils/data";
+import { ContentType } from "@utils/enums";
+import {  CommonData } from "@utils/types";
 import Sidebar from "./Sidebar";
 
 interface ContainerProps {
