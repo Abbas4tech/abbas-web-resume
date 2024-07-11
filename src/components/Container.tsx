@@ -3,7 +3,7 @@ import { Entry, EntrySkeletonType, createClient } from "contentful";
 import Navbar from "@components/Navbar";
 import { contentful, getCommonInfo } from "@utils/data";
 import { ContentType } from "@utils/enums";
-import {  CommonData } from "@utils/types";
+import { CommonData } from "@utils/types";
 import Sidebar from "./Sidebar";
 
 interface ContainerProps {

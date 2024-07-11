@@ -2,7 +2,11 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 
-const Sidebar = ({ pages }: { pages: string[] }) => {
+interface SidebarProps {
+  pages: string[];
+}
+
+const Sidebar = ({ pages }: SidebarProps) => {
   const router = useRouter();
   const changePage = (page: string): void => {
     router.push(`/${[page]}`);
