@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, usePathname, redirect } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 
 interface SidebarProps {
@@ -8,7 +8,7 @@ interface SidebarProps {
 
 const Sidebar = ({ pages }: SidebarProps) => {
   const router = useRouter();
-  console.log(usePathname());
+  const currentPath = usePathname().slice(1);
 
   const changePage = (page: string): void => {
     router.push(`/${[page]}`);
@@ -22,23 +22,21 @@ const Sidebar = ({ pages }: SidebarProps) => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="bg-base-300 gap-2 min-h-full w-80">
+        <ul className="bg-base-300 text-base py-4 flex flex-col gap-2 min-h-full w-80">
           {/* Sidebar content here */}
           {pages.map((page: string) => (
             <li
+              key={page}
               id={page}
+              data-aos="fade-zoom-in"
               onClick={() => changePage(page.toLowerCase())}
-              className={`py-1 md:py-2 pr-2 cursor-pointer`}
+              className={`py-1 md:py-2 pr-2 cursor-pointer ${
+                page.toLowerCase() === currentPath
+                  ? "border-primary border-l-4 bg-base-200 transform duration-200 ease-out"
+                  : "hover:bg-base-200"
+              }`}
             >
-              <a
-                className={`${
-                  `/${page.toLowerCase()}` === usePathname()
-                    ? "border-primary border-l-4 bg-primary-content"
-                    : ""
-                } px-4 py-2 md:py-3 w-full`}
-              >
-                {page}
-              </a>
+              <a className={`px-4 w-full`}>{page}</a>
             </li>
           ))}
         </ul>

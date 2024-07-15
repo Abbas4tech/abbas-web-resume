@@ -34,7 +34,7 @@ const Container = async ({ children }: ContainerProps) => {
   return (
     <>
       <main className="w-full container h-screen md:text-lg overflow-hidden text-sm mx-auto">
-        <header>
+        <header className="shadow-lg shadow-base-200">
           <nav className="navbar bg-base-100 h-10 md:h-20">
             <div className="navbar-start">
               <label
