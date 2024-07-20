@@ -1,8 +1,13 @@
 import React, { useId } from "react";
 import ThemeSwitch from "./ThemeSwitch";
-import { Themes } from "../utils/types";
+import ResumeComponent from "./Resume"
+import { Themes, Resume } from "@utils/types";
+interface NavbarProps {
+  themes: Themes;
+  resume : Resume
+}
 
-const Navbar = ({ themes }: { themes: Themes }): React.JSX.Element => {
+const Navbar = ({ themes,resume }: NavbarProps): React.JSX.Element => {
   const navlinks = (
     <ul className="menu menu-horizontal">
       {/* Navbar menu content here */}
@@ -15,6 +20,7 @@ const Navbar = ({ themes }: { themes: Themes }): React.JSX.Element => {
   );
   return (
     <>
+    <ResumeComponent data={resume}/>
       <ThemeSwitch themes={themes} />
     </>
   );

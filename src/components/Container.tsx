@@ -63,8 +63,8 @@ const Container = async ({ children }: ContainerProps) => {
               </h1>
             </div>
 
-            <div className="navbar-end">
-              <Navbar themes={commonData.themes} />
+            <div className="navbar-end items-baseline">
+              <Navbar resume={commonData.resume} themes={commonData.themes}  />
             </div>
           </nav>
         </header>

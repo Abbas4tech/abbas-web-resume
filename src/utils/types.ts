@@ -5,6 +5,12 @@ export type ContentFulInfo = {
   space: string;
 };
 
+export type Resume = {
+    title: string;
+    src: string;
+    description: string;
+}
+
 export type CommonData = {
   title: string;
   profilePic: {
@@ -14,10 +20,6 @@ export type CommonData = {
   };
   themes: Themes;
   role: string;
-  resume: {
-    title: string;
-    src: string;
-    description: string;
-  };
+  resume: Resume;
   pages: string[];
 };
