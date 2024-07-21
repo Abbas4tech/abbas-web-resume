@@ -11,7 +11,7 @@ export type Resume = {
     description: string;
 }
 
-export type CommonData = {
+export type UserInfo = {
   title: string;
   profilePic: {
     width: number;

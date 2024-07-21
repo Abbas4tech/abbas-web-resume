@@ -1,15 +1,15 @@
 import { ChainModifiers, Entry, EntrySkeletonType } from "contentful";
 import { contentfulConfig } from "../config/contentful";
 import { Theme } from "./enums";
-import { CommonData, ContentFulInfo, Themes } from "./types";
+import { UserInfo, ContentFulInfo, Themes } from "./types";
 
 export const themes: Themes = [Theme.DARK, Theme.LIGHT];
 
 export const contentful: ContentFulInfo = contentfulConfig;
 
-export const getCommonInfo = (
+export const getUserInfo = (
   response: Entry<EntrySkeletonType, ChainModifiers, any>
-): CommonData => {
+): UserInfo => {
   const data = {
     title: response.fields.title,
     role: response.fields.role,
@@ -27,7 +27,7 @@ export const getCommonInfo = (
     },
     themes: response?.fields?.themes as Themes,
     pages: response.fields.pages,
-  } as CommonData;
+  } as UserInfo;
   console.log(data);
   return data;
 };

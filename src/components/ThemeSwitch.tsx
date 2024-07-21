@@ -1,8 +1,7 @@
 "use client";
 import React, { useId } from "react";
 import { TbColorSwatch } from "react-icons/tb";
-import { Themes } from "../utils/types";
-import { useUserInfo } from "src/context/useInfoContext";
+import { useUserInfo } from "@context/useInfo";
 
 const ThemeSwitch = (): React.JSX.Element => {
   const { themes } = useUserInfo();

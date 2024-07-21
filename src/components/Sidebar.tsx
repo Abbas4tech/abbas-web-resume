@@ -1,11 +1,7 @@
 "use client";
 import { useRouter, usePathname } from "next/navigation";
 import React from "react";
-import { useUserInfo } from "src/context/useInfoContext";
-
-interface SidebarProps {
-  pages: string[];
-}
+import { useUserInfo } from "@context/useInfo";
 
 const Sidebar = () => {
   const { pages } = useUserInfo();

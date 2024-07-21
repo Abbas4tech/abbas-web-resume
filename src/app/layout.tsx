@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import Container from "@components/Container";
+import { fetchCommonCMS } from "@utils/api";
+import { DataProvider } from "@context/useInfo";
 import "./globals.css";
-import Container from "../components/Container";
-import { fetchData } from "@utils/fetch";
-import { DataProvider } from "src/context/useInfoContext";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -17,7 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const data = await fetchData();
+  const data = await fetchCommonCMS();
   console.log(data);
   return (
     <html lang="en" data-theme="cupcake">

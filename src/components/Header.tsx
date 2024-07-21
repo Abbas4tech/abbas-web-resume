@@ -1,11 +1,7 @@
-import { CommonData } from "@utils/types";
 import React from "react";
-import Navbar from "./Navbar";
-import { useUserInfo } from "src/context/useInfoContext";
-
-interface HeaderProps {
-  commonData: CommonData;
-}
+import ThemeSwitch from "./ThemeSwitch";
+import ResumeComponent from "./Resume";
+import { useUserInfo } from "@context/useInfo";
 
 const Header = () => {
   const { title } = useUserInfo();
@@ -38,7 +34,8 @@ const Header = () => {
         </div>
 
         <div className="navbar-end items-baseline">
-          <Navbar />
+          <ResumeComponent />
+          <ThemeSwitch />
         </div>
       </nav>
     </header>
