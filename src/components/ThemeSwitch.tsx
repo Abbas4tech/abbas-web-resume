@@ -2,8 +2,11 @@
 import React, { useId } from "react";
 import { TbColorSwatch } from "react-icons/tb";
 import { Themes } from "../utils/types";
+import { useUserInfo } from "src/context/useInfoContext";
 
-const ThemeSwitch = ({ themes }: { themes: Themes }): React.JSX.Element => {
+const ThemeSwitch = (): React.JSX.Element => {
+  const { themes } = useUserInfo();
+
   const changeTheme = (theme: string): void => {
     document.documentElement.setAttribute("data-theme", theme.toLowerCase());
   };

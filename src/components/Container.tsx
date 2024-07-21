@@ -1,40 +1,41 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Entry, EntrySkeletonType, createClient } from "contentful";
 import { contentful, getCommonInfo } from "@utils/data";
 import { ContentType } from "@utils/enums";
 import { CommonData } from "@utils/types";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import { DataProvider, fetchData } from "src/context/useInfoContext";
 
 interface ContainerProps {
   children: React.ReactNode;
 }
 
-const Container = async ({ children }: ContainerProps) => {
-  const client = createClient({
-    accessToken: contentful.accessToken,
-    space: contentful.space,
-  });
+const Container = ({ children }: ContainerProps) => {
+  const [data, setData] = useState<CommonData | null>(null);
 
-  let commonData: CommonData = {} as CommonData;
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      const initialData = await fetchData();
+      setData(initialData);
+    };
 
-  try {
-    const response = await client.getEntries({
-      content_type: ContentType.USERINFO,
-    });
+    fetchDataAsync();
+  }, []);
 
-    commonData = getCommonInfo(
-      response.items[0] as Entry<EntrySkeletonType, undefined, string>
-    );
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    commonData = {} as CommonData;
+  const loading = Array.from({ length: 3 }).map((e) => (
+    <span className="loading loading-ball loading-lg"></span>
+  ));
+
+  if (!data) {
+    return loading;
   }
 
   return (
-    <>
+    <DataProvider initialData={data}>
       <main className="w-full container h-screen md:text-lg overflow-hidden text-sm mx-auto">
-        <Header commonData={commonData} />
+        <Header />
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col items-center justify-center bg-base-200">
@@ -42,10 +43,10 @@ const Container = async ({ children }: ContainerProps) => {
             <h1>Abbas Content</h1>
             {children}
           </div>
-          <Sidebar pages={commonData.pages} />
+          <Sidebar />
         </div>
       </main>
-    </>
+    </DataProvider>
   );
 };
 

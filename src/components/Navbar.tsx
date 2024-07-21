@@ -7,11 +7,11 @@ interface NavbarProps {
   resume: Resume;
 }
 
-const Navbar = ({ themes, resume }: NavbarProps): React.JSX.Element => {
+const Navbar = (): React.JSX.Element => {
   return (
     <>
-      <ResumeComponent data={resume} />
-      <ThemeSwitch themes={themes} />
+      <ResumeComponent  />
+      <ThemeSwitch />
     </>
   );
 };

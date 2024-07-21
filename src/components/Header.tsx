@@ -1,12 +1,14 @@
 import { CommonData } from "@utils/types";
 import React from "react";
 import Navbar from "./Navbar";
+import { useUserInfo } from "src/context/useInfoContext";
 
 interface HeaderProps {
   commonData: CommonData;
 }
 
-const Header = ({ commonData }: HeaderProps) => {
+const Header = () => {
+  const { title } = useUserInfo();
   return (
     <header className="shadow-lg shadow-base-200">
       <nav className="navbar bg-base-100 h-10 md:h-20">
@@ -32,13 +34,11 @@ const Header = ({ commonData }: HeaderProps) => {
             </svg>
           </label>
 
-          <h1 className="text-lg normal-case lg:text-2xl p-2">
-            {commonData.title}
-          </h1>
+          <h1 className="text-lg normal-case lg:text-2xl p-2">{title}</h1>
         </div>
 
         <div className="navbar-end items-baseline">
-          <Navbar resume={commonData.resume} themes={commonData.themes} />
+          <Navbar />
         </div>
       </nav>
     </header>
