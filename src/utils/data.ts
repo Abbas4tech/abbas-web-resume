@@ -7,9 +7,7 @@ export const themes: Themes = [Theme.DARK, Theme.LIGHT];
 
 export const contentful: ContentFulInfo = contentfulConfig;
 
-export const getUserInfo = (
-  response: Entry<EntrySkeletonType, ChainModifiers, any>
-): UserInfo => {
+export const getUserInfo = (response: any): UserInfo => {
   const data = {
     title: response.fields.title,
     role: response.fields.role,
