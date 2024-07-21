@@ -1,5 +1,5 @@
 "use client";
-import React, { useId } from "react";
+import React from "react";
 import { TbColorSwatch } from "react-icons/tb";
 import { useUserInfo } from "@context/useInfo";
 
@@ -25,7 +25,7 @@ const ThemeSwitch = (): React.JSX.Element => {
         className="dropdown-content menu bg-base-100 rounded-md z-[1] w-36 p-2 shadow"
       >
         {themes.map((theme) => (
-          <li className="" key={useId()} onClick={() => changeTheme(theme)}>
+          <li className="" key={theme} onClick={() => changeTheme(theme)}>
             <a>{theme}</a>
           </li>
         ))}

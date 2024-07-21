@@ -28,6 +28,5 @@ export const getUserInfo = (
     themes: response?.fields?.themes as Themes,
     pages: response.fields.pages,
   } as UserInfo;
-  console.log(data);
   return data;
 };

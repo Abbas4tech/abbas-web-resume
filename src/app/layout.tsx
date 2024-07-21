@@ -18,7 +18,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const data = await fetchCommonCMS();
-  console.log(data);
   return (
     <html lang="en" data-theme="cupcake">
       <body className={inter.className}>
