@@ -1,10 +1,10 @@
 import React from "react";
 import { Entry, EntrySkeletonType, createClient } from "contentful";
-import Navbar from "@components/Navbar";
 import { contentful, getCommonInfo } from "@utils/data";
 import { ContentType } from "@utils/enums";
 import { CommonData } from "@utils/types";
 import Sidebar from "./Sidebar";
+import Header from "./Header";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -34,40 +34,7 @@ const Container = async ({ children }: ContainerProps) => {
   return (
     <>
       <main className="w-full container h-screen md:text-lg overflow-hidden text-sm mx-auto">
-        <header className="shadow-lg shadow-base-200">
-          <nav className="navbar bg-base-100 h-10 md:h-20">
-            <div className="navbar-start">
-              <label
-                tabIndex={0}
-                className="btn btn-ghost btn-circle drawer-button lg:hidden"
-                htmlFor="my-drawer-2"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h7"
-                  />
-                </svg>
-              </label>
-
-              <h1 className="text-lg normal-case lg:text-2xl p-2">
-                {commonData.title}
-              </h1>
-            </div>
-
-            <div className="navbar-end items-baseline">
-              <Navbar resume={commonData.resume} themes={commonData.themes}  />
-            </div>
-          </nav>
-        </header>
+        <Header commonData={commonData} />
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content flex flex-col items-center justify-center bg-base-200">
