@@ -2,6 +2,7 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import ProfileCard from "./ProfileCard";
 interface ContainerProps {
   children: React.ReactNode;
 }
@@ -12,9 +13,10 @@ const Container = ({ children }: ContainerProps) => {
       <Header />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center bg-base-200">
+        <div className="drawer-content bg-base-200">
           {/* Page content here */}
           <h1>Abbas Content</h1>
+          <ProfileCard />
           {children}
         </div>
         <Sidebar />

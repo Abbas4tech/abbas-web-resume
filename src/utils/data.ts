@@ -23,8 +23,9 @@ export const getUserInfo = (response: any): UserInfo => {
       title: response?.fields?.resume?.fields.title,
       description: response?.fields?.resume?.fields.description,
     },
-    themes: response?.fields?.themes as Themes,
+    themes: response?.fields?.themeList as Themes,
     pages: response.fields.pages,
+    bio: response.fields.bio,
   } as UserInfo;
   return data;
 };

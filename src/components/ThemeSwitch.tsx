@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { TbColorSwatch } from "react-icons/tb";
 import { useUserInfo } from "@context/useInfo";
