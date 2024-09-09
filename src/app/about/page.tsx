@@ -1,12 +1,9 @@
-"use client";
 import React from "react";
-import { fetchAboutUsPage } from "@utils/api";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { fetchAboutUsPage, fetchCommonCMS } from "@utils/api";
 
 const about = async () => {
-  const data = await fetchAboutUsPage();
-  console.log(data[1].items[0].fields);
-  return <div>{documentToReactComponents(data?.fields?.bio)}</div>;
+  const data = await fetchCommonCMS();
+  return <div></div>;
 };
 
 export default about;

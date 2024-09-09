@@ -3,11 +3,13 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ProfileCard from "./ProfileCard";
+import * as AOS from "aos";
 interface ContainerProps {
   children: React.ReactNode;
 }
 
 const Container = ({ children }: ContainerProps) => {
+  AOS.init();
   return (
     <main className="w-full container h-screen md:text-lg overflow-hidden text-sm mx-auto">
       <Header />

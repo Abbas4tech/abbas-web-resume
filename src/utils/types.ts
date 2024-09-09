@@ -6,10 +6,10 @@ export type ContentFulInfo = {
 };
 
 export type Resume = {
-    title: string;
-    src: string;
-    description: string;
-}
+  title: string;
+  src: string;
+  description: string;
+};
 
 export type UserInfo = {
   title: string;
@@ -22,4 +22,5 @@ export type UserInfo = {
   role: string;
   resume: Resume;
   pages: string[];
+  icon: string;
 };

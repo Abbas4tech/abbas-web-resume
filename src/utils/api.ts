@@ -14,7 +14,9 @@ export const fetchCommonCMS = async (): Promise<UserInfo> => {
     const response = await client.getEntries({
       content_type: ContentType.USERINFO,
     });
-
+    console.log(
+      response.items[0] as Entry<EntrySkeletonType, undefined, string>
+    );
     return getUserInfo(
       response.items[0] as Entry<EntrySkeletonType, undefined, string>
     );

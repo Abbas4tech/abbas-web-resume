@@ -26,6 +26,7 @@ export const getUserInfo = (response: any): UserInfo => {
     themes: response?.fields?.themeList as Themes,
     pages: response.fields.pages,
     bio: response.fields.bio,
+    icon: response.fields.html5
   } as UserInfo;
   return data;
 };
