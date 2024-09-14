@@ -11,15 +11,14 @@ interface ContainerProps {
 const Container = ({ children }: ContainerProps) => {
   AOS.init();
   return (
-    <main className="w-full container h-screen md:text-lg overflow-hidden text-sm mx-auto">
+    <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
       <Header />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content bg-base-200">
-          {/* Page content here */}
-          <h1>Abbas Content</h1>
+        <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto">
           <ProfileCard />
           {children}
+          <button className="btn btn-primary mb-14">Change Page</button>
         </div>
         <Sidebar />
       </div>

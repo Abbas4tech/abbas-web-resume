@@ -21,7 +21,7 @@ const Sidebar = () => {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <ul className="bg-base-300 text-base py-4 flex flex-col gap-2 min-h-full w-80">
+        <ul className="bg-base-300 text-base py-4 flex flex-col gap-2 min-h-full w-[80%] lg:w-80">
           {/* Sidebar content here */}
           {pages.map((page: string) => (
             <li

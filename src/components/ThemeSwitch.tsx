@@ -21,7 +21,7 @@ const ThemeSwitch = (): React.JSX.Element => {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content menu bg-base-100 rounded-md z-[1] w-36 p-2 shadow"
+        className="dropdown-content menu bg-base-100 rounded-md z-50 w-36 p-2 shadow"
       >
         {themes.map((theme) => (
           <li className="" key={theme} onClick={() => changeTheme(theme)}>
