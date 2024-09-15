@@ -6,7 +6,7 @@ import { useUserInfo } from "@context/useInfo";
 const Header = () => {
   const { title } = useUserInfo();
   return (
-    <header className="shadow-lg shadow-base-200 sticky">
+    <header className="shadow-lg shadow-base-200">
       <nav className="navbar bg-base-100 h-10 md:h-20">
         <div className="navbar-start">
           <label

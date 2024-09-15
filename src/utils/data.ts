@@ -24,7 +24,7 @@ export const getUserInfo = (response: any): UserInfo => {
       description: response?.fields?.resume?.fields.description,
     },
     themes: response?.fields?.themeList as Themes,
-    pages: response.fields.pages,
+    pages: ["About", ...response.fields.pages],
     bio: response.fields.bio,
     icon: response.fields.html5
   } as UserInfo;

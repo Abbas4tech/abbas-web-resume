@@ -1,5 +1,10 @@
 import React from "react";
-import { FaBootstrap, FaHtml5, FaCode, FaReact } from "react-icons/fa";
+import {
+  FaBootstrap,
+  FaHtml5,
+  FaCode,
+  FaReact,
+} from "react-icons/fa";
 import {
   SiJavascript,
   SiTypescript,
@@ -12,40 +17,28 @@ import { MdMilitaryTech } from "react-icons/md";
 
 interface SVGIconProps {
   icon: string;
-  classes: string;
+  classes?: string; 
 }
 
-const SVGIcon = ({ icon, classes }: SVGIconProps) => {
-  const IconComponent = () => {
-    if (icon === "Bootstrap") {
-      return <FaBootstrap />;
-    } else if (icon === "Typescript") {
-      return <SiTypescript />;
-    } else if (icon === "Javascript") {
-      return <SiJavascript />;
-    } else if (icon === "HTML5") {
-      return <FaHtml5 />;
-    } else if (icon === "CSS") {
-      return <IoLogoCss3 />;
-    } else if (icon === "SCSS") {
-      return <DiSass />;
-    } else if (icon === "Core Technologies") {
-      return <FaCode className={"text-warning"} />;
-    } else if (icon === "Skills") {
-      return <MdMilitaryTech />;
-    } else if (icon === "React Eco System") {
-      return <FaReact className={"text-info"}/>
-    } 
-    else if (icon === "React") {
-      return <FaReact />;
-    } else if (icon === "Redux Toolkit") {
-      return <SiRedux />;
-    } else if (icon === "React Router") {
-      return <SiReactrouter />;
-    }
-  };
+const iconMap: Record<string, JSX.Element> = {
+  Bootstrap: <FaBootstrap />,
+  Typescript: <SiTypescript />,
+  Javascript: <SiJavascript />,
+  HTML5: <FaHtml5 />,
+  CSS: <IoLogoCss3 />,
+  SCSS: <DiSass />,
+  "Core Technologies": <FaCode className="text-warning" />,
+  Skills: <MdMilitaryTech />,
+  "React Eco System": <FaReact className="text-info" />,
+  React: <FaReact />,
+  "Redux Toolkit": <SiRedux />,
+  "React Router": <SiReactrouter />,
+};
 
-  return <IconComponent />;
+const SVGIcon: React.FC<SVGIconProps> = ({ icon, classes = "" }) => {
+  const IconComponent = iconMap[icon] || null;  // Fallback to null if icon not found
+
+  return <div className={classes}>{IconComponent}</div>;
 };
 
 export default SVGIcon;

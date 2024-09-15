@@ -6,6 +6,7 @@ import ProfileCard from "./ProfileCard";
 import * as AOS from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
+import { FaArrowRight } from "react-icons/fa";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -14,17 +15,18 @@ interface ContainerProps {
 const Container = ({ children }: ContainerProps) => {
   const { pages } = useUserInfo();
   const router = useRouter();
-  const [next, setNext] = useState<string>("");
+  const [nextPage, setNextPage] = useState<string>("");
   const currentPath =
-    usePathname().charAt(1).toUpperCase() + usePathname().slice(2);
-  const nextPage = pages[(pages.indexOf(currentPath) + 1) % pages.length];
+    usePathname().charAt(1).toUpperCase() + usePathname().slice(2) || "About";
+  const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
   useEffect(() => {
-    setNext(nextPage);
+    setNextPage(nextUrl);
   }, [currentPath]);
 
-  const changePage = () => {
-    router.push(`/${next.toLowerCase()}`);
-  };
+  const changePage = () =>
+    router.push(
+      `/${nextPage.toLowerCase() === "about" ? "" : nextPage.toLowerCase()}`
+    );
 
   AOS.init();
   return (
@@ -32,12 +34,18 @@ const Container = ({ children }: ContainerProps) => {
       <Header />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto">
+        <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto scrollbar-hide">
           <ProfileCard />
           {children}
-          <button onClick={changePage} className="btn btn-primary mb-14">
-            {next}
-          </button>
+          <div className="flex justify-end mb-14 p-2">
+            <button
+              onClick={changePage}
+              className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
+            >
+              {nextPage}
+              <FaArrowRight />
+            </button>
+          </div>
         </div>
         <Sidebar />
       </div>

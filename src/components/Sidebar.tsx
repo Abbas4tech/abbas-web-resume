@@ -7,10 +7,10 @@ const Sidebar = () => {
   const { pages } = useUserInfo();
 
   const router = useRouter();
-  const currentPath = usePathname().slice(1);
+  const currentPath = usePathname().slice(1) || "about";
 
   const changePage = (page: string): void => {
-    router.push(`/${[page]}`);
+    router.push(`/${[page === "about" ? "" : page]}`);
   };
 
   return (
