@@ -27,7 +27,7 @@ const technologies = async () => {
               >
                 <div className="p-4 bg-base-200">
                   <div className="flex items-center mb-4 text-xl font-bold md:text-3xl ">
-                    <SVGIcon icon={fields.title} classes={""} />
+                    <SVGIcon icon={fields.identifier} classes={""} />
                     <h1 className="flex ml-4">{fields.title}</h1>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2">

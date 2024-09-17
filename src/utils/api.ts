@@ -33,7 +33,7 @@ export const fetchAboutUsPage = async (): Promise<any> => {
   });
 
   try {
-    return await Promise.all([
+   const res =  await Promise.all([
       client.getEntries({
         content_type: ContentType.ABOUTUS,
         include: 2,
@@ -42,8 +42,12 @@ export const fetchAboutUsPage = async (): Promise<any> => {
         content_type: "experience",
       }),
     ]);
+
+    console.log(res[0].items[0].fields.technologies)
+    return res;
   } catch (error) {
     console.error("Error fetching data:", error);
     return {} as any;
   }
 };
+fetchAboutUsPage()
