@@ -8,6 +8,7 @@ export const themes: Themes = [Theme.DARK, Theme.LIGHT];
 export const contentful: ContentFulInfo = contentfulConfig;
 
 export const getUserInfo = (response: any): UserInfo => {
+  console.log(response);
   const data = {
     title: response.fields.title,
     role: response.fields.role,
@@ -25,8 +26,7 @@ export const getUserInfo = (response: any): UserInfo => {
     },
     themes: response?.fields?.themeList as Themes,
     pages: ["About", ...response.fields.pages],
-    bio: response.fields.bio,
-    icon: response.fields.html5
+    info: response.fields.info,
   } as UserInfo;
   return data;
 };

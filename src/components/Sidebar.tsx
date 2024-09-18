@@ -1,17 +1,12 @@
 "use client";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { useUserInfo } from "@context/useInfo";
+import Link from "next/link";
 
 const Sidebar = () => {
   const { pages } = useUserInfo();
-
-  const router = useRouter();
   const currentPath = usePathname().slice(1) || "about";
-
-  const changePage = (page: string): void => {
-    router.push(`/${[page === "about" ? "" : page]}`);
-  };
 
   return (
     <>
@@ -28,14 +23,13 @@ const Sidebar = () => {
               key={page}
               id={page}
               data-aos="fade-zoom-in"
-              onClick={() => changePage(page.toLowerCase())}
               className={`py-1 md:py-2 pr-2 cursor-pointer ${
                 page.toLowerCase() === currentPath
                   ? "border-primary border-l-4 bg-base-200 transform duration-200 ease-out"
                   : "hover:bg-base-200"
               }`}
             >
-              <a className={`px-4 w-full`}>{page}</a>
+              <Link href={`/${[page.toLowerCase() === "about" ? "" : page.toLowerCase()]}`} className={`px-4 w-full`}>{page}</Link>
             </li>
           ))}
         </ul>

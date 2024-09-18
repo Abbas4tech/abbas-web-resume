@@ -1,25 +1,23 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { fetchAboutUsPage } from "@utils/api";
+import BioCard from "@components/BioCard";
+import SVGIcon from "@components/SVGIcon";
+import { useUserInfo } from "@context/useInfo";
+import React, { useEffect } from "react";
 
-export default function Home() {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetchAboutUsPage();
-        console.log(result[1]);
-      } catch (err: any) {
-        console.error(err);
-      } finally {
-      }
-    };
-
-    fetchData(); // Fetch data on component mount
-  }, []);
+const ContactInfo = () => {
+  const { info } = useUserInfo();
 
   return (
-    <div>
-      <h1>Shaikh</h1>
+    <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
+      {info.map(({ fields }) => (
+        <BioCard
+          title={fields.title}
+          value={fields.value}
+          identifier={fields.identifier}
+        />
+      ))}
     </div>
   );
-}
+};
+
+export default ContactInfo;

@@ -50,4 +50,5 @@ export const fetchAboutUsPage = async (): Promise<any> => {
     return {} as any;
   }
 };
-fetchAboutUsPage()
+fetchAboutUsPage();
+fetchCommonCMS()

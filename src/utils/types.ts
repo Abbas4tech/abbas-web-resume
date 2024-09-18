@@ -22,5 +22,5 @@ export type UserInfo = {
   role: string;
   resume: Resume;
   pages: string[];
-  icon: string;
+  info:any[]
 };
