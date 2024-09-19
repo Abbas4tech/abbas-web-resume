@@ -1,9 +1,33 @@
 import React from "react";
-import { FaLocationCrosshairs } from "react-icons/fa6";
-import { FaUser, FaRegCalendarTimes,FaUserGraduate } from "react-icons/fa";
+import { FaUser, FaRegCalendarTimes, FaUserGraduate } from "react-icons/fa";
 import { GiStack } from "react-icons/gi";
+import SVGIcon from "./SVGIcon";
+import { Experience } from "@utils/types";
 
-const ExperienceCard: React.FC = () => {
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const ExperienceCard = ({
+  company,
+  position,
+  description,
+  location,
+  startDate,
+  endDate,
+  workedRemotely,
+}: Experience) => {
   return (
     <div className="relative flex items-center">
       <div className="absolute z-10 h-full border-r-2 border-gray-600 left-0">
@@ -13,27 +37,31 @@ const ExperienceCard: React.FC = () => {
       </div>
       <div className="mb-4 ml-8 md:ml-10">
         <p className="text-xl font-extrabold sm:text-2xl md:text-3xl">
-          iSchoolConnect Technologies
+          {company}
         </p>
         <div className="flex flex-col justify-between md:flex-row">
           <p className="flex items-center gap-">
             <span className="text-slate-500">
-              <FaLocationCrosshairs />
+              <SVGIcon icon={"location"} />
             </span>
-            &nbsp;Mumbai, Maharashtra - Remote
+            &nbsp;{`${location} ${workedRemotely ? `- Remote` : null}`}
           </p>
           <p className="flex items-center gap-2">
             <span className="text-slate-500">
               <FaRegCalendarTimes />
             </span>
-            March 2022 - July 2023
+            {`${monthNames[new Date(startDate).getMonth()]} ${new Date(
+              startDate
+            ).getFullYear()} - ${
+              monthNames[new Date(endDate).getMonth()]
+            } ${new Date(endDate).getFullYear()}`}
           </p>
         </div>
         <p className="flex items-center gap-2">
           <span className="text-slate-500">
             <FaUser />
           </span>
-          Frontend Developer
+          {position}
         </p>
         <p className="flex items-start gap-2 mb-2 md:mb-4">
           <span className="pt-1 text-slate-500">
@@ -41,9 +69,7 @@ const ExperienceCard: React.FC = () => {
           </span>
           Typescript, Angular, Angular Material, Strapi, Tailwind, RxJS
         </p>
-        <p className="gap-2 mb-6 text-base-content">
-          Worked on creating and maintaing features for student and advisor dashboards including landing pages. Crafted a new dashbaord for mid level user which reduces the load of division admins by 50%
-        </p>
+        <p className="gap-2 mb-6 text-base-content">{description}</p>
       </div>
     </div>
   );

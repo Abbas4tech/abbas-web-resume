@@ -1,5 +1,13 @@
 import React, { ComponentType } from "react";
-import { FaBootstrap, FaHtml5, FaCode, FaReact, FaPhoneAlt } from "react-icons/fa";
+import {
+  FaBootstrap,
+  FaHtml5,
+  FaCode,
+  FaReact,
+  FaPhoneAlt,
+  FaCalendarTimes,
+} from "react-icons/fa";
+import { FaLocationCrosshairs } from "react-icons/fa6";
 import {
   SiJavascript,
   SiTypescript,
@@ -7,7 +15,7 @@ import {
   SiReactrouter,
   SiJest,
   SiFramework,
-  SiGmail
+  SiGmail,
 } from "react-icons/si";
 import { IoLogoCss3 } from "react-icons/io";
 import { DiSass } from "react-icons/di";
@@ -34,7 +42,9 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
   Jest: SiJest,
   Framework: SiFramework,
   phone: FaPhoneAlt,
-  gmail: SiGmail
+  gmail: SiGmail,
+  date: FaCalendarTimes,
+  location: FaLocationCrosshairs,
 };
 
 const SVGIcon: React.FC<SVGIconProps> = ({ icon, classes = "" }) => {

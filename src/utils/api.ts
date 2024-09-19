@@ -1,15 +1,15 @@
 import { createClient, Entry, EntrySkeletonType } from "contentful";
-import { contentful, getUserInfo } from "@utils/data";
+import { contentful, getUserInfo, mapExperiencePage } from "@utils/data";
 import { ContentType } from "@utils/enums";
-import { UserInfo } from "@utils/types";
+import { ExperiencePage, UserInfo } from "@utils/types";
+
+const client = createClient({
+  accessToken: contentful.accessToken,
+  space: contentful.space,
+});
 
 // Function to fetch data from Contentful
 export const fetchCommonCMS = async (): Promise<UserInfo> => {
-  const client = createClient({
-    accessToken: contentful.accessToken,
-    space: contentful.space,
-  });
-
   try {
     const response = await client.getEntries({
       content_type: ContentType.USERINFO,
@@ -26,14 +26,17 @@ export const fetchCommonCMS = async (): Promise<UserInfo> => {
   }
 };
 
-export const fetchAboutUsPage = async (): Promise<any> => {
-  const client = createClient({
-    accessToken: contentful.accessToken,
-    space: contentful.space,
+export const fetchExperiencePage = async (): Promise<ExperiencePage> => {
+  const data = await client.getEntries({
+    content_type: ContentType.EXPERIENCE,
   });
+  console.log(mapExperiencePage(data.items[0].fields));
+  return mapExperiencePage(data.items[0].fields);
+};
 
+export const fetchAboutUsPage = async (): Promise<any> => {
   try {
-   const res =  await Promise.all([
+    const res = await Promise.all([
       client.getEntries({
         content_type: ContentType.ABOUTUS,
         include: 2,
@@ -43,7 +46,7 @@ export const fetchAboutUsPage = async (): Promise<any> => {
       }),
     ]);
 
-    console.log(res[0].items[0].fields.technologies)
+    console.log(res[0].items[0].fields.technologies);
     return res;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -51,4 +54,5 @@ export const fetchAboutUsPage = async (): Promise<any> => {
   }
 };
 fetchAboutUsPage();
-fetchCommonCMS()
+fetchCommonCMS();
+fetchExperiencePage();

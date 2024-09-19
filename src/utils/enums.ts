@@ -5,5 +5,6 @@ export enum Theme {
 
 export enum ContentType {
   USERINFO = "userInfo",
-  ABOUTUS = "aboutUsPage"
+  ABOUTUS = "aboutUsPage",
+  EXPERIENCE = "experiencePage"
 }

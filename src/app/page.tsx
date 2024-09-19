@@ -1,8 +1,7 @@
 "use client";
 import BioCard from "@components/BioCard";
-import SVGIcon from "@components/SVGIcon";
 import { useUserInfo } from "@context/useInfo";
-import React, { useEffect } from "react";
+import React from "react";
 
 const ContactInfo = () => {
   const { info } = useUserInfo();
@@ -11,6 +10,7 @@ const ContactInfo = () => {
     <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
       {info.map(({ fields }) => (
         <BioCard
+          key={fields.title}
           title={fields.title}
           value={fields.value}
           identifier={fields.identifier}

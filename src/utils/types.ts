@@ -5,6 +5,22 @@ export type ContentFulInfo = {
   space: string;
 };
 
+export type ExperiencePage = {
+  title: string;
+  experiences: Experience[];
+};
+
+export interface Experience {
+  company: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  location: string;
+  currentlyWorking: boolean;
+  position: string;
+  workedRemotely: boolean;
+}
+
 export type Resume = {
   title: string;
   src: string;
@@ -22,5 +38,5 @@ export type UserInfo = {
   role: string;
   resume: Resume;
   pages: string[];
-  info:any[]
+  info: any[];
 };

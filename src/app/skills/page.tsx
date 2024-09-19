@@ -9,7 +9,7 @@ const technologies = async () => {
   return (
     <>
       {data && (
-        <div className="container  overflow-auto mb-5 ">
+        <div className="container overflow-auto mb-5 ">
           <h1
             data-aos="flip-down"
             className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl aos-init aos-animate"
@@ -37,7 +37,7 @@ const technologies = async () => {
                         className="grid items-center grid-cols-2 p-1 py-4 md:p-4 md:px-4 lg:px-5"
                       >
                         <div className="flex gap-4 text-xl md:text-4xl">
-                          {fields.icons.map((icon: string) => (
+                          {fields.skills.map((icon: string) => (
                             <div
                               key={icon}
                               className="tooltip tooltip-primary"

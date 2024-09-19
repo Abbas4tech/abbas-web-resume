@@ -1,12 +1,16 @@
 import ExperienceCard from "@components/ExperienceCard";
-import React from "react";
+import React, { useEffect } from "react";
+import { fetchExperiencePage } from "@utils/api";
 
-const experience = () => {
+
+
+const experience = async () => {
+  const { title, experiences } = await fetchExperiencePage();
   return (
     <>
       <ul className="px-2 pl-4 mt-2 md:mt-4 md:px-12">
-        {Array.from({length:4},(_,i) => i).map((e)=> (
-            <ExperienceCard key={e}/>
+        {experiences.map((e) => (
+          <ExperienceCard {...e} />
         ))}
       </ul>
     </>

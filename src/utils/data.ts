@@ -1,7 +1,13 @@
 import { ChainModifiers, Entry, EntrySkeletonType } from "contentful";
 import { contentfulConfig } from "../config/contentful";
 import { Theme } from "./enums";
-import { UserInfo, ContentFulInfo, Themes } from "./types";
+import {
+  UserInfo,
+  ContentFulInfo,
+  Themes,
+  ExperiencePage,
+  Experience,
+} from "./types";
 
 export const themes: Themes = [Theme.DARK, Theme.LIGHT];
 
@@ -29,4 +35,23 @@ export const getUserInfo = (response: any): UserInfo => {
     info: response.fields.info,
   } as UserInfo;
   return data;
+};
+
+export const mapExperiencePage = (fields: any): ExperiencePage => {
+  return {
+    title: fields.title,
+    experiences: fields.experiences.map(
+      ({ fields }: { fields: any }) =>
+        ({
+          company: fields.company,
+          description: fields.description,
+          position: fields.position,
+          workedRemotely: fields.workedRemotely,
+          startDate: fields.startDate,
+          endDate: fields.endDate,
+          location: fields.location,
+          currentlyWorking: fields.currentlyWorking,
+        } as Experience)
+    ),
+  };
 };
