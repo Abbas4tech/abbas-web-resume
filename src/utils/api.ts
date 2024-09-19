@@ -41,9 +41,6 @@ export const fetchAboutUsPage = async (): Promise<any> => {
         content_type: ContentType.ABOUTUS,
         include: 2,
       }),
-      client.getEntries({
-        content_type: "experience",
-      }),
     ]);
 
     console.log(res[0].items[0].fields.technologies);
