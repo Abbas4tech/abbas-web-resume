@@ -1,5 +1,5 @@
-import React from "react";
-import { FaUser, FaRegCalendarTimes, FaUserGraduate } from "react-icons/fa";
+import React, { memo, useMemo } from "react";
+import { FaUserGraduate, FaUser, FaRegCalendarTimes } from "react-icons/fa";
 import { GiStack } from "react-icons/gi";
 import SVGIcon from "./SVGIcon";
 import { Experience } from "@utils/types";
@@ -19,60 +19,73 @@ const monthNames = [
   "December",
 ];
 
-const ExperienceCard = ({
-  company,
-  position,
-  description,
-  location,
-  startDate,
-  endDate,
-  workedRemotely,
-}: Experience) => {
-  return (
-    <div className="relative flex items-center">
-      <div className="absolute z-10 h-full border-r-2 border-gray-600 left-0">
-        <span className="absolute flex items-center justify-center w-8 h-8 -ml-4 rounded-full md:-ml-6 md:w-12 md:h-12 bg-base-300">
-          <FaUserGraduate />
-        </span>
-      </div>
-      <div className="mb-4 ml-8 md:ml-10">
-        <p className="text-xl font-extrabold sm:text-2xl md:text-3xl">
-          {company}
-        </p>
-        <div className="flex flex-col justify-between md:flex-row">
-          <p className="flex items-center gap-">
-            <span className="text-slate-500">
-              <SVGIcon icon={"location"} />
-            </span>
-            &nbsp;{`${location} ${workedRemotely ? `- Remote` : null}`}
+const ExperienceCard = memo(
+  ({
+    company,
+    position,
+    description,
+    location,
+    startDate,
+    endDate,
+    workedRemotely,
+  }: Experience) : React.JSX.Element => {
+    const formattedStartDate = useMemo(() => {
+      const date = new Date(startDate);
+      return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+    }, [startDate]);
+
+    const formattedEndDate = useMemo(() => {
+      const date = new Date(endDate);
+      return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+    }, [endDate]);
+
+    const remoteLabel = useMemo(
+      () => (workedRemotely ? ` - Remote` : ""),
+      [workedRemotely]
+    );
+
+    return (
+      <div className="relative flex items-center">
+        <div className="absolute z-10 h-full border-r-2 border-gray-600 left-0">
+          <span className="absolute flex items-center justify-center w-8 h-8 -ml-4 rounded-full md:-ml-6 md:w-12 md:h-12 bg-base-300">
+            <FaUserGraduate />
+          </span>
+        </div>
+        <div className="mb-4 ml-8 md:ml-10">
+          <p className="text-xl font-extrabold sm:text-2xl md:text-3xl">
+            {company}
           </p>
+          <div className="flex flex-col justify-between md:flex-row">
+            <p className="flex items-center gap-2">
+              <span className="text-slate-500">
+                <SVGIcon icon="location" />
+              </span>
+              &nbsp;{`${location}${remoteLabel}`}
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="text-slate-500">
+                <FaRegCalendarTimes />
+              </span>
+              {`${formattedStartDate} - ${formattedEndDate}`}
+            </p>
+          </div>
           <p className="flex items-center gap-2">
             <span className="text-slate-500">
-              <FaRegCalendarTimes />
+              <FaUser />
             </span>
-            {`${monthNames[new Date(startDate).getMonth()]} ${new Date(
-              startDate
-            ).getFullYear()} - ${
-              monthNames[new Date(endDate).getMonth()]
-            } ${new Date(endDate).getFullYear()}`}
+            {position}
           </p>
+          <p className="flex items-start gap-2 mb-2 md:mb-4">
+            <span className="pt-1 text-slate-500">
+              <GiStack />
+            </span>
+            Typescript, Angular, Angular Material, Strapi, Tailwind, RxJS
+          </p>
+          <p className="gap-2 mb-6 text-base-content">{description}</p>
         </div>
-        <p className="flex items-center gap-2">
-          <span className="text-slate-500">
-            <FaUser />
-          </span>
-          {position}
-        </p>
-        <p className="flex items-start gap-2 mb-2 md:mb-4">
-          <span className="pt-1 text-slate-500">
-            <GiStack />
-          </span>
-          Typescript, Angular, Angular Material, Strapi, Tailwind, RxJS
-        </p>
-        <p className="gap-2 mb-6 text-base-content">{description}</p>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 export default ExperienceCard;
