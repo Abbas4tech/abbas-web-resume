@@ -7,7 +7,7 @@ import {
   FaPhoneAlt,
   FaCalendarTimes,
 } from "react-icons/fa";
-import { FaLocationCrosshairs } from "react-icons/fa6";
+import { FaLocationCrosshairs, FaPeopleGroup } from "react-icons/fa6";
 import {
   SiJavascript,
   SiTypescript,
@@ -45,6 +45,7 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
   gmail: SiGmail,
   date: FaCalendarTimes,
   location: FaLocationCrosshairs,
+  about: FaPeopleGroup,
 };
 
 const SVGIcon: React.FC<SVGIconProps> = ({ icon, classes = "" }) => {
