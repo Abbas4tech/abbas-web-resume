@@ -22,7 +22,7 @@ const Container = ({ children }: ContainerProps) => {
 
   useEffect(() => {
     setNextPage(nextUrl);
-  }, [currentPath]);
+  }, [currentPath, nextUrl]);
 
   // Initialize AOS only on the client
   useEffect(() => {
@@ -37,9 +37,7 @@ const Container = ({ children }: ContainerProps) => {
     );
 
   return (
-    <main
-      className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto"
-    >
+    <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
       <Header />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
