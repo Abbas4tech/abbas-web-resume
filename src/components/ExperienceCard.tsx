@@ -28,7 +28,7 @@ const ExperienceCard = memo(
     startDate,
     endDate,
     workedRemotely,
-  }: Experience) : React.JSX.Element => {
+  }: Experience): React.JSX.Element => {
     const formattedStartDate = useMemo(() => {
       const date = new Date(startDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;

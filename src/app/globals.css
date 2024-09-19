@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'aos/dist/aos.css';
 
 .drawer-content {
   height: calc(100vh - 4rem);

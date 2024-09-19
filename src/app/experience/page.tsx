@@ -10,7 +10,7 @@ const experience = async () => {
     <>
       <ul className="px-2 pl-4 mt-2 md:mt-4 md:px-12">
         {experiences.map((e) => (
-          <ExperienceCard {...e} />
+          <ExperienceCard {...e} key={e.company} />
         ))}
       </ul>
     </>

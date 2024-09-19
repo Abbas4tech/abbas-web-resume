@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ProfileCard from "./ProfileCard";
-import * as AOS from "aos";
+import AOS from "aos"; // No need for * import
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";
@@ -19,18 +19,27 @@ const Container = ({ children }: ContainerProps) => {
   const currentPath =
     usePathname().charAt(1).toUpperCase() + usePathname().slice(2) || "About";
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
+
   useEffect(() => {
     setNextPage(nextUrl);
   }, [currentPath]);
+
+  // Initialize AOS only on the client
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      AOS.init();
+    }
+  }, []);
 
   const changePage = () =>
     router.push(
       `/${nextPage.toLowerCase() === "about" ? "" : nextPage.toLowerCase()}`
     );
 
-  AOS.init();
   return (
-    <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
+    <main
+      className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto"
+    >
       <Header />
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
