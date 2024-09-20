@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ProfileCard from "./ProfileCard";
-import AOS from "aos"; // No need for * import
+import AOS from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";

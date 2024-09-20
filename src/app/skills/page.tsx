@@ -30,13 +30,10 @@ type AboutUsData = EntrySkeletonType & {
 };
 
 // Type guard to ensure data conforms to AboutUsData
-const isAboutUsData = (data: any): data is AboutUsData => {
-  return (
-    data &&
-    typeof data.fields?.title === "string" &&
-    Array.isArray(data.fields?.technologies)
-  );
-};
+const isAboutUsData = (data: any): data is AboutUsData =>
+  data &&
+  typeof data.fields?.title === "string" &&
+  Array.isArray(data.fields?.technologies);
 
 // Fetch the Contentful data and return the structured fields
 const fetchData = async (): Promise<AboutUsData | null> => {
