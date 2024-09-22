@@ -26,6 +26,14 @@ export const fetchCommonCMS = async (): Promise<UserInfo> => {
   }
 };
 
+
+export const fetchProjectsPage = async () => {
+  const res = await client.getEntries({
+    content_type: "projectsPage"
+  })
+  return res.items[0].fields
+}
+
 export const fetchExperiencePage = async (): Promise<ExperiencePage> => {
   const data = await client.getEntries({
     content_type: ContentType.EXPERIENCE,

@@ -72,7 +72,7 @@ const Technologies: FC = React.memo(() => {
     <>
       <div className="container overflow-auto mb-5">
         <h1
-          data-aos="flip-down"
+          data-aos="fade-down"
           className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl aos-init aos-animate"
         >
           <span className="inline-block mr-2">
@@ -80,7 +80,7 @@ const Technologies: FC = React.memo(() => {
           </span>
           {data.fields.title}
         </h1>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4" data-aos="fade-up">
           {data.fields.technologies.map(({ fields }) => (
             <div
               key={fields?.title || ""}
