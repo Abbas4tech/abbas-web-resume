@@ -1,7 +1,20 @@
-import { createClient, Entry, EntrySkeletonType } from "contentful";
-import { contentful, getUserInfo, mapExperiencePage } from "@utils/data";
+import {
+  createClient,
+  Entry,
+  EntryCollection,
+  EntrySkeletonType,
+  EntryFields,
+} from "contentful";
+import {
+  contentful,
+  convertEntry,
+  getUserInfo,
+  mapExperiencePage,
+} from "@utils/data";
 import { ContentType } from "@utils/enums";
-import { ExperiencePage, UserInfo } from "@utils/types";
+import { UserInfo, ExperiencePage } from "@utils/types";
+import { ExperiencePageType, SkillsPage } from "@utils/contentful";
+import { ExperiencePageId, SkillsPageId } from "src/config/contentful";
 
 const client = createClient({
   accessToken: contentful.accessToken,
@@ -26,20 +39,33 @@ export const fetchCommonCMS = async (): Promise<UserInfo> => {
   }
 };
 
-
 export const fetchProjectsPage = async () => {
   const res = await client.getEntries({
-    content_type: "projectsPage"
-  })
-  return res.items[0].fields
-}
+    content_type: "projectsPage",
+  });
+  return res.items[0].fields;
+};
+
+export const fetchExperiencePages = async (): Promise<ExperiencePageType> => {
+  const entries = await client.getEntry<ExperiencePageType>(ExperiencePageId);
+  return convertEntry(entries);
+};
+
+export const fetchSkillsPage = async (): Promise<Entry<SkillsPage>> => {
+  const entries = await client.getEntry<SkillsPage>(SkillsPageId, {
+    include: 3,
+  });
+  console.log(entries);
+  return entries;
+};
 
 export const fetchExperiencePage = async (): Promise<ExperiencePage> => {
   const data = await client.getEntries({
     content_type: ContentType.EXPERIENCE,
   });
   console.log(mapExperiencePage(data.items[0].fields));
-  return mapExperiencePage(data.items[0].fields);
+
+  return convertEntry(data);
 };
 
 export const fetchAboutUsPage = async (): Promise<any> => {
