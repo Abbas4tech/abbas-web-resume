@@ -2,7 +2,8 @@ import { EntryFields, Entry, EntrySkeletonType, Asset } from "contentful";
 
 export interface User extends EntrySkeletonType {
   title: EntryFields.Text;
-  profilePic: FileAsset;
+  profilePicture: FileAsset;
+  name: EntryFields.Text;
   themeList: EntryFields.Text[];
   role: EntryFields.Text;
   resume: FileAsset;
