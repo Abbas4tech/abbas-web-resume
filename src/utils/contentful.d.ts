@@ -2,10 +2,10 @@ import { EntryFields, Entry, EntrySkeletonType, Asset } from "contentful";
 
 export interface User extends EntrySkeletonType {
   title: EntryFields.Text;
-  profilePic: ImageAsset;
+  profilePic: FileAsset;
   themeList: EntryFields.Text[];
   role: EntryFields.Text;
-  resume: Asset;
+  resume: FileAsset;
   pages: string[];
   info: BioCard[];
   technologies: SkillSet[];
@@ -13,9 +13,9 @@ export interface User extends EntrySkeletonType {
   experiences: JobExperience[];
 }
 
-export interface ImageAsset extends Asset {
+export interface FileAsset extends Asset {
   title: EntryFields.Text;
-  description?: EntryFields.Text;
+  description: EntryFields.Text;
   file: {
     url: string;
     details: {
@@ -33,7 +33,7 @@ export interface ImageAsset extends Asset {
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;
   deployedLink: EntryFields.Text;
-  thumbnail: ImageAsset;
+  thumbnail: FileAsset;
   description: EntryFields.Text;
 }
 

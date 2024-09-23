@@ -16,7 +16,7 @@ const SkillSetItem = ({ title, identifier, skillsArray }: SkillSet) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2">
           {skillsArray.map((res: SkillGroup) => (
-            <SkillGroupItem {...res} />
+            <SkillGroupItem {...res} key={res.title} />
           ))}
         </div>
       </div>

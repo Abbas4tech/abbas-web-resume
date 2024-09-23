@@ -1,4 +1,4 @@
-import React, { ComponentType } from "react";
+import React, { ComponentType, memo } from "react";
 import {
   FaBootstrap,
   FaHtml5,
@@ -48,10 +48,10 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
   about: FaPeopleGroup,
 };
 
-const SVGIcon: React.FC<SVGIconProps> = ({ icon, classes = "" }) => {
+const SVGIcon: React.FC<SVGIconProps> = memo(({ icon, classes = "" }) => {
   const IconComponent = iconMap[icon] || (() => <></>);
 
   return <IconComponent className={classes} />;
-};
+});
 
 export default SVGIcon;

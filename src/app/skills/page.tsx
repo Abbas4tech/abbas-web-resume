@@ -22,7 +22,7 @@ const Skills: FC = () => {
         </h1>
         <div className="flex flex-col gap-4" data-aos="fade-up">
           {technologies.map((res: SkillSet) => (
-            <SkillSetItem {...res} />
+            <SkillSetItem {...res} key={res.title} />
           ))}
         </div>
       </div>
