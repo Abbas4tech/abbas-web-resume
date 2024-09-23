@@ -5,7 +5,7 @@ interface SkillsProps {
   skillName: string;
 }
 
-const Skill = memo(({ skillName }: SkillsProps) => {
+const Skill: React.FC<SkillsProps> = memo(({ skillName }: SkillsProps)=> {
   return (
     <div className="tooltip tooltip-primary" data-tip={skillName}>
       <SVGIcon classes="" icon={skillName} />

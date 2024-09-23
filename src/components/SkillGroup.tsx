@@ -2,7 +2,7 @@ import { SkillGroup } from "@utils/contentful";
 import React, { memo } from "react";
 import Skill from "./Skill";
 
-const SkillGroupItem = memo(({ skillProgress, skills, title }: SkillGroup) => {
+const SkillGroupItem: React.FC<SkillGroup> = memo(({ skillProgress, skills, title }: SkillGroup) => {
   return (
     <div>
       <div

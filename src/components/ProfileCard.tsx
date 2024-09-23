@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useUserInfo } from "../context/useInfo";
 
-const ProfileCard = () => {
+const ProfileCard : React.FC = () => {
   const { profilePicture } = useUserInfo();
 
   return (

@@ -19,7 +19,7 @@ const monthNames = [
   "December",
 ];
 
-const ExperienceCard = memo(
+const ExperienceCard : React.FC<JobExperience> = memo(
   ({
     company,
     position,
@@ -28,7 +28,7 @@ const ExperienceCard = memo(
     startDate,
     endDate,
     workedRemotely,
-  }: JobExperience): React.JSX.Element => {
+  }: JobExperience) => {
     ExperienceCard.displayName = "ExperienceCard";
 
     const formattedStartDate = useMemo(() => {

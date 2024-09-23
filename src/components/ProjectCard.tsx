@@ -1,16 +1,16 @@
 "use client";
-import React, { JSX } from "react";
+import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { ProjectCard } from "@utils/contentful";
 
-const ProjectCardComp = ({
+const ProjectCardComp :React.FC<ProjectCard> = ({
   title,
   thumbnail,
   deployedLink,
   description,
-}: ProjectCard): JSX.Element => {
+}: ProjectCard) => {
   return (
     <>
       <div
