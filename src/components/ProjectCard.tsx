@@ -1,38 +1,42 @@
 "use client";
-
 import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
+import Link from "next/link";
+import Image from "next/image";
+import { ProjectCard } from "@utils/contentful";
 
-const ProjectCard = () => {
+const ProjectCardComp :React.FC<ProjectCard> = ({
+  title,
+  thumbnail,
+  deployedLink,
+  description,
+}: ProjectCard) => {
   return (
     <>
       <div
-        data-aos="fade-up"
-        className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2"
+        key={title}
+        className="hover:before:!bg-slate-900 before:!bg-transparent card image-full before:transition-colors before:ease-in-out before:duration-500"
       >
-        {Array.from({ length: 6 }, (_, i) => i + 1).map((e) => (
-          <div
-            key={e}
-            className="hover:before:!bg-slate-900 before:!bg-transparent card image-full before:transition-colors before:ease-in-out before:duration-500"
-          >
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body p-4 md:p-6 opacity-0 hover:opacity-100">
-              <h2 className="card-title">Shoes!</h2>
-              <p>If a dog chews shoes whose shoes does he choose?</p>
-              <div className="card-actions justify-end">
-                <FaExternalLinkAlt className="w-6 h-6 cursor-pointer" />
-              </div>
-            </div>
+        <figure>
+          <Image
+            src={`https:${thumbnail.file.url}`}
+            width={thumbnail.file.details.image.width}
+            height={thumbnail.file.details.image.height}
+            alt={thumbnail.file.fileName}
+          />
+        </figure>
+        <div className="card-body p-4 md:p-6 opacity-0 hover:opacity-100">
+          <h2 className="card-title">{title}</h2>
+          <p>{description}</p>
+          <div className="card-actions justify-end">
+            <Link target="_blank" href={deployedLink}>
+              <FaExternalLinkAlt className="w-6 h-6 cursor-pointer" />
+            </Link>
           </div>
-        ))}
+        </div>
       </div>
     </>
   );
 };
 
-export default ProjectCard;
+export default ProjectCardComp;

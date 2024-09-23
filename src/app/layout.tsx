@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Container from "@components/Container";
-import { fetchCommonCMS } from "@utils/api";
+import { fetchUserInfo } from "@utils/api";
 import { DataProvider } from "@context/useInfo";
 import "./globals.css";
 
@@ -17,7 +17,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const data = await fetchCommonCMS();
+  const data = await fetchUserInfo();
   return (
     <html lang="en" data-theme="cupcake">
       <body className={inter.className}>

@@ -3,7 +3,7 @@ import { TbColorSwatch } from "react-icons/tb";
 import { useUserInfo } from "@context/useInfo";
 
 const ThemeSwitch = (): React.JSX.Element => {
-  const { themes } = useUserInfo();
+  const { themeList } = useUserInfo();
 
   const changeTheme = (theme: string): void => {
     document.documentElement.setAttribute("data-theme", theme.toLowerCase());
@@ -23,7 +23,7 @@ const ThemeSwitch = (): React.JSX.Element => {
         tabIndex={0}
         className="dropdown-content menu bg-base-100 rounded-md z-50 w-36 p-2 shadow"
       >
-        {themes.map((theme) => (
+        {themeList.map((theme) => (
           <li className="" key={theme} onClick={() => changeTheme(theme)}>
             <a>{theme}</a>
           </li>

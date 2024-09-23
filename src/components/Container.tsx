@@ -7,6 +7,7 @@ import AOS from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";
+import { fetchUserInfo } from "@utils/api";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -21,6 +22,11 @@ const Container = ({ children }: ContainerProps) => {
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
 
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetchUserInfo();
+      console.log(res, "res");
+    };
+    fetchData();
     setNextPage(nextUrl);
   }, [currentPath, nextUrl]);
 

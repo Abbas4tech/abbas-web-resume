@@ -1,11 +1,10 @@
+"use client";
 import ExperienceCard from "@components/ExperienceCard";
-import React, { useEffect } from "react";
-import { fetchExperiencePage } from "@utils/api";
+import React from "react";
+import { useUserInfo } from "@context/useInfo";
 
-
-
-const experience = async () => {
-  const { title, experiences } = await fetchExperiencePage();
+const Experience = () => {
+  const { experiences } = useUserInfo();
   return (
     <>
       <ul className="px-2 pl-4 mt-2 md:mt-4 md:px-12">
@@ -17,4 +16,4 @@ const experience = async () => {
   );
 };
 
-export default experience;
+export default Experience;

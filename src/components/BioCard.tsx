@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import SVGIcon from "./SVGIcon";
 
 interface BioCardProps {
@@ -7,7 +7,8 @@ interface BioCardProps {
   identifier: string;
 }
 
-const BioCard = ({ title, value, identifier }: BioCardProps) => {
+const BioCard = memo(({ title, value, identifier }: BioCardProps) => {
+  BioCard.displayName = "BioCard";
   return (
     <div className="flex justify-center rounded-xl">
       <div className="w-full shadow stats bg-base-300">
@@ -23,6 +24,6 @@ const BioCard = ({ title, value, identifier }: BioCardProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default BioCard;
