@@ -10,13 +10,13 @@ const ProfileCard = () => {
     <>
       <div className="avatar">
         <div className="ring-primary ring-offset-base-100 w-32 rounded-full ring ring-offset-2">
-          <Image
-            src={`https:${profilePic.src}`}
-            width={profilePic.width}
-            height={profilePic.height}
+          {/* <Image
+            src={`https://placehold.co/600x400`}
+            width={100}
+            height={100}
             alt="profile-pic"
             priority
-          />
+          /> */}
         </div>
       </div>
     </>

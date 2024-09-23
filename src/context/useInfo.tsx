@@ -1,16 +1,15 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { UserInfo } from "@utils/types";
-
-const DataContext = createContext<{ data: UserInfo } | null>(null);
+import { User } from "@utils/contentful";
+const DataContext = createContext<{ data: User } | null>(null);
 
 interface DataProviderProps {
   children: ReactNode;
-  initialData: UserInfo;
+  initialData: User;
 }
 
 export const DataProvider = ({ children, initialData }: DataProviderProps) => {
-  const [data] = useState<UserInfo>(initialData);
+  const [data] = useState<User>(initialData);
 
   return (
     <DataContext.Provider value={{ data }}>{children}</DataContext.Provider>

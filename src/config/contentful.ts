@@ -7,3 +7,4 @@ export const contentfulConfig: ContentFulInfo = {
 
 export const ExperiencePageId = "2yOlGFQtmBOTfUZiGtquu1";
 export const SkillsPageId = "47aecnjnbbuJjSHgBbDebk";
+export const UserId = "2ITrADxgJsUKCrpG0w3x3"

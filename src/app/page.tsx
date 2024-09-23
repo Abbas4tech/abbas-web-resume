@@ -8,12 +8,12 @@ const ContactInfo = () => {
 
   return (
     <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
-      {info.map(({ fields }) => (
+      {info.map(({ title, value, identifier }) => (
         <BioCard
-          key={fields.title}
-          title={fields.title}
-          value={fields.value}
-          identifier={fields.identifier}
+          key={title}
+          title={title}
+          value={value}
+          identifier={identifier}
         />
       ))}
     </div>

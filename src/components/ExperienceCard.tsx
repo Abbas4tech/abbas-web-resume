@@ -2,7 +2,7 @@ import React, { memo, useMemo } from "react";
 import { FaUserGraduate, FaUser, FaRegCalendarTimes } from "react-icons/fa";
 import { GiStack } from "react-icons/gi";
 import SVGIcon from "./SVGIcon";
-import { Experience } from "@utils/types";
+import { JobExperience } from "@utils/contentful";
 
 const monthNames = [
   "January",
@@ -28,7 +28,7 @@ const ExperienceCard = memo(
     startDate,
     endDate,
     workedRemotely,
-  }: Experience): React.JSX.Element => {
+  }: JobExperience): React.JSX.Element => {
     ExperienceCard.displayName = "ExperienceCard";
 
     const formattedStartDate = useMemo(() => {

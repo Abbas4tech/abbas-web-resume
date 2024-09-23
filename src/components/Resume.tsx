@@ -7,10 +7,10 @@ const ResumeComp = () => {
   const { resume } = useUserInfo();
   return (
     <div
-      data-tip={resume.title}
+      data-tip={"Resume"}
       className="px-4 py-2 cursor-pointer tooltip tooltip-left"
     >
-      <Link target="_blank" passHref href={resume.src}>
+      <Link target="_blank" passHref href={""}>
         <GrDocumentDownload size={25} />
       </Link>
     </div>

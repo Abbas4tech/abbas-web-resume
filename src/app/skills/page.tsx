@@ -1,13 +1,12 @@
+"use client"
 import React, { FC } from "react";
-import { Entry } from "contentful";
-import { fetchSkillsPage } from "@utils/api";
 import SVGIcon from "@components/SVGIcon";
 import { SkillSet } from "@utils/contentful";
 import SkillSetItem from "@components/SkillSet";
+import { useUserInfo } from "@context/useInfo";
 
-const Skills: FC = async () => {
-  const { fields } = await fetchSkillsPage();
-  const technologies = fields.technologies as Entry<SkillSet>[];
+const Skills: FC = () => {
+  const { technologies } = useUserInfo();
 
   return (
     <>
@@ -17,12 +16,12 @@ const Skills: FC = async () => {
           className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl aos-init aos-animate"
         >
           <span className="inline-block mr-2">
-            <SVGIcon classes="" icon={fields.title as string} />
+            <SVGIcon classes="" icon={"Skills"} />
           </span>
-          {fields.title as string}
+          {"Skills"}
         </h1>
         <div className="flex flex-col gap-4" data-aos="fade-up">
-          {technologies.map((res: Entry<SkillSet>) => (
+          {technologies.map((res: SkillSet) => (
             <SkillSetItem {...res} />
           ))}
         </div>

@@ -1,5 +1,4 @@
 import { SkillGroup } from '@utils/contentful'
-import { Entry } from 'contentful'
 import React from 'react'
 import Skill from './Skill'
 

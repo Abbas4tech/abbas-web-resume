@@ -7,7 +7,7 @@ import AOS from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";
-import { fetchExperiencePages, fetchSkillsPage } from "@utils/api";
+import { fetchUserInfo } from "@utils/api";
 
 interface ContainerProps {
   children: React.ReactNode;
@@ -23,10 +23,9 @@ const Container = ({ children }: ContainerProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetchExperiencePages()
-      const des = await fetchSkillsPage()
-      console.log(res, "res", des)
-    }
+      const res = await fetchUserInfo();
+      console.log(res, "res");
+    };
     fetchData();
     setNextPage(nextUrl);
   }, [currentPath, nextUrl]);
