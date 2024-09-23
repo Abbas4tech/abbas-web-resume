@@ -14,6 +14,7 @@ interface ContainerProps {
 }
 
 const Container = ({ children }: ContainerProps) => {
+  console.log(process.env);
   const { pages } = useUserInfo();
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
