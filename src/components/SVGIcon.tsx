@@ -49,6 +49,7 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
 };
 
 const SVGIcon: React.FC<SVGIconProps> = memo(({ icon, classes = "" }) => {
+  SVGIcon.displayName = "SVGIcon";
   const IconComponent = iconMap[icon] || (() => <></>);
 
   return <IconComponent className={classes} />;

@@ -8,6 +8,7 @@ interface BioCardProps {
 }
 
 const BioCard = memo(({ title, value, identifier }: BioCardProps) => {
+  BioCard.displayName = "BioCard";
   return (
     <div className="flex justify-center rounded-xl">
       <div className="w-full shadow stats bg-base-300">

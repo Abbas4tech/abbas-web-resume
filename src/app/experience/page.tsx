@@ -3,7 +3,7 @@ import ExperienceCard from "@components/ExperienceCard";
 import React from "react";
 import { useUserInfo } from "@context/useInfo";
 
-const experience = () => {
+const Experience = () => {
   const { experiences } = useUserInfo();
   return (
     <>
@@ -16,4 +16,4 @@ const experience = () => {
   );
 };
 
-export default experience;
+export default Experience;

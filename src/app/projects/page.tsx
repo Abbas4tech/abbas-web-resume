@@ -4,7 +4,7 @@ import { useUserInfo } from "@context/useInfo";
 import { ProjectCard } from "@utils/contentful";
 import ProjectCardComp from "@components/ProjectCard";
 
-const projects = (): React.JSX.Element => {
+const Projects = (): React.JSX.Element => {
   const { projects } = useUserInfo();
   return (
     <div>
@@ -20,4 +20,4 @@ const projects = (): React.JSX.Element => {
   );
 };
 
-export default projects;
+export default Projects;
