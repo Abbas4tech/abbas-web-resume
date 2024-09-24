@@ -5,8 +5,11 @@ import { useUserInfo } from "@context/useInfo";
 import Link from "next/link";
 import SVGIcon from "./SVGIcon";
 
-const Sidebar = memo(() => {
-  const { pages } = useUserInfo();
+interface SidebarProps {
+  pages: string[];
+}
+
+const Sidebar = memo(({ pages }: SidebarProps) => {
   const currentPath = usePathname().slice(1) || "about";
 
   return (

@@ -1,11 +1,14 @@
 "use client";
-import React from "react";
+import React, { memo } from "react";
 import Image from "next/image";
 import { useUserInfo } from "../context/useInfo";
+import { FileAsset } from "@utils/contentful";
 
-const ProfileCard : React.FC = () => {
-  const { profilePicture } = useUserInfo();
+interface ProfileCardProps {
+  profilePicture: FileAsset;
+}
 
+const ProfileCard = memo(({ profilePicture }: ProfileCardProps) => {
   return (
     <>
       <div className="avatar">
@@ -21,6 +24,6 @@ const ProfileCard : React.FC = () => {
       </div>
     </>
   );
-};
+});
 
 export default ProfileCard;

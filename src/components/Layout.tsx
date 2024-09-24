@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, PropsWithChildren } from "react";
+import { User } from "@utils/contentful";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ProfileCard from "./ProfileCard";
@@ -7,15 +8,23 @@ import AOS from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";
-import { fetchExperiencePage, fetchSkillsPage, fetchUserInfo, fetchProjectsPage } from "@utils/api";
+import {
+  fetchExperiencePage,
+  fetchSkillsPage,
+  fetchUserInfo,
+  fetchProjectsPage,
+} from "@utils/api";
 import Head from "next/head";
 
 interface LayoutProps {
-  children: React.ReactNode;
+  basePageLayout: User;
 }
 
-const Layout = ({ children }: LayoutProps) => {
-  const { pages } = useUserInfo();
+const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
+  children,
+  basePageLayout,
+}) => {
+  const { pages, title, resume, themeList, profilePicture } = basePageLayout;
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
   const currentPath =
@@ -41,11 +50,11 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
-        <Header />
+        <Header title={title} resume={resume} themes={themeList} />
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto scrollbar-hide">
-            <ProfileCard />
+            <ProfileCard profilePicture={profilePicture} />
             {children}
             <div className="flex justify-end mb-14 p-2">
               <button
@@ -57,7 +66,7 @@ const Layout = ({ children }: LayoutProps) => {
               </button>
             </div>
           </div>
-          <Sidebar />
+          <Sidebar pages={pages} />
         </div>
       </main>
     </>

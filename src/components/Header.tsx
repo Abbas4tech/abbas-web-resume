@@ -2,9 +2,15 @@ import React, { memo } from "react";
 import ThemeSwitch from "./ThemeSwitch";
 import ResumeComponent from "./Resume";
 import { useUserInfo } from "@context/useInfo";
+import { FileAsset } from "@utils/contentful";
 
-const Header = memo(() => {
-  const { title } = useUserInfo();
+interface HeaderProps {
+  title: string;
+  resume: FileAsset;
+  themes: string[];
+}
+
+const Header = memo(({ title, resume, themes }: HeaderProps) => {
   return (
     <header className="shadow-lg shadow-base-200">
       <nav className="navbar bg-base-100 h-10 md:h-20">
@@ -34,8 +40,8 @@ const Header = memo(() => {
         </div>
 
         <div className="navbar-end items-baseline">
-          <ResumeComponent />
-          <ThemeSwitch />
+          <ResumeComponent resume={resume} />
+          <ThemeSwitch themes={themes} />
         </div>
       </nav>
     </header>

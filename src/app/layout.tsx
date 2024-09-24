@@ -22,7 +22,7 @@ export default async function RootLayout({
     <html lang="en" data-theme="dark">
       <body className={inter.className}>
         <DataProvider initialData={data}>
-          <Layout>{children}</Layout>
+          <Layout basePageLayout={data}>{children}</Layout>
         </DataProvider>
       </body>
     </html>
