@@ -1,4 +1,3 @@
-"use client";
 import React, { memo } from "react";
 import Image from "next/image";
 import { useUserInfo } from "../context/useInfo";
@@ -25,5 +24,7 @@ const ProfileCard = memo(({ profilePicture }: ProfileCardProps) => {
     </>
   );
 });
+
+ProfileCard.displayName = "ProfileCard";
 
 export default ProfileCard;

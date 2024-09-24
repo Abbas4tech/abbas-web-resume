@@ -26,5 +26,5 @@ const PageWrapper: React.FC<PropsWithChildren<PageWrapperProps>> = memo(
     );
   }
 );
-
+PageWrapper.displayName = "PageWrapper";
 export default PageWrapper;

@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import ThemeSwitch from "./ThemeSwitch";
 import ResumeComponent from "./Resume";
-import { useUserInfo } from "@context/useInfo";
 import { FileAsset } from "@utils/contentful";
 
 interface HeaderProps {

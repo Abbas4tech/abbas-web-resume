@@ -1,14 +1,14 @@
 import Link from "next/link";
-import React, {memo} from "react";
+import React, { memo } from "react";
 import { FileAsset } from "@utils/contentful";
 import { GrDocumentDownload } from "react-icons/gr";
 import { useUserInfo } from "@context/useInfo";
 
 interface ResumeProps {
-  resume: FileAsset
+  resume: FileAsset;
 }
 
-const ResumeComp = memo(({resume}: ResumeProps) => {
+const ResumeComp = memo(({ resume }: ResumeProps) => {
   return (
     <div
       data-tip={resume.description}
@@ -20,5 +20,7 @@ const ResumeComp = memo(({resume}: ResumeProps) => {
     </div>
   );
 });
+
+ResumeComp.displayName = "ResumeComp";
 
 export default ResumeComp;

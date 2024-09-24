@@ -4,6 +4,7 @@ import Layout from "@components/Layout";
 import { fetchUserInfo } from "@utils/api";
 import { DataProvider } from "@context/useInfo";
 import "./globals.css";
+import Head from "next/head";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -18,8 +19,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const data = await fetchUserInfo();
+  const linkUrl = `https:${data.profilePicture.file.url}`
+  console.log(linkUrl)
   return (
     <html lang="en" data-theme="dark">
+      <Head>
+        <link
+          rel="icon"
+          href={linkUrl}
+          type="image/png"
+        />
+      </Head>
       <body className={inter.className}>
         <DataProvider initialData={data}>
           <Layout basePageLayout={data}>{children}</Layout>
