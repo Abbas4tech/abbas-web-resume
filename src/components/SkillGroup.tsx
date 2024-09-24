@@ -1,6 +1,6 @@
 import { SkillGroup } from "@utils/contentful";
 import React, { memo } from "react";
-import Skill from "./Skill";
+import { Skill } from "@components";
 
 const SkillGroupItem: React.FC<SkillGroup> = memo(
   ({ skillProgress, skills, title }: SkillGroup) => {

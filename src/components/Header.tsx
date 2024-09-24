@@ -1,7 +1,5 @@
 import React, { memo } from "react";
-import ThemeSwitch from "./ThemeSwitch";
-import ResumeComponent from "./Resume";
-import { FileAsset } from "@utils/contentful";
+import { ThemeSwitch, Resume as ResumeComponent } from "@components";
 import { useApplicationData } from "@context/useApplication";
 
 const Header = memo(() => {

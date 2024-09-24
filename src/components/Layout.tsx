@@ -1,9 +1,7 @@
 "use client";
 import React, { useState, useEffect, PropsWithChildren } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import ProfileCard from "./ProfileCard";
+import { Header, ProfileCard, Sidebar } from "@components";
 import AOS from "aos";
 import { FaArrowRight } from "react-icons/fa";
 import { useApplicationData } from "@context/useApplication";

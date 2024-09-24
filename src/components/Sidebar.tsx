@@ -1,3 +1,4 @@
+"use client";
 import { usePathname } from "next/navigation";
 import React, { memo } from "react";
 import Link from "next/link";

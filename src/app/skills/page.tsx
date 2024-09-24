@@ -2,8 +2,7 @@
 import React from "react";
 import { NextPage } from "next";
 import { SkillSet } from "@utils/contentful";
-import SkillSetItem from "@components/SkillSet";
-import PageTemplate from "@components/PageTemplate";
+import { PageTemplate, SkillSetItem } from "@components";
 
 const SkillsPage: NextPage = () => {
   return (

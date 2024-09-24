@@ -2,8 +2,7 @@
 import React from "react";
 import { NextPage } from "next";
 import { JobExperience } from "@utils/contentful";
-import ExperienceCard from "@components/ExperienceCard";
-import PageTemplate from "@components/PageTemplate";
+import { PageTemplate, ExperienceCard } from "@components";
 
 const ExperiencePage: NextPage = () => {
   return (

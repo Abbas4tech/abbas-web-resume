@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import PageWrapper from "@components/PageWrapper";
+import { PageWrapper } from "@components";
 import { useApplicationData } from "@context/useApplication";
 
 interface PageTemplateProps<T> {

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Layout from "@components/Layout";
+import { Layout } from "@components";
 import { fetchApplicationData } from "@utils/api";
 import { ApplicationDataProvider } from "@context/useApplication";
 import "./globals.css";

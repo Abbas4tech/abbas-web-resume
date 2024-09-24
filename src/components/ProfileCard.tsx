@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import Image from "next/image";
-import { FileAsset } from "@utils/contentful";
 import { useApplicationData } from "@context/useApplication";
 
 const ProfileCard = memo(() => {
