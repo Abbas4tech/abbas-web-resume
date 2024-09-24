@@ -7,7 +7,7 @@ import AOS from "aos";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";
-import { fetchUserInfo } from "@utils/api";
+import { fetchExperiencePage, fetchSkillsPage, fetchUserInfo, fetchProjectsPage } from "@utils/api";
 import Head from "next/head";
 
 interface LayoutProps {

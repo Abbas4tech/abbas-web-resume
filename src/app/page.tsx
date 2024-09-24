@@ -3,7 +3,7 @@ import BioCard from "@components/BioCard";
 import { useUserInfo } from "@context/useInfo";
 import React from "react";
 
-const ContactInfo = () => {
+const Home = () => {
   const { info } = useUserInfo();
 
   return (
@@ -20,4 +20,4 @@ const ContactInfo = () => {
   );
 };
 
-export default ContactInfo;
+export default Home;

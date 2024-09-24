@@ -31,6 +31,28 @@ export interface FileAsset extends Asset {
   };
 }
 
+export type PageData = JobExperience[] | SkillSet[] | ProjectCard[];
+
+export interface Page extends EntrySkeletonType {
+  title: EntryFields.Text;
+  identifier: EntryFields.Text;
+  contentAnimation: EntryFields.Text;
+  headingAnimation: EntryFields.Text;
+  pageData: PageData;
+}
+
+export interface ExperiencePage extends Omit<Page, "pageData"> {
+  pageData: Extract<PageData, JobExperience[]>;
+}
+
+export interface SkillsPage extends Omit<Page, "pageData"> {
+  pageData: Extract<PageData, SkillSet[]>;
+}
+
+export interface ProjectsPage extends Omit<Page, "pageData"> {
+  pageData: Extract<PageData, ProjectCard[]>;
+}
+
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;
   deployedLink: EntryFields.Text;
@@ -55,11 +77,6 @@ export interface JobExperience extends EntrySkeletonType {
   currentlyWorking: EntryFields.Boolean;
 }
 
-export interface ExperiencePageType extends EntrySkeletonType {
-  title: EntryFields.Text;
-  experiences: Entry<JobExperience>[];
-}
-
 export interface SkillGroup extends EntrySkeletonType {
   title: EntryFields.Text;
   skillProgress: EntryFields.Number;
@@ -71,12 +88,6 @@ export interface SkillSet extends EntrySkeletonType {
   skillsetIcon: Asset;
   identifier: EntryFields.Text;
   skillsArray: SkillGroup[];
-}
-
-export interface SkillsPage extends EntrySkeletonType {
-  title: EntryFields.Text;
-  description: EntryFields.Text;
-  technologies: Entry<SkillSet>[];
 }
 
 type UnwrapEntry<T> = T extends Entry<infer U>

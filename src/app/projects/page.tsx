@@ -1,19 +1,21 @@
-"use client";
 import React from "react";
 import { useUserInfo } from "@context/useInfo";
 import { ProjectCard } from "@utils/contentful";
 import ProjectCardComp from "@components/ProjectCard";
 import PageWrapper from "@components/PageWrapper";
+import { fetchProjectsPage } from "@utils/api";
+import { NextPage } from "next";
 
-const Projects = (): React.JSX.Element => {
-  const { projects } = useUserInfo();
+const ProjectsPage: NextPage = async () => {
+  const { title, headingAnimation, contentAnimation, pageData } =
+    await fetchProjectsPage();
   return (
-    <PageWrapper title="Projects" iconId="Projects">
+    <PageWrapper title={title} headingAnimation={headingAnimation}>
       <div
-        data-aos="fade-up"
+        data-aos={contentAnimation}
         className="columns-1 md:columns-2 my-2 rounded-xl gap-4"
       >
-        {projects.map((res: ProjectCard) => (
+        {pageData.map((res: ProjectCard) => (
           <ProjectCardComp key={res.title} {...res} />
         ))}
       </div>
@@ -21,4 +23,4 @@ const Projects = (): React.JSX.Element => {
   );
 };
 
-export default Projects;
+export default ProjectsPage;
