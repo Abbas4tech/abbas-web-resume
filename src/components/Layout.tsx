@@ -40,9 +40,6 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <Head>
-        <title>Hello Worlds</title>
-      </Head>
       <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
         <Header />
         <div className="drawer lg:drawer-open">
