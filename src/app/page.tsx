@@ -1,10 +1,11 @@
 "use client";
-import BioCard from "@components/BioCard";
-import { useUserInfo } from "@context/useInfo";
 import React from "react";
+import { NextPage } from "next";
+import { useApplicationData } from "@context/useApplication";
+import { BioCard } from "@components";
 
-const ContactInfo = () => {
-  const { info } = useUserInfo();
+const Home: NextPage = () => {
+  const { info } = useApplicationData();
 
   return (
     <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
@@ -20,4 +21,4 @@ const ContactInfo = () => {
   );
 };
 
-export default ContactInfo;
+export default Home;

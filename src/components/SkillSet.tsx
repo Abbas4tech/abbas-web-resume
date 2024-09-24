@@ -1,9 +1,12 @@
 import React from "react";
-import SVGIcon from "@components/SVGIcon";
+import { SVGIcon, SkillGroup as SkillGroupItem } from "@components";
 import { SkillGroup, SkillSet } from "@utils/contentful";
-import SkillGroupItem from "@components/SkillGroup";
 
-const SkillSetItem : React.FC<SkillSet> = ({ title, identifier, skillsArray }: SkillSet) => {
+const SkillSetItem: React.FC<SkillSet> = ({
+  title,
+  identifier,
+  skillsArray,
+}: SkillSet) => {
   return (
     <div
       key={title}

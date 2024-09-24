@@ -1,9 +1,9 @@
+import { useApplicationData } from "@context/useApplication";
 import React from "react";
 import { TbColorSwatch } from "react-icons/tb";
-import { useUserInfo } from "@context/useInfo";
 
 const ThemeSwitch = (): React.JSX.Element => {
-  const { themeList } = useUserInfo();
+  const { themeList } = useApplicationData();
 
   const changeTheme = (theme: string): void => {
     document.documentElement.setAttribute("data-theme", theme.toLowerCase());

@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from "react";
 import { FaUserGraduate, FaUser, FaRegCalendarTimes } from "react-icons/fa";
 import { GiStack } from "react-icons/gi";
-import SVGIcon from "./SVGIcon";
+import { SVGIcon } from "@components";
 import { JobExperience } from "@utils/contentful";
 
 const monthNames = [
@@ -19,7 +19,7 @@ const monthNames = [
   "December",
 ];
 
-const ExperienceCard : React.FC<JobExperience> = memo(
+const ExperienceCard: React.FC<JobExperience> = memo(
   ({
     company,
     position,

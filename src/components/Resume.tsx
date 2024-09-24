@@ -1,10 +1,10 @@
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { GrDocumentDownload } from "react-icons/gr";
-import { useUserInfo } from "@context/useInfo";
+import { useApplicationData } from "@context/useApplication";
 
-const ResumeComp = () => {
-  const { resume } = useUserInfo();
+const ResumeComp = memo(() => {
+  const { resume } = useApplicationData();
   return (
     <div
       data-tip={resume.description}
@@ -15,6 +15,8 @@ const ResumeComp = () => {
       </Link>
     </div>
   );
-};
+});
+
+ResumeComp.displayName = "ResumeComp";
 
 export default ResumeComp;

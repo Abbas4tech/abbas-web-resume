@@ -1,19 +1,20 @@
 "use client";
-import ExperienceCard from "@components/ExperienceCard";
 import React from "react";
-import { useUserInfo } from "@context/useInfo";
+import { NextPage } from "next";
+import { JobExperience } from "@utils/contentful";
+import { PageTemplate, ExperienceCard } from "@components";
 
-const Experience = () => {
-  const { experiences } = useUserInfo();
+const ExperiencePage: NextPage = () => {
   return (
     <>
-      <ul className="px-2 pl-4 mt-2 md:mt-4 md:px-12">
-        {experiences.map((e) => (
-          <ExperienceCard {...e} key={e.company} />
-        ))}
-      </ul>
+      <PageTemplate<JobExperience>
+        className="px-2 pl-4 mt-2 md:mt-4 md:px-12"
+        renderItem={(experience: JobExperience) => (
+          <ExperienceCard {...experience} key={experience.company} />
+        )}
+      />
     </>
   );
 };
 
-export default Experience;
+export default ExperiencePage;

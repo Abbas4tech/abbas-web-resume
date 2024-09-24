@@ -1,6 +1,6 @@
-import { createClient } from "contentful";
+import { createClient, EntrySkeletonType } from "contentful";
 import { contentful, convertEntry } from "@utils/data";
-import { User } from "@utils/contentful";
+import { ApplicationData } from "@utils/contentful";
 import { UserId } from "src/config/contentful";
 
 const client = createClient({
@@ -8,7 +8,9 @@ const client = createClient({
   space: contentful.space,
 });
 
-export const fetchUserInfo = async (): Promise<User> => {
-  const res = await client.getEntry<User>(UserId, { include: 3 });
-  return convertEntry(res);
-};
+export const fetchQuery = async <T extends EntrySkeletonType>(
+  id: string
+): Promise<T> => convertEntry(await client.getEntry<T>(id, { include: 10 }));
+
+export const fetchApplicationData = async (): Promise<ApplicationData> =>
+  await fetchQuery<ApplicationData>(UserId);

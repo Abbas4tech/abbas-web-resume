@@ -1,12 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
 import React, { memo } from "react";
-import { useUserInfo } from "@context/useInfo";
 import Link from "next/link";
 import SVGIcon from "./SVGIcon";
+import { useApplicationData } from "@context/useApplication";
 
 const Sidebar = memo(() => {
-  const { pages } = useUserInfo();
+  const { pages } = useApplicationData();
   const currentPath = usePathname().slice(1) || "about";
 
   return (
@@ -27,6 +27,8 @@ const Sidebar = memo(() => {
               className={`py-1 md:py-2 pr-2 cursor-pointer`}
             >
               <Link
+                scroll={false}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 href={`/${[
                   page.toLowerCase() === "about" ? "" : page.toLowerCase(),
                 ]}`}

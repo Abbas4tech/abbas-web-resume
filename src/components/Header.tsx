@@ -1,10 +1,9 @@
 import React, { memo } from "react";
-import ThemeSwitch from "./ThemeSwitch";
-import ResumeComponent from "./Resume";
-import { useUserInfo } from "@context/useInfo";
+import { ThemeSwitch, Resume as ResumeComponent } from "@components";
+import { useApplicationData } from "@context/useApplication";
 
 const Header = memo(() => {
-  const { title } = useUserInfo();
+  const { title } = useApplicationData();
   return (
     <header className="shadow-lg shadow-base-200">
       <nav className="navbar bg-base-100 h-10 md:h-20">

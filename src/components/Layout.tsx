@@ -1,21 +1,14 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
-import ProfileCard from "./ProfileCard";
-import AOS from "aos";
+import React, { useState, useEffect, PropsWithChildren } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useUserInfo } from "@context/useInfo";
+import { Header, ProfileCard, Sidebar } from "@components";
+import AOS from "aos";
 import { FaArrowRight } from "react-icons/fa";
-import { fetchUserInfo } from "@utils/api";
-import Head from "next/head";
+import { useApplicationData } from "@context/useApplication";
+import { fetchApplicationData } from "@utils/api";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
-  const { pages } = useUserInfo();
+const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+  const { pages } = useApplicationData();
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
   const currentPath =
@@ -23,10 +16,14 @@ const Layout = ({ children }: LayoutProps) => {
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
 
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetchApplicationData();
+      console.log(res);
+    };
+    fetchData();
     setNextPage(nextUrl);
   }, [currentPath, nextUrl]);
 
-  // Initialize AOS only on the client
   useEffect(() => {
     if (typeof window !== "undefined") {
       AOS.init();
@@ -40,9 +37,6 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <>
-      <Head>
-        <title>Hello Worlds</title>
-      </Head>
       <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
         <Header />
         <div className="drawer lg:drawer-open">

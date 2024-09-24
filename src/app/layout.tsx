@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Layout from "@components/Layout";
-import { fetchUserInfo } from "@utils/api";
-import { DataProvider } from "@context/useInfo";
+import { Layout } from "@components";
+import { fetchApplicationData } from "@utils/api";
+import { ApplicationDataProvider } from "@context/useApplication";
 import "./globals.css";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
@@ -17,13 +17,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const data = await fetchUserInfo();
+  const data = await fetchApplicationData();
   return (
     <html lang="en" data-theme="dark">
       <body className={inter.className}>
-        <DataProvider initialData={data}>
+        <ApplicationDataProvider initialData={data}>
           <Layout>{children}</Layout>
-        </DataProvider>
+        </ApplicationDataProvider>
       </body>
     </html>
   );

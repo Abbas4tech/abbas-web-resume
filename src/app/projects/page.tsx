@@ -1,23 +1,18 @@
 "use client";
 import React from "react";
-import { useUserInfo } from "@context/useInfo";
+import { NextPage } from "next";
 import { ProjectCard } from "@utils/contentful";
-import ProjectCardComp from "@components/ProjectCard";
+import { ProjectCardItem, PageTemplate } from "@components";
 
-const Projects = (): React.JSX.Element => {
-  const { projects } = useUserInfo();
+const ProjectsPage: NextPage = () => {
   return (
-    <div>
-      <div
-        data-aos="fade-up"
-        className="columns-1 md:columns-2 my-2 rounded-xl gap-4"
-      >
-        {projects.map((res: ProjectCard) => (
-          <ProjectCardComp key={res.title} {...res} />
-        ))}
-      </div>
-    </div>
+    <PageTemplate<ProjectCard>
+      renderItem={(item: ProjectCard) => (
+        <ProjectCardItem key={item.title} {...item} />
+      )}
+      className="columns-1 md:columns-2 my-2 rounded-xl gap-4"
+    />
   );
 };
 
-export default Projects;
+export default ProjectsPage;
