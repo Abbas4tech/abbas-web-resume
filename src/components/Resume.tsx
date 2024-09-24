@@ -2,7 +2,6 @@ import Link from "next/link";
 import React, { memo } from "react";
 import { FileAsset } from "@utils/contentful";
 import { GrDocumentDownload } from "react-icons/gr";
-import { useUserInfo } from "@context/useInfo";
 
 interface ResumeProps {
   resume: FileAsset;

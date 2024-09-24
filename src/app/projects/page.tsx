@@ -1,10 +1,9 @@
 import React from "react";
-import { useUserInfo } from "@context/useInfo";
+import { NextPage } from "next";
 import { ProjectCard } from "@utils/contentful";
 import ProjectCardComp from "@components/ProjectCard";
 import PageWrapper from "@components/PageWrapper";
 import { fetchProjectsPage } from "@utils/api";
-import { NextPage } from "next";
 
 const ProjectsPage: NextPage = async () => {
   const { title, headingAnimation, contentAnimation, pageData } =

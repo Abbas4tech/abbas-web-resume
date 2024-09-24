@@ -1,9 +1,8 @@
 import React from "react";
+import { NextPage } from "next";
 import { SkillSet } from "@utils/contentful";
 import SkillSetItem from "@components/SkillSet";
-import { useUserInfo } from "@context/useInfo";
 import PageWrapper from "@components/PageWrapper";
-import { NextPage } from "next";
 import { fetchSkillsPage } from "@utils/api";
 
 const SkillsPage: NextPage = async () => {

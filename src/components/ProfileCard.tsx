@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import Image from "next/image";
-import { useUserInfo } from "../context/useInfo";
 import { FileAsset } from "@utils/contentful";
 
 interface ProfileCardProps {
