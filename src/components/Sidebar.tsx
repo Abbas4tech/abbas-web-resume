@@ -2,12 +2,10 @@ import { usePathname } from "next/navigation";
 import React, { memo } from "react";
 import Link from "next/link";
 import SVGIcon from "./SVGIcon";
+import { useApplicationData } from "@context/useApplication";
 
-interface SidebarProps {
-  pages: string[];
-}
-
-const Sidebar = memo(({ pages }: SidebarProps) => {
+const Sidebar = memo(() => {
+  const { pages } = useApplicationData();
   const currentPath = usePathname().slice(1) || "about";
 
   return (

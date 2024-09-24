@@ -1,20 +1,30 @@
-import ExperienceCard from "@components/ExperienceCard";
+"use client";
 import React from "react";
-import PageWrapper from "@components/PageWrapper";
-import { fetchExperiencePage } from "@utils/api";
 import { NextPage } from "next";
+import { JobExperience } from "@utils/contentful";
+import { usePathname } from "next/navigation";
+import { useApplicationData } from "@context/useApplication";
+import PageWrapper from "@components/PageWrapper";
+import ExperienceCard from "@components/ExperienceCard";
 
-const ExperiencePage: NextPage = async () => {
-  const { pageData, title, headingAnimation, identifier, contentAnimation } =
-    await fetchExperiencePage();
+const ExperiencePage: NextPage = () => {
+  const page = usePathname().slice(1);
+  const { pagesInformation } = useApplicationData();
+  const { title, contentAnimation, headingAnimation, pageData, identifier } =
+    pagesInformation[page];
+  const pageInfo = pageData as JobExperience[];
   return (
     <>
-      <PageWrapper title={title} headingAnimation={headingAnimation}>
+      <PageWrapper
+        iconId={identifier}
+        title={title}
+        headingAnimation={headingAnimation}
+      >
         <ul
           data-aos={contentAnimation}
           className="px-2 pl-4 mt-2 md:mt-4 md:px-12"
         >
-          {pageData.map((e) => (
+          {pageInfo.map((e: JobExperience) => (
             <ExperienceCard {...e} key={e.company} />
           ))}
         </ul>

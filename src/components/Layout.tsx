@@ -1,22 +1,16 @@
 "use client";
 import React, { useState, useEffect, PropsWithChildren } from "react";
-import { User } from "@utils/contentful";
+import { usePathname, useRouter } from "next/navigation";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import ProfileCard from "./ProfileCard";
 import AOS from "aos";
-import { usePathname, useRouter } from "next/navigation";
 import { FaArrowRight } from "react-icons/fa";
+import { useApplicationData } from "@context/useApplication";
+import { fetchApplicationData } from "@utils/api";
 
-interface LayoutProps {
-  basePageLayout: User;
-}
-
-const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
-  children,
-  basePageLayout,
-}) => {
-  const { pages, title, resume, themeList, profilePicture } = basePageLayout;
+const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+  const { pages } = useApplicationData();
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
   const currentPath =
@@ -24,10 +18,14 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
 
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetchApplicationData();
+      console.log(res);
+    };
+    fetchData();
     setNextPage(nextUrl);
   }, [currentPath, nextUrl]);
 
-  // Initialize AOS only on the client
   useEffect(() => {
     if (typeof window !== "undefined") {
       AOS.init();
@@ -42,11 +40,11 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
   return (
     <>
       <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
-        <Header title={title} resume={resume} themes={themeList} />
+        <Header />
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto scrollbar-hide">
-            <ProfileCard profilePicture={profilePicture} />
+            <ProfileCard />
             {children}
             <div className="flex justify-end mb-14 p-2">
               <button
@@ -58,7 +56,7 @@ const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
               </button>
             </div>
           </div>
-          <Sidebar pages={pages} />
+          <Sidebar />
         </div>
       </main>
     </>

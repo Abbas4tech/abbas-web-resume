@@ -1,14 +1,9 @@
 import React, { memo } from "react";
 import SVGIcon from "./SVGIcon";
+import { BioCard } from "@utils/contentful";
 
-interface BioCardProps {
-  title: string;
-  value: string;
-  identifier: string;
-}
-
-const BioCard = memo(({ title, value, identifier }: BioCardProps) => {
-  BioCard.displayName = "BioCard";
+const BioCardComp = memo(({ title, value, identifier }: BioCard) => {
+  BioCardComp.displayName = "BioCard";
   return (
     <div className="flex justify-center rounded-xl">
       <div className="w-full shadow stats bg-base-300">
@@ -26,4 +21,4 @@ const BioCard = memo(({ title, value, identifier }: BioCardProps) => {
   );
 });
 
-export default BioCard;
+export default BioCardComp;

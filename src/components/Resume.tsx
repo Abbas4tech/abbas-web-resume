@@ -2,12 +2,10 @@ import Link from "next/link";
 import React, { memo } from "react";
 import { FileAsset } from "@utils/contentful";
 import { GrDocumentDownload } from "react-icons/gr";
+import { useApplicationData } from "@context/useApplication";
 
-interface ResumeProps {
-  resume: FileAsset;
-}
-
-const ResumeComp = memo(({ resume }: ResumeProps) => {
+const ResumeComp = memo(() => {
+  const { resume } = useApplicationData();
   return (
     <div
       data-tip={resume.description}

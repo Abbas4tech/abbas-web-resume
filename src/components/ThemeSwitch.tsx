@@ -1,10 +1,9 @@
+import { useApplicationData } from "@context/useApplication";
 import React from "react";
 import { TbColorSwatch } from "react-icons/tb";
-interface ThemeSwitchProps {
-  themes: string[]
-}
 
-const ThemeSwitch = ({themes}: ThemeSwitchProps): React.JSX.Element => {
+const ThemeSwitch = (): React.JSX.Element => {
+  const { themeList } = useApplicationData();
 
   const changeTheme = (theme: string): void => {
     document.documentElement.setAttribute("data-theme", theme.toLowerCase());
@@ -24,7 +23,7 @@ const ThemeSwitch = ({themes}: ThemeSwitchProps): React.JSX.Element => {
         tabIndex={0}
         className="dropdown-content menu bg-base-100 rounded-md z-50 w-36 p-2 shadow"
       >
-        {themes.map((theme) => (
+        {themeList.map((theme) => (
           <li className="" key={theme} onClick={() => changeTheme(theme)}>
             <a>{theme}</a>
           </li>

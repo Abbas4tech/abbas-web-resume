@@ -1,6 +1,6 @@
 import { EntryFields, Entry, EntrySkeletonType, Asset } from "contentful";
 
-export interface User extends EntrySkeletonType {
+export interface ApplicationData extends EntrySkeletonType {
   title: EntryFields.Text;
   profilePicture: FileAsset;
   name: EntryFields.Text;
@@ -12,6 +12,7 @@ export interface User extends EntrySkeletonType {
   technologies: SkillSet[];
   projects: ProjectCard[];
   experiences: JobExperience[];
+  pagesInformation: Record<EntryFields.Text, Pages>;
 }
 
 export interface FileAsset extends Asset {
@@ -53,6 +54,8 @@ export interface ProjectsPage extends Omit<Page, "pageData"> {
   pageData: Extract<PageData, ProjectCard[]>;
 }
 
+export type Pages = ExperiencePage | SkillsPage | ProjectsPage;
+
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;
   deployedLink: EntryFields.Text;
@@ -60,7 +63,7 @@ export interface ProjectCard extends EntrySkeletonType {
   description: EntryFields.Text;
 }
 
-export interface BioCard extends EntrySkeletonType {
+export interface BioCard {
   title: EntryFields.Text;
   value: EntryFields.Text;
   identifier: EntryFields.Text;

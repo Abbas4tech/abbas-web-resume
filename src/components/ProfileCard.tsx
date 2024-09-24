@@ -1,12 +1,10 @@
 import React, { memo } from "react";
 import Image from "next/image";
 import { FileAsset } from "@utils/contentful";
+import { useApplicationData } from "@context/useApplication";
 
-interface ProfileCardProps {
-  profilePicture: FileAsset;
-}
-
-const ProfileCard = memo(({ profilePicture }: ProfileCardProps) => {
+const ProfileCard = memo(() => {
+  const { profilePicture } = useApplicationData();
   return (
     <>
       <div className="avatar">

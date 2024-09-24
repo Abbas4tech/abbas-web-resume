@@ -4,10 +4,11 @@ import SVGIcon from "./SVGIcon";
 interface PageWrapperProps {
   title: string;
   headingAnimation: string;
+  iconId: string;
 }
 
 const PageWrapper: React.FC<PropsWithChildren<PageWrapperProps>> = memo(
-  ({ title, children, headingAnimation }) => {
+  ({ title, children, headingAnimation, iconId }) => {
     return (
       <>
         <div className="container overflow-auto mb-5 scrollbar-hide">
@@ -16,7 +17,7 @@ const PageWrapper: React.FC<PropsWithChildren<PageWrapperProps>> = memo(
             className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl"
           >
             <span className="inline-block mr-2">
-              <SVGIcon icon={title} />
+              <SVGIcon icon={iconId} />
             </span>
             {title}
           </h1>
