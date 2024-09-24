@@ -15,8 +15,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  console.log(process.env)
-  const { pages, title } = useUserInfo();
+  const { pages } = useUserInfo();
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
   const currentPath =

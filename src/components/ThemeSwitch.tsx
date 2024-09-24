@@ -3,7 +3,6 @@ import { TbColorSwatch } from "react-icons/tb";
 import { useUserInfo } from "@context/useInfo";
 
 const ThemeSwitch = (): React.JSX.Element => {
-  console.log("Theme switch render")
   const { themeList } = useUserInfo();
 
   const changeTheme = (theme: string): void => {
