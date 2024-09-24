@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import Container from "@components/Container";
+import Layout from "@components/Layout";
 import { fetchUserInfo } from "@utils/api";
 import { DataProvider } from "@context/useInfo";
 import "./globals.css";
@@ -19,10 +19,10 @@ export default async function RootLayout({
 }>) {
   const data = await fetchUserInfo();
   return (
-    <html lang="en" data-theme="cupcake">
+    <html lang="en" data-theme="dark">
       <body className={inter.className}>
         <DataProvider initialData={data}>
-          <Container>{children}</Container>
+          <Layout>{children}</Layout>
         </DataProvider>
       </body>
     </html>

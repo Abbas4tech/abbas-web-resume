@@ -8,13 +8,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { useUserInfo } from "@context/useInfo";
 import { FaArrowRight } from "react-icons/fa";
 import { fetchUserInfo } from "@utils/api";
+import Head from "next/head";
 
-interface ContainerProps {
+interface LayoutProps {
   children: React.ReactNode;
 }
 
-const Container = ({ children }: ContainerProps) => {
-  const { pages } = useUserInfo();
+const Layout = ({ children }: LayoutProps) => {
+  console.log(process.env)
+  const { pages, title } = useUserInfo();
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
   const currentPath =
@@ -22,11 +24,6 @@ const Container = ({ children }: ContainerProps) => {
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetchUserInfo();
-      console.log(res, "res");
-    };
-    fetchData();
     setNextPage(nextUrl);
   }, [currentPath, nextUrl]);
 
@@ -43,27 +40,32 @@ const Container = ({ children }: ContainerProps) => {
     );
 
   return (
-    <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
-      <Header />
-      <div className="drawer lg:drawer-open">
-        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto scrollbar-hide">
-          <ProfileCard />
-          {children}
-          <div className="flex justify-end mb-14 p-2">
-            <button
-              onClick={changePage}
-              className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
-            >
-              {nextPage}
-              <FaArrowRight />
-            </button>
+    <>
+      <Head>
+        <title>Hello Worlds</title>
+      </Head>
+      <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
+        <Header />
+        <div className="drawer lg:drawer-open">
+          <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+          <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto scrollbar-hide">
+            <ProfileCard />
+            {children}
+            <div className="flex justify-end mb-14 p-2">
+              <button
+                onClick={changePage}
+                className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
+              >
+                {nextPage}
+                <FaArrowRight />
+              </button>
+            </div>
           </div>
+          <Sidebar />
         </div>
-        <Sidebar />
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 
-export default Container;
+export default Layout;

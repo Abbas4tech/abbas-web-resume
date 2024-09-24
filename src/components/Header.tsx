@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import ThemeSwitch from "./ThemeSwitch";
 import ResumeComponent from "./Resume";
 import { useUserInfo } from "@context/useInfo";
 
-const Header = () => {
+const Header = memo(() => {
   const { title } = useUserInfo();
   return (
     <header className="shadow-lg shadow-base-200">
@@ -40,6 +40,6 @@ const Header = () => {
       </nav>
     </header>
   );
-};
+});
 
 export default Header;

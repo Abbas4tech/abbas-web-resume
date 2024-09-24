@@ -1,11 +1,12 @@
 "use client";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, {memo} from "react";
 import { useUserInfo } from "@context/useInfo";
 import Link from "next/link";
 import SVGIcon from "./SVGIcon";
 
-const Sidebar = () => {
+const Sidebar = memo(() => {
+  console.log("Sidebar render")
   const { pages } = useUserInfo();
   const currentPath = usePathname().slice(1) || "about";
 
@@ -45,6 +46,6 @@ const Sidebar = () => {
       </div>
     </>
   );
-};
+})
 
 export default Sidebar;
