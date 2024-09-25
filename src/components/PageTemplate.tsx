@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, notFound } from "next/navigation";
 import { PageWrapper } from "@components";
 import { useApplicationData } from "@context/useApplication";
 
@@ -15,8 +15,17 @@ const PageTemplate = <T,>({
 }: PageTemplateProps<T>) => {
   const page = usePathname().slice(1);
   const { pagesInformation } = useApplicationData();
+
+  const pageInformation = pagesInformation.find(
+    (e) => e.identifier.toLowerCase() === page
+  );
+  console.log(pageInformation);
+  if (!pageInformation) {
+    notFound();
+  }
   const { title, contentAnimation, headingAnimation, pageData, identifier } =
-    pagesInformation[page];
+    pageInformation;
+
   const pageInfo = pageData as T[];
 
   return (

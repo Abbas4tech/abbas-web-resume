@@ -12,7 +12,7 @@ export interface ApplicationData extends EntrySkeletonType {
   technologies: SkillSet[];
   projects: ProjectCard[];
   experiences: JobExperience[];
-  pagesInformation: Record<EntryFields.Text, Pages>;
+  pagesInformation: Pages[];
 }
 
 export interface FileAsset extends Asset {
