@@ -9,7 +9,7 @@ const BioCardComp = memo(({ title, value, identifier }: BioCard) => {
       <div className="w-full shadow stats bg-base-300">
         <div className="p-2 md:p-4 stat">
           <div className="stat-figure">
-            <SVGIcon classes={"w-8 h-8"} icon={identifier} />
+            <SVGIcon classes={"block w-6 h-6 sm:w-8 sm:h-8 xl:block lg:hidden"} icon={identifier} />
           </div>
           <div className="stat-title">{title}</div>
           <div className="text-lg font-normal md:font-semibold lg:text-xl xl:text-2xl stat-value">

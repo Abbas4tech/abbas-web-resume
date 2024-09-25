@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import React, { memo } from "react";
 import Link from "next/link";
-import SVGIcon from "./SVGIcon";
+import { SVGIcon } from "@components";
 import { useApplicationData } from "@context/useApplication";
 
 const Sidebar = memo(() => {
@@ -11,7 +11,7 @@ const Sidebar = memo(() => {
 
   return (
     <>
-      <div className="drawer-side">
+      <div className="drawer-side top-16">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
