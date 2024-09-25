@@ -16,11 +16,6 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetchApplicationData();
-      console.log(res);
-    };
-    fetchData();
     setNextPage(nextUrl);
   }, [currentPath, nextUrl]);
 
