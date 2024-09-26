@@ -1,10 +1,8 @@
-import { ContentFulInfo } from "../utils/types";
+import { CreateClientParams } from "contentful";
 
-export const contentfulConfig: ContentFulInfo = {
+export const contentfulConfig: CreateClientParams = {
   accessToken: "7Xqn0FowV95IGZGEx72dFzslmBHvIFNaYLEyEDMVHB0",
   space: "6mdmgsjzhh4y",
 };
 
-export const ExperiencePageId = "2yOlGFQtmBOTfUZiGtquu1";
-export const SkillsPageId = "47aecnjnbbuJjSHgBbDebk";
-export const UserId = "2ITrADxgJsUKCrpG0w3x3"
+export const UserId = "2ITrADxgJsUKCrpG0w3x3";

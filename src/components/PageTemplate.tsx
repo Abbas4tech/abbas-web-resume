@@ -19,7 +19,6 @@ const PageTemplate = <T,>({
   const pageInformation = pagesInformation.find(
     (e) => e.identifier.toLowerCase() === page
   );
-  console.log(pageInformation);
   if (!pageInformation) {
     notFound();
   }

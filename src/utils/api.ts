@@ -1,11 +1,11 @@
 import { createClient, EntrySkeletonType } from "contentful";
-import { contentful, convertEntry } from "@utils/data";
+import { convertEntry } from "@utils/data";
 import { ApplicationData } from "@utils/contentful";
-import { UserId } from "src/config/contentful";
+import { contentfulConfig, UserId } from "src/config/contentful";
 
 const client = createClient({
-  accessToken: contentful.accessToken,
-  space: contentful.space,
+  accessToken: contentfulConfig.accessToken,
+  space: contentfulConfig.space,
 });
 
 export const fetchQuery = async <T extends EntrySkeletonType>(

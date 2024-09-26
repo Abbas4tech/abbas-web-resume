@@ -17,7 +17,7 @@ const SkillSetItem: React.FC<SkillSet> = ({
           <SVGIcon icon={identifier} />
           <h1 className="flex ml-4">{title}</h1>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-2 md:p-4">
           {skillsArray.map((res: SkillGroup) => (
             <SkillGroupItem {...res} key={res.title} />
           ))}

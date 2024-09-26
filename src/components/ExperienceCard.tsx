@@ -28,6 +28,7 @@ const ExperienceCard: React.FC<JobExperience> = memo(
     startDate,
     endDate,
     workedRemotely,
+    currentlyWorking,
   }: JobExperience) => {
     ExperienceCard.displayName = "ExperienceCard";
 
@@ -68,7 +69,9 @@ const ExperienceCard: React.FC<JobExperience> = memo(
               <span className="text-slate-500">
                 <FaRegCalendarTimes />
               </span>
-              {`${formattedStartDate} - ${formattedEndDate}`}
+              {`${formattedStartDate} - ${
+                currentlyWorking ? "Present" : formattedEndDate
+              }`}
             </p>
           </div>
           <p className="flex items-center gap-2">

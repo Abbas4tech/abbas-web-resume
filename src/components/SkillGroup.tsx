@@ -7,10 +7,7 @@ const SkillGroupItem: React.FC<SkillGroup> = memo(
     SkillGroupItem.displayName = "SkillGroupItem";
     return (
       <div>
-        <div
-          key={title}
-          className="grid items-center grid-cols-2 p-1 py-4 md:p-4 md:px-4 lg:px-5"
-        >
+        <div key={title} className="grid items-center grid-cols-2">
           <div className="flex gap-4 text-xl md:text-4xl">
             {skills.map((icon: string) => (
               <Skill skillName={icon} key={icon} />

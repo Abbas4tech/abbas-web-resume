@@ -1,8 +1,4 @@
 import { Entry, EntrySkeletonType } from "contentful";
-import { contentfulConfig } from "../config/contentful";
-import { ContentFulInfo } from "./types";
-
-export const contentful: ContentFulInfo = contentfulConfig;
 
 export const convertEntry = <T extends EntrySkeletonType>(entry: Entry<T>): T => {
   const result = { ...entry.fields } as T;
