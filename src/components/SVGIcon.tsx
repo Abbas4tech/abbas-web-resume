@@ -11,6 +11,7 @@ import {
   FaGitAlt,
   FaGithub,
   FaTools,
+  FaHome,
 } from "react-icons/fa";
 import { FaLocationCrosshairs, FaPeopleGroup } from "react-icons/fa6";
 import {
@@ -33,11 +34,12 @@ import {
   SiJira,
   SiAxios,
   SiStorybook,
+  SiReactivex,
 } from "react-icons/si";
 import { IoLogoCss3 } from "react-icons/io";
 import { DiSass } from "react-icons/di";
-import { MdMilitaryTech } from "react-icons/md";
-import { IoLogoFirebase } from "react-icons/io5";
+import { MdWork } from "react-icons/md";
+import { IoLogoFirebase, IoStatsChartSharp } from "react-icons/io5";
 import { RiNextjsFill } from "react-icons/ri";
 
 interface SVGIconProps {
@@ -53,7 +55,9 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
   CSS: IoLogoCss3,
   SCSS: DiSass,
   Core: () => <FaCode className="text-warning" />,
-  Skills: MdMilitaryTech,
+  Skills: IoStatsChartSharp,
+  Experience: MdWork,
+  RxJs: SiReactivex,
   Firebase: IoLogoFirebase,
   Vue: FaVuejs,
   NgRx: SiNgrx,
@@ -83,7 +87,8 @@ const iconMap: Record<string, ComponentType<{ className?: string }>> = {
   gmail: SiGmail,
   date: FaCalendarTimes,
   location: FaLocationCrosshairs,
-  about: FaPeopleGroup,
+  About: FaHome,
+  Projects: FaPeopleGroup,
 };
 
 const SVGIcon: React.FC<SVGIconProps> = memo(({ icon, classes = "" }) => {

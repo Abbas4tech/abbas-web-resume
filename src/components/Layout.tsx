@@ -5,7 +5,6 @@ import { Header, ProfileCard, Sidebar } from "@components";
 import AOS from "aos";
 import { FaArrowRight } from "react-icons/fa";
 import { useApplicationData } from "@context/useApplication";
-import { fetchApplicationData } from "@utils/api";
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const { pages } = useApplicationData();
