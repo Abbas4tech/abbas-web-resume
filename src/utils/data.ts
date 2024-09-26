@@ -1,6 +1,8 @@
 import { Entry, EntrySkeletonType } from "contentful";
 
-export const convertEntry = <T extends EntrySkeletonType>(entry: Entry<T>): T => {
+export const convertEntry = <T extends EntrySkeletonType>(
+  entry: Entry<T>
+): T => {
   const result = { ...entry.fields } as T;
   for (const key in result) {
     const value = result[key];
