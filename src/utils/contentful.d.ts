@@ -32,28 +32,17 @@ export interface FileAsset extends Asset {
   };
 }
 
-export type PageData = JobExperience[] | SkillSet[] | ProjectCard[];
-
-export interface Page extends EntrySkeletonType {
+export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
   identifier: EntryFields.Text;
   contentAnimation: EntryFields.Text;
   headingAnimation: EntryFields.Text;
-  pageData: PageData;
+  pageData: T;
 }
 
-export interface ExperiencePage extends Omit<Page, "pageData"> {
-  pageData: Extract<PageData, JobExperience[]>;
-}
-
-export interface SkillsPage extends Omit<Page, "pageData"> {
-  pageData: Extract<PageData, SkillSet[]>;
-}
-
-export interface ProjectsPage extends Omit<Page, "pageData"> {
-  pageData: Extract<PageData, ProjectCard[]>;
-}
-
+export type ExperiencePage = Page<JobExperience[]>;
+export type SkillsPage = Page<SkillSet[]>;
+export type ProjectsPage = Page<ProjectCard[]>;
 export type Pages = ExperiencePage | SkillsPage | ProjectsPage;
 
 export interface ProjectCard extends EntrySkeletonType {
