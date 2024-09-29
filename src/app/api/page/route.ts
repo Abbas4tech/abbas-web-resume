@@ -19,8 +19,10 @@ export async function GET(request: NextRequest) {
   const pageId = request.nextUrl.searchParams.get("id");
   if (!pageId) notFound();
 
+  console.log(pageId);
   try {
     const pageData = await fetchQuery(pageId);
+    console.log(pageData);
     return NextResponse.json(pageData, {
       status: 200,
       headers: {
