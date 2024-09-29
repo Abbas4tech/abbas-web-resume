@@ -1,0 +1,26 @@
+import React, { PropsWithChildren } from "react";
+import {
+  documentToReactComponents,
+  Options,
+} from "@contentful/rich-text-react-renderer";
+import { BLOCKS, Document } from "@contentful/rich-text-types";
+
+interface RichTextProps {
+  document: Document;
+  paragraphClass: string;
+}
+
+const RichText = ({ document, paragraphClass }: RichTextProps) => {
+  const Text: React.FC<PropsWithChildren> = ({ children }) => (
+    <p className={paragraphClass}>{children}</p>
+  );
+
+  const options: Options = {
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
+    },
+  };
+  return documentToReactComponents(document, options);
+};
+
+export default RichText;

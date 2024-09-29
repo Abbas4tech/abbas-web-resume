@@ -22,7 +22,7 @@ export default async function RootLayout({
     process.env.CONTENTFUL_APPLICATION_DATA_ID!
   );
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme={data.defaultTheme.toLowerCase()}>
       <body className={inter.className}>
         <ApplicationDataProvider initialData={data}>
           <Layout>{children}</Layout>

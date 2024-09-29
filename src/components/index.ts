@@ -12,3 +12,4 @@ export { default as SkillGroup } from "./SkillGroup";
 export { default as SkillSetItem } from "./SkillSet";
 export { default as SVGIcon } from "./SVGIcon";
 export { default as ThemeSwitch } from "./ThemeSwitch";
+export { default as RichText } from "./RichText";
