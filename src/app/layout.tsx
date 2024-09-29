@@ -22,6 +22,7 @@ export default async function RootLayout({
     `${PAGE_API}${process.env.CONTENTFUL_APPLICATION_DATA_ID!}`
   );
   const data: ApplicationData = await res.json();
+  console.log(data);
   return (
     <html lang="en" data-theme="dark">
       <body className={inter.className}>

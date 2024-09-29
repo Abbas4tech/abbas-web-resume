@@ -14,6 +14,7 @@ const ExperiencePage: NextPage = async () => {
   const data: ExperiencePageSchema = await res.json();
   const { title, identifier, headingAnimation, contentAnimation, pageData } =
     data;
+  console.log(data);
   return (
     <>
       <PageWrapper
