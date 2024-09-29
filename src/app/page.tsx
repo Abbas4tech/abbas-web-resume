@@ -5,6 +5,7 @@ import { BioCard } from "@components";
 import { PAGE_API } from "@utils/data";
 
 const Home: NextPage = async () => {
+  console.log(process.env);
   const res = await fetch(
     `${PAGE_API}${process.env.CONTENTFUL_APPLICATION_DATA_ID!}`
   );
