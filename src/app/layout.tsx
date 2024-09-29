@@ -21,7 +21,6 @@ export default async function RootLayout({
   const data = await fetchQuery<ApplicationData>(
     process.env.CONTENTFUL_APPLICATION_DATA_ID!
   );
-  console.log(data);
   return (
     <html lang="en" data-theme="dark">
       <body className={inter.className}>

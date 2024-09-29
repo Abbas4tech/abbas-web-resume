@@ -13,7 +13,6 @@ const ExperiencePage: NextPage = async () => {
   );
   const { title, identifier, headingAnimation, contentAnimation, pageData } =
     data;
-  console.log(data);
   return (
     <>
       <PageWrapper
