@@ -2,7 +2,6 @@ export { default as BioCard } from "./BioCard";
 export { default as ExperienceCard } from "./ExperienceCard";
 export { default as Header } from "./Header";
 export { default as Layout } from "./Layout";
-export { default as PageTemplate } from "./PageTemplate";
 export { default as PageWrapper } from "./PageWrapper";
 export { default as ProfileCard } from "./ProfileCard";
 export { default as ProjectCardItem } from "./ProjectCard";
