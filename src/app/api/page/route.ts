@@ -17,7 +17,7 @@ const fetchQuery = async <T extends EntrySkeletonType>(
 
 export async function GET(request: NextRequest) {
   const pageId = request.nextUrl.searchParams.get("id");
-  console.log(pageId);
+  console.log(process.env);
   if (!pageId) notFound();
   try {
     const pageData = await fetchQuery(pageId);
