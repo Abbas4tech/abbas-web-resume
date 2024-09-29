@@ -6,6 +6,7 @@ export interface ApplicationData extends EntrySkeletonType {
   name: EntryFields.Text;
   themeList: EntryFields.Text[];
   role: EntryFields.Text;
+  defaultPage: string;
   resume: FileAsset;
   pages: string[];
   info: BioCard[];

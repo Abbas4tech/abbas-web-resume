@@ -2,10 +2,11 @@ import React from "react";
 import { NextPage } from "next";
 import { ProjectsPage as ProjectsPageSchema } from "@utils/contentful";
 import { ProjectCardItem, PageWrapper } from "@components";
+import { PAGE_API } from "@utils/data";
 
 const ProjectsPage: NextPage = async () => {
   const res = await fetch(
-    `${process.env.BASE_URL}/api/page?id=${process.env.CONTENTFUL_PROJECTS_PAGE_KEY}`
+    `${PAGE_API}${process.env.CONTENTFUL_PROJECTS_PAGE_KEY}`
   );
   const data: ProjectsPageSchema = await res.json();
   const { title, identifier, headingAnimation, contentAnimation, pageData } =

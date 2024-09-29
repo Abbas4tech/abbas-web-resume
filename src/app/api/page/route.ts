@@ -2,7 +2,6 @@ import { EntrySkeletonType, createClient } from "contentful";
 import { notFound } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
 import { convertEntry } from "@utils/data";
-import { Pages } from "@utils/contentful";
 
 const client = createClient({
   accessToken: process.env.CONTENTFUL_API_KEY!,
@@ -10,7 +9,7 @@ const client = createClient({
   environment: process.env.CONTENTFUL_ENVIRONMENT_ID!,
 });
 
-const CACHE_DURATION = 3600 * 1000;
+const CACHE_DURATION = 3600;
 
 const fetchQuery = async <T extends EntrySkeletonType>(
   id: string
@@ -21,13 +20,11 @@ export async function GET(request: NextRequest) {
   if (!pageId) notFound();
 
   try {
-    const pageData = await fetchQuery<Pages>(pageId);
+    const pageData = await fetchQuery(pageId);
     return NextResponse.json(pageData, {
       status: 200,
       headers: {
-        "Cache-Control": `s-maxage=${
-          CACHE_DURATION / 1000
-        }, stale-while-revalidate`,
+        "Cache-Control": `s-maxage=${CACHE_DURATION}, stale-while-revalidate`,
       },
     });
   } catch (error) {
