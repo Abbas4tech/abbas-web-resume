@@ -9,7 +9,6 @@ const client = createClient({
   environment: process.env.CONTENTFUL_ENVIRONMENT_ID!,
 });
 
-const CACHE_DURATION = 3600;
 
 export const fetchQuery = async <T extends EntrySkeletonType>(
   id: string

@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Layout } from "@components";
 import { ApplicationDataProvider } from "@context/useApplication";
-import { PAGE_API } from "@utils/data";
 import { ApplicationData } from "@utils/contentful";
 import "./globals.css";
+import { fetchQuery } from "@utils/api";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -18,10 +18,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const res = await fetch(
-    `${PAGE_API}${process.env.CONTENTFUL_APPLICATION_DATA_ID!}`
+  const data = await fetchQuery<ApplicationData>(
+    process.env.CONTENTFUL_APPLICATION_DATA_ID!
   );
-  const data: ApplicationData = await res.json();
   console.log(data);
   return (
     <html lang="en" data-theme="dark">

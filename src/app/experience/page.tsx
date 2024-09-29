@@ -5,13 +5,12 @@ import {
   JobExperience,
 } from "@utils/contentful";
 import { PageWrapper, ExperienceCard } from "@components";
-import { PAGE_API } from "@utils/data";
+import { fetchQuery } from "@utils/api";
 
 const ExperiencePage: NextPage = async () => {
-  const res = await fetch(
-    `${PAGE_API}${process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!}`
+  const data: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
+    process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
   );
-  const data: ExperiencePageSchema = await res.json();
   const { title, identifier, headingAnimation, contentAnimation, pageData } =
     data;
   console.log(data);
