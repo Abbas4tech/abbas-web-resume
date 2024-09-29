@@ -9,7 +9,7 @@ import { PAGE_API } from "@utils/data";
 
 const ExperiencePage: NextPage = async () => {
   const res = await fetch(
-    `${PAGE_API}${process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY}`
+    `${PAGE_API}${process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!}`
   );
   const data: ExperiencePageSchema = await res.json();
   const { title, identifier, headingAnimation, contentAnimation, pageData } =

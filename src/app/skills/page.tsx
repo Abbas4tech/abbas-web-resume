@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const SkillsPage: NextPage = async () => {
   const res = await fetch(
-    `${PAGE_API}${process.env.CONTENTFUL_SKILLS_PAGE_KEY}`
+    `${PAGE_API}${process.env.CONTENTFUL_SKILLS_PAGE_KEY!}`
   );
   const data: SkillsPageSchema = await res.json();
   const { title, identifier, contentAnimation, headingAnimation, pageData } =

@@ -19,7 +19,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const res = await fetch(
-    `${PAGE_API}${process.env.CONTENTFUL_APPLICATION_DATA_ID}`
+    `${PAGE_API}${process.env.CONTENTFUL_APPLICATION_DATA_ID!}`
   );
   const data: ApplicationData = await res.json();
   return (
