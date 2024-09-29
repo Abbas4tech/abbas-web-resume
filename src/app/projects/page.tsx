@@ -1,17 +1,31 @@
-"use client";
 import React from "react";
 import { NextPage } from "next";
-import { ProjectCard } from "@utils/contentful";
-import { ProjectCardItem, PageTemplate } from "@components";
+import { ProjectsPage as ProjectsPageSchema } from "@utils/contentful";
+import { ProjectCardItem, PageWrapper } from "@components";
+import { PAGE_API } from "@utils/data";
 
-const ProjectsPage: NextPage = () => {
+const ProjectsPage: NextPage = async () => {
+  const res = await fetch(
+    `${PAGE_API}${process.env.CONTENTFUL_PROJECTS_PAGE_KEY}`
+  );
+  const data: ProjectsPageSchema = await res.json();
+  const { title, identifier, headingAnimation, contentAnimation, pageData } =
+    data;
   return (
-    <PageTemplate<ProjectCard>
-      renderItem={(item: ProjectCard) => (
-        <ProjectCardItem key={item.title} {...item} />
-      )}
-      className="columns-1 md:columns-2 my-2 rounded-xl gap-4"
-    />
+    <PageWrapper
+      iconId={identifier}
+      title={title}
+      headingAnimation={headingAnimation}
+    >
+      <div
+        className={`columns-1 md:columns-2 my-2 rounded-xl gap-4`}
+        data-aos={contentAnimation}
+      >
+        {pageData.map((item, index: number) => (
+          <ProjectCardItem key={index} {...item} />
+        ))}
+      </div>
+    </PageWrapper>
   );
 };
 

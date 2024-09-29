@@ -6,8 +6,8 @@ import { SVGIcon } from "@components";
 import { useApplicationData } from "@context/useApplication";
 
 const Sidebar = memo(() => {
-  const { pages } = useApplicationData();
-  const currentPath = usePathname().slice(1) || "about";
+  const { pages, defaultPage } = useApplicationData();
+  const currentPath = usePathname().slice(1) || defaultPage.toLowerCase();
 
   return (
     <>
@@ -30,7 +30,7 @@ const Sidebar = memo(() => {
                 scroll={false}
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 href={`/${[
-                  page.toLowerCase() === "about" ? "" : page.toLowerCase(),
+                  page.toLowerCase() === defaultPage.toLowerCase() ? "" : page.toLowerCase(),
                 ]}`}
                 className={`px-4 py-2 md:py-3 w-full flex gap-2 items-center ${
                   page.toLowerCase() === currentPath

@@ -7,11 +7,12 @@ import { FaArrowRight } from "react-icons/fa";
 import { useApplicationData } from "@context/useApplication";
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
-  const { pages } = useApplicationData();
+  const { pages, defaultPage } = useApplicationData();
   const router = useRouter();
   const [nextPage, setNextPage] = useState<string>("");
   const currentPath =
-    usePathname().charAt(1).toUpperCase() + usePathname().slice(2) || "About";
+    usePathname().charAt(1).toUpperCase() + usePathname().slice(2) ||
+    defaultPage;
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
 
   useEffect(() => {
@@ -26,7 +27,11 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 
   const changePage = () =>
     router.push(
-      `/${nextPage.toLowerCase() === "about" ? "" : nextPage.toLowerCase()}`
+      `/${
+        nextPage.toLowerCase() === defaultPage.toLowerCase()
+          ? ""
+          : nextPage.toLowerCase()
+      }`
     );
 
   return (
@@ -35,7 +40,7 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         <Header />
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content mx-4 mt-4 mb-[6rem] overflow-auto scrollbar-hide">
+          <div className="drawer-content mx-4 mt-4 overflow-auto scrollbar-hide">
             <ProfileCard />
             {children}
             <div className="flex justify-end mb-14 p-2">
