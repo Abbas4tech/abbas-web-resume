@@ -9,7 +9,7 @@ import { fetchQuery } from "@utils/api";
 
 const ExperiencePage: NextPage = async () => {
   const data: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
-    process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
+    process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
   );
   const { title, identifier, headingAnimation, contentAnimation, pageData } =
     data;
