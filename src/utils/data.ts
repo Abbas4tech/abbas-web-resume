@@ -1,7 +1,5 @@
 import { Entry, EntrySkeletonType } from "contentful";
 
-export const PAGE_API = `${process.env.BASE_URL}/api/page?id=`;
-
 export const convertEntry = <T extends EntrySkeletonType>(
   entry: Entry<T>
 ): T => {
