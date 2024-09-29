@@ -1,8 +1,6 @@
 import { Entry, EntrySkeletonType } from "contentful";
 
-export const PAGE_API = `${
-  process.env.STARTING_URL || "https://abbas-web-resume.vercel.app"
-}/api/page?id=`;
+export const PAGE_API = `https://abbas-web-resume.vercel.app/api/page?id=`;
 
 export const convertEntry = <T extends EntrySkeletonType>(
   entry: Entry<T>
