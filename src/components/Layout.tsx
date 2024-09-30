@@ -41,7 +41,6 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
         <div className="drawer lg:drawer-open">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content mx-4 mt-4 overflow-auto scrollbar-hide">
-            <ProfileCard />
             {children}
             <div className="flex justify-end mb-14 p-2">
               <button

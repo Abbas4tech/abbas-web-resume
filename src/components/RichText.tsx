@@ -10,7 +10,7 @@ interface RichTextProps {
   paragraphClass: string;
 }
 
-const RichText = ({ document, paragraphClass }: RichTextProps) => {
+const RichText: React.FC<RichTextProps> = ({ document, paragraphClass }) => {
   const Text: React.FC<PropsWithChildren> = ({ children }) => (
     <p className={paragraphClass}>{children}</p>
   );
