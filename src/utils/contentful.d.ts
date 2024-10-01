@@ -71,6 +71,7 @@ export interface JobExperience extends EntrySkeletonType {
   endDate: EntryFields.Text;
   location: EntryFields.Text;
   currentlyWorking: EntryFields.Boolean;
+  techStack: SkillGroup;
 }
 
 export interface SkillGroup extends EntrySkeletonType {
