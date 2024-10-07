@@ -11,7 +11,10 @@ interface DataProviderProps {
   initialData: ApplicationData;
 }
 
-export default ({ children, initialData }: DataProviderProps) => {
+const ApplicationDataProvider = ({
+  children,
+  initialData,
+}: DataProviderProps) => {
   const [data] = useState<ApplicationData>(initialData);
 
   return (
@@ -20,3 +23,4 @@ export default ({ children, initialData }: DataProviderProps) => {
     </ApplicationContext.Provider>
   );
 };
+export default ApplicationDataProvider;
