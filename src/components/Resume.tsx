@@ -8,10 +8,10 @@ const ResumeComp = memo(() => {
   return (
     <div
       data-tip={resume.description}
-      className="px-4 py-2 cursor-pointer tooltip tooltip-left"
+      className="md:px-4 md:py-2 px-2 py-1 cursor-pointer tooltip tooltip-left"
     >
       <Link target="_blank" passHref href={`https:${resume.file.url}`}>
-        <GrDocumentDownload size={25} />
+        <GrDocumentDownload className="w-6 h-6 lg:w-8 lg:h-8"  />
       </Link>
     </div>
   );
