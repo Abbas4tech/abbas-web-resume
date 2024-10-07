@@ -3,11 +3,7 @@
 @tailwind utilities;
 @import "aos/dist/aos.css";
 
-::-webkit-scrollbar {
-  display: none;
+.drawer-content {
+  height: calc(89vh - 2rem);
 }
 
-html {
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For IE and Edge */
-}

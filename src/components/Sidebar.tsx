@@ -5,13 +5,17 @@ import Link from "next/link";
 import { SVGIcon } from "@components";
 import { useApplicationData } from "@context/useApplication";
 
-const Sidebar = memo(() => {
+interface SidebarProps {
+  changePage: () => void;
+}
+
+const Sidebar = memo(({ changePage }: SidebarProps) => {
   const { pages, defaultPage } = useApplicationData();
   const currentPath = usePathname().slice(1) || defaultPage.toLowerCase();
 
   return (
     <>
-      <div className="drawer-side top-16 lg:top-0">
+      <div className="drawer-side lg:top-0 top-16">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
@@ -28,7 +32,7 @@ const Sidebar = memo(() => {
             >
               <Link
                 scroll={false}
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                onClick={changePage}
                 href={`/${[
                   page.toLowerCase() === defaultPage.toLowerCase()
                     ? ""
