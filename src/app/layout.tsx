@@ -22,8 +22,12 @@ export default async function RootLayout({
     process.env.CONTENTFUL_APPLICATION_DATA_ID!
   );
   return (
-    <html lang="en" data-theme={data.defaultTheme.toLowerCase()}>
-      <body className={inter.className}>
+    <html
+      lang="en"
+      data-theme={data.defaultTheme.toLowerCase()}
+      className="scrollbar-hide"
+    >
+      <body className={inter.className + " overflow-hidden"}>
         <ApplicationDataProvider initialData={data}>
           <Layout>{children}</Layout>
         </ApplicationDataProvider>
