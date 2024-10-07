@@ -11,7 +11,7 @@ const PageWrapper: React.FC<PropsWithChildren<PageWrapperProps>> = memo(
   ({ title, children, headingAnimation, iconId }) => {
     return (
       <>
-        <div className="container overflow-auto mb-5 scrollbar-hide">
+        <div className="container overflow-auto p-4 scrollbar-hide">
           <h1
             data-aos={headingAnimation}
             className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl"

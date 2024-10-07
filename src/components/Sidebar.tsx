@@ -11,7 +11,7 @@ const Sidebar = memo(() => {
 
   return (
     <>
-      <div className="drawer-side top-16">
+      <div className="drawer-side top-16 lg:top-0">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"
@@ -30,7 +30,9 @@ const Sidebar = memo(() => {
                 scroll={false}
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 href={`/${[
-                  page.toLowerCase() === defaultPage.toLowerCase() ? "" : page.toLowerCase(),
+                  page.toLowerCase() === defaultPage.toLowerCase()
+                    ? ""
+                    : page.toLowerCase(),
                 ]}`}
                 className={`px-4 py-2 md:py-3 w-full flex gap-2 items-center ${
                   page.toLowerCase() === currentPath

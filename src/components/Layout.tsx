@@ -14,6 +14,8 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     usePathname().charAt(1).toUpperCase() + usePathname().slice(2) ||
     defaultPage;
   const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
+  const drawerClass =
+    currentPath === defaultPage ? "drawer" : "drawer lg:drawer-open";
 
   useEffect(() => {
     setNextPage(nextUrl);
@@ -36,26 +38,24 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
 
   return (
     <>
-      <main className="w-full container overflow-hidden h-screen md:text-lg text-sm mx-auto">
-        <Header />
-        <div className="drawer lg:drawer-open">
-          <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content mx-4 mt-4 overflow-auto scrollbar-hide">
-            <ProfileCard />
-            {children}
-            <div className="flex justify-end mb-14 p-2">
-              <button
-                onClick={changePage}
-                className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
-              >
-                {nextPage}
-                <FaArrowRight />
-              </button>
-            </div>
+      <div className={drawerClass}>
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content">
+          <Header />
+          <ProfileCard />
+          {children}
+          <div className="flex justify-end p-4">
+            <button
+              onClick={changePage}
+              className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
+            >
+              {nextPage}
+              <FaArrowRight />
+            </button>
           </div>
-          <Sidebar />
         </div>
-      </main>
+        <Sidebar />
+      </div>
     </>
   );
 };
