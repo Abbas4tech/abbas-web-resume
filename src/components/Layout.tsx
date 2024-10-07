@@ -1,44 +1,19 @@
 "use client";
-import React, { useState, useEffect, PropsWithChildren, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Header, ProfileCard, Sidebar } from "@components";
+import React, { useEffect, PropsWithChildren, useRef } from "react";
+import { Header, Sidebar } from "@components";
 import AOS from "aos";
 import { FaArrowRight } from "react-icons/fa";
-import { useApplicationData } from "@context/useApplication";
+import { usePage } from "@hooks";
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const layoutRef = useRef<HTMLDivElement>(null);
-  const { pages, defaultPage } = useApplicationData();
-  const router = useRouter();
-  const [nextPage, setNextPage] = useState<string>("");
-  const currentPath =
-    usePathname().charAt(1).toUpperCase() + usePathname().slice(2) ||
-    defaultPage;
-  const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
-
-  useEffect(() => {
-    setNextPage(nextUrl);
-  }, [currentPath, nextUrl]);
+  const { nextPage, changePage } = usePage({ ref: layoutRef });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       AOS.init();
     }
   }, []);
-
-  const changePage = () => {
-    router.push(
-      `/${
-        nextPage.toLowerCase() === defaultPage.toLowerCase()
-          ? ""
-          : nextPage.toLowerCase()
-      }`
-    );
-    layoutRef.current?.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   return (
     <>

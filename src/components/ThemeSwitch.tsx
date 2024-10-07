@@ -1,4 +1,4 @@
-import { useApplicationData } from "@context/useApplication";
+import { useApplicationData } from "@context";
 import React from "react";
 import { TbColorSwatch } from "react-icons/tb";
 
@@ -17,7 +17,7 @@ const ThemeSwitch = (): React.JSX.Element => {
         className="md:px-4 md:py-2 px-2 py-1 lg:tooltip tooltip-bottom"
         data-tip="Theme"
       >
-        <TbColorSwatch className="w-6 h-6 lg:w-8 lg:h-8"  />
+        <TbColorSwatch className="w-6 h-6 lg:w-8 lg:h-8" />
       </div>
       <ul
         tabIndex={0}

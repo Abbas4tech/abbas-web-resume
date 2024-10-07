@@ -1,7 +1,7 @@
 "use client";
 import React, { memo } from "react";
 import Image from "next/image";
-import { useApplicationData } from "@context/useApplication";
+import { useApplicationData } from "@context";
 
 const ProfileCard = memo(() => {
   const { profilePicture } = useApplicationData();

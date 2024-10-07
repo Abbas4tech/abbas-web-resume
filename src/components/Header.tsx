@@ -1,7 +1,7 @@
 "use client";
 import React, { memo } from "react";
 import { ThemeSwitch, Resume as ResumeComponent } from "@components";
-import { useApplicationData } from "@context/useApplication";
+import { useApplicationData } from "@context";
 
 const Header = memo(() => {
   const { title, defaultPage } = useApplicationData();
