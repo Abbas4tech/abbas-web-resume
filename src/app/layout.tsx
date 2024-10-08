@@ -27,7 +27,7 @@ export default async function RootLayout({
       data-theme={data.defaultTheme.toLowerCase()}
       className="scrollbar-hide"
     >
-      <body className={inter.className + " overflow-hidden"}>
+      <body className={inter.className}>
         <ApplicationDataProvider initialData={data}>
           <Layout>{children}</Layout>
         </ApplicationDataProvider>

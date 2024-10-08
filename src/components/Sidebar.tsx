@@ -15,7 +15,7 @@ const Sidebar = memo(({ changePage }: SidebarProps) => {
 
   return (
     <>
-      <div className="drawer-side lg:top-0 top-16">
+      <div className="drawer-side lg:top-0 top-20">
         <label
           htmlFor="my-drawer-2"
           aria-label="close sidebar"

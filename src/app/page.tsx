@@ -1,9 +1,8 @@
 import React from "react";
 import { NextPage } from "next";
 import { ApplicationData } from "@utils/contentful";
-import { BioCard, PageWrapper } from "@components";
+import { BioCard, PageWrapper, RichText } from "@components";
 import { fetchQuery } from "@utils/api";
-import { RichText } from "@components";
 
 const Home: NextPage = async () => {
   const { info, description } = await fetchQuery<ApplicationData>(

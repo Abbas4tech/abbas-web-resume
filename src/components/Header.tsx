@@ -7,8 +7,8 @@ const Header = memo(() => {
   const { title, defaultPage } = useApplicationData();
 
   return (
-    <header className="container mx-auto bg-base-100 text-base-content sticky top-0 z-30 flex w-full justify-center bg-opacity-90 backdrop-blur transition-shadow duration-100 [transform:translate3d(0,0,0)]">
-      <nav className="navbar bg-base-100 h-10 lg:h-20">
+    <header className="container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center p-2">
+      <nav className="navbar bg-base-100">
         <div className="navbar-start gap-2">
           <label
             tabIndex={0}

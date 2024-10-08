@@ -17,7 +17,7 @@ const ThemeSwitch = (): React.JSX.Element => {
         className="md:px-4 md:py-2 px-2 py-1 lg:tooltip tooltip-bottom"
         data-tip="Theme"
       >
-        <TbColorSwatch className="w-6 h-6 lg:w-8 lg:h-8" />
+        <TbColorSwatch className="w-4 h-4 lg:w-6 lg:h-6" />
       </div>
       <ul
         tabIndex={0}

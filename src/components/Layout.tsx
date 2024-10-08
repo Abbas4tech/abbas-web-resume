@@ -18,15 +18,20 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="w-full container overflow-hidden h-[89vh] md:text-lg text-sm mx-auto">
+      <div
+        style={{
+          height: "calc(100vh - 5rem)",
+        }}
+        className="w-full container overflow-hidden md:text-lg h-[calc(100vh - 5rem)] text-sm mx-auto"
+      >
         <div className={"drawer lg:drawer-open"}>
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div
             ref={layoutRef}
-            className="drawer-content mx-4 mt-4 overflow-auto scrollbar-hide"
+            className="drawer-content pl-4 pt-4 overflow-auto scrollbar-hide"
           >
             {children}
-            <div className="flex justify-end p-4">
+            <div className="flex justify-end pb-12">
               <button
                 onClick={changePage}
                 className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
