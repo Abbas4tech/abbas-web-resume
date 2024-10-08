@@ -28,7 +28,7 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div
             ref={layoutRef}
-            className="drawer-content pl-4 pt-4 overflow-auto scrollbar-hide"
+            className="drawer-content p-4 overflow-auto scrollbar-hide"
           >
             {children}
             <div className="flex justify-end pb-12">

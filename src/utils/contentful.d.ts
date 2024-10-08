@@ -7,6 +7,7 @@ export interface ApplicationData extends EntrySkeletonType {
   name: EntryFields.Text;
   themeList: EntryFields.Text[];
   role: EntryFields.Text;
+  bannerData: Banner;
   defaultPage: string;
   resume: FileAsset;
   pages: string[];
@@ -17,6 +18,14 @@ export interface ApplicationData extends EntrySkeletonType {
   pagesInformation: Pages[];
   description: Document;
   defaultTheme: string;
+}
+
+export interface Banner {
+  title: EntryFields.Text;
+  profilePicture: FileAsset;
+  bannerImage: FileAsset;
+  bannerAnimation: EntryFields.Text;
+  socialLinks: FileAsset[];
 }
 
 export interface FileAsset extends Asset {
