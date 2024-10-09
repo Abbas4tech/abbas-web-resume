@@ -29,6 +29,7 @@ const ExperienceCard: React.FC<JobExperience> = memo(
     endDate,
     workedRemotely,
     currentlyWorking,
+    techStack,
   }: JobExperience) => {
     ExperienceCard.displayName = "ExperienceCard";
 
@@ -84,7 +85,7 @@ const ExperienceCard: React.FC<JobExperience> = memo(
             <span className="pt-1 text-slate-500">
               <GiStack />
             </span>
-            Typescript, Angular, Angular Material, Strapi, Tailwind, RxJS
+            {techStack.skills.join(", ")}
           </p>
           <p className="gap-2 mb-6 text-base-content">{description}</p>
         </div>

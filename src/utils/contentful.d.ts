@@ -1,4 +1,5 @@
 import { EntryFields, Entry, EntrySkeletonType, Asset } from "contentful";
+import { Document } from "@contentful/rich-text-types";
 
 export interface ApplicationData extends EntrySkeletonType {
   title: EntryFields.Text;
@@ -6,6 +7,7 @@ export interface ApplicationData extends EntrySkeletonType {
   name: EntryFields.Text;
   themeList: EntryFields.Text[];
   role: EntryFields.Text;
+  bannerData: Banner;
   defaultPage: string;
   resume: FileAsset;
   pages: string[];
@@ -14,6 +16,16 @@ export interface ApplicationData extends EntrySkeletonType {
   projects: ProjectCard[];
   experiences: JobExperience[];
   pagesInformation: Pages[];
+  description: Document;
+  defaultTheme: string;
+}
+
+export interface Banner {
+  title: EntryFields.Text;
+  profilePicture: FileAsset;
+  bannerImage: FileAsset;
+  bannerAnimation: EntryFields.Text;
+  socialLinks: FileAsset[];
 }
 
 export interface FileAsset extends Asset {
@@ -68,6 +80,7 @@ export interface JobExperience extends EntrySkeletonType {
   endDate: EntryFields.Text;
   location: EntryFields.Text;
   currentlyWorking: EntryFields.Boolean;
+  techStack: SkillGroup;
 }
 
 export interface SkillGroup extends EntrySkeletonType {

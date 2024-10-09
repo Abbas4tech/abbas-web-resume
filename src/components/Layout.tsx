@@ -1,24 +1,13 @@
 "use client";
-import React, { useState, useEffect, PropsWithChildren, useRef } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { Header, ProfileCard, Sidebar } from "@components";
+import React, { useEffect, PropsWithChildren, useRef } from "react";
+import { Header, Sidebar, ProfileCard } from "@components";
 import AOS from "aos";
 import { FaArrowRight } from "react-icons/fa";
-import { useApplicationData } from "@context/useApplication";
+import { usePage } from "@hooks";
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const layoutRef = useRef<HTMLDivElement>(null);
-  const { pages, defaultPage } = useApplicationData();
-  const router = useRouter();
-  const [nextPage, setNextPage] = useState<string>("");
-  const currentPath =
-    usePathname().charAt(1).toUpperCase() + usePathname().slice(2) ||
-    defaultPage;
-  const nextUrl = pages[(pages.indexOf(currentPath) + 1) % pages.length];
-
-  useEffect(() => {
-    setNextPage(nextUrl);
-  }, [currentPath, nextUrl]);
+  const { nextPage, changePage } = usePage({ ref: layoutRef });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -26,33 +15,24 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
     }
   }, []);
 
-  const changePage = () => {
-    router.push(
-      `/${
-        nextPage.toLowerCase() === defaultPage.toLowerCase()
-          ? ""
-          : nextPage.toLowerCase()
-      }`
-    );
-    layoutRef.current?.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
   return (
     <>
       <Header />
-      <div className="w-full container overflow-hidden h-[89vh] md:text-lg text-sm mx-auto">
+      <div
+        style={{
+          height: "calc(100vh - 5rem)",
+        }}
+        className="w-full container overflow-hidden md:text-lg h-[calc(100vh - 5rem)] text-sm mx-auto"
+      >
         <div className={"drawer lg:drawer-open"}>
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div
             ref={layoutRef}
-            className="drawer-content overflow-auto scrollbar-hide"
+            className="drawer-content p-4 overflow-auto scrollbar-hide"
           >
             <ProfileCard />
             {children}
-            <div className="flex justify-end p-4">
+            <div className="flex justify-end pb-12">
               <button
                 onClick={changePage}
                 className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"

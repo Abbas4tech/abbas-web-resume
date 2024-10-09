@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Layout } from "@components";
-import { ApplicationDataProvider } from "@context/useApplication";
+import { ApplicationDataProvider } from "@context";
 import { ApplicationData } from "@utils/contentful";
 import "./globals.css";
 import { fetchQuery } from "@utils/api";
@@ -22,8 +22,12 @@ export default async function RootLayout({
     process.env.CONTENTFUL_APPLICATION_DATA_ID!
   );
   return (
-    <html lang="en" data-theme="dark" className="scrollbar-hide">
-      <body className={inter.className + " overflow-hidden"}>
+    <html
+      lang="en"
+      data-theme={data.defaultTheme.toLowerCase()}
+      className="scrollbar-hide"
+    >
+      <body className={inter.className}>
         <ApplicationDataProvider initialData={data}>
           <Layout>{children}</Layout>
         </ApplicationDataProvider>
