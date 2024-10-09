@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import Image from "next/image";
 import { useApplicationData } from "@context";
 import Link from "next/link";
+import { usePage } from "@hooks";
 
 const ProfileCard = memo(() => {
   const {
@@ -13,7 +14,9 @@ const ProfileCard = memo(() => {
       bannerAnimation,
       title,
     },
+    defaultPage,
   } = useApplicationData();
+  const { currentPath } = usePage({});
 
   const middleIndex = Math.ceil(socialLinks.length / 2);
   const firstChunk = socialLinks.slice(0, middleIndex);
@@ -85,9 +88,11 @@ const ProfileCard = memo(() => {
         </div>
       </div>
 
-      <h1 className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl">
-        {title}
-      </h1>
+      {currentPath === defaultPage && (
+        <h1 className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl">
+          {title}
+        </h1>
+      )}
     </div>
   );
 });
