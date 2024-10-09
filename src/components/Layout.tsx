@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, PropsWithChildren, useRef } from "react";
-import { Header, Sidebar } from "@components";
+import { Header, Sidebar, ProfileCard } from "@components";
 import AOS from "aos";
 import { FaArrowRight } from "react-icons/fa";
 import { usePage } from "@hooks";
@@ -30,6 +30,7 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
             ref={layoutRef}
             className="drawer-content p-4 overflow-auto scrollbar-hide"
           >
+            <ProfileCard />
             {children}
             <div className="flex justify-end pb-12">
               <button

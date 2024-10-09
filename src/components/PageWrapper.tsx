@@ -12,7 +12,6 @@ const PageWrapper: React.FC<PropsWithChildren<PageWrapperProps>> = memo(
   ({ title, children, headingAnimation, iconId }) => {
     return (
       <>
-        <ProfileCard />
         <div className="container overflow-auto mb-5 scrollbar-hide">
           {title && headingAnimation && (
             <h1

@@ -36,7 +36,7 @@ const Header = memo(() => {
           </button>
         </div>
 
-        <div className="navbar-end items-baseline">
+        <div className="navbar-end items-center">
           <ResumeComponent />
           <ThemeSwitch />
         </div>
