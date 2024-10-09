@@ -25,7 +25,7 @@ const ThemeSwitch = (): React.JSX.Element => {
           className="dropdown-content bg-base-300 rounded-box w-36 z-[1] p-2 shadow-2xl"
         >
           {themeList.map((theme) => (
-            <li>
+            <li key={theme}>
               <input
                 type="radio"
                 name="theme-dropdown"
