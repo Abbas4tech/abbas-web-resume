@@ -36,7 +36,7 @@ const usePage = ({ ref }: usePageProps) => {
     if (ref) scrollPage(ref);
   };
 
-  return { currentPath, nextPage, changePage } as const;
+  return { currentPath, nextPage, changePage, defaultPage } as const;
 };
 
 export default usePage;
