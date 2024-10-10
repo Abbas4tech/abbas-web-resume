@@ -1,11 +1,7 @@
+import { Icon } from "@utils/contentful";
 import dynamic from "next/dynamic";
-import { memo } from "react";
-import { IconBaseProps, IconType } from "react-icons";
-
-interface DynamicIconsProps {
-  iconCode: string;
-  classes?: string;
-}
+import React, { memo } from "react";
+import { IconBaseProps, IconType } from "react-icons/";
 
 const ai = (icon: string) =>
   dynamic(() => import("react-icons/ai").then((m) => m[icon] as IconType));
@@ -55,6 +51,22 @@ const pi = (icon: string) =>
   dynamic(() => import("react-icons/pi").then((m) => m[icon] as IconType));
 const ri = (icon: string) =>
   dynamic(() => import("react-icons/ri").then((m) => m[icon] as IconType));
+const rx = (icon: string) =>
+  dynamic(() => import("react-icons/rx").then((m) => m[icon] as IconType));
+const si = (icon: string) =>
+  dynamic(() => import("react-icons/si").then((m) => m[icon] as IconType));
+const sl = (icon: string) =>
+  dynamic(() => import("react-icons/sl").then((m) => m[icon] as IconType));
+const tb = (icon: string) =>
+  dynamic(() => import("react-icons/tb").then((m) => m[icon] as IconType));
+const tfi = (icon: string) =>
+  dynamic(() => import("react-icons/tfi").then((m) => m[icon] as IconType));
+const ti = (icon: string) =>
+  dynamic(() => import("react-icons/ti").then((m) => m[icon] as IconType));
+const vsc = (icon: string) =>
+  dynamic(() => import("react-icons/vsc").then((m) => m[icon] as IconType));
+const wi = (icon: string) =>
+  dynamic(() => import("react-icons/wi").then((m) => m[icon] as IconType));
 
 type IconLibrary =
   | "ai"
@@ -80,7 +92,15 @@ type IconLibrary =
   | "lu"
   | "md"
   | "pi"
-  | "ri";
+  | "ri"
+  | "rx"
+  | "si"
+  | "sl"
+  | "tb"
+  | "tfi"
+  | "ti"
+  | "vsc"
+  | "wi";
 
 const libraryMap: Record<
   IconLibrary,
@@ -110,16 +130,32 @@ const libraryMap: Record<
   md,
   pi,
   ri,
+  rx,
+  si,
+  sl,
+  tb,
+  tfi,
+  ti,
+  vsc,
+  wi,
 };
 
-const DynamicIcons: React.FC<DynamicIconsProps> = memo(
-  ({ iconCode, classes = "" }) => {
+const DynamicIcons: React.FC<Icon> = memo(
+  ({ iconCode, classes = [], showTooltip = true, name }) => {
     DynamicIcons.displayName = "DynamicIcons";
 
-    const [library, icon] = iconCode.split("/") as [IconLibrary, string]; 
+    const [library, icon] = iconCode.split("/") as [IconLibrary, string];
+    console.log(iconCode.split("/"), libraryMap[library]);
     const IconComponent = libraryMap[library](icon);
 
-    return <IconComponent className={classes} />;
+    return (
+      <div
+        className={showTooltip ? `tooltip tooltip-primary` : ""}
+        data-tip={name}
+      >
+        <IconComponent className={classes.join(" ")} />
+      </div>
+    );
   }
 );
 

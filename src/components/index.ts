@@ -7,7 +7,6 @@ export { default as ProfileCard } from "./ProfileCard";
 export { default as ProjectCardItem } from "./ProjectCard";
 export { default as Resume } from "./Resume";
 export { default as Sidebar } from "./Sidebar";
-export { default as Skill } from "./Skill";
 export { default as SkillGroup } from "./SkillGroup";
 export { default as SkillSetItem } from "./SkillSet";
 export { default as SVGIcon } from "./SVGIcon";

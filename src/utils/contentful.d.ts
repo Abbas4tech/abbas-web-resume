@@ -20,6 +20,13 @@ export interface ApplicationData extends EntrySkeletonType {
   defaultTheme: string;
 }
 
+export interface Icon {
+  name: EntryFields.Text;
+  iconCode: string;
+  classes?: string[];
+  showTooltip: boolean;
+}
+
 export interface Banner {
   title: EntryFields.Text;
   profilePicture: FileAsset;
@@ -86,13 +93,13 @@ export interface JobExperience extends EntrySkeletonType {
 export interface SkillGroup extends EntrySkeletonType {
   title: EntryFields.Text;
   skillProgress: EntryFields.Number;
-  skills: EntryFields.Text[];
+  skillIcons: Icon[];
 }
 
 export interface SkillSet extends EntrySkeletonType {
   title: EntryFields.Text;
   skillsetIcon: Asset;
-  identifier: EntryFields.Text;
+  icon: Icon;
   skillsArray: SkillGroup[];
 }
 
