@@ -18,13 +18,8 @@ const Home: NextPage = async () => {
           />
         </div>
         <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
-          {info.map(({ title, value, identifier }) => (
-            <BioCard
-              key={title}
-              title={title}
-              value={value}
-              identifier={identifier}
-            />
+          {info.map(({ title, value, icon }) => (
+            <BioCard key={title} title={title} value={value} icon={icon} />
           ))}
         </div>
       </PageWrapper>
