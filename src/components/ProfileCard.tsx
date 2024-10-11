@@ -16,7 +16,6 @@ const ProfileCard = memo(() => {
     },
   } = useApplicationData();
   const { currentPath, defaultPage } = usePage({});
-  console.log(defaultPage);
   const middleIndex = Math.ceil(socialLinks.length / 2);
   const firstChunk = socialLinks.slice(0, middleIndex);
   const secondChunk = socialLinks.slice(middleIndex);
