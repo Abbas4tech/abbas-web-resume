@@ -10,8 +10,7 @@ interface SidebarProps {
 
 const Sidebar = memo(({ changePage }: SidebarProps) => {
   const { pages } = useApplicationData();
-  const defaultPage = pages.find((page) => page.isDefaultPage)?.pageUrl || "/";
-  const { currentPath } = usePage({});
+  const { currentPath, defaultPage } = usePage({});
 
   return (
     <>
@@ -33,7 +32,9 @@ const Sidebar = memo(({ changePage }: SidebarProps) => {
               <Link
                 scroll={false}
                 onClick={changePage}
-                href={`${[page.pageUrl === defaultPage ? "/" : page.pageUrl]}`}
+                href={`${[
+                  page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl,
+                ]}`}
                 className={`px-4 py-2 md:py-3 w-full flex gap-2 items-center ${
                   page.pageUrl === currentPath
                     ? "border-primary border-l-4 bg-base-200 transform font-bold duration-200 ease-out"

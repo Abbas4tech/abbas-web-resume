@@ -10,6 +10,9 @@ interface usePageProps {
 const usePage = ({ ref }: usePageProps) => {
   const router = useRouter();
   const { pages } = useApplicationData();
+  if (!pages) {
+    throw new Error("No Pages Data found");
+  }
 
   const defaultPage =
     pages.find(({ isDefaultPage }) => isDefaultPage) || pages[0];
@@ -19,9 +22,8 @@ const usePage = ({ ref }: usePageProps) => {
 
   const currentPath = usePathname();
 
-  const currentPageData = pages.find(
-    (page) => page.pageUrl === currentPath
-  ) as MetaPage;
+  const currentPageData =
+    pages.find((page) => page.pageUrl === currentPath) || defaultPage;
 
   const nextPageData =
     pages[(pages.indexOf(currentPageData) + 1) % pages.length];
