@@ -11,16 +11,16 @@ const usePage = ({ ref }: usePageProps) => {
   const router = useRouter();
   const { pages } = useApplicationData();
 
-  const defaultPage = pages.find(
-    ({ isDefaultPage }) => isDefaultPage
-  ) as MetaPage;
-
+  const defaultPage =
+    pages.find(({ isDefaultPage }) => isDefaultPage) || pages[0];
   const defaultRoute = defaultPage.pageUrl;
 
   const [nextPage, setNextPage] = useState<MetaPage>(defaultPage);
 
+  const currentPath = usePathname();
+
   const currentPageData = pages.find(
-    (page) => page.pageUrl === usePathname()
+    (page) => page.pageUrl === currentPath
   ) as MetaPage;
 
   const nextPageData =
@@ -28,7 +28,7 @@ const usePage = ({ ref }: usePageProps) => {
 
   useEffect(() => {
     setNextPage(nextPageData);
-  }, [currentPageData, nextPageData.pageUrl]);
+  }, [currentPageData, nextPageData]);
 
   const scrollPage = (ref: RefObject<HTMLElement>) =>
     ref.current?.scrollTo({
@@ -47,6 +47,7 @@ const usePage = ({ ref }: usePageProps) => {
     currentPath: currentPageData.pageUrl,
     nextPageUrl: nextPage.pageUrl,
     nextPageText: nextPage.title,
+    defaultPage,
     changePage,
   } as const;
 };

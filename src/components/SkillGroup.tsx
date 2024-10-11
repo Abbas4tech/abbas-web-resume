@@ -4,7 +4,6 @@ import DynamicIcons from "./DynamicIcon";
 
 const SkillGroupItem: React.FC<SkillGroup> = memo(
   ({ skillProgress, skillIcons, title }: SkillGroup) => {
-    console.log(skillIcons);
     SkillGroupItem.displayName = "SkillGroupItem";
     return (
       <div>

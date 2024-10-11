@@ -51,8 +51,6 @@ const ExperienceCard: React.FC<JobExperience> = memo(
       [workedRemotely]
     );
 
-    console.log(durationIcon, locationIcon);
-
     return (
       <div className="relative flex items-center">
         <div className="absolute z-10 h-full border-r-2 border-gray-600 left-0">
