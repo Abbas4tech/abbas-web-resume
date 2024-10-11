@@ -44,7 +44,9 @@ const lia = (icon: string) =>
 const lib = (icon: string) =>
   dynamic(() => import("react-icons/lib").then((m) => m[icon] as IconType));
 const lu = (icon: string) =>
-  dynamic(() => import("react-icons/lu").then((m) => m[icon] as IconType));
+  dynamic(() => import("react-icons/lu").then((m) => m[icon] as IconType), {
+    loading: () => <span className="loading loading-ring loading-xs"></span>,
+  });
 const md = (icon: string) =>
   dynamic(() => import("react-icons/md").then((m) => m[icon] as IconType));
 const pi = (icon: string) =>
@@ -54,7 +56,9 @@ const ri = (icon: string) =>
 const rx = (icon: string) =>
   dynamic(() => import("react-icons/rx").then((m) => m[icon] as IconType));
 const si = (icon: string) =>
-  dynamic(() => import("react-icons/si").then((m) => m[icon] as IconType));
+  dynamic(() => import("react-icons/si").then((m) => m[icon] as IconType), {
+    loading: () => <span className="loading loading-ring loading-xs"></span>,
+  });
 const sl = (icon: string) =>
   dynamic(() => import("react-icons/sl").then((m) => m[icon] as IconType));
 const tb = (icon: string) =>
@@ -143,14 +147,16 @@ const libraryMap: Record<
 const DynamicIcons: React.FC<Icon> = memo(
   ({ iconCode, classes = [], showTooltip = true, name }) => {
     DynamicIcons.displayName = "DynamicIcons";
+    const iconClasses = "flex items-center";
 
     const [library, icon] = iconCode.split("/") as [IconLibrary, string];
-    console.log(iconCode.split("/"), libraryMap[library]);
     const IconComponent = libraryMap[library](icon);
 
     return (
       <div
-        className={showTooltip ? `tooltip tooltip-primary` : ""}
+        className={
+          showTooltip ? `${iconClasses} tooltip tooltip-primary` : iconClasses
+        }
         data-tip={name}
       >
         <IconComponent className={classes.join(" ")} />

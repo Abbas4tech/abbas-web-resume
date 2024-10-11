@@ -1,8 +1,6 @@
 import React, { memo, useMemo } from "react";
-import { FaUserGraduate, FaUser, FaRegCalendarTimes } from "react-icons/fa";
-import { GiStack } from "react-icons/gi";
-import { SVGIcon } from "@components";
 import { JobExperience } from "@utils/contentful";
+import DynamicIcons from "./DynamicIcon";
 
 const monthNames = [
   "January",
@@ -30,6 +28,11 @@ const ExperienceCard: React.FC<JobExperience> = memo(
     workedRemotely,
     currentlyWorking,
     techStack,
+    companyIcon,
+    durationIcon,
+    roleIcon,
+    techStackIcon,
+    locationIcon,
   }: JobExperience) => {
     ExperienceCard.displayName = "ExperienceCard";
 
@@ -48,11 +51,13 @@ const ExperienceCard: React.FC<JobExperience> = memo(
       [workedRemotely]
     );
 
+    console.log(durationIcon, locationIcon);
+
     return (
       <div className="relative flex items-center">
         <div className="absolute z-10 h-full border-r-2 border-gray-600 left-0">
           <span className="absolute flex items-center justify-center w-8 h-8 -ml-4 rounded-full md:-ml-6 md:w-12 md:h-12 bg-base-300">
-            <FaUserGraduate />
+            <DynamicIcons {...companyIcon} />
           </span>
         </div>
         <div className="mb-4 ml-8 md:ml-10">
@@ -60,33 +65,33 @@ const ExperienceCard: React.FC<JobExperience> = memo(
             {company}
           </p>
           <div className="flex flex-col justify-between md:flex-row">
-            <p className="flex items-center gap-2">
+            <div className="flex items-center gap-2">
               <span className="text-slate-500">
-                <SVGIcon icon="location" />
+                <DynamicIcons {...locationIcon} />
               </span>
               &nbsp;{`${location}${remoteLabel}`}
-            </p>
-            <p className="flex items-center gap-2">
+            </div>
+            <div className="flex items-center gap-2">
               <span className="text-slate-500">
-                <FaRegCalendarTimes />
+                <DynamicIcons {...durationIcon} />
               </span>
               {`${formattedStartDate} - ${
                 currentlyWorking ? "Present" : formattedEndDate
               }`}
-            </p>
+            </div>
           </div>
-          <p className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <span className="text-slate-500">
-              <FaUser />
+              <DynamicIcons {...roleIcon} />
             </span>
             {position}
-          </p>
-          <p className="flex items-start gap-2 mb-2 md:mb-4">
+          </div>
+          <div className="flex items-start gap-2 mb-2 md:mb-4">
             <span className="pt-1 text-slate-500">
-              <GiStack />
+              <DynamicIcons {...techStackIcon} />
             </span>
-            {techStack.skills.join(", ")}
-          </p>
+            {techStack.skillIcons.map((i) => i.name).join(", ")}
+          </div>
           <p className="gap-2 mb-6 text-base-content">{description}</p>
         </div>
       </div>

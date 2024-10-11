@@ -75,19 +75,24 @@ export interface ProjectCard extends EntrySkeletonType {
 export interface BioCard {
   title: EntryFields.Text;
   value: EntryFields.Text;
-  identifier: EntryFields.Text;
+  icon: Icon;
 }
 
 export interface JobExperience extends EntrySkeletonType {
   company: EntryFields.Text;
+  companyIcon: Icon;
   description: EntryFields.Text;
   position: EntryFields.Text;
+  roleIcon: Icon;
   workedRemotely: EntryFields.Boolean;
   startDate: EntryFields.Text;
   endDate: EntryFields.Text;
+  durationIcon: Icon;
   location: EntryFields.Text;
+  locationIcon: Icon;
   currentlyWorking: EntryFields.Boolean;
   techStack: SkillGroup;
+  techStackIcon: Icon;
 }
 
 export interface SkillGroup extends EntrySkeletonType {
