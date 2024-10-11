@@ -1,5 +1,5 @@
 import React from "react";
-import { SVGIcon, SkillGroup as SkillGroupItem } from "@components";
+import { SkillGroup as SkillGroupItem } from "@components";
 import { SkillGroup, SkillSet } from "@utils/contentful";
 import DynamicIcons from "./DynamicIcon";
 
@@ -19,7 +19,7 @@ const SkillSetItem: React.FC<SkillSet> = ({
           <h1 className="flex ml-4">{title}</h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-2 md:p-4">
-          {skillsArray.map((res: SkillGroup,i:number) => (
+          {skillsArray.map((res: SkillGroup, i: number) => (
             <SkillGroupItem {...res} key={i} />
           ))}
         </div>

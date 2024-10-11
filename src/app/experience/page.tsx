@@ -11,12 +11,12 @@ const ExperiencePage: NextPage = async () => {
   const data: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
     process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
   );
-  const { title, identifier, headingAnimation, contentAnimation, pageData } =
+  const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
     data;
   return (
     <>
       <PageWrapper
-        iconId={identifier}
+        icon={pageIcon}
         title={title}
         headingAnimation={headingAnimation}
       >

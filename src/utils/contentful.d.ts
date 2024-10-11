@@ -8,22 +8,21 @@ export interface ApplicationData extends EntrySkeletonType {
   themeList: EntryFields.Text[];
   role: EntryFields.Text;
   bannerData: Banner;
-  defaultPage: string;
   resume: FileAsset;
-  pages: string[];
+  pages: MetaPage[];
   info: BioCard[];
   technologies: SkillSet[];
   projects: ProjectCard[];
   experiences: JobExperience[];
   pagesInformation: Pages[];
   description: Document;
-  defaultTheme: string;
+  defaultTheme: EntryFields.Text;
 }
 
 export interface Icon {
   name: EntryFields.Text;
-  iconCode: string;
-  classes?: string[];
+  iconCode: EntryFields.Text;
+  classes?: EntryFields.Text[];
   showTooltip: boolean;
 }
 
@@ -39,7 +38,7 @@ export interface FileAsset extends Asset {
   title: EntryFields.Text;
   description: EntryFields.Text;
   file: {
-    url: string;
+    url: EntryFields.Text;
     details: {
       size: number;
       image: {
@@ -47,14 +46,21 @@ export interface FileAsset extends Asset {
         height: number;
       };
     };
-    fileName: string;
-    contentType: string;
+    fileName: EntryFields.Text;
+    contentType: EntryFields.Text;
   };
+}
+
+export interface MetaPage extends EntrySkeletonType {
+  title: EntryFields.Text;
+  pageIcon: Icon;
+  pageUrl: EntryFields.Text;
+  isDefaultPage: EntryFields.Boolean;
 }
 
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
-  identifier: EntryFields.Text;
+  pageIcon: Icon;
   contentAnimation: EntryFields.Text;
   headingAnimation: EntryFields.Text;
   pageData: T;
