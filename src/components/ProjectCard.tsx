@@ -1,14 +1,15 @@
 import React from "react";
-import { FaExternalLinkAlt } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { ProjectCard } from "@utils/contentful";
+import { DynamicIcon } from "@components";
 
 const ProjectCardComp: React.FC<ProjectCard> = ({
   title,
   thumbnail,
   deployedLink,
   description,
+  deployedLinkIcon,
 }: ProjectCard) => {
   return (
     <>
@@ -29,7 +30,7 @@ const ProjectCardComp: React.FC<ProjectCard> = ({
           <p>{description}</p>
           <div className="card-actions justify-end">
             <Link target="_blank" href={deployedLink}>
-              <FaExternalLinkAlt className="w-6 h-6 cursor-pointer" />
+              <DynamicIcon {...deployedLinkIcon} />
             </Link>
           </div>
         </div>

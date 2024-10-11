@@ -12,12 +12,12 @@ const SkillsPage: NextPage = async () => {
   const data = await fetchQuery<SkillsPageSchema>(
     process.env.CONTENTFUL_SKILLS_PAGE_KEY!
   );
-  const { title, identifier, contentAnimation, headingAnimation, pageData } =
+  const { title, pageIcon, contentAnimation, headingAnimation, pageData } =
     data;
   return (
     <>
       <PageWrapper
-        iconId={identifier}
+        icon={pageIcon}
         title={title}
         headingAnimation={headingAnimation}
       >

@@ -1,13 +1,12 @@
 "use client";
 import React, { useEffect, PropsWithChildren, useRef } from "react";
-import { Header, Sidebar, ProfileCard } from "@components";
+import { Header, Sidebar, ProfileCard, DynamicIcon } from "@components";
 import AOS from "aos";
-import { FaArrowRight } from "react-icons/fa";
 import { usePage } from "@hooks";
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const layoutRef = useRef<HTMLDivElement>(null);
-  const { nextPage, changePage } = usePage({ ref: layoutRef });
+  const { nextPageText, changePage } = usePage({ ref: layoutRef });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -37,8 +36,13 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
                 onClick={changePage}
                 className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
               >
-                {nextPage}
-                <FaArrowRight />
+                {nextPageText}
+                <DynamicIcon
+                  classes={[]}
+                  showTooltip={false}
+                  name="Next Page"
+                  iconCode="fa/FaArrowRight"
+                />
               </button>
             </div>
           </div>
