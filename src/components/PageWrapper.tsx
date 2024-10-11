@@ -1,6 +1,6 @@
 import React, { memo, PropsWithChildren } from "react";
 import { Icon } from "@utils/contentful";
-import DynamicIcons from "./DynamicIcon";
+import { DynamicIcon } from "@components";
 
 interface PageWrapperProps {
   title?: string;
@@ -19,7 +19,7 @@ const PageWrapper: React.FC<PropsWithChildren<PageWrapperProps>> = memo(
               className="flex items-center justify-center gap-2 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl"
             >
               <span className="inline-block mr-2">
-                {icon && <DynamicIcons {...icon} />}
+                {icon && <DynamicIcon {...icon} />}
               </span>
               {title}
             </h1>

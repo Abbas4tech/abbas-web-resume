@@ -1,6 +1,6 @@
+import { DynamicIcon } from "@components";
 import { useApplicationData } from "@context";
 import React from "react";
-import DynamicIcons from "./DynamicIcon";
 
 const ThemeSwitch = (): React.JSX.Element => {
   const { themeList, themeIcon } = useApplicationData();
@@ -9,7 +9,7 @@ const ThemeSwitch = (): React.JSX.Element => {
     <>
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn m-1">
-          <DynamicIcons {...themeIcon} />
+          <DynamicIcon {...themeIcon} />
           <svg
             width="12px"
             height="12px"

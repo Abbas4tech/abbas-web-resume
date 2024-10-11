@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, PropsWithChildren, useRef } from "react";
-import { Header, Sidebar, ProfileCard } from "@components";
+import { Header, Sidebar, ProfileCard, DynamicIcon } from "@components";
 import AOS from "aos";
 import { usePage } from "@hooks";
-import DynamicIcons from "./DynamicIcon";
 
 const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
   const layoutRef = useRef<HTMLDivElement>(null);
@@ -38,7 +37,7 @@ const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
                 className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
               >
                 {nextPageText}
-                <DynamicIcons
+                <DynamicIcon
                   classes={[]}
                   showTooltip={false}
                   name="Next Page"

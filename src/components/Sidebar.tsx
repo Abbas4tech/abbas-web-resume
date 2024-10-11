@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import Link from "next/link";
 import { useApplicationData } from "@context";
 import { usePage } from "@hooks";
-import DynamicIcons from "./DynamicIcon";
+import { DynamicIcon } from "@components";
 interface SidebarProps {
   changePage: () => void;
 }
@@ -41,7 +41,7 @@ const Sidebar = memo(({ changePage }: SidebarProps) => {
                     : ""
                 }`}
               >
-                <DynamicIcons {...page.pageIcon} />
+                <DynamicIcon {...page.pageIcon} />
                 {page.title}
               </Link>
             </li>

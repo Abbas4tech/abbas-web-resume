@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ProjectCard } from "@utils/contentful";
-import DynamicIcons from "./DynamicIcon";
+import { DynamicIcon } from "@components";
 
 const ProjectCardComp: React.FC<ProjectCard> = ({
   title,
@@ -30,7 +30,7 @@ const ProjectCardComp: React.FC<ProjectCard> = ({
           <p>{description}</p>
           <div className="card-actions justify-end">
             <Link target="_blank" href={deployedLink}>
-              <DynamicIcons {...deployedLinkIcon} />
+              <DynamicIcon {...deployedLinkIcon} />
             </Link>
           </div>
         </div>

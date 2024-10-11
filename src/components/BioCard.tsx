@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { BioCard } from "@utils/contentful";
-import DynamicIcons from "./DynamicIcon";
+import { DynamicIcon } from "@components";
 
 const BioCardComp = memo(({ title, value, icon }: BioCard) => {
   BioCardComp.displayName = "BioCard";
@@ -9,7 +9,7 @@ const BioCardComp = memo(({ title, value, icon }: BioCard) => {
       <div className="w-full shadow stats bg-base-300">
         <div className="p-2 md:p-4 stat">
           <div className="stat-figure">
-            <DynamicIcons {...icon} />
+            <DynamicIcon {...icon} />
           </div>
           <div className="stat-title">{title}</div>
           <div className="text-lg font-normal md:font-semibold lg:text-xl xl:text-2xl stat-value">

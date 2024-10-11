@@ -1,7 +1,6 @@
 import React from "react";
-import { SkillGroup as SkillGroupItem } from "@components";
+import { DynamicIcon, SkillGroup as SkillGroupItem } from "@components";
 import { SkillGroup, SkillSet } from "@utils/contentful";
-import DynamicIcons from "./DynamicIcon";
 
 const SkillSetItem: React.FC<SkillSet> = ({
   title,
@@ -15,7 +14,7 @@ const SkillSetItem: React.FC<SkillSet> = ({
     >
       <div className="p-4 bg-base-200">
         <div className="flex items-center mb-4 text-xl font-bold md:text-3xl">
-          <DynamicIcons {...icon} />
+          <DynamicIcon {...icon} />
           <h1 className="flex ml-4">{title}</h1>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-2 md:p-4">
