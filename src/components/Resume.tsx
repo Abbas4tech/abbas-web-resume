@@ -8,7 +8,6 @@ const ResumeComp = memo(() => {
   return (
     <div className="md:px-4 md:py-2 px-2 py-1 cursor-pointer">
       <Link
-        className={resumeIcon.classes?.join(" ") + " block"}
         target="_blank"
         passHref
         href={`https:${resume.file.url}`}
