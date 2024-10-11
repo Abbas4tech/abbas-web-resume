@@ -6,9 +6,11 @@ export interface ApplicationData extends EntrySkeletonType {
   profilePicture: FileAsset;
   name: EntryFields.Text;
   themeList: EntryFields.Text[];
+  themeIcon: Icon;
   role: EntryFields.Text;
   bannerData: Banner;
   resume: FileAsset;
+  resumeIcon: Icon;
   pages: MetaPage[];
   info: BioCard[];
   technologies: SkillSet[];
@@ -74,6 +76,7 @@ export type Pages = ExperiencePage | SkillsPage | ProjectsPage;
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;
   deployedLink: EntryFields.Text;
+  deployedLinkIcon: Icon;
   thumbnail: FileAsset;
   description: EntryFields.Text;
 }

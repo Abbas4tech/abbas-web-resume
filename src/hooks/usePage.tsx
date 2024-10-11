@@ -17,7 +17,7 @@ const usePage = ({ ref }: usePageProps) => {
 
   const defaultRoute = defaultPage.pageUrl;
 
-  const [nextPage, setNextPage] = useState<MetaPage>(defaultPage as MetaPage);
+  const [nextPage, setNextPage] = useState<MetaPage>(defaultPage);
 
   const currentPageData = pages.find(
     (page) => page.pageUrl === usePathname()
