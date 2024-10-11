@@ -1,17 +1,14 @@
 import Link from "next/link";
 import React, { memo } from "react";
-import { GrDocumentDownload } from "react-icons/gr";
 import { useApplicationData } from "@context";
+import { DynamicIcon } from "@components";
 
 const ResumeComp = memo(() => {
-  const { resume } = useApplicationData();
+  const { resume, resumeIcon } = useApplicationData();
   return (
-    <div
-      data-tip={resume.description}
-      className="md:px-4 md:py-2 px-2 py-1 cursor-pointer tooltip tooltip-left"
-    >
+    <div className="md:px-4 md:py-2 px-2 py-1 cursor-pointer">
       <Link target="_blank" passHref href={`https:${resume.file.url}`}>
-        <GrDocumentDownload className="w-4 h-4 lg:w-6 lg:h-6" />
+        <DynamicIcon {...resumeIcon} />
       </Link>
     </div>
   );

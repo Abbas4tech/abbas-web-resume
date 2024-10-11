@@ -1,16 +1,16 @@
 import { SkillGroup } from "@utils/contentful";
 import React, { memo } from "react";
-import { Skill } from "@components";
+import { DynamicIcon } from "@components";
 
 const SkillGroupItem: React.FC<SkillGroup> = memo(
-  ({ skillProgress, skills, title }: SkillGroup) => {
+  ({ skillProgress, skillIcons, title }: SkillGroup) => {
     SkillGroupItem.displayName = "SkillGroupItem";
     return (
       <div>
         <div key={title} className="grid items-center grid-cols-2">
           <div className="flex gap-4 text-xl md:text-4xl">
-            {skills.map((icon: string) => (
-              <Skill skillName={icon} key={icon} />
+            {skillIcons.map((skill) => (
+              <DynamicIcon key={skill.name} {...skill} />
             ))}
           </div>
           <div className="relative w-full h-1 bg-gray-600 rounded-2xl">
