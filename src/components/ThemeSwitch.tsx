@@ -1,15 +1,15 @@
+import { DynamicIcon } from "@components";
 import { useApplicationData } from "@context";
 import React from "react";
-import { TbColorSwatch } from "react-icons/tb";
 
 const ThemeSwitch = (): React.JSX.Element => {
-  const { themeList } = useApplicationData();
+  const { themeList, themeIcon } = useApplicationData();
 
   return (
     <>
       <div className="dropdown dropdown-end">
         <div tabIndex={0} role="button" className="btn m-1">
-          <TbColorSwatch className="w-4 h-4 lg:w-6 lg:h-6" />
+          <DynamicIcon {...themeIcon} />
           <svg
             width="12px"
             height="12px"

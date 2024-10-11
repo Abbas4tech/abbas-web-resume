@@ -4,7 +4,7 @@ import { ThemeSwitch, Resume as ResumeComponent } from "@components";
 import { useApplicationData } from "@context";
 
 const Header = memo(() => {
-  const { title, defaultPage } = useApplicationData();
+  const { title } = useApplicationData();
 
   return (
     <header className="container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center p-2">

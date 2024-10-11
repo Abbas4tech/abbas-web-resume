@@ -6,18 +6,26 @@ export interface ApplicationData extends EntrySkeletonType {
   profilePicture: FileAsset;
   name: EntryFields.Text;
   themeList: EntryFields.Text[];
+  themeIcon: Icon;
   role: EntryFields.Text;
   bannerData: Banner;
-  defaultPage: string;
   resume: FileAsset;
-  pages: string[];
+  resumeIcon: Icon;
+  pages: MetaPage[];
   info: BioCard[];
   technologies: SkillSet[];
   projects: ProjectCard[];
   experiences: JobExperience[];
   pagesInformation: Pages[];
   description: Document;
-  defaultTheme: string;
+  defaultTheme: EntryFields.Text;
+}
+
+export interface Icon {
+  name: EntryFields.Text;
+  iconCode: EntryFields.Text;
+  classes?: EntryFields.Text[];
+  showTooltip: boolean;
 }
 
 export interface Banner {
@@ -32,7 +40,7 @@ export interface FileAsset extends Asset {
   title: EntryFields.Text;
   description: EntryFields.Text;
   file: {
-    url: string;
+    url: EntryFields.Text;
     details: {
       size: number;
       image: {
@@ -40,14 +48,21 @@ export interface FileAsset extends Asset {
         height: number;
       };
     };
-    fileName: string;
-    contentType: string;
+    fileName: EntryFields.Text;
+    contentType: EntryFields.Text;
   };
+}
+
+export interface MetaPage extends EntrySkeletonType {
+  title: EntryFields.Text;
+  pageIcon: Icon;
+  pageUrl: EntryFields.Text;
+  isDefaultPage: EntryFields.Boolean;
 }
 
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
-  identifier: EntryFields.Text;
+  pageIcon: Icon;
   contentAnimation: EntryFields.Text;
   headingAnimation: EntryFields.Text;
   pageData: T;
@@ -61,6 +76,7 @@ export type Pages = ExperiencePage | SkillsPage | ProjectsPage;
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;
   deployedLink: EntryFields.Text;
+  deployedLinkIcon: Icon;
   thumbnail: FileAsset;
   description: EntryFields.Text;
 }
@@ -68,31 +84,36 @@ export interface ProjectCard extends EntrySkeletonType {
 export interface BioCard {
   title: EntryFields.Text;
   value: EntryFields.Text;
-  identifier: EntryFields.Text;
+  icon: Icon;
 }
 
 export interface JobExperience extends EntrySkeletonType {
   company: EntryFields.Text;
+  companyIcon: Icon;
   description: EntryFields.Text;
   position: EntryFields.Text;
+  roleIcon: Icon;
   workedRemotely: EntryFields.Boolean;
   startDate: EntryFields.Text;
   endDate: EntryFields.Text;
+  durationIcon: Icon;
   location: EntryFields.Text;
+  locationIcon: Icon;
   currentlyWorking: EntryFields.Boolean;
   techStack: SkillGroup;
+  techStackIcon: Icon;
 }
 
 export interface SkillGroup extends EntrySkeletonType {
   title: EntryFields.Text;
   skillProgress: EntryFields.Number;
-  skills: EntryFields.Text[];
+  skillIcons: Icon[];
 }
 
 export interface SkillSet extends EntrySkeletonType {
   title: EntryFields.Text;
   skillsetIcon: Asset;
-  identifier: EntryFields.Text;
+  icon: Icon;
   skillsArray: SkillGroup[];
 }
 

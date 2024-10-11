@@ -7,6 +7,25 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "tooltip-left",
+    "w-4",
+    "h-4",
+    "lg:w-6",
+    "lg:h-6",
+    "block",
+    "w-6",
+    "h-6",
+    "sm:w-8",
+    "sm:h-8",
+    "xl:block",
+    "lg:hidden",
+    "text-warning",
+    "text-info",
+    "text-success",
+    "text-error",
+  ],
+
   theme: {
     extend: {
       backgroundImage: {
@@ -18,7 +37,7 @@ const config: Config = {
   },
   plugins: [
     require("daisyui"),
-    function ({ addUtilities }:{addUtilities: any}) {
+    function ({ addUtilities }: { addUtilities: any }) {
       const newUtilities = {
         ".scrollbar-hide": {
           "-ms-overflow-style": "none" /* IE */,

@@ -1,13 +1,12 @@
 "use client";
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, PropsWithChildren } from "react";
 import { ApplicationData } from "@utils/contentful";
 
 export const ApplicationContext = createContext<{
   data: ApplicationData;
 } | null>(null);
 
-interface DataProviderProps {
-  children: ReactNode;
+interface DataProviderProps extends PropsWithChildren {
   initialData: ApplicationData;
 }
 
