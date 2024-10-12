@@ -54,6 +54,13 @@ export const fetchPageMetadata = async <T extends Pages>(
       twitter: {
         title,
         description,
+        images: images.map((image) => ({
+          url: `https:${image.file.url}`,
+          alt: image.file.fileName,
+          height: image.file.details.image.height,
+          width: image.file.details.image.width,
+        })),
+        creator,
       },
     };
   } catch (error) {
