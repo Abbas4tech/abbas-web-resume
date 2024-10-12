@@ -1,28 +1,21 @@
 "use client";
 import React, { useEffect, PropsWithChildren, useRef } from "react";
 import { Header, Sidebar, ProfileCard, DynamicIcon } from "@components";
-import AOS from "aos";
 import { usePage } from "@hooks";
+import AOS from "aos";
 
-const Layout: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const layoutRef = useRef<HTMLDivElement>(null);
   const { nextPageText, changePage } = usePage({ ref: layoutRef });
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      AOS.init();
-    }
+    if (typeof window !== "undefined") AOS.init();
   }, []);
 
   return (
     <>
       <Header />
-      <div
-        style={{
-          height: "calc(100vh - 5rem)",
-        }}
-        className="w-full container overflow-hidden md:text-lg h-[calc(100vh - 5rem)] text-sm mx-auto"
-      >
+      <div className="w-full wrapper container overflow-hidden md:text-lg text-sm mx-auto">
         <div className={"drawer lg:drawer-open"}>
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div
