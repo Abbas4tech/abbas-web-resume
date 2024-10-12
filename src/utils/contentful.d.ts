@@ -3,22 +3,16 @@ import { Document } from "@contentful/rich-text-types";
 
 export interface ApplicationData extends EntrySkeletonType {
   title: EntryFields.Text;
-  profilePicture: FileAsset;
   name: EntryFields.Text;
-  themeList: EntryFields.Text[];
-  themeIcon: Icon;
-  role: EntryFields.Text;
   bannerData: Banner;
+  role: EntryFields.Text;
+  pages: MetaPage[];
   resume: FileAsset;
   resumeIcon: Icon;
-  pages: MetaPage[];
-  info: BioCard[];
-  technologies: SkillSet[];
-  projects: ProjectCard[];
-  experiences: JobExperience[];
-  pagesInformation: Pages[];
-  description: Document;
+  themeList: EntryFields.Text[];
+  themeIcon: Icon;
   defaultTheme: EntryFields.Text;
+  pagesInformation: Pages[];
 }
 
 export interface Icon {
@@ -72,6 +66,11 @@ export interface MetaPage extends EntrySkeletonType {
   isDefaultPage: EntryFields.Boolean;
 }
 
+export interface HomePageData extends EntrySkeletonType {
+  info: BioCard[];
+  description: Document;
+}
+
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
   pageIcon: Icon;
@@ -84,7 +83,8 @@ export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
 export type ExperiencePage = Page<JobExperience[]>;
 export type SkillsPage = Page<SkillSet[]>;
 export type ProjectsPage = Page<ProjectCard[]>;
-export type Pages = ExperiencePage | SkillsPage | ProjectsPage;
+export type HomePage = Page<HomePageData[]>;
+export type Pages = ExperiencePage | SkillsPage | ProjectsPage | HomePage;
 
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;

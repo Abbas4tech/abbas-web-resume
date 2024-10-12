@@ -1,17 +1,24 @@
 import React from "react";
-import { NextPage } from "next";
-import { ApplicationData } from "@utils/contentful";
+import { Metadata, NextPage } from "next";
+import { HomePage } from "@utils/contentful";
 import { BioCard, PageWrapper, RichText } from "@components";
-import { fetchQuery } from "@utils/api";
+import { fetchPageMetadata, fetchQuery } from "@utils/api";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
+};
 
 const Home: NextPage = async () => {
-  const { info, description } = await fetchQuery<ApplicationData>(
-    process.env.CONTENTFUL_APPLICATION_DATA_ID!
-  );
+  const { pageData, contentAnimation, headingAnimation, title } =
+    await fetchQuery<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
+  const { info, description } = pageData[0];
   return (
     <>
-      <PageWrapper>
-        <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
+      <PageWrapper headingAnimation={headingAnimation} title={title}>
+        <div
+          data-aos={contentAnimation}
+          className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl"
+        >
           <RichText
             paragraphClass="py-1.5 text-center md:text-xl"
             document={description}
