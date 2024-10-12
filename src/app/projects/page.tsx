@@ -16,6 +16,7 @@ const ProjectsPage: NextPage = async () => {
   );
   const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
     data;
+  const { projects } = pageData;
   return (
     <PageWrapper
       icon={pageIcon}
@@ -26,7 +27,7 @@ const ProjectsPage: NextPage = async () => {
         className={`columns-1 md:columns-2 my-2 rounded-xl gap-4`}
         data-aos={contentAnimation}
       >
-        {pageData.map((item, index: number) => (
+        {projects.map((item, index: number) => (
           <ProjectCardItem key={index} {...item} />
         ))}
       </div>

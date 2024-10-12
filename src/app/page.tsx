@@ -11,7 +11,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 const Home: NextPage = async () => {
   const { pageData, contentAnimation, headingAnimation, title } =
     await fetchQuery<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
-  const { info, description } = pageData[0];
+  const { info, description } = pageData;
   return (
     <>
       <PageWrapper headingAnimation={headingAnimation} title={title}>

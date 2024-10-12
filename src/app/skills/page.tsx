@@ -16,6 +16,7 @@ const SkillsPage: NextPage = async () => {
   );
   const { title, pageIcon, contentAnimation, headingAnimation, pageData } =
     data;
+  const { skillsSet } = pageData;
   return (
     <>
       <PageWrapper
@@ -24,7 +25,7 @@ const SkillsPage: NextPage = async () => {
         headingAnimation={headingAnimation}
       >
         <div className={`flex flex-col gap-4`} data-aos={contentAnimation}>
-          {pageData.map((item, index: number) => (
+          {skillsSet.map((item, index: number) => (
             <SkillSetItem {...item} key={index} />
           ))}
         </div>

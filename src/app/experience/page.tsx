@@ -19,6 +19,7 @@ const ExperiencePage: NextPage = async () => {
   );
   const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
     data;
+  const { experiences } = pageData;
   return (
     <>
       <PageWrapper
@@ -30,7 +31,7 @@ const ExperiencePage: NextPage = async () => {
           className={`px-2 pl-4 mt-2 md:mt-4 md:px-12`}
           data-aos={contentAnimation}
         >
-          {pageData.map((experience: JobExperience, index: number) => (
+          {experiences.map((experience: JobExperience, index: number) => (
             <ExperienceCard {...experience} key={index} />
           ))}
         </div>

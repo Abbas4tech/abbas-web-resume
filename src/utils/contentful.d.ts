@@ -71,6 +71,21 @@ export interface HomePageData extends EntrySkeletonType {
   description: Document;
 }
 
+export interface SkillsPageData extends EntrySkeletonType {
+  title: EntryFields.Text;
+  skillsSet: SkillSet[];
+}
+
+export interface ExperiencePageData extends EntrySkeletonType {
+  title: EntryFields.Text;
+  experiences: JobExperience[];
+}
+
+export interface ProjectsPageData extends EntrySkeletonType {
+  title: EntryFields.Text;
+  projects: ProjectCard[];
+}
+
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
   pageIcon: Icon;
@@ -80,10 +95,10 @@ export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   pageData: T;
 }
 
-export type ExperiencePage = Page<JobExperience[]>;
-export type SkillsPage = Page<SkillSet[]>;
-export type ProjectsPage = Page<ProjectCard[]>;
-export type HomePage = Page<HomePageData[]>;
+export type ExperiencePage = Page<ExperiencePageData>;
+export type SkillsPage = Page<SkillsPageData>;
+export type ProjectsPage = Page<ProjectsPageData>;
+export type HomePage = Page<HomePageData>;
 export type Pages = ExperiencePage | SkillsPage | ProjectsPage | HomePage;
 
 export interface ProjectCard extends EntrySkeletonType {
