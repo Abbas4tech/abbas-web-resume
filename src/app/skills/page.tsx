@@ -2,10 +2,12 @@ import React from "react";
 import { NextPage, Metadata } from "next";
 import { SkillSetItem, PageWrapper } from "@components";
 import { SkillsPage as SkillsPageSchema } from "@utils/contentful";
-import { fetchQuery } from "@utils/api";
+import { fetchPageMetadata, fetchQuery } from "@utils/api";
 
-export const metadata: Metadata = {
-  title: "Abbas | Skills",
+export const generateMetadata = async (): Promise<Metadata> => {
+  return fetchPageMetadata<SkillsPageSchema>(
+    process.env.CONTENTFUL_SKILLS_PAGE_KEY!
+  );
 };
 
 const SkillsPage: NextPage = async () => {

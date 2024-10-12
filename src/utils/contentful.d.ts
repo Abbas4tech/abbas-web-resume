@@ -36,6 +36,18 @@ export interface Banner {
   socialLinks: FileAsset[];
 }
 
+export interface SEOData {
+  title: EntryFields.Text;
+  description: EntryFields.Text;
+  keywords: EntryFields.Text[];
+  countryName: EntryFields.Text;
+  publisher: EntryFields.Text;
+  creator: EntryFields.Text;
+  images: FileAsset[];
+  url: EntryFields.Text;
+  siteName: EntryFields.Text;
+}
+
 export interface FileAsset extends Asset {
   title: EntryFields.Text;
   description: EntryFields.Text;
@@ -65,6 +77,7 @@ export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   pageIcon: Icon;
   contentAnimation: EntryFields.Text;
   headingAnimation: EntryFields.Text;
+  pageSeo: SEOData;
   pageData: T;
 }
 
