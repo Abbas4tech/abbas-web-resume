@@ -11,4 +11,4 @@ export { default as SkillGroup } from "./SkillGroup";
 export { default as SkillSetItem } from "./SkillSet";
 export { default as ThemeSwitch } from "./ThemeSwitch";
 export { default as RichText } from "./RichText";
-export { default as DynamicIcon } from "./DynamicIcon";
+export { default as DynamicIcon } from "./Dynamic-Icon/DynamicIcon";
