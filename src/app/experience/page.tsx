@@ -1,11 +1,17 @@
 import React from "react";
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import {
   ExperiencePage as ExperiencePageSchema,
   JobExperience,
 } from "@utils/contentful";
 import { PageWrapper, ExperienceCard } from "@components";
-import { fetchQuery } from "@utils/api";
+import { fetchQuery, fetchPageMetadata } from "@utils/api";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return fetchPageMetadata<ExperiencePageSchema>(
+    process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
+  );
+};
 
 const ExperiencePage: NextPage = async () => {
   const data: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
@@ -13,6 +19,7 @@ const ExperiencePage: NextPage = async () => {
   );
   const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
     data;
+  const { experiences } = pageData;
   return (
     <>
       <PageWrapper
@@ -24,7 +31,7 @@ const ExperiencePage: NextPage = async () => {
           className={`px-2 pl-4 mt-2 md:mt-4 md:px-12`}
           data-aos={contentAnimation}
         >
-          {pageData.map((experience: JobExperience, index: number) => (
+          {experiences.map((experience: JobExperience, index: number) => (
             <ExperienceCard {...experience} key={index} />
           ))}
         </div>

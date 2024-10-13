@@ -1,8 +1,14 @@
 import React from "react";
-import { NextPage } from "next";
+import { Metadata, NextPage } from "next";
 import { ProjectsPage as ProjectsPageSchema } from "@utils/contentful";
 import { ProjectCardItem, PageWrapper } from "@components";
-import { fetchQuery } from "@utils/api";
+import { fetchPageMetadata, fetchQuery } from "@utils/api";
+
+export const generateMetadata = async (): Promise<Metadata> => {
+  return fetchPageMetadata<ProjectsPageSchema>(
+    process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
+  );
+};
 
 const ProjectsPage: NextPage = async () => {
   const data = await fetchQuery<ProjectsPageSchema>(
@@ -10,6 +16,7 @@ const ProjectsPage: NextPage = async () => {
   );
   const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
     data;
+  const { projects } = pageData;
   return (
     <PageWrapper
       icon={pageIcon}
@@ -20,7 +27,7 @@ const ProjectsPage: NextPage = async () => {
         className={`columns-1 md:columns-2 my-2 rounded-xl gap-4`}
         data-aos={contentAnimation}
       >
-        {pageData.map((item, index: number) => (
+        {projects.map((item, index: number) => (
           <ProjectCardItem key={index} {...item} />
         ))}
       </div>

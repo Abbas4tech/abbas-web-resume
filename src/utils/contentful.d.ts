@@ -3,22 +3,16 @@ import { Document } from "@contentful/rich-text-types";
 
 export interface ApplicationData extends EntrySkeletonType {
   title: EntryFields.Text;
-  profilePicture: FileAsset;
   name: EntryFields.Text;
-  themeList: EntryFields.Text[];
-  themeIcon: Icon;
-  role: EntryFields.Text;
   bannerData: Banner;
+  role: EntryFields.Text;
+  pages: MetaPage[];
   resume: FileAsset;
   resumeIcon: Icon;
-  pages: MetaPage[];
-  info: BioCard[];
-  technologies: SkillSet[];
-  projects: ProjectCard[];
-  experiences: JobExperience[];
-  pagesInformation: Pages[];
-  description: Document;
+  themeList: EntryFields.Text[];
+  themeIcon: Icon;
   defaultTheme: EntryFields.Text;
+  pagesInformation: Pages[];
 }
 
 export interface Icon {
@@ -34,6 +28,18 @@ export interface Banner {
   bannerImage: FileAsset;
   bannerAnimation: EntryFields.Text;
   socialLinks: FileAsset[];
+}
+
+export interface SEOData {
+  title: EntryFields.Text;
+  description: EntryFields.Text;
+  keywords: EntryFields.Text[];
+  countryName: EntryFields.Text;
+  publisher: EntryFields.Text;
+  creator: EntryFields.Text;
+  images: FileAsset[];
+  url: EntryFields.Text;
+  siteName: EntryFields.Text;
 }
 
 export interface FileAsset extends Asset {
@@ -60,18 +66,40 @@ export interface MetaPage extends EntrySkeletonType {
   isDefaultPage: EntryFields.Boolean;
 }
 
+export interface HomePageData extends EntrySkeletonType {
+  info: BioCard[];
+  description: Document;
+}
+
+export interface SkillsPageData extends EntrySkeletonType {
+  title: EntryFields.Text;
+  skillsSet: SkillSet[];
+}
+
+export interface ExperiencePageData extends EntrySkeletonType {
+  title: EntryFields.Text;
+  experiences: JobExperience[];
+}
+
+export interface ProjectsPageData extends EntrySkeletonType {
+  title: EntryFields.Text;
+  projects: ProjectCard[];
+}
+
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
   pageIcon: Icon;
   contentAnimation: EntryFields.Text;
   headingAnimation: EntryFields.Text;
+  pageSeo: SEOData;
   pageData: T;
 }
 
-export type ExperiencePage = Page<JobExperience[]>;
-export type SkillsPage = Page<SkillSet[]>;
-export type ProjectsPage = Page<ProjectCard[]>;
-export type Pages = ExperiencePage | SkillsPage | ProjectsPage;
+export type ExperiencePage = Page<ExperiencePageData>;
+export type SkillsPage = Page<SkillsPageData>;
+export type ProjectsPage = Page<ProjectsPageData>;
+export type HomePage = Page<HomePageData>;
+export type Pages = ExperiencePage | SkillsPage | ProjectsPage | HomePage;
 
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;

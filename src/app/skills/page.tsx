@@ -2,10 +2,12 @@ import React from "react";
 import { NextPage, Metadata } from "next";
 import { SkillSetItem, PageWrapper } from "@components";
 import { SkillsPage as SkillsPageSchema } from "@utils/contentful";
-import { fetchQuery } from "@utils/api";
+import { fetchPageMetadata, fetchQuery } from "@utils/api";
 
-export const metadata: Metadata = {
-  title: "Abbas | Skills",
+export const generateMetadata = async (): Promise<Metadata> => {
+  return fetchPageMetadata<SkillsPageSchema>(
+    process.env.CONTENTFUL_SKILLS_PAGE_KEY!
+  );
 };
 
 const SkillsPage: NextPage = async () => {
@@ -14,6 +16,7 @@ const SkillsPage: NextPage = async () => {
   );
   const { title, pageIcon, contentAnimation, headingAnimation, pageData } =
     data;
+  const { skillsSet } = pageData;
   return (
     <>
       <PageWrapper
@@ -22,7 +25,7 @@ const SkillsPage: NextPage = async () => {
         headingAnimation={headingAnimation}
       >
         <div className={`flex flex-col gap-4`} data-aos={contentAnimation}>
-          {pageData.map((item, index: number) => (
+          {skillsSet.map((item, index: number) => (
             <SkillSetItem {...item} key={index} />
           ))}
         </div>

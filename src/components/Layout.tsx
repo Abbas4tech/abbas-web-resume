@@ -15,7 +15,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="w-full wrapper container overflow-hidden md:text-lg text-sm mx-auto">
+      <main className="w-full wrapper container overflow-hidden md:text-lg text-sm mx-auto">
         <div className={"drawer lg:drawer-open"}>
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div
@@ -41,7 +41,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           </div>
           <Sidebar changePage={changePage} />
         </div>
-      </div>
+      </main>
     </>
   );
 };
