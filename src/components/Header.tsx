@@ -7,7 +7,7 @@ const Header = memo(() => {
   const { title } = useApplicationData();
 
   return (
-    <header className="container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center p-2">
+    <header className="container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2">
       <nav className="navbar bg-base-100">
         <div className="navbar-start gap-2">
           <label
@@ -31,12 +31,12 @@ const Header = memo(() => {
             </svg>
           </label>
 
-          <button className="text-lg normal-case lg:text-2xl p-2 btn btn-ghost">
+          <button className="text-lg normal-case lg:text-2xl p-0 md:p-2 btn btn-ghost">
             {title}
           </button>
         </div>
 
-        <div className="navbar-end items-center">
+        <div className="navbar-end items-center gap-2">
           <ResumeComponent />
           <ThemeSwitch />
         </div>
