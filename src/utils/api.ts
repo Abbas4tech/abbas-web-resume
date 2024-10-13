@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import { Pages } from "./contentful";
 
 const client = createClient({
-  accessToken: process.env.CONTENTFUL_API_KEY!,
+  accessToken: "7Xqn0FowV95IGZGEx72dFzslmBHvIFNaYLEyEDMVHB0",
   space: process.env.CONTENTFUL_SPACE_ID!,
-  environment: process.env.CONTENTFUL_ENVIRONMENT_ID!,
+  environment: "production",
 });
 
 export const fetchQuery = async <T extends EntrySkeletonType>(
@@ -43,7 +43,7 @@ export const fetchPageMetadata = async <T extends Pages>(
         countryName,
         images: images.map((image) => ({
           url: `https:${image.file.url}`,
-          alt: image.file.fileName,
+          alt: image.title,
           height: image.file.details.image.height,
           width: image.file.details.image.width,
         })),
