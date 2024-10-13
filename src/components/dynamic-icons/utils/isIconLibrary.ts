@@ -1,4 +1,4 @@
-import { IconLibrary } from "./types";
+import { IconLibrary } from "../types";
 
 /**
  * Checks if the provided library name is a valid IconLibrary.

@@ -1,7 +1,7 @@
 import dynamic, { Loader } from "next/dynamic";
 import { ComponentType } from "react";
 import { IconType, IconBaseProps } from "react-icons";
-import { IconLibrary, IconModule } from "./types";
+import { IconLibrary, IconModule } from "../types";
 
 /**
  * Mapping of icon libraries to their corresponding dynamic import functions.

@@ -1,6 +1,6 @@
 import React, { memo, useMemo } from "react";
-import { isIconLibrary } from "./isIconLibrary";
-import { loadIcon } from "./loadIcon";
+import { isIconLibrary } from "./utils/isIconLibrary";
+import { loadIcon } from "./utils/loadIcon";
 import { IconProps } from "./types";
 
 /**
