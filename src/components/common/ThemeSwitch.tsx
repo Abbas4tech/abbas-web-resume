@@ -8,12 +8,12 @@ const ThemeSwitch = (): React.JSX.Element => {
   return (
     <>
       <div className="dropdown dropdown-end">
-        <div tabIndex={0} role="button" className="btn m-1">
+        <div tabIndex={0} role="button" className="md:btn md:m-1 mx-2">
           <DynamicIcon {...themeIcon} />
           <svg
             width="12px"
             height="12px"
-            className="inline-block h-2 w-2 fill-current opacity-60"
+            className="md:inline-block hidden h-2 w-2 fill-current opacity-60"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 2048 2048"
           >

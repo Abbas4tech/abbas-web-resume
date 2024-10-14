@@ -24,7 +24,7 @@ const ProjectsPage: NextPage = async () => {
       headingAnimation={headingAnimation}
     >
       <div
-        className={`columns-1 md:columns-2 my-2 rounded-xl gap-4`}
+        className={`grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4`}
         data-aos={contentAnimation}
       >
         {projects.map((item, index: number) => (
