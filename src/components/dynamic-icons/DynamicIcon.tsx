@@ -2,6 +2,7 @@ import React, { memo, useMemo } from "react";
 import { isIconLibrary } from "./utils/isIconLibrary";
 import { loadIcon } from "./utils/loadIcon";
 import { IconProps } from "./types";
+import { MdError } from "react-icons/md";
 
 /**
  * A React component that dynamically loads and renders an icon from react-icons.
@@ -14,15 +15,14 @@ const DynamicIcon: React.FC<IconProps> = memo(
 
     const [library, iconName] = iconCode.split("/") as [string, string];
 
-    if (!isIconLibrary(library)) {
-      console.error(`Invalid icon library: "${library}"`);
-      return null;
-    }
-
-    const IconComponent = useMemo(
-      () => loadIcon(library, iconName),
-      [library, iconName]
-    );
+    const IconComponent = useMemo(() => {
+      if (isIconLibrary(library)) {
+        return loadIcon(library, iconName);
+      } else {
+        console.error(`Invalid icon library: "${library}"`);
+        return MdError;
+      }
+    }, [library, iconName]);
 
     const iconClasses = "flex items-center";
 

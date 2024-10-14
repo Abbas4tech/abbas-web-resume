@@ -57,12 +57,12 @@ export const loadIcon = (
 ): ComponentType<IconBaseProps> => {
   const loader: Loader<IconBaseProps> = async () => {
     try {
-      const module: IconModule = await libraryImportPaths[library]();
-      if (!module[iconName]) {
+      const iconModule: IconModule = await libraryImportPaths[library]();
+      if (!iconModule[iconName]) {
         console.error(`Icon "${iconName}" not found in library "${library}"`);
         return () => null;
       }
-      return module[iconName] as IconType;
+      return iconModule[iconName] as IconType;
     } catch (error) {
       console.error(`Failed to load icons from library "${library}":`, error);
       return () => null;
