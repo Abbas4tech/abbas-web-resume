@@ -4,11 +4,6 @@ import { loadIcon } from "./utils/loadIcon";
 import { IconProps } from "./types";
 import { MdError } from "react-icons/md";
 
-/**
- * A React component that dynamically loads and renders an icon from react-icons.
- * @param props - The properties for the icon.
- * @returns A React element rendering the specified icon.
- */
 const DynamicIcon: React.FC<IconProps> = memo(
   ({ iconCode, classes = [], showTooltip = true, name }) => {
     DynamicIcon.displayName = "DynamicIcon";

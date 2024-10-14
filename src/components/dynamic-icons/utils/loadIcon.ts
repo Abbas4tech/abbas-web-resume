@@ -3,9 +3,6 @@ import { ComponentType } from "react";
 import { IconType, IconBaseProps } from "react-icons";
 import { IconLibrary, IconModule } from "../types";
 
-/**
- * Mapping of icon libraries to their corresponding dynamic import functions.
- */
 export const libraryImportPaths: Record<
   IconLibrary,
   () => Promise<IconModule>
@@ -19,13 +16,6 @@ export const libraryImportPaths: Record<
   si: () => import("react-icons/si"),
 };
 
-/**
- * Dynamically loads an icon component from the specified library.
- * @param library - The icon library to import from.
- * @param iconName - The name of the icon to import.
- * @param loadingComponent - Optional React component to display while loading.
- * @returns A dynamically loaded React component for the icon.
- */
 export const loadIcon = (
   library: IconLibrary,
   iconName: string
