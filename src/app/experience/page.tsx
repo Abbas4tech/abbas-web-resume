@@ -14,12 +14,16 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const ExperiencePage: NextPage = async () => {
-  const data: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
+  const {
+    title,
+    pageIcon,
+    headingAnimation,
+    contentAnimation,
+    pageData: { experiences },
+  }: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
     process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
   );
-  const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
-    data;
-  const { experiences } = pageData;
+
   return (
     <>
       <PageWrapper

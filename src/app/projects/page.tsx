@@ -11,12 +11,16 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const ProjectsPage: NextPage = async () => {
-  const data = await fetchQuery<ProjectsPageSchema>(
+  const {
+    title,
+    pageIcon,
+    headingAnimation,
+    contentAnimation,
+    pageData: { projects },
+  } = await fetchQuery<ProjectsPageSchema>(
     process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
   );
-  const { title, pageIcon, headingAnimation, contentAnimation, pageData } =
-    data;
-  const { projects } = pageData;
+
   return (
     <PageWrapper
       icon={pageIcon}

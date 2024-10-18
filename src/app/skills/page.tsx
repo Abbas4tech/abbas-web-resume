@@ -11,12 +11,16 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 const SkillsPage: NextPage = async () => {
-  const data = await fetchQuery<SkillsPageSchema>(
+  const {
+    title,
+    pageIcon,
+    contentAnimation,
+    headingAnimation,
+    pageData: { skillsSet },
+  } = await fetchQuery<SkillsPageSchema>(
     process.env.CONTENTFUL_SKILLS_PAGE_KEY!
   );
-  const { title, pageIcon, contentAnimation, headingAnimation, pageData } =
-    data;
-  const { skillsSet } = pageData;
+
   return (
     <>
       <PageWrapper
