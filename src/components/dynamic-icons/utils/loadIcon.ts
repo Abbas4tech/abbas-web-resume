@@ -34,7 +34,5 @@ export const loadIcon = (
     }
   };
 
-  return dynamic<IconBaseProps>(() => loader(), {
-    ssr: false,
-  });
+  return dynamic<IconBaseProps>(() => loader());
 };
