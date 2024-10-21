@@ -1,10 +1,10 @@
 import React, { memo, useMemo } from "react";
 import { isIconLibrary } from "./utils/isIconLibrary";
 import { loadIcon } from "./utils/loadIcon";
-import { IconProps } from "./types";
 import { MdError } from "react-icons/md";
+import { Icon } from "@utils/contentful";
 
-const DynamicIcon: React.FC<IconProps> = memo(
+const DynamicIcon: React.FC<Icon> = memo(
   ({ iconCode, classes = [], showTooltip = true, name }) => {
     DynamicIcon.displayName = "DynamicIcon";
 

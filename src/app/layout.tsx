@@ -5,6 +5,7 @@ import { ApplicationDataProvider } from "@context";
 import { ApplicationData } from "@utils/contentful";
 import "./globals.css";
 import { fetchQuery } from "@utils/api";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
         <ApplicationDataProvider initialData={data}>
           <Layout>{children}</Layout>
         </ApplicationDataProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
