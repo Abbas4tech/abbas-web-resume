@@ -1,11 +1,10 @@
 import React, { memo, useMemo } from "react";
 import { isIconLibrary } from "./utils/isIconLibrary";
 import { loadIcon } from "./utils/loadIcon";
-import { MdError } from "react-icons/md";
 import { Icon } from "@utils/contentful";
 
 const DynamicIcon: React.FC<Icon> = memo(
-  ({ iconCode, classes = [], showTooltip = true, name }) => {
+  ({ iconCode = "", classes = [], showTooltip = true, name }) => {
     DynamicIcon.displayName = "DynamicIcon";
 
     const [library, iconName] = iconCode.split("/") as [string, string];
@@ -15,7 +14,7 @@ const DynamicIcon: React.FC<Icon> = memo(
         return loadIcon(library, iconName);
       } else {
         console.error(`Invalid icon library: "${library}"`);
-        return MdError;
+        return loadIcon("md", "MdError");
       }
     }, [library, iconName]);
 
