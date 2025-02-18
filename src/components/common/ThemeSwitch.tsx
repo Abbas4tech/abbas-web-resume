@@ -1,10 +1,16 @@
+"use client";
 import { DynamicIcon } from "@components";
 import { useApplicationData } from "@context";
-import React from "react";
+import React, { useState } from "react";
 
 const ThemeSwitch = (): React.JSX.Element => {
-  const { themeList, themeIcon } = useApplicationData();
+  const { themeList, themeIcon, defaultTheme } = useApplicationData();
+  const [currentTheme, setCurrentTheme] = useState(defaultTheme.toLowerCase());
 
+  const themeChangeHandler = (theme: string = defaultTheme.toLowerCase()) => {
+    setCurrentTheme(theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  };
   return (
     <>
       <div className="dropdown dropdown-end">
@@ -28,8 +34,10 @@ const ThemeSwitch = (): React.JSX.Element => {
             <li key={theme}>
               <input
                 type="radio"
+                onClick={() => themeChangeHandler(theme.toLowerCase())}
+                checked={currentTheme === theme.toLowerCase()}
                 name="theme-dropdown"
-                className="theme-controller btn btn-sm btn-block btn-ghost justify-start px-4"
+                className="btn btn-sm btn-block btn-ghost justify-start px-4"
                 aria-label={theme.charAt(0).toUpperCase() + theme.slice(1)}
                 value={theme.toLowerCase()}
               />

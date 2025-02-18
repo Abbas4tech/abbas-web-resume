@@ -64,13 +64,13 @@ const ExperienceCard: React.FC<JobExperience> = memo(
           </p>
           <div className="flex flex-col justify-between md:flex-row">
             <div className="flex items-center gap-2">
-              <span className="text-slate-500">
+              <span className="">
                 <DynamicIcon {...locationIcon} />
               </span>
               &nbsp;{`${location}${remoteLabel}`}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-slate-500">
+              <span className="">
                 <DynamicIcon {...durationIcon} />
               </span>
               {`${formattedStartDate} - ${
@@ -79,13 +79,13 @@ const ExperienceCard: React.FC<JobExperience> = memo(
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-slate-500">
+            <span className="">
               <DynamicIcon {...roleIcon} />
             </span>
             {position}
           </div>
           <div className="flex items-start gap-2 mb-2 md:mb-4">
-            <span className="pt-1 text-slate-500">
+            <span className="pt-1 ">
               <DynamicIcon {...techStackIcon} />
             </span>
             {techStack.skillIcons.map((i) => i.name).join(", ")}
