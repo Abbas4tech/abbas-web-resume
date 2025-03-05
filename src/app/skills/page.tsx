@@ -1,8 +1,14 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
-import { SkillSetItem, PageWrapper } from "@components";
-import { SkillsPage as SkillsPageSchema } from "@utils/contentful";
-import { fetchPageMetadata, fetchQuery } from "@utils/api";
+import { SkillSetItem } from "@components";
+import { SkillsPage as SkillsPageSchema } from "@lib/contentful";
+import { fetchPageMetadata, fetchQuery } from "@lib/api";
+import {
+  Page,
+  PageContent,
+  PageHeading,
+  PageIcon,
+} from "src/components/ui/page";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<SkillsPageSchema>(
@@ -22,19 +28,20 @@ const SkillsPage: NextPage = async () => {
   );
 
   return (
-    <>
-      <PageWrapper
-        icon={pageIcon}
-        title={title}
-        headingAnimation={headingAnimation}
+    <Page>
+      <PageHeading headingAnimation={headingAnimation}>
+        <PageIcon {...pageIcon}></PageIcon>
+        {title}
+      </PageHeading>
+      <PageContent
+        className="flex flex-col gap-4"
+        contentAnimation={contentAnimation}
       >
-        <div className={`flex flex-col gap-4`} data-aos={contentAnimation}>
-          {skillsSet.map((item, index: number) => (
-            <SkillSetItem {...item} key={index} />
-          ))}
-        </div>
-      </PageWrapper>
-    </>
+        {skillsSet.map((item, index: number) => (
+          <SkillSetItem {...item} key={index} />
+        ))}
+      </PageContent>
+    </Page>
   );
 };
 

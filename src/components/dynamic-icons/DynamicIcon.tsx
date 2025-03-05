@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from "react";
 import { isIconLibrary } from "./utils/isIconLibrary";
 import { loadIcon } from "./utils/loadIcon";
-import { Icon } from "@utils/contentful";
+import { Icon } from "@lib/contentful";
 
 const DynamicIcon: React.FC<Icon> = memo(
   ({ iconCode = "", classes = [], showTooltip = true, name }) => {

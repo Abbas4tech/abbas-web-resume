@@ -1,7 +1,7 @@
 import React, { useState, useEffect, RefObject } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useApplicationData } from "@context";
-import { MetaPage } from "@utils/contentful";
+import { MetaPage } from "@lib/contentful";
 
 interface usePageProps {
   ref?: RefObject<HTMLElement>;

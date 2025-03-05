@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { BioCard } from "@utils/contentful";
+import { BioCard } from "@lib/contentful";
 import { DynamicIcon } from "@components";
 
 const BioCardComp = memo(({ title, value, icon }: BioCard) => {

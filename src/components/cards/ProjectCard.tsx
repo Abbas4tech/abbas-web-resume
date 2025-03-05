@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ProjectCard } from "@utils/contentful";
+import { ProjectCard } from "@lib/contentful";
 import { DynamicIcon } from "@components";
 
 const ProjectCardComp: React.FC<ProjectCard> = ({

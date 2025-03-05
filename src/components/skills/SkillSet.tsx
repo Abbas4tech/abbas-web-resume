@@ -1,6 +1,6 @@
 import React from "react";
 import { DynamicIcon, SkillGroup as SkillGroupItem } from "@components";
-import { SkillGroup, SkillSet } from "@utils/contentful";
+import { SkillGroup, SkillSet } from "@lib/contentful";
 
 const SkillSetItem: React.FC<SkillSet> = ({
   title,

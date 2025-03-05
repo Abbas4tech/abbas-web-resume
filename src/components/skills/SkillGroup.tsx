@@ -1,4 +1,4 @@
-import { SkillGroup } from "@utils/contentful";
+import { SkillGroup } from "@lib/contentful";
 import React, { memo } from "react";
 import { DynamicIcon } from "@components";
 

@@ -34,6 +34,7 @@ const ThemeSwitch = (): React.JSX.Element => {
             <li key={theme}>
               <input
                 type="radio"
+                readOnly
                 onClick={() => themeChangeHandler(theme.toLowerCase())}
                 checked={currentTheme === theme.toLowerCase()}
                 name="theme-dropdown"

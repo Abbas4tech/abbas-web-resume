@@ -86,6 +86,12 @@ export interface ProjectsPageData extends EntrySkeletonType {
   projects: ProjectCard[];
 }
 
+export type PageData =
+  | ProjectsPageData
+  | HomePageData
+  | ExperiencePageData
+  | SkillsPageData;
+
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
   pageIcon: Icon;

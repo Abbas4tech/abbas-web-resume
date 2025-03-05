@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from "react";
-import { JobExperience } from "@utils/contentful";
+import { JobExperience } from "@lib/contentful";
 import { DynamicIcon } from "@components";
 
 const monthNames = [

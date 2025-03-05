@@ -1,8 +1,14 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
-import { ProjectsPage as ProjectsPageSchema } from "@utils/contentful";
-import { ProjectCardItem, PageWrapper } from "@components";
-import { fetchPageMetadata, fetchQuery } from "@utils/api";
+import { ProjectsPage as ProjectsPageSchema } from "@lib/contentful";
+import { ProjectCardItem } from "@components";
+import { fetchPageMetadata, fetchQuery } from "@lib/api";
+import {
+  Page,
+  PageContent,
+  PageHeading,
+  PageIcon,
+} from "src/components/ui/page";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ProjectsPageSchema>(
@@ -22,20 +28,20 @@ const ProjectsPage: NextPage = async () => {
   );
 
   return (
-    <PageWrapper
-      icon={pageIcon}
-      title={title}
-      headingAnimation={headingAnimation}
-    >
-      <div
-        className={`grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4`}
-        data-aos={contentAnimation}
+    <Page>
+      <PageHeading headingAnimation={headingAnimation}>
+        <PageIcon {...pageIcon}></PageIcon>
+        {title}
+      </PageHeading>
+      <PageContent
+        className="grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4"
+        contentAnimation={contentAnimation}
       >
         {projects.map((item, index: number) => (
           <ProjectCardItem key={index} {...item} />
         ))}
-      </div>
-    </PageWrapper>
+      </PageContent>
+    </Page>
   );
 };
 

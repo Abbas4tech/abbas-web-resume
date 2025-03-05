@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Layout } from "@components";
 import { ApplicationDataProvider } from "@context";
-import { ApplicationData } from "@utils/contentful";
+import { ApplicationData } from "@lib/contentful";
 import "./globals.css";
-import { fetchQuery } from "@utils/api";
+import { fetchQuery } from "@lib/api";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useState, PropsWithChildren } from "react";
-import { ApplicationData } from "@utils/contentful";
+import { ApplicationData } from "@lib/contentful";
 
 export const ApplicationContext = createContext<{
   data: ApplicationData;
