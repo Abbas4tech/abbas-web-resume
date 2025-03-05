@@ -1,6 +1,7 @@
 import { SkillGroup } from "@lib/contentful";
 import React, { memo } from "react";
 import { DynamicIcon } from "@components";
+import Progress from "../ui/progress";
 
 const SkillGroupItem: React.FC<SkillGroup> = memo(
   ({ skillProgress, skillIcons, title }: SkillGroup) => {
@@ -13,16 +14,7 @@ const SkillGroupItem: React.FC<SkillGroup> = memo(
               <DynamicIcon key={skill.name} {...skill} />
             ))}
           </div>
-          <div className="relative w-full h-1 bg-gray-600 rounded-2xl">
-            <div
-              className="absolute top-0 left-0 bg-warning rounded-2xl h-full"
-              style={{ width: `${skillProgress}%` }}
-            >
-              <span className="absolute px-1 py-1 mb-2 text-xs text-white rounded-sm bg-slate-900 -right-4 bottom-full animate-pulse">
-                {skillProgress}%
-              </span>
-            </div>
-          </div>
+          <Progress skillProgress={skillProgress} />
         </div>
       </div>
     );
