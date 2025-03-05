@@ -1,14 +1,9 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
-import { SkillSetItem } from "@components";
+import { DynamicIcon, SkillSetItem } from "@components";
 import { SkillsPage as SkillsPageSchema } from "@lib/contentful";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import {
-  Page,
-  PageContent,
-  PageHeading,
-  PageIcon,
-} from "src/components/ui/page";
+import { Page, PageContent, PageHeading } from "src/components/ui/page";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<SkillsPageSchema>(
@@ -30,7 +25,8 @@ const SkillsPage: NextPage = async () => {
   return (
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
-        <PageIcon {...pageIcon}></PageIcon>
+        <DynamicIcon {...pageIcon} />
+
         {title}
       </PageHeading>
       <PageContent

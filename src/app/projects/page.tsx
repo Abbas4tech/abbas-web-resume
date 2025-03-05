@@ -1,14 +1,9 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
 import { ProjectsPage as ProjectsPageSchema } from "@lib/contentful";
-import { ProjectCardItem } from "@components";
+import { DynamicIcon, ProjectCardItem } from "@components";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import {
-  Page,
-  PageContent,
-  PageHeading,
-  PageIcon,
-} from "src/components/ui/page";
+import { Page, PageContent, PageHeading } from "src/components/ui/page";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ProjectsPageSchema>(
@@ -30,7 +25,8 @@ const ProjectsPage: NextPage = async () => {
   return (
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
-        <PageIcon {...pageIcon}></PageIcon>
+        <DynamicIcon {...pageIcon} />
+
         {title}
       </PageHeading>
       <PageContent

@@ -5,13 +5,8 @@ import {
   JobExperience,
 } from "@lib/contentful";
 import { fetchQuery, fetchPageMetadata } from "@lib/api";
-import {
-  Page,
-  PageContent,
-  PageHeading,
-  PageIcon,
-} from "src/components/ui/page";
-import { ExperienceCard } from "@components";
+import { Page, PageContent, PageHeading } from "src/components/ui/page";
+import { DynamicIcon, ExperienceCard } from "@components";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ExperiencePageSchema>(
@@ -33,7 +28,7 @@ const ExperiencePage: NextPage = async () => {
   return (
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
-        <PageIcon {...pageIcon}></PageIcon>
+        <DynamicIcon {...pageIcon} />
         {title}
       </PageHeading>
       <PageContent
