@@ -4,17 +4,14 @@ import { IconType, IconBaseProps } from "react-icons";
 import dynamic, { Loader } from "next/dynamic";
 import { cn } from "@lib/utils";
 
-export type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
+type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
-export interface IconModule {
+interface IconModule {
   [key: string]: IconType | any;
   default?: any;
 }
 
-export const libraryImportPaths: Record<
-  IconLibrary,
-  () => Promise<IconModule>
-> = {
+const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
   fa: () => import("react-icons/fa"),
   fa6: () => import("react-icons/fa6"),
   io: () => import("react-icons/io"),
@@ -45,7 +42,7 @@ export const loadIcon = (
   return dynamic<IconBaseProps>(() => loader());
 };
 
-export const isIconLibrary = (library: string): library is IconLibrary => {
+const isIconLibrary = (library: string): library is IconLibrary => {
   const libraries: IconLibrary[] = ["fa", "fa6", "io", "io5", "md", "ri", "si"];
 
   return libraries.includes(library as IconLibrary);
@@ -95,4 +92,4 @@ const Icon = React.memo(
 
 Icon.displayName = "DynamicIcon";
 
-export default Icon;
+export { Icon };
