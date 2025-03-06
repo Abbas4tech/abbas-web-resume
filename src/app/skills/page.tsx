@@ -1,6 +1,6 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
-import { DynamicIcon, SkillSetItem } from "@components";
+import { DynamicIcon } from "@components";
 import { SkillsPage as SkillsPageSchema } from "@lib/contentful";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";

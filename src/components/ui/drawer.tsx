@@ -11,7 +11,6 @@ type DRAWER_STATE = "expanded" | "collapsed";
 
 type DrawerContext = {
   state: DRAWER_STATE;
-  setState: (val: DRAWER_STATE) => void;
   isMobile: boolean;
   toggleSidebar: () => void;
 };
@@ -33,17 +32,18 @@ const DrawerProvider = React.forwardRef<
 >(({ className, style, children, ...props }, ref) => {
   const isMobile = useIsMobile();
   const [open, setOpen] = React.useState(true);
-  const [state, setState] = React.useState<"expanded" | "collapsed">(
-    open ? "expanded" : "collapsed"
-  );
 
   const toggleSidebar = React.useCallback(() => {
-    setState((val) => "collapsed");
-  }, [setState]);
+    setOpen((value) => !value);
+  }, [setOpen]);
 
   const contextValue = React.useMemo<DrawerContext>(
-    () => ({ state, isMobile, toggleSidebar, setState }),
-    [state, isMobile, toggleSidebar]
+    () => ({
+      state: (!open && isMobile) || !isMobile ? "expanded" : "collapsed",
+      isMobile,
+      toggleSidebar,
+    }),
+    [open, isMobile, toggleSidebar]
   );
 
   return (
@@ -130,7 +130,7 @@ const Drawer = React.forwardRef<
   ) => {
     const data = useDrawer();
     console.log(data);
-    const { isMobile, state, toggleSidebar, setState } = useDrawer();
+    const { state } = useDrawer();
     return (
       <main
         ref={ref}
