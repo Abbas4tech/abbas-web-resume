@@ -7,7 +7,7 @@ const Container = React.memo(
       <div
         ref={ref}
         className={cn(
-          "container mx-auto scrollbar-hide h-[calc(100vh-5.5rem)] overflow-hidden md:text-lg text-sm"
+          "container mx-auto scrollbar-hide overflow-hidden md:text-lg text-sm"
         )}
         {...props}
       />

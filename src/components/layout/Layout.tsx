@@ -3,7 +3,7 @@ import React, { useEffect, PropsWithChildren, useRef } from "react";
 import { Header, ProfileCard, DynamicIcon } from "@components";
 import { usePage } from "@hooks";
 import AOS from "aos";
-import { Drawer, DrawerPageContent, DrawerSide } from "../ui/drawer";
+import { Drawer, DrawerPageContent, DrawerSide, useDrawer } from "../ui/drawer";
 import Container from "../ui/container";
 import { useApplicationData } from "@context";
 import Link from "next/link";
@@ -19,10 +19,12 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     if (typeof window !== "undefined") AOS.init();
   }, []);
 
+  const { toggleSidebar } = useDrawer();
+
   return (
     <>
       <Header />
-      <Container>
+      <Container className="h-[calc(100vh-5.5rem)]">
         <Drawer variant="responsive" side="left">
           <DrawerPageContent className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-4rem)]">
             <ProfileCard />
@@ -53,7 +55,10 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
                 >
                   <Link
                     scroll={false}
-                    onClick={changePage}
+                    onClick={() => {
+                      changePage();
+                      toggleSidebar();
+                    }}
                     href={`${[
                       page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl,
                     ]}`}
