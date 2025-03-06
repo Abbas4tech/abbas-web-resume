@@ -5,6 +5,7 @@ import { ApplicationDataProvider } from "@context";
 import { ApplicationData } from "@lib/contentful";
 import "./globals.css";
 import { fetchQuery } from "@lib/api";
+import { DrawerProvider } from "src/components/ui/drawer";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -23,9 +24,11 @@ export default async function RootLayout({
       className="scrollbar-hide"
     >
       <body className={inter.className}>
-        <ApplicationDataProvider initialData={data}>
-          <Layout>{children}</Layout>
-        </ApplicationDataProvider>
+        <DrawerProvider>
+          <ApplicationDataProvider initialData={data}>
+            <Layout>{children}</Layout>
+          </ApplicationDataProvider>
+        </DrawerProvider>
       </body>
     </html>
   );
