@@ -27,7 +27,6 @@ function useDrawer() {
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.");
   }
-
   return context;
 }
 
@@ -179,12 +178,52 @@ const DrawerSide = React.memo(
   )
 );
 
+const DrawerSidebarFooter = React.memo(
+  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+    ({ className, ...props }, ref) => (
+      <div ref={ref} className={cn("", className)} {...props} />
+    )
+  )
+);
+
+DrawerSidebarFooter.displayName = "DrawerSidebarFooter";
+
+const DrawerSideMenu = React.memo(
+  React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
+    ({ className, ...props }, ref) => (
+      <ul role="listbox" ref={ref} className={cn("", className)} {...props} />
+    )
+  )
+);
+
+DrawerSideMenu.displayName = "DrawerSideMenu";
+
+const DrawerSideItem = React.memo(
+  React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElement>>(
+    ({ className, ...props }, ref) => {
+      const { toggleSidebar } = useDrawer();
+      return (
+        <li
+          ref={ref}
+          className={cn("py-1 md:py-2 pr-2 cursor-pointer", className)}
+          onClick={toggleSidebar}
+          {...props}
+        />
+      );
+    }
+  )
+);
+
+DrawerSideItem.displayName = "DrawerSideItem";
+
 export {
   DrawerProvider,
   Drawer,
   DrawerButton,
   DrawerPageContent,
   DrawerSide,
+  DrawerSideItem,
+  DrawerSideMenu,
   useDrawer,
 };
 export type { DrawerProps };

@@ -3,7 +3,14 @@ import React, { useEffect, PropsWithChildren, useRef } from "react";
 import { Header, ProfileCard, DynamicIcon } from "@components";
 import { usePage } from "@hooks";
 import AOS from "aos";
-import { Drawer, DrawerPageContent, DrawerSide, useDrawer } from "../ui/drawer";
+import {
+  Drawer,
+  DrawerPageContent,
+  DrawerProvider,
+  DrawerSide,
+  DrawerSideItem,
+  DrawerSideMenu,
+} from "../ui/drawer";
 import Container from "../ui/container";
 import { useApplicationData } from "@context";
 import Link from "next/link";
@@ -19,10 +26,8 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
     if (typeof window !== "undefined") AOS.init();
   }, []);
 
-  const { toggleSidebar } = useDrawer();
-
   return (
-    <>
+    <DrawerProvider>
       <Header />
       <Container className="h-[calc(100vh-5.5rem)]">
         <Drawer variant="responsive" side="left">
@@ -45,19 +50,17 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
             </div>
           </DrawerPageContent>
           <DrawerSide>
-            <ul className="">
+            <DrawerSideMenu>
               {pages.map((page) => (
-                <li
+                <DrawerSideItem
                   key={page.title}
                   id={page.title}
                   data-aos="fade-zoom-in"
-                  className={`py-1 md:py-2 pr-2 cursor-pointer`}
                 >
                   <Link
                     scroll={false}
                     onClick={() => {
                       changePage();
-                      toggleSidebar();
                     }}
                     href={`${[
                       page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl,
@@ -71,13 +74,13 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
                     <DynamicIcon {...page.pageIcon} />
                     {page.title}
                   </Link>
-                </li>
+                </DrawerSideItem>
               ))}
-            </ul>
+            </DrawerSideMenu>
           </DrawerSide>
         </Drawer>
       </Container>
-    </>
+    </DrawerProvider>
   );
 };
 
