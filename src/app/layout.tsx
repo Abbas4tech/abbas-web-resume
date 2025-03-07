@@ -5,6 +5,7 @@ import { ApplicationDataProvider } from "@context";
 import { ApplicationData } from "@lib/contentful";
 import "./globals.css";
 import { fetchQuery } from "@lib/api";
+import { PageProvider } from "src/components/ui/page";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -24,7 +25,9 @@ export default async function RootLayout({
     >
       <body className={inter.className}>
         <ApplicationDataProvider initialData={data}>
-          <Layout>{children}</Layout>
+          <PageProvider pages={data.pages}>
+            <Layout>{children}</Layout>
+          </PageProvider>
         </ApplicationDataProvider>
       </body>
     </html>

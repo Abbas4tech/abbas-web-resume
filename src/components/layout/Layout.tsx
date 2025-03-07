@@ -34,20 +34,6 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
           <DrawerPageContent className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-4rem)]">
             <ProfileCard />
             {children}
-            <div className="flex justify-end pb-12">
-              <button
-                onClick={changePage}
-                className="gap-2 text-sm capitalize text-base-content bg-base-300 md:text-base btn-sm md:btn-md btn"
-              >
-                {nextPageText}
-                <DynamicIcon
-                  classes={[]}
-                  showTooltip={false}
-                  name="Next Page"
-                  iconCode="fa/FaArrowRight"
-                />
-              </button>
-            </div>
           </DrawerPageContent>
           <DrawerSide>
             <DrawerSideMenu>

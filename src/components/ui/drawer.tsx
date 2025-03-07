@@ -129,8 +129,6 @@ const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
     { side = "left", variant = "default", className, children, ...props },
     ref
   ) => {
-    const data = useDrawer();
-    console.log(data);
     const { state } = useDrawer();
     return (
       <main
