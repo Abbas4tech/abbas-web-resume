@@ -56,7 +56,7 @@ const DropdownMenuItem = React.memo(
     <li
       role="menuitem"
       ref={ref}
-      className={cn("menu-md font-bold ", className)}
+      className={cn("menu-sm md:menu-md font-bold ", className)}
       {...props}
     >
       <span className={cn(isActive && "active")}>{children}</span>

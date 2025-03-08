@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { Layout } from "@components";
-import { ApplicationDataProvider } from "@context";
 import { ApplicationData } from "@lib/contentful";
 import "./globals.css";
 import { fetchQuery } from "@lib/api";
 import { PageProvider } from "src/components/ui/page";
+import Layout from "src/components/layout";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -24,11 +22,9 @@ export default async function RootLayout({
       className="scrollbar-hide"
     >
       <body className={inter.className}>
-        <ApplicationDataProvider initialData={data}>
-          <PageProvider pages={data.pages}>
-            <Layout>{children}</Layout>
-          </PageProvider>
-        </ApplicationDataProvider>
+        <PageProvider pages={data.pages}>
+          <Layout data={data}>{children}</Layout>
+        </PageProvider>
       </body>
     </html>
   );

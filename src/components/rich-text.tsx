@@ -23,4 +23,4 @@ const RichText: React.FC<RichTextProps> = ({ document, paragraphClass }) => {
   return documentToReactComponents(document, options);
 };
 
-export default RichText;
+export { RichText };
