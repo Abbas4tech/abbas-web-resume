@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, PropsWithChildren, useRef } from "react";
+import React from "react";
 import { Header, ProfileCard, DynamicIcon } from "@components";
-import { usePage } from "@hooks";
 import AOS from "aos";
 import {
   Drawer,
@@ -12,17 +11,13 @@ import {
   DrawerSideMenu,
 } from "../ui/drawer";
 import Container from "../ui/container";
-import { useApplicationData } from "@context";
-import Link from "next/link";
+import { Button } from "../ui/button";
+import { usePage } from "../ui/page";
 
-const Layout: React.FC<PropsWithChildren> = ({ children }) => {
-  const layoutRef = useRef<HTMLDivElement>(null);
-  const { changePage, currentPath, defaultPage } = usePage({
-    ref: layoutRef,
-  });
-  const { pages } = useApplicationData();
+const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
+  const { currentPath, defaultPage, pages } = usePage();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== "undefined") AOS.init();
   }, []);
 
@@ -43,23 +38,20 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
                   id={page.title}
                   data-aos="fade-right"
                 >
-                  <Link
-                    scroll={false}
-                    onClick={() => {
-                      changePage();
-                    }}
+                  <Button
+                    asLink={true}
                     href={`${[
                       page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl,
                     ]}`}
                     className={`px-4 py-2 md:py-3 w-full flex gap-2 items-center ${
                       page.pageUrl === currentPath
-                        ? "border-primary border-l-4 bg-base-200 transform font-bold duration-200 ease-out"
+                        ? "border-primary border-l-4 bg-base-200 transform font-bold duration-200 ease-out transition-all"
                         : ""
                     }`}
                   >
                     <DynamicIcon {...page.pageIcon} />
                     {page.title}
-                  </Link>
+                  </Button>
                 </DrawerSideItem>
               ))}
             </DrawerSideMenu>

@@ -1,13 +1,29 @@
 "use client";
 import React, { memo } from "react";
-import { ThemeSwitch, Resume as ResumeComponent } from "@components";
 import { useApplicationData } from "@context";
 import { DrawerButton } from "../ui/drawer";
 import { Icon } from "../ui/icon";
+import { Button } from "../ui/button";
+import DynamicIcon from "../dynamic-icons/DynamicIcon";
+import {
+  Dropdown,
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownToggle,
+} from "../ui/dropdown";
 
 const Header = memo(() => {
-  const { title } = useApplicationData();
+  const { title, resume, resumeIcon, themeIcon, themeList, defaultTheme } =
+    useApplicationData();
 
+  const [currentTheme, setCurrentTheme] = React.useState(
+    defaultTheme.toLowerCase()
+  );
+
+  const themeChangeHandler = (theme: string = defaultTheme.toLowerCase()) => {
+    setCurrentTheme(theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  };
   return (
     <header className="container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2">
       <nav className="navbar bg-base-100">
@@ -21,14 +37,47 @@ const Header = memo(() => {
             />
           </DrawerButton>
 
-          <button className="text-lg normal-case lg:text-2xl p-0 md:p-2 btn btn-ghost">
+          <Button
+            asLink
+            href={"/"}
+            className="text-lg normal-case lg:text-2xl p-0 md:p-2 btn-ghost btn bg-inherit"
+          >
             {title}
-          </button>
+          </Button>
         </div>
 
         <div className="navbar-end items-center gap-2">
-          <ResumeComponent />
-          <ThemeSwitch />
+          <Button
+            asLink
+            className="md:px-4 md:py-2 px-2 py-1 cursor-pointer btn btn-ghost bg-inherit"
+            target="_blank"
+            passHref
+            href={`https:${resume.file.url}`}
+          >
+            <DynamicIcon {...resumeIcon} />
+          </Button>
+          <Dropdown>
+            <DropdownToggle>
+              <DynamicIcon {...themeIcon} />
+              <DynamicIcon
+                classes={[]}
+                iconCode="io5/IoChevronDown"
+                showTooltip={false}
+                name="arrow"
+              />
+            </DropdownToggle>
+            <DropdownMenu>
+              {themeList.map((theme) => (
+                <DropdownMenuItem
+                  isActive={theme.toLowerCase() === currentTheme}
+                  key={theme}
+                  onClick={() => themeChangeHandler(theme.toLowerCase())}
+                >
+                  {theme}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
         </div>
       </nav>
     </header>

@@ -3,10 +3,11 @@ import React from "react";
 import { cn } from "@lib/utils";
 import { MetaPage } from "@lib/contentful";
 import { usePathname, useRouter } from "next/navigation";
-import Button from "./button";
+import { Button, ButtonProps } from "./button";
 import DynamicIcon from "../dynamic-icons/DynamicIcon";
 
 type PageContext = {
+  pages: MetaPage[];
   currentPath: string;
   nextPageUrl: string;
   nextPageText: string;
@@ -64,6 +65,7 @@ const PageProvider = React.forwardRef<
 
     const context = React.useMemo<PageContext>(
       () => ({
+        pages,
         changePage,
         currentPath: currentPageData.pageUrl,
         defaultPage,
@@ -71,7 +73,14 @@ const PageProvider = React.forwardRef<
         nextPageUrl: nextPage.pageUrl,
         withPageChange,
       }),
-      [currentPageData, nextPage, defaultPage, changePage, withPageChange]
+      [
+        currentPageData,
+        nextPage,
+        defaultPage,
+        changePage,
+        withPageChange,
+        pages,
+      ]
     );
 
     return (
@@ -151,7 +160,7 @@ PageHeading.displayName = "PageHeading";
 const PageChangeButton = React.memo(
   React.forwardRef<
     React.ComponentRef<typeof Button>,
-    React.ComponentProps<typeof Button>
+    Extract<ButtonProps, { asLink?: false }>
   >(({ className, ...props }, ref) => {
     const { changePage, nextPageText } = usePage();
     return (
