@@ -17,7 +17,7 @@ import Link from "next/link";
 
 const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   const layoutRef = useRef<HTMLDivElement>(null);
-  const { nextPageText, changePage, currentPath, defaultPage } = usePage({
+  const { changePage, currentPath, defaultPage } = usePage({
     ref: layoutRef,
   });
   const { pages } = useApplicationData();
@@ -41,7 +41,7 @@ const Layout: React.FC<PropsWithChildren> = ({ children }) => {
                 <DrawerSideItem
                   key={page.title}
                   id={page.title}
-                  data-aos="fade-zoom-in"
+                  data-aos="fade-right"
                 >
                   <Link
                     scroll={false}

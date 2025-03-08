@@ -25,7 +25,7 @@ const ProfileCard = memo(() => {
           alt={bannerImage.title}
         />
       </div>
-      <div className="avatar mt-[-2rem] sm:mt-[-6rem]">
+      <div className="avatar mt-[-2rem] md:mt-[-6rem]">
         <div className="ring-base-100 ring-offset-base-100 w-24 md:w-48 rounded-full ring ring-offset-2">
           <Image
             src={`https:${profilePicture.file.url}`}

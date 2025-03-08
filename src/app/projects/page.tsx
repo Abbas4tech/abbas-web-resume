@@ -1,9 +1,18 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
 import { ProjectsPage as ProjectsPageSchema } from "@lib/contentful";
-import { DynamicIcon, ProjectCardItem } from "@components";
+import { DynamicIcon } from "@components";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardImage,
+  CardTitle,
+} from "src/components/ui/card";
+import Link from "next/link";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ProjectsPageSchema>(
@@ -34,7 +43,23 @@ const ProjectsPage: NextPage = async () => {
         contentAnimation={contentAnimation}
       >
         {projects.map((item, index: number) => (
-          <ProjectCardItem key={index} {...item} />
+          <Card key={index}>
+            <CardImage
+              width={item.thumbnail.file.details.image.width}
+              height={item.thumbnail.file.details.image.height}
+              alt={item.thumbnail.file.fileName}
+              src={`https:${item.thumbnail.file.url}`}
+            ></CardImage>
+            <CardContent>
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>{item.description}</CardDescription>
+              <CardFooter className="justify-end">
+                <Link target="_blank" href={item.deployedLink}>
+                  <DynamicIcon {...item.deployedLinkIcon} />
+                </Link>
+              </CardFooter>
+            </CardContent>
+          </Card>
         ))}
       </PageContent>
     </Page>
