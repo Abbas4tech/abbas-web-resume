@@ -6,8 +6,8 @@ import {
 } from "@lib/contentful";
 import { fetchQuery, fetchPageMetadata } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";
-import { ExperienceCard } from "@components";
 import { Icon } from "src/components/ui/icon";
+import ExperienceCard from "src/components/experience-card";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ExperiencePageSchema>(
