@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Header, ProfileCard, DynamicIcon } from "@components";
+import { Header, ProfileCard } from "@components";
 import AOS from "aos";
 import {
   Drawer,
@@ -13,6 +13,7 @@ import {
 import Container from "../ui/container";
 import { Button } from "../ui/button";
 import { usePage } from "../ui/page";
+import { Icon } from "../ui/icon";
 
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { currentPath, defaultPage, pages } = usePage();
@@ -49,7 +50,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
                         : ""
                     }`}
                   >
-                    <DynamicIcon {...page.pageIcon} />
+                    <Icon {...page.pageIcon} />
                     {page.title}
                   </Button>
                 </DrawerSideItem>

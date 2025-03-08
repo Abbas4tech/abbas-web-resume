@@ -4,7 +4,6 @@ import { useApplicationData } from "@context";
 import { DrawerButton } from "../ui/drawer";
 import { Icon } from "../ui/icon";
 import { Button } from "../ui/button";
-import DynamicIcon from "../dynamic-icons/DynamicIcon";
 import {
   Dropdown,
   DropdownMenu,
@@ -54,12 +53,12 @@ const Header = memo(() => {
             passHref
             href={`https:${resume.file.url}`}
           >
-            <DynamicIcon {...resumeIcon} />
+            <Icon {...resumeIcon} />
           </Button>
           <Dropdown>
             <DropdownToggle>
-              <DynamicIcon {...themeIcon} />
-              <DynamicIcon
+              <Icon {...themeIcon} />
+              <Icon
                 classes={[]}
                 iconCode="io5/IoChevronDown"
                 showTooltip={false}

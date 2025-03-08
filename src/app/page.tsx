@@ -1,7 +1,7 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
 import { HomePage } from "@lib/contentful";
-import { DynamicIcon, RichText } from "@components";
+import { RichText } from "@components";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";
 import {
@@ -11,6 +11,7 @@ import {
   Stats,
   StatTitle,
 } from "src/components/ui/stat";
+import { Icon } from "src/components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
@@ -39,7 +40,7 @@ const Home: NextPage = async () => {
             <Stats key={title}>
               <Stat>
                 <StatFigure>
-                  <DynamicIcon {...icon} />
+                  <Icon {...icon} />
                 </StatFigure>
                 <StatTitle>{title}</StatTitle>
                 <StatDescription>{value}</StatDescription>

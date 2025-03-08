@@ -4,7 +4,7 @@ import { cn } from "@lib/utils";
 import { MetaPage } from "@lib/contentful";
 import { usePathname, useRouter } from "next/navigation";
 import { Button, ButtonProps } from "./button";
-import DynamicIcon from "../dynamic-icons/DynamicIcon";
+import { Icon } from "./icon";
 
 type PageContext = {
   pages: MetaPage[];
@@ -171,7 +171,7 @@ const PageChangeButton = React.memo(
         {...props}
       >
         {nextPageText}
-        <DynamicIcon
+        <Icon
           classes={[]}
           showTooltip={false}
           name="Next Page"

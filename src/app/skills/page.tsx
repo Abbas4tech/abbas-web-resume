@@ -1,6 +1,5 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
-import { DynamicIcon } from "@components";
 import { SkillsPage as SkillsPageSchema } from "@lib/contentful";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";
@@ -13,6 +12,7 @@ import {
   SkillList,
 } from "src/components/ui/skill";
 import Progress from "src/components/ui/progress";
+import { Icon } from "src/components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<SkillsPageSchema>(
@@ -34,7 +34,7 @@ const SkillsPage: NextPage = async () => {
   return (
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
-        <DynamicIcon {...pageIcon} />
+        <Icon {...pageIcon} />
 
         {title}
       </PageHeading>
@@ -46,7 +46,7 @@ const SkillsPage: NextPage = async () => {
           <Skill key={index}>
             <SkillsContent>
               <SkillTitle>
-                <DynamicIcon {...icon} />
+                <Icon {...icon} />
                 {title}
               </SkillTitle>
               <SkillGroup>
@@ -54,7 +54,7 @@ const SkillsPage: NextPage = async () => {
                   <SkillGroupContent key={title}>
                     <SkillList>
                       {skillIcons.map((skill) => (
-                        <DynamicIcon key={title} {...skill} />
+                        <Icon key={title} {...skill} />
                       ))}
                     </SkillList>
                     <Progress skillProgress={skillProgress} />

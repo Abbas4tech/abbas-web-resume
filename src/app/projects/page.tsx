@@ -1,7 +1,6 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
 import { ProjectsPage as ProjectsPageSchema } from "@lib/contentful";
-import { DynamicIcon } from "@components";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";
 import {
@@ -13,6 +12,7 @@ import {
   CardTitle,
 } from "src/components/ui/card";
 import Link from "next/link";
+import { Icon } from "src/components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ProjectsPageSchema>(
@@ -34,7 +34,7 @@ const ProjectsPage: NextPage = async () => {
   return (
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
-        <DynamicIcon {...pageIcon} />
+        <Icon {...pageIcon} />
 
         {title}
       </PageHeading>
@@ -55,7 +55,7 @@ const ProjectsPage: NextPage = async () => {
               <CardDescription>{item.description}</CardDescription>
               <CardFooter className="justify-end">
                 <Link target="_blank" href={item.deployedLink}>
-                  <DynamicIcon {...item.deployedLinkIcon} />
+                  <Icon {...item.deployedLinkIcon} />
                 </Link>
               </CardFooter>
             </CardContent>

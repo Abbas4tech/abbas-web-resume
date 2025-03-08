@@ -6,7 +6,8 @@ import {
 } from "@lib/contentful";
 import { fetchQuery, fetchPageMetadata } from "@lib/api";
 import { Page, PageContent, PageHeading } from "src/components/ui/page";
-import { DynamicIcon, ExperienceCard } from "@components";
+import { ExperienceCard } from "@components";
+import { Icon } from "src/components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ExperiencePageSchema>(
@@ -28,7 +29,7 @@ const ExperiencePage: NextPage = async () => {
   return (
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
-        <DynamicIcon {...pageIcon} />
+        <Icon {...pageIcon} />
         {title}
       </PageHeading>
       <PageContent
