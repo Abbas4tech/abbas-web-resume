@@ -1,8 +1,10 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
+import Link from "next/link";
+
 import { ProjectsPage as ProjectsPageSchema } from "@lib/contentful";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import { Page, PageContent, PageHeading } from "src/components/ui/page";
+import { Page, PageContent, PageHeading } from "@components/ui/page";
 import {
   Card,
   CardContent,
@@ -10,9 +12,8 @@ import {
   CardFooter,
   CardImage,
   CardTitle,
-} from "src/components/ui/card";
-import Link from "next/link";
-import { Icon } from "src/components/ui/icon";
+} from "@components/ui/card";
+import { Icon } from "@components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ProjectsPageSchema>(
