@@ -24,17 +24,7 @@ const NavigationAnimation = React.memo(
       AOS.refresh();
     }, [pathname]);
 
-    return (
-      <div
-        ref={ref}
-        key={animationKey}
-        data-aos="fade-down"
-        {...props}
-        className="z-50 bg-black text-white p-4 text-center"
-      >
-        Navigating...
-      </div>
-    );
+    return <div ref={ref} key={animationKey} {...props} className="" />;
   })
 );
 
