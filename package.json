@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.22.11",
-    "@vercel/speed-insights": "^1.0.12",
     "aos": "^2.3.4",
     "contentful": "^10.12.7",
     "next": "14.2.4",
@@ -27,7 +26,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
+    "tailwind-merge": "^3.0.2",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "clsx": "^2.1.1"
   }
 }

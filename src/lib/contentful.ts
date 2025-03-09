@@ -8,14 +8,14 @@ export interface ApplicationData extends EntrySkeletonType {
   role: EntryFields.Text;
   pages: MetaPage[];
   resume: FileAsset;
-  resumeIcon: Icon;
+  resumeIcon: IconResponse;
   themeList: EntryFields.Text[];
-  themeIcon: Icon;
+  themeIcon: IconResponse;
   defaultTheme: EntryFields.Text;
   pagesInformation: Pages[];
 }
 
-export interface Icon {
+export interface IconResponse {
   name: EntryFields.Text;
   iconCode: EntryFields.Text;
   classes?: EntryFields.Text[];
@@ -61,7 +61,7 @@ export interface FileAsset extends Asset {
 
 export interface MetaPage extends EntrySkeletonType {
   title: EntryFields.Text;
-  pageIcon: Icon;
+  pageIcon: IconResponse;
   pageUrl: EntryFields.Text;
   isDefaultPage: EntryFields.Boolean;
 }
@@ -86,9 +86,15 @@ export interface ProjectsPageData extends EntrySkeletonType {
   projects: ProjectCard[];
 }
 
+export type PageData =
+  | ProjectsPageData
+  | HomePageData
+  | ExperiencePageData
+  | SkillsPageData;
+
 export interface Page<T extends PageData = PageData> extends EntrySkeletonType {
   title: EntryFields.Text;
-  pageIcon: Icon;
+  pageIcon: IconResponse;
   contentAnimation: EntryFields.Text;
   headingAnimation: EntryFields.Text;
   pageSeo: SEOData;
@@ -104,7 +110,7 @@ export type Pages = ExperiencePage | SkillsPage | ProjectsPage | HomePage;
 export interface ProjectCard extends EntrySkeletonType {
   title: EntryFields.Text;
   deployedLink: EntryFields.Text;
-  deployedLinkIcon: Icon;
+  deployedLinkIcon: IconResponse;
   thumbnail: FileAsset;
   description: EntryFields.Text;
 }
@@ -112,36 +118,36 @@ export interface ProjectCard extends EntrySkeletonType {
 export interface BioCard {
   title: EntryFields.Text;
   value: EntryFields.Text;
-  icon: Icon;
+  icon: IconResponse;
 }
 
 export interface JobExperience extends EntrySkeletonType {
   company: EntryFields.Text;
-  companyIcon: Icon;
+  companyIcon: IconResponse;
   description: EntryFields.Text;
   position: EntryFields.Text;
-  roleIcon: Icon;
+  roleIcon: IconResponse;
   workedRemotely: EntryFields.Boolean;
   startDate: EntryFields.Text;
   endDate: EntryFields.Text;
-  durationIcon: Icon;
+  durationIcon: IconResponse;
   location: EntryFields.Text;
-  locationIcon: Icon;
+  locationIcon: IconResponse;
   currentlyWorking: EntryFields.Boolean;
   techStack: SkillGroup;
-  techStackIcon: Icon;
+  techStackIcon: IconResponse;
 }
 
 export interface SkillGroup extends EntrySkeletonType {
   title: EntryFields.Text;
   skillProgress: EntryFields.Number;
-  skillIcons: Icon[];
+  skillIcons: IconResponse[];
 }
 
 export interface SkillSet extends EntrySkeletonType {
   title: EntryFields.Text;
   skillsetIcon: Asset;
-  icon: Icon;
+  icon: IconResponse;
   skillsArray: SkillGroup[];
 }
 

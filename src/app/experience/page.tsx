@@ -3,9 +3,11 @@ import { Metadata, NextPage } from "next";
 import {
   ExperiencePage as ExperiencePageSchema,
   JobExperience,
-} from "@utils/contentful";
-import { PageWrapper, ExperienceCard } from "@components";
-import { fetchQuery, fetchPageMetadata } from "@utils/api";
+} from "@lib/contentful";
+import { fetchQuery, fetchPageMetadata } from "@lib/api";
+import { Page, PageContent, PageHeading } from "src/components/ui/page";
+import { Icon } from "src/components/ui/icon";
+import ExperienceCard from "src/components/experience-card";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ExperiencePageSchema>(
@@ -25,22 +27,20 @@ const ExperiencePage: NextPage = async () => {
   );
 
   return (
-    <>
-      <PageWrapper
-        icon={pageIcon}
-        title={title}
-        headingAnimation={headingAnimation}
+    <Page>
+      <PageHeading headingAnimation={headingAnimation}>
+        <Icon {...pageIcon} />
+        {title}
+      </PageHeading>
+      <PageContent
+        contentAnimation={contentAnimation}
+        className="px-2 pl-4 mt-2 md:mt-4 md:px-12"
       >
-        <div
-          className={`px-2 pl-4 mt-2 md:mt-4 md:px-12`}
-          data-aos={contentAnimation}
-        >
-          {experiences.map((experience: JobExperience, index: number) => (
-            <ExperienceCard {...experience} key={index} />
-          ))}
-        </div>
-      </PageWrapper>
-    </>
+        {experiences.map((experience: JobExperience, index: number) => (
+          <ExperienceCard {...experience} key={index} />
+        ))}
+      </PageContent>
+    </Page>
   );
 };
 

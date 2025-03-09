@@ -1,8 +1,17 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
-import { HomePage } from "@utils/contentful";
-import { BioCard, PageWrapper, RichText } from "@components";
-import { fetchPageMetadata, fetchQuery } from "@utils/api";
+import { HomePage } from "@lib/contentful";
+import { fetchPageMetadata, fetchQuery } from "@lib/api";
+import { Page, PageContent, PageHeading } from "@components/ui/page";
+import {
+  Stat,
+  StatDescription,
+  StatFigure,
+  Stats,
+  StatTitle,
+} from "@components/ui/stat";
+import { Icon } from "@components/ui/icon";
+import { RichText } from "@components/rich-text";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
@@ -17,12 +26,10 @@ const Home: NextPage = async () => {
   } = await fetchQuery<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
 
   return (
-    <>
-      <PageWrapper headingAnimation={headingAnimation} title={title}>
-        <div
-          data-aos={contentAnimation}
-          className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl"
-        >
+    <Page>
+      <PageHeading headingAnimation={headingAnimation}>{title}</PageHeading>
+      <PageContent contentAnimation={contentAnimation}>
+        <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
           <RichText
             paragraphClass="py-1.5 text-center md:text-xl"
             document={description}
@@ -30,11 +37,19 @@ const Home: NextPage = async () => {
         </div>
         <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
           {info.map(({ title, value, icon }) => (
-            <BioCard key={title} title={title} value={value} icon={icon} />
+            <Stats key={title}>
+              <Stat>
+                <StatFigure>
+                  <Icon {...icon} />
+                </StatFigure>
+                <StatTitle>{title}</StatTitle>
+                <StatDescription>{value}</StatDescription>
+              </Stat>
+            </Stats>
           ))}
         </div>
-      </PageWrapper>
-    </>
+      </PageContent>
+    </Page>
   );
 };
 

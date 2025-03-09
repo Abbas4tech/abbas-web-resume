@@ -1,8 +1,19 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
-import { SkillSetItem, PageWrapper } from "@components";
-import { SkillsPage as SkillsPageSchema } from "@utils/contentful";
-import { fetchPageMetadata, fetchQuery } from "@utils/api";
+
+import { SkillsPage as SkillsPageSchema } from "@lib/contentful";
+import { fetchPageMetadata, fetchQuery } from "@lib/api";
+import { Page, PageContent, PageHeading } from "@components/ui/page";
+import {
+  Skill,
+  SkillGroupContent,
+  SkillsContent,
+  SkillTitle,
+  SkillGroup,
+  SkillList,
+} from "@components/ui/skill";
+import Progress from "@components/ui/progress";
+import { Icon } from "@components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<SkillsPageSchema>(
@@ -22,19 +33,40 @@ const SkillsPage: NextPage = async () => {
   );
 
   return (
-    <>
-      <PageWrapper
-        icon={pageIcon}
-        title={title}
-        headingAnimation={headingAnimation}
+    <Page>
+      <PageHeading headingAnimation={headingAnimation}>
+        <Icon {...pageIcon} />
+
+        {title}
+      </PageHeading>
+      <PageContent
+        className="flex flex-col gap-4"
+        contentAnimation={contentAnimation}
       >
-        <div className={`flex flex-col gap-4`} data-aos={contentAnimation}>
-          {skillsSet.map((item, index: number) => (
-            <SkillSetItem {...item} key={index} />
-          ))}
-        </div>
-      </PageWrapper>
-    </>
+        {skillsSet.map(({ icon, title, skillsArray }, index: number) => (
+          <Skill key={index}>
+            <SkillsContent>
+              <SkillTitle>
+                <Icon {...icon} />
+                {title}
+              </SkillTitle>
+              <SkillGroup>
+                {skillsArray.map(({ title, skillIcons, skillProgress }) => (
+                  <SkillGroupContent key={title}>
+                    <SkillList>
+                      {skillIcons.map((skill) => (
+                        <Icon key={title} {...skill} />
+                      ))}
+                    </SkillList>
+                    <Progress skillProgress={skillProgress} />
+                  </SkillGroupContent>
+                ))}
+              </SkillGroup>
+            </SkillsContent>
+          </Skill>
+        ))}
+      </PageContent>
+    </Page>
   );
 };
 
