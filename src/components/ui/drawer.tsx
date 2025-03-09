@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@lib/utils";
 import React from "react";
-import useIsMobile from "src/hooks/use-mobile";
+import { useMobile } from "@hooks";
 
 const DRAWER_ID = "my-drawer-2";
 const DRAWER_WIDTH = "20rem";
@@ -34,7 +34,7 @@ const DrawerProvider = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div">
 >(({ className, style, children, ...props }, ref) => {
-  const isMobile = useIsMobile();
+  const isMobile = useMobile();
   const [open, setOpen] = React.useState(true);
 
   const toggleSidebar = React.useCallback(() => {

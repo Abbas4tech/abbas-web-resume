@@ -1,8 +1,9 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
+
 import { SkillsPage as SkillsPageSchema } from "@lib/contentful";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import { Page, PageContent, PageHeading } from "src/components/ui/page";
+import { Page, PageContent, PageHeading } from "@components/ui/page";
 import {
   Skill,
   SkillGroupContent,
@@ -10,9 +11,9 @@ import {
   SkillTitle,
   SkillGroup,
   SkillList,
-} from "src/components/ui/skill";
-import Progress from "src/components/ui/progress";
-import { Icon } from "src/components/ui/icon";
+} from "@components/ui/skill";
+import Progress from "@components/ui/progress";
+import { Icon } from "@components/ui/icon";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<SkillsPageSchema>(

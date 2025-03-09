@@ -1,9 +1,11 @@
 import { Poppins } from "next/font/google";
+
 import { ApplicationData } from "@lib/contentful";
-import "./globals.css";
 import { fetchQuery } from "@lib/api";
-import { PageProvider } from "src/components/ui/page";
-import Layout from "src/components/layout";
+import { PageProvider } from "@components/ui/page";
+import { Layout } from "@components/layout";
+
+import "./globals.css";
 
 const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
 

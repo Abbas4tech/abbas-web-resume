@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import AOS from "aos";
+import { ApplicationData } from "@lib/contentful";
+
 import {
   Drawer,
   DrawerPageContent,
@@ -13,9 +14,11 @@ import Container from "./ui/container";
 import { Button } from "./ui/button";
 import { usePage } from "./ui/page";
 import { Icon } from "./ui/icon";
-import { ApplicationData } from "@lib/contentful";
 import { ProfileBanner } from "./banner";
 import Header from "./header";
+
+import AOS from "aos";
+import NavigationAnimation from "./ui/navigation";
 
 const Layout = React.memo(
   React.forwardRef<
@@ -54,8 +57,12 @@ const Layout = React.memo(
         <Container className="h-[calc(100vh-5.5rem)]">
           <Drawer variant="responsive" side="left">
             <DrawerPageContent className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-6rem)]">
-              <ProfileBanner bannerData={bannerData} />
-              {children}
+              <NavigationAnimation
+                options={{ easing: "ease-in-cubic", delay: 300 }}
+              >
+                <ProfileBanner bannerData={bannerData} />
+                {children}
+              </NavigationAnimation>
             </DrawerPageContent>
             <DrawerSide>
               <DrawerSideMenu>
@@ -92,4 +99,4 @@ const Layout = React.memo(
   })
 );
 
-export default Layout;
+export { Layout };

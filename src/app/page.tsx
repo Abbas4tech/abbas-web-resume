@@ -2,16 +2,16 @@ import React from "react";
 import { Metadata, NextPage } from "next";
 import { HomePage } from "@lib/contentful";
 import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import { Page, PageContent, PageHeading } from "src/components/ui/page";
+import { Page, PageContent, PageHeading } from "@components/ui/page";
 import {
   Stat,
   StatDescription,
   StatFigure,
   Stats,
   StatTitle,
-} from "src/components/ui/stat";
-import { Icon } from "src/components/ui/icon";
-import { RichText } from "src/components/rich-text";
+} from "@components/ui/stat";
+import { Icon } from "@components/ui/icon";
+import { RichText } from "@components/rich-text";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
