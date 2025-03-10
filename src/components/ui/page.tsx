@@ -102,7 +102,7 @@ const Page = React.memo(
           role="main"
           ref={ref}
           className={cn(
-            "container overflow-auto scrollbar-hide flex flex-col",
+            "group-data-[variant='responsive']:container overflow-auto scrollbar-hide flex flex-col",
             className
           )}
           {...props}

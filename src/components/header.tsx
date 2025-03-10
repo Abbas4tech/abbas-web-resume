@@ -45,12 +45,12 @@ const Header = React.memo(
           ref={ref}
           {...props}
           className={cn(
-            "container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
+            "bg-base-100 group-data-[variant='responsive']:container group-data-[variant='responsive']:mx-auto shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
             className
           )}
         >
-          <nav className="navbar bg-base-100">
-            <div className="navbar-start gap-2">
+          <nav className="navbar group-data-[side='right']:flex-row-reverse bg-base-100">
+            <div className="navbar-start group-data-[side='right']:flex-row-reverse gap-2">
               <DrawerButton>
                 <Icon
                   iconCode="io5/IoMenu"
@@ -69,7 +69,7 @@ const Header = React.memo(
               </Button>
             </div>
 
-            <div className="navbar-end items-center gap-2">
+            <div className="navbar-end group-data-[side='right']:flex-row-reverse items-center gap-2">
               <Button
                 asLink
                 className="md:px-4 md:py-2 px-2 py-1 cursor-pointer btn btn-ghost bg-inherit"

@@ -9,15 +9,12 @@ const DRAWER_WIDTH_MOBILE = "80%";
 
 type DRAWER_STATE = "expanded" | "collapsed";
 
-type DrawerProps = React.ComponentProps<"main"> & {
-  side?: "left" | "right";
-  variant?: "default" | "responsive";
-};
-
 type DrawerContext = {
   state: DRAWER_STATE;
   isMobile: boolean;
   toggleSidebar: () => void;
+  side: "left" | "right";
+  variant: "default" | "responsive";
 };
 
 const DrawerContext = React.createContext<DrawerContext | null>(null);
@@ -32,44 +29,75 @@ function useDrawer() {
 
 const DrawerProvider = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div">
->(({ className, style, children, ...props }, ref) => {
-  const isMobile = useMobile();
-  const [open, setOpen] = React.useState(true);
+  React.ComponentProps<"div"> & {
+    side?: "left" | "right";
+    variant?: "default" | "responsive";
+  }
+>(
+  (
+    {
+      className,
+      style,
+      children,
+      variant = "default",
+      side = "left",
+      ...props
+    },
+    ref
+  ) => {
+    const isMobile = useMobile();
+    let alreadyOpened = false;
+    if (variant === "responsive") {
+      alreadyOpened = true;
+    }
+    const [open, setOpen] = React.useState(alreadyOpened);
 
-  const toggleSidebar = React.useCallback(() => {
-    setOpen((value) => !value);
-  }, [setOpen]);
+    const checkForSidebarState = React.useCallback(() => {
+      if (variant === "responsive") {
+        return (!open && isMobile) || !isMobile ? "expanded" : "collapsed";
+      } else {
+        return open ? "expanded" : "collapsed";
+      }
+    }, [isMobile, open, variant]);
 
-  const contextValue = React.useMemo<DrawerContext>(
-    () => ({
-      state: (!open && isMobile) || !isMobile ? "expanded" : "collapsed",
-      isMobile,
-      toggleSidebar,
-    }),
-    [open, isMobile, toggleSidebar]
-  );
+    const toggleSidebar = React.useCallback(() => {
+      setOpen((value) => !value);
+    }, [setOpen]);
 
-  return (
-    <DrawerContext.Provider value={contextValue}>
-      <div
-        style={
-          {
-            "--drawer-width": DRAWER_WIDTH,
-            "--drawer-mobile-width": DRAWER_WIDTH_MOBILE,
-            "--drawer-id": DRAWER_ID,
-            ...style,
-          } as React.CSSProperties
-        }
-        className={cn("drawer-context-provider", className)}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </div>
-    </DrawerContext.Provider>
-  );
-});
+    const contextValue = React.useMemo<DrawerContext>(
+      () => ({
+        state: checkForSidebarState(),
+        isMobile,
+        toggleSidebar,
+        variant,
+        side,
+      }),
+      [isMobile, toggleSidebar, checkForSidebarState, variant, side]
+    );
+
+    return (
+      <DrawerContext.Provider value={contextValue}>
+        <div
+          style={
+            {
+              "--drawer-width": DRAWER_WIDTH,
+              "--drawer-mobile-width": DRAWER_WIDTH_MOBILE,
+              "--drawer-id": DRAWER_ID,
+              ...style,
+            } as React.CSSProperties
+          }
+          className={cn("group", className)}
+          ref={ref}
+          data-variant={variant}
+          data-side={side}
+          {...props}
+        >
+          {children}
+        </div>
+      </DrawerContext.Provider>
+    );
+  }
+);
 DrawerProvider.displayName = "SidebarProvider";
 
 const DrawerOverlay = React.memo(
@@ -116,7 +144,7 @@ const DrawerButton = React.memo(
           ref={ref}
           tabIndex={0}
           className={cn(
-            "btn btn-ghost btn-circle drawer-button data-[variant='responsive']:lg:hidden",
+            "btn btn-ghost btn-circle drawer-button group-data-[variant='responsive']:lg:hidden",
             className
           )}
           htmlFor={DRAWER_ID}
@@ -127,26 +155,19 @@ const DrawerButton = React.memo(
   )
 );
 
-const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
-  (
-    { side = "left", variant = "default", className, children, ...props },
-    ref
-  ) => {
+const Drawer = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(
+  ({ className, children, ...props }, ref) => {
     const { state } = useDrawer();
     return (
       <main
         ref={ref}
         className={cn(
-          "group drawer",
-          side === "right" && "drawer-end",
-          variant === "responsive" && "lg:drawer-open"
+          "drawer group-data-[side='right']:drawer-end group-data-[variant='responsive']:lg:drawer-open"
         )}
         data-state={state}
-        data-variant={variant}
-        data-side={side}
         {...props}
       >
-        <DrawerToggle data-variant={variant} data-state={state} />
+        <DrawerToggle data-state={state} />
         {children}
       </main>
     );
@@ -167,7 +188,10 @@ const DrawerSide = React.memo(
     ({ className, children, ...props }, ref) => (
       <div
         ref={ref}
-        className={cn("drawer-side lg:top-0 top-16", className)}
+        className={cn(
+          "drawer-side group-data-[variant='responsive']:lg:top-0 top-16",
+          className
+        )}
         {...props}
       >
         <DrawerOverlay />
@@ -231,4 +255,3 @@ export {
   DrawerSideMenu,
   useDrawer,
 };
-export type { DrawerProps };

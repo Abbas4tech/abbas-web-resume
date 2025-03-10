@@ -43,7 +43,7 @@ const Layout = React.memo(
     }, []);
 
     return (
-      <DrawerProvider {...props} ref={ref}>
+      <DrawerProvider variant="responsive" side="left" {...props} ref={ref}>
         <Header
           data={{
             themeIcon,
@@ -55,7 +55,7 @@ const Layout = React.memo(
           }}
         />
         <Container className="h-[calc(100vh-5rem)]">
-          <Drawer variant="responsive" side="left">
+          <Drawer>
             <DrawerPageContent>
               <NavigationAnimation
                 className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-5rem)]"

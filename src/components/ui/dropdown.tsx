@@ -5,11 +5,7 @@ import { Button, ButtonProps } from "./button";
 const Dropdown = React.memo(
   React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div
-        ref={ref}
-        className={cn("dropdown dropdown-end", className)}
-        {...props}
-      />
+      <div ref={ref} className={cn("dropdown", className)} {...props} />
     )
   )
 );
