@@ -51,7 +51,7 @@ const Header = React.memo(
         >
           <nav className="navbar bg-base-100">
             <div className="navbar-start gap-2">
-              <DrawerButton className="lg:hidden">
+              <DrawerButton>
                 <Icon
                   iconCode="io5/IoMenu"
                   classes={["w-5", "h-5"]}

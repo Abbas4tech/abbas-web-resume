@@ -115,7 +115,10 @@ const DrawerButton = React.memo(
         <label
           ref={ref}
           tabIndex={0}
-          className={cn("btn btn-ghost btn-circle drawer-button", className)}
+          className={cn(
+            "btn btn-ghost btn-circle drawer-button data-[variant='responsive']:lg:hidden",
+            className
+          )}
           htmlFor={DRAWER_ID}
           {...props}
         />
@@ -134,7 +137,7 @@ const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       <main
         ref={ref}
         className={cn(
-          "drawer",
+          "group drawer",
           side === "right" && "drawer-end",
           variant === "responsive" && "lg:drawer-open"
         )}
@@ -203,7 +206,11 @@ const DrawerSideItem = React.memo(
       return (
         <li
           ref={ref}
-          className={cn("py-1 md:py-2 pr-2 cursor-pointer", className)}
+          data-aos="fade-right"
+          className={cn(
+            "py-1 md:py-2 pr-2 cursor-pointer group-data-[side='right']:*:flex-row-reverse",
+            className
+          )}
           onClick={toggleSidebar}
           {...props}
         />
