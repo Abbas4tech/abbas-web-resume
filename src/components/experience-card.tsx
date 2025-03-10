@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React from "react";
 import { JobExperience } from "@lib/contentful";
 
 import {
@@ -27,7 +27,7 @@ const monthNames = [
   "December",
 ];
 
-const ExperienceCard: React.FC<JobExperience> = memo(
+const ExperienceCard: React.FC<JobExperience> = React.memo(
   ({
     company,
     position,
@@ -46,17 +46,17 @@ const ExperienceCard: React.FC<JobExperience> = memo(
   }: JobExperience) => {
     ExperienceCard.displayName = "ExperienceCard";
 
-    const formattedStartDate = useMemo(() => {
+    const formattedStartDate = React.useMemo(() => {
       const date = new Date(startDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }, [startDate]);
 
-    const formattedEndDate = useMemo(() => {
+    const formattedEndDate = React.useMemo(() => {
       const date = new Date(endDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }, [endDate]);
 
-    const remoteLabel = useMemo(
+    const remoteLabel = React.useMemo(
       () => (workedRemotely ? ` - Remote` : ""),
       [workedRemotely]
     );

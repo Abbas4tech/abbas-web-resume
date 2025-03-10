@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { usePathname } from "next/navigation";
 import AOS, { AosOptions } from "aos";
 import { cn } from "@lib/utils";
@@ -13,15 +13,15 @@ const NavigationAnimation = React.memo(
   >(({ className, options, ...props }, ref) => {
     const containerRef = React.useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-    const [animationKey, setAnimationKey] = useState(0);
-    useEffect(() => {
+    const animationKey = React.useRef(0);
+    React.useEffect(() => {
       AOS.init({
         once: true,
         ...options,
       });
     }, [options]);
-    useEffect(() => {
-      setAnimationKey((prev) => prev + 1);
+    React.useEffect(() => {
+      animationKey.current = animationKey.current + 1;
       containerRef.current?.scrollTo({
         behavior: "smooth",
         top: 0,
