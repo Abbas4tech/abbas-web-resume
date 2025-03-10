@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import AOS, { AosOptions } from "aos";
-import "aos/dist/aos.css";
+import { cn } from "@lib/utils";
 
 const NavigationAnimation = React.memo(
   React.forwardRef<
@@ -11,6 +11,7 @@ const NavigationAnimation = React.memo(
       options: AosOptions;
     }
   >(({ className, options, ...props }, ref) => {
+    const containerRef = React.useRef<HTMLDivElement>(null);
     const pathname = usePathname();
     const [animationKey, setAnimationKey] = useState(0);
     useEffect(() => {
@@ -21,10 +22,13 @@ const NavigationAnimation = React.memo(
     }, [options]);
     useEffect(() => {
       setAnimationKey((prev) => prev + 1);
-      AOS.refresh();
+      containerRef.current?.scrollTo({
+        behavior: "smooth",
+        top: 0,
+      });
     }, [pathname]);
 
-    return <div ref={ref} key={animationKey} {...props} className="" />;
+    return <div ref={containerRef} {...props} className={cn("", className)} />;
   })
 );
 

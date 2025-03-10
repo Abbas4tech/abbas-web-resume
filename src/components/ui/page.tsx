@@ -165,7 +165,7 @@ const PageChangeButton = React.memo(
     const { changePage, nextPageText } = usePage();
     return (
       <Button
-        className={cn("mt-4 mb-12 justify-self-end self-end", className)}
+        className={cn("mt-4 justify-self-end self-end", className)}
         onClick={changePage}
         ref={ref}
         {...props}

@@ -56,9 +56,10 @@ const Layout = React.memo(
         />
         <Container className="h-[calc(100vh-5.5rem)]">
           <Drawer variant="responsive" side="left">
-            <DrawerPageContent className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-6rem)]">
+            <DrawerPageContent className="">
               <NavigationAnimation
-                options={{ easing: "ease-in-cubic", delay: 300 }}
+                className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-6rem)]"
+                options={{ easing: "ease-in-cubic" }}
               >
                 <ProfileBanner bannerData={bannerData} />
                 {children}
