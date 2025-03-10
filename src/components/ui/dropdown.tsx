@@ -37,7 +37,7 @@ const DropdownMenu = React.memo(
         role="menu"
         tabIndex={0}
         className={cn(
-          "dropdown-content menu bg-base-300 rounded-box w-36 z-[1] p-2 shadow-2xl",
+          "dropdown-content menu bg-base-300 rounded-box w-max z-[1] p-2 shadow-2xl",
           className
         )}
         {...props}
@@ -59,7 +59,15 @@ const DropdownMenuItem = React.memo(
       className={cn("menu-sm md:menu-md font-bold", className)}
       {...props}
     >
-      <span className={cn(isActive && "menu-active")}>{children}</span>
+      <span
+        className={cn(
+          "justify-between",
+          isActive &&
+            "text-transparent font-bold bg-clip-text bg-gradient-to-r from-primary to-secondary gradient-45 animate-gradient-x ease-in-out"
+        )}
+      >
+        {children}
+      </span>
     </li>
   ))
 );

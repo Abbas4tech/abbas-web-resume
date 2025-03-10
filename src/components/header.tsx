@@ -97,6 +97,14 @@ const Header = React.memo(
                       onClick={() => themeChangeHandler(theme.toLowerCase())}
                     >
                       {theme}
+                      <div
+                        data-theme={theme.toLowerCase()}
+                        className="p-1 bg-base-100 rounded-md flex gap-[2px]"
+                      >
+                        <div className="size-1 md:size-2 rounded-md bg-base-content"></div>
+                        <div className="size-1 md:size-2 rounded-md bg-primary"></div>
+                        <div className="size-1 md:size-2 rounded-md bg-secondary"></div>
+                      </div>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenu>

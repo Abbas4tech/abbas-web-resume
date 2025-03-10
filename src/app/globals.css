@@ -1,7 +1,11 @@
 @import "tailwindcss";
 @import "aos/dist/aos.css";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake, dracula, night;
+  themes: light --default, dark --prefersdark, cupcake, dracula, night,
+    bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine,
+    halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black,
+    luxury, dracula, cmyk, autumn, business, night, coffee, winter, caramellatte,
+    abyss, silk;
 }
 
 @utility scrollbar-hide {
@@ -9,4 +13,23 @@
     display: none;
   }
   scrollbar-width: none;
+}
+
+@utility gradient-45 {
+  background: linear-gradient(45deg, var(--tw-gradient-stops));
+  background-size: 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+@theme {
+  --animate-gardient-x: gradient-x 3s ease infinite;
+  @keyframes gradient-x {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
 }
