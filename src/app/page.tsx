@@ -31,7 +31,7 @@ const Home: NextPage = async () => {
       <PageContent contentAnimation={contentAnimation}>
         <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
           <RichText
-            paragraphClass="py-1.5 text-center md:text-xl"
+            paragraphClass="py-1.5 text-center lg:text-xl"
             document={description}
           />
         </div>

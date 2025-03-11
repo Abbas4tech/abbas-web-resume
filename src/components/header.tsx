@@ -45,7 +45,7 @@ const Header = React.memo(
           ref={ref}
           {...props}
           className={cn(
-            "bg-base-100 group-data-[variant='responsive']:container group-data-[variant='responsive']:mx-auto shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
+            "bg-base-100 group-data-[variant='responsive-sidebar']:container group-data-[variant='responsive-sidebar']:mx-auto shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
             className
           )}
         >

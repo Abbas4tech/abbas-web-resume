@@ -43,7 +43,12 @@ const Layout = React.memo(
     }, []);
 
     return (
-      <DrawerProvider variant="responsive" side="left" {...props} ref={ref}>
+      <DrawerProvider
+        variant="responsive-sidebar"
+        side="left"
+        {...props}
+        ref={ref}
+      >
         <Header
           data={{
             themeIcon,
