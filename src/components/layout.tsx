@@ -43,7 +43,12 @@ const Layout = React.memo(
     }, []);
 
     return (
-      <DrawerProvider {...props} ref={ref}>
+      <DrawerProvider
+        variant="responsive-sidebar"
+        side="left"
+        {...props}
+        ref={ref}
+      >
         <Header
           data={{
             themeIcon,
@@ -54,11 +59,12 @@ const Layout = React.memo(
             title,
           }}
         />
-        <Container className="h-[calc(100vh-5.5rem)]">
-          <Drawer variant="responsive" side="left">
-            <DrawerPageContent className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-6rem)]">
+        <Container className="h-[calc(100vh-5rem)]">
+          <Drawer>
+            <DrawerPageContent>
               <NavigationAnimation
-                options={{ easing: "ease-in-cubic", delay: 300 }}
+                className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-5rem)]"
+                options={{ easing: "ease-in-cubic" }}
               >
                 <ProfileBanner bannerData={bannerData} />
                 {children}
@@ -67,11 +73,7 @@ const Layout = React.memo(
             <DrawerSide>
               <DrawerSideMenu>
                 {pages.map((page) => (
-                  <DrawerSideItem
-                    key={page.title}
-                    id={page.title}
-                    data-aos="fade-right"
-                  >
+                  <DrawerSideItem key={page.title} id={page.title}>
                     <Button
                       asLink={true}
                       href={`${[
@@ -81,7 +83,7 @@ const Layout = React.memo(
                       ]}`}
                       className={`px-4 py-2 md:py-3 w-full flex gap-2 items-center ${
                         page.pageUrl === currentPath
-                          ? "border-primary border-l-4 bg-base-200 transform font-bold duration-200 ease-out transition-all"
+                          ? "border-primary group-data-[side='left']:border-l-4 group-data-[side='right']:border-r-4 bg-base-200 transform font-bold duration-200 ease-out transition-all"
                           : ""
                       }`}
                     >

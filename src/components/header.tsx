@@ -45,13 +45,13 @@ const Header = React.memo(
           ref={ref}
           {...props}
           className={cn(
-            "container mx-auto bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
+            "bg-base-100 group-data-[variant='responsive-sidebar']:container group-data-[variant='responsive-sidebar']:mx-auto shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
             className
           )}
         >
-          <nav className="navbar bg-base-100">
-            <div className="navbar-start gap-2">
-              <DrawerButton className="lg:hidden">
+          <nav className="navbar group-data-[side='right']:flex-row-reverse bg-base-100">
+            <div className="navbar-start group-data-[side='right']:flex-row-reverse gap-2">
+              <DrawerButton>
                 <Icon
                   iconCode="io5/IoMenu"
                   classes={["w-5", "h-5"]}
@@ -69,7 +69,7 @@ const Header = React.memo(
               </Button>
             </div>
 
-            <div className="navbar-end items-center gap-2">
+            <div className="navbar-end group-data-[side='right']:flex-row-reverse items-center gap-2">
               <Button
                 asLink
                 className="md:px-4 md:py-2 px-2 py-1 cursor-pointer btn btn-ghost bg-inherit"
@@ -97,6 +97,14 @@ const Header = React.memo(
                       onClick={() => themeChangeHandler(theme.toLowerCase())}
                     >
                       {theme}
+                      <div
+                        data-theme={theme.toLowerCase()}
+                        className="p-1 bg-base-100 rounded-md flex gap-[2px]"
+                      >
+                        <div className="size-1 md:size-2 rounded-md bg-base-content"></div>
+                        <div className="size-1 md:size-2 rounded-md bg-primary"></div>
+                        <div className="size-1 md:size-2 rounded-md bg-secondary"></div>
+                      </div>
                     </DropdownMenuItem>
                   ))}
                 </DropdownMenu>

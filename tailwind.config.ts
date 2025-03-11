@@ -1,31 +1,14 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  safelist: [
-    "tooltip-left",
-    "w-4",
-    "h-4",
-    "lg:w-6",
-    "lg:h-6",
-    "block",
-    "w-6",
-    "h-6",
-    "sm:w-8",
-    "sm:h-8",
-    "xl:block",
-    "lg:hidden",
-    "text-warning",
-    "text-info",
-    "text-success",
-    "text-error",
-  ],
-
+  content: {
+    files: [
+      "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+      "./components/**/*.{js,ts,jsx,tsx,mdx}",
+      "./app/**/*.{js,ts,jsx,tsx,mdx}",
+      "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+  },
   theme: {
     extend: {
       backgroundImage: {
@@ -35,51 +18,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [
-    require("daisyui"),
-    function ({ addUtilities }: { addUtilities: any }) {
-      const newUtilities = {
-        ".scrollbar-hide": {
-          "-ms-overflow-style": "none" /* IE */,
-          "scrollbar-width": "none" /* Firefox */,
-        },
-        ".scrollbar-hide::-webkit-scrollbar": {
-          display: "none" /* Chrome, Safari */,
-        },
-      };
-      addUtilities(newUtilities);
-    },
-  ],
-  daisyui: {
-    themes: [
-      "light",
-      "dark",
-      "cupcake",
-      "bumblebee",
-      "emerald",
-      "corporate",
-      "synthwave",
-      "retro",
-      "cyberpunk",
-      "valentine",
-      "halloween",
-      "garden",
-      "forest",
-      "aqua",
-      "lofi",
-      "pastel",
-      "fantasy",
-      "wireframe",
-      "black",
-      "luxury",
-      "dracula",
-      "cmyk",
-      "autumn",
-      "business",
-      "night",
-      "coffee",
-      "winter",
-    ],
-  },
+  plugins: [],
 };
 export default config;

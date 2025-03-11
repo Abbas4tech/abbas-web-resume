@@ -102,7 +102,7 @@ const Page = React.memo(
           role="main"
           ref={ref}
           className={cn(
-            "container overflow-auto scrollbar-hide flex flex-col",
+            "group-data-[variant='responsive-sidebar']:container overflow-auto scrollbar-hide flex flex-col",
             className
           )}
           {...props}
@@ -165,7 +165,7 @@ const PageChangeButton = React.memo(
     const { changePage, nextPageText } = usePage();
     return (
       <Button
-        className={cn("mt-4 mb-12 justify-self-end self-end", className)}
+        className={cn("mt-4 justify-self-end self-end", className)}
         onClick={changePage}
         ref={ref}
         {...props}
