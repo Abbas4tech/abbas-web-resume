@@ -14,7 +14,7 @@ type DrawerContext = {
   isMobile: boolean;
   toggleSidebar: () => void;
   side: "left" | "right";
-  variant: "default" | "responsive";
+  variant: "default" | "responsive-sidebar" | "dock-on-mobile";
 };
 
 const DrawerContext = React.createContext<DrawerContext | null>(null);
@@ -31,7 +31,7 @@ const DrawerProvider = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
     side?: "left" | "right";
-    variant?: "default" | "responsive";
+    variant?: "default" | "responsive-sidebar" | "dock-on-mobile";
   }
 >(
   (
@@ -47,13 +47,13 @@ const DrawerProvider = React.forwardRef<
   ) => {
     const isMobile = useMobile();
     let alreadyOpened = false;
-    if (variant === "responsive") {
+    if (variant !== "default") {
       alreadyOpened = true;
     }
     const [open, setOpen] = React.useState(alreadyOpened);
 
     const checkForSidebarState = React.useCallback(() => {
-      if (variant === "responsive") {
+      if (variant === "responsive-sidebar") {
         return (!open && isMobile) || !isMobile ? "expanded" : "collapsed";
       } else {
         return open ? "expanded" : "collapsed";
@@ -144,7 +144,7 @@ const DrawerButton = React.memo(
           ref={ref}
           tabIndex={0}
           className={cn(
-            "btn btn-ghost btn-circle drawer-button group-data-[variant='responsive']:lg:hidden",
+            "btn btn-ghost btn-circle drawer-button group-data-[variant='responsive-sidebar']:lg:hidden",
             className
           )}
           htmlFor={DRAWER_ID}
@@ -162,7 +162,7 @@ const Drawer = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(
       <main
         ref={ref}
         className={cn(
-          "drawer group-data-[side='right']:drawer-end group-data-[variant='responsive']:lg:drawer-open"
+          "drawer group-data-[side='right']:drawer-end group-data-[variant='responsive-sidebar']:lg:drawer-open"
         )}
         data-state={state}
         {...props}
@@ -189,13 +189,13 @@ const DrawerSide = React.memo(
       <div
         ref={ref}
         className={cn(
-          "drawer-side group-data-[variant='responsive']:lg:top-0 top-16",
+          "drawer-side group-data-[variant='responsive-sidebar']:md:top-0 top-16",
           className
         )}
         {...props}
       >
         <DrawerOverlay />
-        <div className="min-h-full bg-base-300 py-4 flex flex-col w-[var(--drawer-mobile-width)] lg:w-[var(--drawer-width)]">
+        <div className="min-h-full bg-base-300 py-4 flex flex-col w-[var(--drawer-mobile-width)] md:w-[var(--drawer-width)]">
           {children}
         </div>
       </div>
