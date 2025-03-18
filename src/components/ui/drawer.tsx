@@ -8,13 +8,15 @@ const DRAWER_WIDTH = "20rem";
 const DRAWER_WIDTH_MOBILE = "80%";
 
 type DRAWER_STATE = "expanded" | "collapsed";
+type DRAWER_VARIANTS = "default" | "responsive-sidebar" | "dock-on-mobile";
+type DRAWER_SIDES = "left" | "right";
 
 type DrawerContext = {
   state: DRAWER_STATE;
   isMobile: boolean;
   toggleSidebar: () => void;
-  side: "left" | "right";
-  variant: "default" | "responsive-sidebar" | "dock-on-mobile";
+  side: DRAWER_SIDES;
+  variant: DRAWER_VARIANTS;
 };
 
 const DrawerContext = React.createContext<DrawerContext | null>(null);
@@ -46,19 +48,20 @@ const DrawerProvider = React.forwardRef<
     ref
   ) => {
     const isMobile = useMobile();
-    let alreadyOpened = false;
-    if (variant !== "default") {
-      alreadyOpened = true;
-    }
+    const alreadyOpened = variant !== "default";
     const [open, setOpen] = React.useState(alreadyOpened);
 
-    const checkForSidebarState = React.useCallback(() => {
-      if (variant === "responsive-sidebar") {
-        return (!open && isMobile) || !isMobile ? "expanded" : "collapsed";
-      } else {
-        return open ? "expanded" : "collapsed";
-      }
-    }, [isMobile, open, variant]);
+    const checkForSidebarState = React.useCallback(
+      () =>
+        variant === "responsive-sidebar"
+          ? (!open && isMobile) || !isMobile
+            ? "expanded"
+            : "collapsed"
+          : open
+          ? "expanded"
+          : "collapsed",
+      [isMobile, open, variant]
+    );
 
     const toggleSidebar = React.useCallback(() => {
       setOpen((value) => !value);
@@ -139,12 +142,14 @@ const DrawerToggle = React.memo(
 const DrawerButton = React.memo(
   React.forwardRef<HTMLLabelElement, React.HTMLAttributes<HTMLLabelElement>>(
     ({ className, ...props }, ref) => {
+      const { variant } = useDrawer();
       return (
         <label
           ref={ref}
           tabIndex={0}
           className={cn(
-            "btn btn-ghost btn-circle drawer-button group-data-[variant='responsive-sidebar']:lg:hidden",
+            "btn btn-ghost btn-circle drawer-button",
+            variant === "responsive-sidebar" && "lg:hidden",
             className
           )}
           htmlFor={DRAWER_ID}
@@ -157,12 +162,14 @@ const DrawerButton = React.memo(
 
 const Drawer = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(
   ({ className, children, ...props }, ref) => {
-    const { state } = useDrawer();
+    const { state, variant, side } = useDrawer();
     return (
       <main
         ref={ref}
         className={cn(
-          "drawer group-data-[side='right']:drawer-end group-data-[variant='responsive-sidebar']:lg:drawer-open"
+          "drawer",
+          side === "right" && "drawer-end",
+          variant === "responsive-sidebar" && "lg:drawer-open"
         )}
         data-state={state}
         {...props}
@@ -185,21 +192,25 @@ const DrawerPageContent = React.memo(
 
 const DrawerSide = React.memo(
   React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-    ({ className, children, ...props }, ref) => (
-      <div
-        ref={ref}
-        className={cn(
-          "drawer-side group-data-[variant='responsive-sidebar']:md:top-0 top-16",
-          className
-        )}
-        {...props}
-      >
-        <DrawerOverlay />
-        <div className="min-h-full bg-base-300 py-4 flex flex-col w-[var(--drawer-mobile-width)] md:w-[var(--drawer-width)]">
-          {children}
+    ({ className, children, ...props }, ref) => {
+      const { variant } = useDrawer();
+      return (
+        <div
+          ref={ref}
+          className={cn(
+            "drawer-side top-16",
+            variant === "responsive-sidebar" && "md:top-0",
+            className
+          )}
+          {...props}
+        >
+          <DrawerOverlay />
+          <div className="min-h-full bg-base-300 py-4 flex flex-col w-[var(--drawer-mobile-width)] md:w-[var(--drawer-width)]">
+            {children}
+          </div>
         </div>
-      </div>
-    )
+      );
+    }
   )
 );
 
@@ -226,13 +237,14 @@ DrawerSideMenu.displayName = "DrawerSideMenu";
 const DrawerSideItem = React.memo(
   React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElement>>(
     ({ className, ...props }, ref) => {
-      const { toggleSidebar } = useDrawer();
+      const { toggleSidebar, side } = useDrawer();
       return (
         <li
           ref={ref}
-          data-aos="fade-right"
+          data-aos={side === "left" ? "fade-right" : "fade-left"}
           className={cn(
-            "py-1 md:py-2 pr-2 cursor-pointer group-data-[side='right']:*:flex-row-reverse",
+            "py-1 md:py-2 pr-2 cursor-pointer",
+            side === "right" && "*:flex-row-reverse pl-2 pr-0",
             className
           )}
           onClick={toggleSidebar}
@@ -255,3 +267,4 @@ export {
   DrawerSideMenu,
   useDrawer,
 };
+export type { DRAWER_VARIANTS, DRAWER_SIDES };
