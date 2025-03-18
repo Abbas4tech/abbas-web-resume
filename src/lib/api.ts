@@ -28,6 +28,7 @@ export const fetchPageMetadata = async <T extends Pages>(
         publisher,
         siteName,
         url,
+        favicon,
       },
     } = await fetchQuery<T>(contentfulKey);
 
@@ -62,6 +63,7 @@ export const fetchPageMetadata = async <T extends Pages>(
         })),
         creator,
       },
+      icons: [{ rel: "icon", url: favicon.file.url }],
     };
   } catch (error) {
     console.error("Failed to fetch metadata:", error);
