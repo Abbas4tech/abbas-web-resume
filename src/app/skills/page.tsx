@@ -36,7 +36,6 @@ const SkillsPage: NextPage = async () => {
     <Page>
       <PageHeading headingAnimation={headingAnimation}>
         <Icon {...pageIcon} />
-
         {title}
       </PageHeading>
       <PageContent
