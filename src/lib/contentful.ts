@@ -13,6 +13,7 @@ export interface ApplicationData extends EntrySkeletonType {
   themeIcon: IconResponse;
   defaultTheme: EntryFields.Text;
   pagesInformation: Pages[];
+  layoutSettings: LayoutSettings;
 }
 
 export interface IconResponse {
@@ -40,6 +41,13 @@ export interface SEOData {
   images: FileAsset[];
   url: EntryFields.Text;
   siteName: EntryFields.Text;
+  favicon: FileAsset;
+}
+
+export interface LayoutSettings {
+  title: EntryFields.Text;
+  drawerSide: EntryFields.Text;
+  drawerVariant: EntryFields.Text;
 }
 
 export interface FileAsset extends Asset {

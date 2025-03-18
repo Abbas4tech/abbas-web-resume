@@ -4,21 +4,21 @@ import { ApplicationData } from "@lib/contentful";
 
 import {
   Drawer,
+  DRAWER_SIDES,
+  DRAWER_VARIANTS,
   DrawerPageContent,
   DrawerProvider,
   DrawerSide,
   DrawerSideItem,
   DrawerSideMenu,
 } from "./ui/drawer";
-import Container from "./ui/container";
+import { Container } from "./ui/container";
 import { Button } from "./ui/button";
 import { usePage } from "./ui/page";
 import { Icon } from "./ui/icon";
 import { ProfileBanner } from "./banner";
-import Header from "./header";
-
-import AOS from "aos";
-import NavigationAnimation from "./ui/navigation";
+import { Header } from "./header";
+import { NavigationAnimation } from "./ui/navigation";
 
 const Layout = React.memo(
   React.forwardRef<
@@ -36,16 +36,18 @@ const Layout = React.memo(
       themeList,
       title,
       bannerData,
+      layoutSettings,
     } = data;
 
-    React.useEffect(() => {
-      if (typeof window !== "undefined") AOS.init();
-    }, []);
+    const variant = layoutSettings.drawerVariant
+      .split(" ")
+      .map((i) => i.toLowerCase())
+      .join("-") as DRAWER_VARIANTS;
 
     return (
       <DrawerProvider
-        variant="responsive-sidebar"
-        side="left"
+        variant={variant}
+        side={layoutSettings.drawerSide.toLowerCase() as DRAWER_SIDES}
         {...props}
         ref={ref}
       >
