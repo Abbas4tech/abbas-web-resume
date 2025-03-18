@@ -16,4 +16,4 @@ const Container = React.memo(
   )
 );
 
-export default Container;
+export { Container };

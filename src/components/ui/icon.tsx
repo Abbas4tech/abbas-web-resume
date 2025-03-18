@@ -58,6 +58,7 @@ const Icon = React.memo(
       ref
     ) => {
       const [library, iconName] = iconCode.split("/") as [string, string];
+      const cleanClasses = classes.map((c) => c.trim()).join(" ");
 
       const IconComponent = React.useMemo(() => {
         if (isIconLibrary(library)) {
@@ -80,7 +81,7 @@ const Icon = React.memo(
           data-tip={name}
         >
           <IconComponent
-            className={classes.join(" ")}
+            className={cleanClasses}
             aria-label={name}
             role="img"
           />

@@ -73,30 +73,22 @@ const ExperienceCard: React.FC<JobExperience> = React.memo(
           <StepContent>
             <div className="flex flex-col justify-between md:flex-row">
               <div className="flex items-center gap-2">
-                <span className="">
-                  <Icon {...locationIcon} />
-                </span>
+                <Icon {...locationIcon} />
                 &nbsp;{`${location}${remoteLabel}`}
               </div>
               <div className="flex items-center gap-2">
-                <span className="">
-                  <Icon {...durationIcon} />
-                </span>
+                <Icon {...durationIcon} />
                 {`${formattedStartDate} - ${
                   currentlyWorking ? "Present" : formattedEndDate
                 }`}
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <span className="">
-                <Icon {...roleIcon} />
-              </span>
+              <Icon {...roleIcon} />
               {position}
             </div>
             <div className="flex items-start gap-2 mb-2 md:mb-4">
-              <span className="pt-1 ">
-                <Icon {...techStackIcon} />
-              </span>
+              <Icon {...techStackIcon} />
               {techStack.skillIcons.map((i) => i.name).join(", ")}
             </div>
           </StepContent>

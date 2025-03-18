@@ -1,12 +1,24 @@
 import { cn } from "@lib/utils";
 import React from "react";
 import { Button, ButtonProps } from "./button";
+import { useDrawer } from "./drawer";
 
 const Dropdown = React.memo(
   React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-    ({ className, ...props }, ref) => (
-      <div ref={ref} className={cn("dropdown", className)} {...props} />
-    )
+    ({ className, ...props }, ref) => {
+      const { side } = useDrawer();
+      return (
+        <div
+          ref={ref}
+          className={cn(
+            "dropdown",
+            side === "left" ? "dropdown-end" : "dropdown-start",
+            className
+          )}
+          {...props}
+        />
+      );
+    }
   )
 );
 

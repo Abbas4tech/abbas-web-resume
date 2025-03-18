@@ -32,4 +32,4 @@ const NavigationAnimation = React.memo(
   })
 );
 
-export default NavigationAnimation;
+export { NavigationAnimation };
