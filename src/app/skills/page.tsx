@@ -54,7 +54,7 @@ const SkillsPage: NextPage = async () => {
                         <Icon key={title} {...skill} />
                       ))}
                     </SkillList>
-                    <Progress skillProgress={skillProgress} />
+                    <Progress count={skillProgress} />
                   </SkillGroupContent>
                 ))}
               </SkillGroup>
