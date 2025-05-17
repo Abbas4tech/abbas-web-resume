@@ -34,14 +34,11 @@ const SkillsPage: NextPage = async () => {
 
   return (
     <Page>
-      <PageHeading headingAnimation={headingAnimation}>
+      <PageHeading data-aos={headingAnimation}>
         <Icon {...pageIcon} />
         {title}
       </PageHeading>
-      <PageContent
-        className="flex flex-col gap-4"
-        contentAnimation={contentAnimation}
-      >
+      <PageContent className="flex flex-col gap-4" data-aos={contentAnimation}>
         {skillsSet.map(({ icon, title, skillsArray }, index: number) => (
           <Skill key={index}>
             <SkillsContent>

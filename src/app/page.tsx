@@ -27,8 +27,8 @@ const Home: NextPage = async () => {
 
   return (
     <Page>
-      <PageHeading headingAnimation={headingAnimation}>{title}</PageHeading>
-      <PageContent contentAnimation={contentAnimation}>
+      <PageHeading data-aos={headingAnimation}>{title}</PageHeading>
+      <PageContent data-aos={contentAnimation}>
         <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
           <RichText
             paragraphClass="py-1.5 text-center lg:text-xl"
