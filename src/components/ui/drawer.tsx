@@ -29,13 +29,12 @@ function useDrawer() {
   return context;
 }
 
-const DrawerProvider = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<"div"> & {
-    side?: "left" | "right";
-    variant?: "default" | "responsive-sidebar" | "dock-on-mobile";
-  }
->(
+type DrawerProviderProps = React.ComponentProps<"div"> & {
+  side?: "left" | "right";
+  variant?: "default" | "responsive-sidebar" | "dock-on-mobile";
+};
+
+const DrawerProvider = React.forwardRef<HTMLDivElement, DrawerProviderProps>(
   (
     {
       className,
