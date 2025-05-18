@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "@components/ui/card";
 import { Icon } from "@components/ui/icon";
+import { AnimatedHeading } from "@components/animated-heading";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ProjectsPageSchema>(
@@ -36,7 +37,7 @@ const ProjectsPage: NextPage = async () => {
     <Page>
       <PageHeading data-aos={headingAnimation}>
         <Icon {...pageIcon} />
-        {title}
+        <AnimatedHeading text={title} />
       </PageHeading>
       <PageContent
         className="grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4"
