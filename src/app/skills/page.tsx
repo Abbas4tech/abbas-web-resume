@@ -14,6 +14,7 @@ import {
 } from "@components/ui/skill";
 import Progress from "@components/ui/progress";
 import { Icon } from "@components/ui/icon";
+import { AnimatedHeading } from "@components/animated-heading";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<SkillsPageSchema>(
@@ -36,7 +37,7 @@ const SkillsPage: NextPage = async () => {
     <Page>
       <PageHeading data-aos={headingAnimation}>
         <Icon {...pageIcon} />
-        {title}
+        <AnimatedHeading text={title} />
       </PageHeading>
       <PageContent className="flex flex-col gap-4" data-aos={contentAnimation}>
         {skillsSet.map(({ icon, title, skillsArray }, index: number) => (
