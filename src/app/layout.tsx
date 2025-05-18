@@ -1,12 +1,13 @@
-import { Poppins } from "next/font/google";
+import { Space_Grotesk, Jura, Poppins, Montserrat } from "next/font/google";
 import { ApplicationData } from "@lib/contentful";
 import { fetchQuery } from "@lib/api";
 import { PageProvider } from "@components/ui/page";
 import { Layout } from "@components/layout";
 
 import "./globals.css";
+import { getFont } from "@lib/helper";
 
-const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
+const inter = getFont("spaceGrotesk");
 
 export default async function RootLayout({
   children,
