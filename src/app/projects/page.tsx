@@ -34,13 +34,13 @@ const ProjectsPage: NextPage = async () => {
 
   return (
     <Page>
-      <PageHeading headingAnimation={headingAnimation}>
+      <PageHeading data-aos={headingAnimation}>
         <Icon {...pageIcon} />
         {title}
       </PageHeading>
       <PageContent
         className="grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4"
-        contentAnimation={contentAnimation}
+        data-aos={contentAnimation}
       >
         {projects.map((item, index: number) => (
           <Card key={index}>
