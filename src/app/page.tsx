@@ -12,6 +12,7 @@ import {
 } from "@components/ui/stat";
 import { Icon } from "@components/ui/icon";
 import { RichText } from "@components/rich-text";
+import { AnimatedHeading } from "@components/animated-heading";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
@@ -27,7 +28,9 @@ const Home: NextPage = async () => {
 
   return (
     <Page>
-      <PageHeading data-aos={headingAnimation}>{title}</PageHeading>
+      <PageHeading data-aos={headingAnimation}>
+        <AnimatedHeading text={title} />
+      </PageHeading>
       <PageContent data-aos={contentAnimation}>
         <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
           <RichText

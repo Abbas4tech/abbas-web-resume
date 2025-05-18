@@ -3,7 +3,7 @@ import React from "react";
 import { cn } from "@lib/utils";
 import { MetaPage } from "@lib/contentful";
 import { usePathname, useRouter } from "next/navigation";
-import { Button, ButtonProps } from "./button";
+import { Button, TypeButtonProps } from "./button";
 import { Icon } from "./icon";
 
 type PageContext = {
@@ -144,17 +144,13 @@ const PageHeading = React.memo(
 );
 PageHeading.displayName = "PageHeading";
 
-const PageChangeButton = React.memo(
-  React.forwardRef<
-    React.ComponentRef<typeof Button>,
-    Extract<ButtonProps, { asLink?: false }>
-  >(({ className, ...props }, ref) => {
+const PageChangeButton = React.memo<Omit<TypeButtonProps, "ref">>(
+  ({ className, ...props }) => {
     const { changePage, nextPageText } = usePage();
     return (
       <Button
         className={cn("mt-4 justify-self-end self-end", className)}
         onClick={changePage}
-        ref={ref}
         {...props}
       >
         {nextPageText}
@@ -166,8 +162,9 @@ const PageChangeButton = React.memo(
         />
       </Button>
     );
-  })
+  }
 );
+PageChangeButton.displayName = "PageChangeButton";
 
 export {
   PageProvider,

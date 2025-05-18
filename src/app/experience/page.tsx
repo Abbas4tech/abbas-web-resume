@@ -8,6 +8,7 @@ import { fetchQuery, fetchPageMetadata } from "@lib/api";
 import { Page, PageContent, PageHeading } from "@components/ui/page";
 import { Icon } from "@components/ui/icon";
 import ExperienceCard from "@components/experience-card";
+import { AnimatedHeading } from "@components/animated-heading";
 
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<ExperiencePageSchema>(
@@ -30,7 +31,7 @@ const ExperiencePage: NextPage = async () => {
     <Page>
       <PageHeading data-aos={headingAnimation}>
         <Icon {...pageIcon} />
-        {title}
+        <AnimatedHeading text={title} />
       </PageHeading>
       <PageContent
         data-aos={contentAnimation}
