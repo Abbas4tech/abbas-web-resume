@@ -20,6 +20,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
   );
 };
+export const revalidate = 60;
 
 const ProjectsPage: NextPage = async () => {
   const {

@@ -16,6 +16,7 @@ import { RichText } from "@components/rich-text";
 export const generateMetadata = async (): Promise<Metadata> => {
   return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
 };
+export const revalidate = 60;
 
 const Home: NextPage = async () => {
   const {

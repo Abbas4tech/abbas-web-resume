@@ -14,6 +14,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
     process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
   );
 };
+export const revalidate = 60;
 
 const ExperiencePage: NextPage = async () => {
   const {

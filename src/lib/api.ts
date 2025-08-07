@@ -32,6 +32,13 @@ export const fetchPageMetadata = async <T extends Pages>(
       },
     } = await fetchQuery<T>(contentfulKey);
 
+    const imageAsset = images.map((image) => ({
+      url: `https:${image.file.url}`,
+      alt: image.title,
+      height: image.file.details.image.height,
+      width: image.file.details.image.width,
+    }));
+
     return {
       title,
       description,
@@ -42,12 +49,7 @@ export const fetchPageMetadata = async <T extends Pages>(
         type: "website",
         title,
         countryName,
-        images: images.map((image) => ({
-          url: `https:${image.file.url}`,
-          alt: image.title,
-          height: image.file.details.image.height,
-          width: image.file.details.image.width,
-        })),
+        images: imageAsset,
         siteName,
         url,
         description,
@@ -55,12 +57,7 @@ export const fetchPageMetadata = async <T extends Pages>(
       twitter: {
         title,
         description,
-        images: images.map((image) => ({
-          url: `https:${image.file.url}`,
-          alt: image.title,
-          height: image.file.details.image.height,
-          width: image.file.details.image.width,
-        })),
+        images: imageAsset,
         creator,
       },
       icons: [{ rel: "icon", url: favicon.file.url }],

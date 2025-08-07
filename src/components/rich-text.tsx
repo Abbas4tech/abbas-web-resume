@@ -17,7 +17,7 @@ const RichText: React.FC<RichTextProps> = ({ document, paragraphClass }) => {
 
   const options: Options = {
     renderNode: {
-      [BLOCKS.PARAGRAPH]: (node, children) => <Text>{children}</Text>,
+      [BLOCKS.PARAGRAPH]: (_, children) => <Text>{children}</Text>,
     },
   };
   return documentToReactComponents(document, options);

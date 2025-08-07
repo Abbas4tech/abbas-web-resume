@@ -158,9 +158,3 @@ export interface SkillSet extends EntrySkeletonType {
   icon: IconResponse;
   skillsArray: SkillGroup[];
 }
-
-type UnwrapEntry<T> = T extends Entry<infer U>
-  ? UnwrapEntry<U>
-  : T extends (infer U)[]
-  ? UnwrapEntry<U>[]
-  : T;
