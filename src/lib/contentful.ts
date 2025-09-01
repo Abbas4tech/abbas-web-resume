@@ -1,4 +1,4 @@
-import { EntryFields, Entry, EntrySkeletonType, Asset } from "contentful";
+import { EntryFields, EntrySkeletonType, Asset } from "contentful";
 import { Document } from "@contentful/rich-text-types";
 
 export interface ApplicationData extends EntrySkeletonType {
@@ -20,7 +20,7 @@ export interface IconResponse {
   name: EntryFields.Text;
   iconCode: EntryFields.Text;
   classes?: EntryFields.Text[];
-  showTooltip: boolean;
+  showTooltip: EntryFields.Boolean;
 }
 
 export interface Banner {
@@ -48,6 +48,7 @@ export interface LayoutSettings {
   title: EntryFields.Text;
   drawerSide: EntryFields.Text;
   drawerVariant: EntryFields.Text;
+  withPageChangeButton: EntryFields.Boolean;
 }
 
 export interface FileAsset extends Asset {
@@ -56,10 +57,10 @@ export interface FileAsset extends Asset {
   file: {
     url: EntryFields.Text;
     details: {
-      size: number;
+      size: EntryFields.Number;
       image: {
-        width: number;
-        height: number;
+        width: EntryFields.Number;
+        height: EntryFields.Number;
       };
     };
     fileName: EntryFields.Text;
