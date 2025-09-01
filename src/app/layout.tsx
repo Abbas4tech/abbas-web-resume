@@ -23,7 +23,10 @@ export default async function RootLayout({
       className="scrollbar-hide"
     >
       <body className={inter.className}>
-        <PageProvider pages={data.pages}>
+        <PageProvider
+          withPageChange={data.layoutSettings.withPageChangeButton}
+          pages={data.pages}
+        >
           <Layout data={data}>{children}</Layout>
         </PageProvider>
       </body>
