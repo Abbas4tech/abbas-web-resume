@@ -2,9 +2,9 @@ import React from "react";
 import { Metadata, NextPage } from "next";
 import Link from "next/link";
 
-import { ProjectsPage as ProjectsPageSchema } from "@lib/contentful";
-import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import { Page, PageContent, PageHeading } from "@components/ui/page";
+import { ProjectsPage as ProjectsPageSchema } from "@/lib/contentful";
+import { fetchQuery } from "@/lib/api";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
   Card,
   CardContent,
@@ -12,14 +12,13 @@ import {
   CardFooter,
   CardImage,
   CardTitle,
-} from "@components/ui/card";
-import { Icon } from "@components/ui/icon";
+} from "@/components/ui/card";
+import { Icon } from "@/components/ui/icon";
+import { getPageMetadata } from "@/helper/getPageMetadata";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return fetchPageMetadata<ProjectsPageSchema>(
-    process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
-  );
-};
+export const generateMetadata = async (): Promise<Metadata> =>
+  await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY!);
+
 export const revalidate = 60;
 
 const ProjectsPage: NextPage = async () => {

@@ -1,21 +1,22 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
-import { HomePage } from "@lib/contentful";
-import { fetchPageMetadata, fetchQuery } from "@lib/api";
-import { Page, PageContent, PageHeading } from "@components/ui/page";
+import { HomePage } from "@/lib/contentful";
+import { fetchQuery } from "@/lib/api";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
   Stat,
   StatDescription,
   StatFigure,
   Stats,
   StatTitle,
-} from "@components/ui/stat";
-import { Icon } from "@components/ui/icon";
-import { RichText } from "@components/rich-text";
+} from "@/components/ui/stat";
+import { Icon } from "@/components/ui/icon";
+import { RichText } from "@/components/rich-text";
+import { getPageMetadata } from "@/helper/getPageMetadata";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return fetchPageMetadata<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
-};
+export const generateMetadata = async (): Promise<Metadata> =>
+  await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY!);
+
 export const revalidate = 60;
 
 const Home: NextPage = async () => {
