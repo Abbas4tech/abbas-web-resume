@@ -9,8 +9,8 @@ import {
   DropdownMenuItem,
   DropdownToggle,
 } from "./ui/dropdown";
-import { ApplicationData } from "@lib/contentful";
-import { cn } from "@lib/utils";
+import { ApplicationData } from "@/lib/contentful";
+import { cn } from "@/lib/utils";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   data: Pick<

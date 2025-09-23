@@ -1,5 +1,5 @@
 import { EntrySkeletonType, createClient } from "contentful";
-import { convertEntry } from "@lib/helper";
+import { convertEntry } from "@/lib/helper";
 import { Metadata } from "next";
 import { Pages } from "./contentful";
 

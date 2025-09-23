@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { ApplicationData } from "@lib/contentful";
+import { ApplicationData } from "@/lib/contentful";
 
 import {
   Drawer,

@@ -1,5 +1,5 @@
 import React from "react";
-import { JobExperience } from "@lib/contentful";
+import { JobExperience } from "@/lib/contentful";
 
 import {
   Step,

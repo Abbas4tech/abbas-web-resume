@@ -3,17 +3,16 @@ import { Metadata, NextPage } from "next";
 import {
   ExperiencePage as ExperiencePageSchema,
   JobExperience,
-} from "@lib/contentful";
-import { fetchQuery, fetchPageMetadata } from "@lib/api";
-import { Page, PageContent, PageHeading } from "@components/ui/page";
-import { Icon } from "@components/ui/icon";
-import ExperienceCard from "@components/experience-card";
+} from "@/lib/contentful";
+import { fetchQuery } from "@/lib/api";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
+import { Icon } from "@/components/ui/icon";
+import ExperienceCard from "@/components/experience-card";
+import { getPageMetadata } from "@/helper/getPageMetadata";
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  return fetchPageMetadata<ExperiencePageSchema>(
-    process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
-  );
-};
+export const generateMetadata = async (): Promise<Metadata> =>
+  await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
+
 export const revalidate = 60;
 
 const ExperiencePage: NextPage = async () => {

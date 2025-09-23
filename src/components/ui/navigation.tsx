@@ -2,7 +2,7 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import AOS, { AosOptions } from "aos";
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 
 const NavigationAnimation = React.memo(
   React.forwardRef<

@@ -1,8 +1,8 @@
 import { Poppins } from "next/font/google";
-import { ApplicationData } from "@lib/contentful";
-import { fetchQuery } from "@lib/api";
-import { PageProvider } from "@components/ui/page";
-import { Layout } from "@components/layout";
+import { ApplicationData } from "@/lib/contentful";
+import { fetchQuery } from "@/lib/api";
+import { PageProvider } from "@/components/ui/page";
+import { Layout } from "@/components/layout";
 
 import "./globals.css";
 

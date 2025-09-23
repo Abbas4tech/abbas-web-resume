@@ -1,8 +1,8 @@
 import React from "react";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
-import { ApplicationData, FileAsset } from "@lib/contentful";
-import { cn } from "@lib/utils";
+import { ApplicationData, FileAsset } from "@/lib/contentful";
+import { cn } from "@/lib/utils";
 
 const SOCIAL_LINK_IMAGE_CLASS = "w-6 h-6 md:w-8 md:h-8";
 

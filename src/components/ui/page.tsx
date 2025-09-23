@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { cn } from "@lib/utils";
-import { MetaPage } from "@lib/contentful";
+import { cn } from "@/lib/utils";
+import { MetaPage } from "@/lib/contentful";
 import { usePathname, useRouter } from "next/navigation";
 import { Button, ButtonProps } from "./button";
 import { Icon } from "./icon";

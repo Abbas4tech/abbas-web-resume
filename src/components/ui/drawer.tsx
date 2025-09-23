@@ -1,7 +1,7 @@
 "use client";
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 import React from "react";
-import { useMobile } from "@hooks";
+import { useMobile } from "@/hooks";
 
 const DRAWER_ID = "my-drawer-2";
 const DRAWER_WIDTH = "20rem";
