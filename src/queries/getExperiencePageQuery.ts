@@ -12,17 +12,6 @@ export const GET_EXPERIENCE_PAGE = gql`
       }
       headingAnimation
       contentAnimation
-        imagesCollection {
-          items {
-            title
-            description
-            url
-            width
-            height
-            fileName
-          }
-        }
-      }
       pageData {
         ... on ExperiencePageData {
           title

@@ -1,12 +1,18 @@
-export interface Collection<T> {
-  items: T[];
+import { PageData, SEOData } from "./pages";
+
+export interface Page<T extends PageData = PageData> {
+  page: {
+    title: string;
+    pageIcon: Icon;
+    contentAnimation: string;
+    headingAnimation: string;
+    pageSeo: SEOData;
+    pageData: T;
+  };
 }
 
-export interface Page {
-  title: string;
-  pageIcon: Icon;
-  contentAnimation: string;
-  headingAnimation: string;
+export interface Collection<T> {
+  items: T[];
 }
 
 export interface Icon {

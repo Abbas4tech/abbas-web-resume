@@ -52,43 +52,34 @@ const Icon = React.memo(
   React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement> & IconResponse
-  >(
-    (
-      { className, iconCode = "", classes = [], showTooltip = true, name },
-      ref
-    ) => {
-      const [library, iconName] = iconCode.split("/") as [string, string];
-      const cleanClasses = classes.map((c) => c.trim()).join(" ");
+  >(({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
+    const [library, iconName] = iconCode.split("/") as [string, string];
+    const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
 
-      const IconComponent = React.useMemo(() => {
-        if (isIconLibrary(library)) {
-          return loadIcon(library, iconName);
-        } else {
-          console.error(`Invalid icon library: "${library}"`);
-          return loadIcon("md", "MdError");
-        }
-      }, [library, iconName]);
+    const IconComponent = React.useMemo(() => {
+      if (isIconLibrary(library)) {
+        return loadIcon(library, iconName);
+      } else {
+        console.error(`Invalid icon library: "${library}"`);
+        return loadIcon("md", "MdError");
+      }
+    }, [library, iconName]);
 
-      return (
-        <div
-          ref={ref}
-          className={cn(
-            "flex items-center",
-            showTooltip && `tooltip tooltip-primary`,
-            className
-          )}
-          tabIndex={-1}
-          data-tip={name}
-        >
-          <IconComponent
-            className={cleanClasses}
-            aria-label={name}
-            role="img"
-          />
-        </div>
-      );
-    }
-  )
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          "flex items-center",
+          showTooltip && `tooltip tooltip-primary`,
+          className
+        )}
+        tabIndex={-1}
+        data-tip={name}
+      >
+        <IconComponent className={cleanClasses} aria-label={name} role="img" />
+      </div>
+    );
+  })
 );
 
 Icon.displayName = "DynamicIcon";

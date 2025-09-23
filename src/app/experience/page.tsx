@@ -1,14 +1,12 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
-import {
-  ExperiencePage as ExperiencePageSchema,
-  JobExperience,
-} from "@/lib/contentful";
-import { fetchQuery } from "@/lib/api";
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { Icon } from "@/components/ui/icon";
 import ExperienceCard from "@/components/experience-card";
 import { getPageMetadata } from "@/helper/getPageMetadata";
+import { fetchGql } from "@/lib/apollo/client";
+import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
+import { ExperiencePage as ExperiencePageSchema } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
@@ -16,15 +14,16 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const ExperiencePage: NextPage = async () => {
+  const data = await fetchGql<ExperiencePageSchema>(GET_EXPERIENCE_PAGE, {
+    id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!,
+  });
   const {
     title,
-    pageIcon,
     headingAnimation,
     contentAnimation,
-    pageData: { experiences },
-  }: ExperiencePageSchema = await fetchQuery<ExperiencePageSchema>(
-    process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!
-  );
+    pageIcon,
+    pageData: { experiencesCollection },
+  } = data.page;
 
   return (
     <Page>
@@ -36,7 +35,7 @@ const ExperiencePage: NextPage = async () => {
         data-aos={contentAnimation}
         className="px-2 pl-4 mt-2 md:mt-4 md:px-12"
       >
-        {experiences.map((experience: JobExperience, index: number) => (
+        {experiencesCollection.items.map((experience, index: number) => (
           <ExperienceCard {...experience} key={index} />
         ))}
       </PageContent>

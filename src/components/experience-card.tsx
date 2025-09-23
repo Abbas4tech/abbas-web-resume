@@ -1,5 +1,5 @@
 import React from "react";
-import { JobExperience } from "@/lib/contentful";
+import { JobExperience } from "@/types/pages";
 
 import {
   Step,
@@ -89,7 +89,9 @@ const ExperienceCard: React.FC<JobExperience> = React.memo(
             </div>
             <div className="flex items-start gap-2 mb-2 md:mb-4">
               <Icon {...techStackIcon} />
-              {techStack.skillIcons.map((i) => i.name).join(", ")}
+              {techStack.skillIconsCollection.items
+                .map((i) => i.name)
+                .join(", ")}
             </div>
           </StepContent>
           <StepDescription>{description}</StepDescription>
