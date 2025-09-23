@@ -1,4 +1,4 @@
-import { PageData, SEOData } from "./pages";
+import { PageData } from "./pages";
 
 export interface Page<T extends PageData = PageData> {
   page: {
@@ -6,7 +6,6 @@ export interface Page<T extends PageData = PageData> {
     pageIcon: Icon;
     contentAnimation: string;
     headingAnimation: string;
-    pageSeo: SEOData;
     pageData: T;
   };
 }

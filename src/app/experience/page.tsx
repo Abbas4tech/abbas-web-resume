@@ -6,7 +6,7 @@ import ExperienceCard from "@/components/experience-card";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/apollo/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
-import { ExperiencePage as ExperiencePageSchema } from "@/types/pages";
+import { ExperiencePage as ExperiencePageQueryResponse } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
@@ -14,9 +14,12 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const ExperiencePage: NextPage = async () => {
-  const data = await fetchGql<ExperiencePageSchema>(GET_EXPERIENCE_PAGE, {
-    id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!,
-  });
+  const data = await fetchGql<ExperiencePageQueryResponse>(
+    GET_EXPERIENCE_PAGE,
+    {
+      id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!,
+    }
+  );
   const {
     title,
     headingAnimation,

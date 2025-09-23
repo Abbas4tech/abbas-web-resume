@@ -3,14 +3,9 @@ import React from "react";
 import { DrawerButton } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 import { Button } from "./ui/button";
-import {
-  Dropdown,
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownToggle,
-} from "./ui/dropdown";
 import { ApplicationData } from "@/lib/contentful";
 import { cn } from "@/lib/utils";
+import ThemeSwitch from "./theme-switch";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   data: Pick<
@@ -30,16 +25,6 @@ const Header = React.memo(
       const { title, resume, resumeIcon, themeIcon, themeList, defaultTheme } =
         data;
 
-      const [currentTheme, setCurrentTheme] = React.useState(
-        defaultTheme.toLowerCase()
-      );
-
-      const themeChangeHandler = (
-        theme: string = defaultTheme.toLowerCase()
-      ) => {
-        setCurrentTheme(theme);
-        document.documentElement.setAttribute("data-theme", theme);
-      };
       return (
         <header
           ref={ref}
@@ -79,36 +64,11 @@ const Header = React.memo(
               >
                 <Icon {...resumeIcon} />
               </Button>
-              <Dropdown>
-                <DropdownToggle>
-                  <Icon {...themeIcon} />
-                  <Icon
-                    classes={[]}
-                    iconCode="io5/IoChevronDown"
-                    showTooltip={false}
-                    name="arrow"
-                  />
-                </DropdownToggle>
-                <DropdownMenu>
-                  {themeList.map((theme) => (
-                    <DropdownMenuItem
-                      isActive={theme.toLowerCase() === currentTheme}
-                      key={theme}
-                      onClick={() => themeChangeHandler(theme.toLowerCase())}
-                    >
-                      {theme}
-                      <div
-                        data-theme={theme.toLowerCase()}
-                        className="p-1 bg-base-100 rounded-md flex gap-[2px]"
-                      >
-                        <div className="size-1 md:size-2 rounded-md bg-base-content"></div>
-                        <div className="size-1 md:size-2 rounded-md bg-primary"></div>
-                        <div className="size-1 md:size-2 rounded-md bg-secondary"></div>
-                      </div>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenu>
-              </Dropdown>
+              <ThemeSwitch
+                themeIcon={themeIcon}
+                defaultTheme={defaultTheme}
+                themeList={themeList}
+              />
             </div>
           </nav>
         </header>

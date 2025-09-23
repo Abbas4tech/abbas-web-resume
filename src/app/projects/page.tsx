@@ -2,8 +2,6 @@ import React from "react";
 import { Metadata, NextPage } from "next";
 import Link from "next/link";
 
-import { ProjectsPage as ProjectsPageSchema } from "@/lib/contentful";
-import { fetchQuery } from "@/lib/api";
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
   Card,
@@ -15,6 +13,9 @@ import {
 } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
+import { fetchGql } from "@/lib/apollo/client";
+import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
+import { ProjectsPage as ProjectsPageQueryResponse } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY!);
@@ -22,15 +23,12 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const ProjectsPage: NextPage = async () => {
-  const {
-    title,
-    pageIcon,
-    headingAnimation,
-    contentAnimation,
-    pageData: { projects },
-  } = await fetchQuery<ProjectsPageSchema>(
-    process.env.CONTENTFUL_PROJECTS_PAGE_KEY!
-  );
+  const data = await fetchGql<ProjectsPageQueryResponse>(GET_PROJECTS_PAGE, {
+    id: process.env.CONTENTFUL_PROJECTS_PAGE_KEY,
+  });
+
+  const { title, contentAnimation, headingAnimation, pageIcon, pageData } =
+    data.page;
 
   return (
     <Page>
@@ -42,13 +40,13 @@ const ProjectsPage: NextPage = async () => {
         className="grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4"
         data-aos={contentAnimation}
       >
-        {projects.map((item, index: number) => (
+        {pageData.projectsCollection.items.map((item, index: number) => (
           <Card key={index}>
             <CardImage
-              width={item.thumbnail.file.details.image.width}
-              height={item.thumbnail.file.details.image.height}
-              alt={item.thumbnail.file.fileName}
-              src={`https:${item.thumbnail.file.url}`}
+              width={item.thumbnail.width}
+              height={item.thumbnail.height}
+              alt={item.thumbnail.fileName}
+              src={item.thumbnail.url}
             ></CardImage>
             <CardContent>
               <CardTitle>{item.title}</CardTitle>

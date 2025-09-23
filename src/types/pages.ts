@@ -24,19 +24,6 @@ export interface Banner {
   socialLinks: Asset[];
 }
 
-export interface SEOData {
-  title: string;
-  description: string;
-  keywords: string[];
-  countryName: string;
-  publisher: string;
-  creator: string;
-  images: Asset[];
-  url: string;
-  siteName: string;
-  favicon: Asset;
-}
-
 export interface LayoutSettings {
   title: string;
   drawerSide: string;
@@ -57,7 +44,7 @@ export interface HomePageData {
 
 export interface SkillsPageData {
   title: string;
-  skillsSet: SkillSet[];
+  skillsSetCollection: Collection<Omit<SkillSet, "skillsetIcon">>;
 }
 
 export interface ExperiencePageData {
@@ -67,7 +54,7 @@ export interface ExperiencePageData {
 
 export interface ProjectsPageData {
   title: string;
-  projects: ProjectCard[];
+  projectsCollection: Collection<ProjectCard>;
 }
 
 export type PageData =
@@ -127,5 +114,5 @@ export interface SkillSet {
   title: string;
   skillsetIcon: Asset;
   icon: Icon;
-  skillsArray: SkillGroup[];
+  skillsArrayCollection: Collection<SkillGroup>;
 }
