@@ -1,9 +1,11 @@
+"use server";
+
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { DocumentNode } from "graphql";
 
 const BASE_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT_ID}`;
 
-export function createServerApolloClient(revalidateSeconds = 60) {
+function createServerApolloClient(revalidateSeconds = 60) {
   const fetchWithNext = (input: RequestInfo, init?: RequestInit) => {
     const nextOpts =
       revalidateSeconds === undefined
@@ -33,7 +35,6 @@ export async function fetchGql<T = unknown>(
   variables?: Record<string, unknown>,
   revalidateSeconds?: number
 ) {
-  "use server";
   const client = createServerApolloClient(revalidateSeconds);
   const result = await client.query<T>({ query, variables });
   if (result.error?.message)
