@@ -14,8 +14,8 @@ import { GET_APPDATA } from "@/queries/getAppData";
 import { AppData } from "@/types/entries";
 import SidebarMenu from "@/components/SidebarMenu";
 import { NavigationAnimation } from "@/components/ui/navigation";
-import { ProfileBanner } from "@/components/Banner";
-import { Header } from "@/components/Header";
+import { ProfileBanner } from "@/components/ProfileBanner";
+import { GlobalHeader as Header } from "@/components/GlobalHeader";
 
 interface GetAppDataQueryResult {
   userInfo: AppData;

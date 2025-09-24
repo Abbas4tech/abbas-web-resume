@@ -8,7 +8,7 @@ import { Icon } from "./ui/icon";
 import { Button } from "./ui/button";
 import ThemeSwitch from "./ThemeSwitch";
 
-type HeaderProps = HTMLAttributes<HTMLElement> &
+type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
   Pick<
     AppData,
     | "title"
@@ -19,8 +19,8 @@ type HeaderProps = HTMLAttributes<HTMLElement> &
     | "defaultTheme"
   >;
 
-const Header = memo(
-  forwardRef<HTMLElement, HeaderProps>(
+const GlobalHeader = memo(
+  forwardRef<HTMLElement, GlobalHeaderProps>(
     (
       {
         className,
@@ -84,5 +84,5 @@ const Header = memo(
   )
 );
 
-Header.displayName = "Header";
-export { Header };
+GlobalHeader.displayName = "GlobalHeader";
+export { GlobalHeader };
