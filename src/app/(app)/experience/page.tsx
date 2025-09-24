@@ -2,7 +2,7 @@ import React from "react";
 import { Metadata, NextPage } from "next";
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { Icon } from "@/components/ui/icon";
-import ExperienceCard from "@/components/experience-card";
+import ExperienceCard from "@/components/ExperienceCard";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";

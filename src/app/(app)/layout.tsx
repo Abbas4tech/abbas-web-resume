@@ -14,7 +14,7 @@ import React, { FC, PropsWithChildren } from "react";
 
 import SidebarMenu from "@/components/SidebarMenu";
 import { NavigationAnimation } from "@/components/ui/navigation";
-import { ProfileBanner } from "@/components/banner";
+import { ProfileBanner } from "@/components/Banner";
 import { Header } from "@/components/Header";
 
 interface GetAppDataQueryResult {
