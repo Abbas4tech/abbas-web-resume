@@ -95,7 +95,7 @@ const ExperienceCard: React.FC<ExperienceCardProps> = React.memo(
               <Icon {...roleIcon} />
               {position}
             </div>
-            <div className="flex items-start gap-2 mb-2 md:mb-4">
+            <div className="flex items-center gap-2 mb-2 md:mb-4">
               <Icon {...techStackIcon} />
               {techStack.skillIconsCollection.items
                 .map((i) => i.name)

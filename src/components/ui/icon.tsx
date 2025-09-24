@@ -7,8 +7,8 @@ import { Icon as IconResponse } from "@/types/common";
 type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
 interface IconModule {
-  [key: string]: IconType | any;
-  default?: any;
+  [key: string]: IconType | unknown;
+  default?: unknown;
 }
 
 const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {

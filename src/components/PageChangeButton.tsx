@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils";
 import { Button, ButtonProps } from "./ui/button";
 import { Icon } from "./ui/icon";
 
-import { MetaPage } from "@/types/entries";
 import { usePage, usePageProps } from "@/hooks";
 
-type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> & usePageProps;
+type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> &
+  usePageProps;
 
 const PageChangeButton = memo(
   forwardRef<ComponentRef<typeof Button>, PageChangeButtonProps>(
