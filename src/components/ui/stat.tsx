@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { forwardRef, HTMLAttributes, memo } from "react";
 
-const Stats = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const Stats = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}
@@ -13,32 +13,32 @@ const Stats = React.memo(
   )
 );
 
-const Stat = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const Stat = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div ref={ref} className={cn("p-2 md:p-4 stat", className)} {...props} />
     )
   )
 );
 
-const StatFigure = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StatFigure = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div ref={ref} className={cn("stat-figure", className)} {...props} />
     )
   )
 );
 
-const StatTitle = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StatTitle = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div ref={ref} className={cn("stat-title", className)} {...props} />
     )
   )
 );
 
-const StatDescription = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StatDescription = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}

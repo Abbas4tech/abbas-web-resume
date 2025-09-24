@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ComponentProps, useState } from "react";
 import {
   Dropdown,
   DropdownToggle,
@@ -8,7 +8,7 @@ import {
 import { Icon } from "./ui/icon";
 import { Icon as IconResponse } from "@/types/common";
 
-interface ThemeSwitchProps {
+interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
   defaultTheme: string;
   themeList: string[];
   themeIcon: IconResponse;
@@ -18,6 +18,7 @@ const ThemeSwitch = ({
   themeList,
   defaultTheme,
   themeIcon,
+  ...props
 }: ThemeSwitchProps) => {
   const [currentTheme, setCurrentTheme] = useState(defaultTheme.toLowerCase());
 
@@ -26,7 +27,7 @@ const ThemeSwitch = ({
     document.documentElement.setAttribute("data-theme", theme);
   };
   return (
-    <Dropdown>
+    <Dropdown {...props}>
       <DropdownToggle>
         <Icon {...themeIcon} />
         <Icon

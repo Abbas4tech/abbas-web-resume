@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 import ThemeSwitch from "./ThemeSwitch";
 import { AppData } from "@/types/entries";
 
-type HeaderProps = React.HTMLAttributes<HTMLElement> & {
-  data: Pick<
+type HeaderProps = React.HTMLAttributes<HTMLElement> &
+  Pick<
     AppData,
     | "title"
     | "resume"
@@ -17,14 +17,22 @@ type HeaderProps = React.HTMLAttributes<HTMLElement> & {
     | "themeList"
     | "defaultTheme"
   >;
-};
 
 const Header = React.memo(
   React.forwardRef<HTMLElement, HeaderProps>(
-    ({ className, data, ...props }, ref) => {
-      const { title, resume, resumeIcon, themeIcon, themeList, defaultTheme } =
-        data;
-
+    (
+      {
+        className,
+        title,
+        resume,
+        resumeIcon,
+        themeIcon,
+        themeList,
+        defaultTheme,
+        ...props
+      },
+      ref
+    ) => {
       return (
         <header
           ref={ref}

@@ -1,14 +1,17 @@
 "use client";
 import { usePage, usePageProps } from "@/hooks";
-import React from "react";
+import React, { ComponentProps } from "react";
 import { Button } from "./ui/button";
 import { DrawerSideMenu, DrawerSideItem } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 
-const SidebarMenu = ({ pages }: usePageProps) => {
+const SidebarMenu = ({
+  pages,
+  ...props
+}: ComponentProps<typeof DrawerSideMenu> & usePageProps) => {
   const { currentPageData, defaultPage } = usePage({ pages });
   return (
-    <DrawerSideMenu>
+    <DrawerSideMenu {...props}>
       {pages.map((page) => (
         <DrawerSideItem key={page.title} id={page.title}>
           <Button

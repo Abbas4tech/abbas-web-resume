@@ -1,8 +1,8 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { forwardRef, HTMLAttributes, memo } from "react";
 
-const Step = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const Step = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}
@@ -13,8 +13,8 @@ const Step = React.memo(
   )
 );
 
-const StepSeparator = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StepSeparator = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}
@@ -29,8 +29,8 @@ const StepSeparator = React.memo(
   )
 );
 
-const StepIndicator = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StepIndicator = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}
@@ -44,8 +44,8 @@ const StepIndicator = React.memo(
   )
 );
 
-const StepBody = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StepBody = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}
@@ -56,37 +56,35 @@ const StepBody = React.memo(
   )
 );
 
-const StepTitle = React.memo(
-  React.forwardRef<
-    HTMLHeadingElement,
-    React.HTMLAttributes<HTMLHeadingElement>
-  >(({ className, ...props }, ref) => (
-    <h3
-      ref={ref}
-      className={cn(
-        "text-xl font-extrabold sm:text-2xl md:text-3xl",
-        className
-      )}
-      {...props}
-    />
-  ))
+const StepTitle = memo(
+  forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
+    ({ className, ...props }, ref) => (
+      <h3
+        ref={ref}
+        className={cn(
+          "text-xl font-extrabold sm:text-2xl md:text-3xl",
+          className
+        )}
+        {...props}
+      />
+    )
+  )
 );
 
-const StepDescription = React.memo(
-  React.forwardRef<
-    HTMLParagraphElement,
-    React.HTMLAttributes<HTMLParagraphElement>
-  >(({ className, ...props }, ref) => (
-    <h3
-      ref={ref}
-      className={cn("gap-2 mb-6 text-base-content mt-2", className)}
-      {...props}
-    />
-  ))
+const StepDescription = memo(
+  forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
+    ({ className, ...props }, ref) => (
+      <h3
+        ref={ref}
+        className={cn("gap-2 mb-6 text-base-content mt-2", className)}
+        {...props}
+      />
+    )
+  )
 );
 
-const StepContent = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const StepContent = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div ref={ref} className={cn("", className)} {...props} />
     )

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, HTMLAttributes, memo, useMemo } from "react";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -7,8 +7,7 @@ import { Asset } from "@/types/common";
 
 const SOCIAL_LINK_IMAGE_CLASS = "w-6 h-6 md:w-8 md:h-8";
 
-type BannerProps = React.HTMLAttributes<HTMLDivElement> &
-  Pick<AppData, "bannerData">;
+type BannerProps = HTMLAttributes<HTMLDivElement> & Pick<AppData, "bannerData">;
 
 const createImageProps = (image: Asset): ImageProps => ({
   src: image.url,
@@ -17,10 +16,10 @@ const createImageProps = (image: Asset): ImageProps => ({
   alt: image.fileName,
 });
 
-const SocialLinkItem = React.memo(
-  React.forwardRef<
+const SocialLinkItem = memo(
+  forwardRef<
     HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement> & {
+    HTMLAttributes<HTMLDivElement> & {
       link: Asset;
     }
   >(({ className, link, ...props }, ref) => (
@@ -50,8 +49,8 @@ const SocialLinkItem = React.memo(
   ))
 );
 
-const ProfileBanner = React.memo(
-  React.forwardRef<HTMLDivElement, BannerProps>(
+const ProfileBanner = memo(
+  forwardRef<HTMLDivElement, BannerProps>(
     ({ className, bannerData, ...props }, ref) => {
       const {
         bannerAnimation,
@@ -61,7 +60,7 @@ const ProfileBanner = React.memo(
         socialLinksCollection,
       } = bannerData;
 
-      const [firstChunk, secondChunk] = React.useMemo(() => {
+      const [firstChunk, secondChunk] = useMemo(() => {
         const middleIndex = Math.ceil(socialLinksCollection.items.length / 2);
         return [
           socialLinksCollection.items.slice(0, middleIndex),

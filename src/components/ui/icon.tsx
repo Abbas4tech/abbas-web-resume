@@ -1,4 +1,10 @@
-import React from "react";
+import React, {
+  ComponentType,
+  forwardRef,
+  HTMLAttributes,
+  memo,
+  useMemo,
+} from "react";
 import { IconType, IconBaseProps } from "react-icons";
 import dynamic, { Loader } from "next/dynamic";
 import { cn } from "@/lib/utils";
@@ -24,7 +30,7 @@ const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
 export const loadIcon = (
   library: IconLibrary,
   iconName: string
-): React.ComponentType<IconBaseProps> => {
+): ComponentType<IconBaseProps> => {
   const loader: Loader<IconBaseProps> = async () => {
     try {
       const iconModule: IconModule = await libraryImportPaths[library]();
@@ -48,38 +54,41 @@ const isIconLibrary = (library: string): library is IconLibrary => {
   return libraries.includes(library as IconLibrary);
 };
 
-const Icon = React.memo(
-  React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement> & IconResponse
-  >(({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
-    const [library, iconName] = iconCode.split("/") as [string, string];
-    const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
+const Icon = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconResponse>(
+    ({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
+      const [library, iconName] = iconCode.split("/") as [string, string];
+      const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
 
-    const IconComponent = React.useMemo(() => {
-      if (isIconLibrary(library)) {
-        return loadIcon(library, iconName);
-      } else {
-        console.error(`Invalid icon library: "${library}"`);
-        return loadIcon("md", "MdError");
-      }
-    }, [library, iconName]);
+      const IconComponent = useMemo(() => {
+        if (isIconLibrary(library)) {
+          return loadIcon(library, iconName);
+        } else {
+          console.error(`Invalid icon library: "${library}"`);
+          return loadIcon("md", "MdError");
+        }
+      }, [library, iconName]);
 
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          "flex items-center",
-          showTooltip && `tooltip tooltip-primary`,
-          className
-        )}
-        tabIndex={-1}
-        data-tip={name}
-      >
-        <IconComponent className={cleanClasses} aria-label={name} role="img" />
-      </div>
-    );
-  })
+      return (
+        <div
+          ref={ref}
+          className={cn(
+            "flex items-center",
+            showTooltip && `tooltip tooltip-primary`,
+            className
+          )}
+          tabIndex={-1}
+          data-tip={name}
+        >
+          <IconComponent
+            className={cleanClasses}
+            aria-label={name}
+            role="img"
+          />
+        </div>
+      );
+    }
+  )
 );
 
 Icon.displayName = "DynamicIcon";

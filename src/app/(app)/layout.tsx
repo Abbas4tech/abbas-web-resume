@@ -49,14 +49,12 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
       side={layoutSettings.drawerSide.toLowerCase() as DRAWER_SIDES}
     >
       <Header
-        data={{
-          themeIcon,
-          defaultTheme,
-          resume,
-          resumeIcon,
-          themeList,
-          title,
-        }}
+        themeIcon={themeIcon}
+        defaultTheme={defaultTheme}
+        resume={resume}
+        resumeIcon={resumeIcon}
+        themeList={themeList}
+        title={title}
       />
       <Container className="h-[calc(100vh-5rem)]">
         <Drawer>

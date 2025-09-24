@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, memo, useMemo } from "react";
 import { JobExperience } from "@/types/entries";
 
 import {
@@ -35,7 +35,7 @@ interface ExperienceCardProps extends Omit<JobExperience, "techStack"> {
   };
 }
 
-const ExperienceCard: React.FC<ExperienceCardProps> = React.memo(
+const ExperienceCard: FC<ExperienceCardProps> = memo(
   ({
     company,
     position,
@@ -54,17 +54,17 @@ const ExperienceCard: React.FC<ExperienceCardProps> = React.memo(
   }: ExperienceCardProps) => {
     ExperienceCard.displayName = "ExperienceCard";
 
-    const formattedStartDate = React.useMemo(() => {
+    const formattedStartDate = useMemo(() => {
       const date = new Date(startDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }, [startDate]);
 
-    const formattedEndDate = React.useMemo(() => {
+    const formattedEndDate = useMemo(() => {
       const date = new Date(endDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }, [endDate]);
 
-    const remoteLabel = React.useMemo(
+    const remoteLabel = useMemo(
       () => (workedRemotely ? ` - Remote` : ""),
       [workedRemotely]
     );
