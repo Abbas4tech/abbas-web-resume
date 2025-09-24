@@ -1,4 +1,4 @@
-import { MetaPage } from "@/types/pages";
+import { MetaPage } from "@/types/entries";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 

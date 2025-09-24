@@ -21,7 +21,7 @@ export interface Banner {
   profilePicture: Asset;
   bannerImage: Asset;
   bannerAnimation: string;
-  socialLinks: Asset[];
+  socialLinksCollection: Collection<Asset>;
 }
 
 export interface LayoutSettings {

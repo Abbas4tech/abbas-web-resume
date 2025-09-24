@@ -1,5 +1,5 @@
 import React from "react";
-import { JobExperience } from "@/types/pages";
+import { JobExperience } from "@/types/entries";
 
 import {
   Step,

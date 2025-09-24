@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GetAppData = gql`
+export const GET_APPDATA = gql`
   query GetHeaderInfo($id: String!) {
     userInfo(id: $id) {
       title
@@ -26,6 +26,14 @@ export const GetAppData = gql`
             title
             url
           }
+        }
+        bannerImage {
+          title
+          url
+          description
+          fileName
+          height
+          width
         }
       }
       defaultTheme

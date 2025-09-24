@@ -14,7 +14,7 @@ import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
-import { SkillsPage as SkillsPageQueryResponse } from "@/types/pages";
+import { SkillsPage as SkillsPageQueryResponse } from "@/types/generic";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY!);

@@ -1,28 +1,27 @@
 import React from "react";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
-import { ApplicationData, FileAsset } from "@/lib/contentful";
 import { cn } from "@/lib/utils";
+import { AppData } from "@/types/entries";
+import { Asset } from "@/types/common";
 
 const SOCIAL_LINK_IMAGE_CLASS = "w-6 h-6 md:w-8 md:h-8";
 
 type BannerProps = React.HTMLAttributes<HTMLDivElement> &
-  Pick<ApplicationData, "bannerData">;
+  Pick<AppData, "bannerData">;
 
-const createImageProps = (image: FileAsset): ImageProps => ({
-  src: image.file.url.startsWith("https:")
-    ? image.file.url
-    : `https:${image.file.url}`,
-  width: image.file.details.image.width,
-  height: image.file.details.image.height,
-  alt: image.title,
+const createImageProps = (image: Asset): ImageProps => ({
+  src: image.url,
+  width: image.width,
+  height: image.height,
+  alt: image.fileName,
 });
 
 const SocialLinkItem = React.memo(
   React.forwardRef<
     HTMLDivElement,
     React.HTMLAttributes<HTMLDivElement> & {
-      link: FileAsset;
+      link: Asset;
     }
   >(({ className, link, ...props }, ref) => (
     <div
@@ -40,13 +39,9 @@ const SocialLinkItem = React.memo(
         aria-label={`Visit ${link.title}`}
       >
         <Image
-          src={
-            link.file.url.startsWith("https:")
-              ? link.file.url
-              : `https:${link.file.url}`
-          }
-          width={link.file.details.image.width}
-          height={link.file.details.image.height}
+          src={link.url}
+          width={link.width}
+          height={link.height}
           alt={`${link.title} icon`}
           className={SOCIAL_LINK_IMAGE_CLASS}
         />
@@ -63,16 +58,16 @@ const ProfileBanner = React.memo(
         bannerImage,
         profilePicture,
         title,
-        socialLinks,
+        socialLinksCollection,
       } = bannerData;
 
       const [firstChunk, secondChunk] = React.useMemo(() => {
-        const middleIndex = Math.ceil(socialLinks.length / 2);
+        const middleIndex = Math.ceil(socialLinksCollection.items.length / 2);
         return [
-          socialLinks.slice(0, middleIndex),
-          socialLinks.slice(middleIndex),
+          socialLinksCollection.items.slice(0, middleIndex),
+          socialLinksCollection.items.slice(middleIndex),
         ];
-      }, [socialLinks]);
+      }, [socialLinksCollection]);
 
       return (
         <div

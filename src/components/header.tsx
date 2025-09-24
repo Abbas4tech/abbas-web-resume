@@ -3,13 +3,13 @@ import React from "react";
 import { DrawerButton } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 import { Button } from "./ui/button";
-import { ApplicationData } from "@/lib/contentful";
 import { cn } from "@/lib/utils";
 import ThemeSwitch from "./theme-switch";
+import { AppData } from "@/types/entries";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {
   data: Pick<
-    ApplicationData,
+    AppData,
     | "title"
     | "resume"
     | "resumeIcon"
@@ -60,7 +60,7 @@ const Header = React.memo(
                 className="md:px-4 md:py-2 px-2 py-1 cursor-pointer btn btn-ghost bg-inherit"
                 target="_blank"
                 passHref
-                href={`https:${resume.file.url}`}
+                href={resume.url}
               >
                 <Icon {...resumeIcon} />
               </Button>

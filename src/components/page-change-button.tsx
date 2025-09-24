@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Button, ButtonProps } from "./ui/button";
 import { Icon } from "./ui/icon";
 
-import { MetaPage } from "@/types/pages";
+import { MetaPage } from "@/types/entries";
 import { usePage } from "@/hooks";
 
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> & {

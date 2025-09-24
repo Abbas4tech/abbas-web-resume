@@ -14,8 +14,6 @@ import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
 import { GetHomePageQueryResult } from "@/types/pages";
-import { GET_HEADER_INFO } from "@/queries/getHeaderInfo";
-import { HeaderGraphqlResult } from "@/types/entries";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY!);
@@ -28,11 +26,6 @@ const Home: NextPage = async () => {
   });
 
   const { title, contentAnimation, headingAnimation, pageData } = data.page;
-
-  const t = await fetchGql<HeaderGraphqlResult>(GET_HEADER_INFO, {
-    id: process.env.CONTENTFUL_APPLICATION_DATA_ID!,
-  });
-  console.log(t);
 
   return (
     <Page>

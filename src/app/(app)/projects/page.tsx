@@ -15,7 +15,7 @@ import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
-import { ProjectsPage as ProjectsPageQueryResponse } from "@/types/pages";
+import { ProjectsPage as ProjectsPageQueryResponse } from "@/types/generic";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY!);
