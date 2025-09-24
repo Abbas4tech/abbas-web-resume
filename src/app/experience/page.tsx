@@ -4,7 +4,7 @@ import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { Icon } from "@/components/ui/icon";
 import ExperienceCard from "@/components/experience-card";
 import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/apollo/client";
+import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
 import { ExperiencePage as ExperiencePageQueryResponse } from "@/types/pages";
 

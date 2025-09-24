@@ -1,44 +1,38 @@
-import { PageData } from "./pages";
+import { Document } from "@contentful/rich-text-types";
+import { Collection, Page } from "./common";
+import { BioCard, SkillSet, JobExperience, ProjectCard } from "./entries";
 
-export interface Page<T extends PageData = PageData> {
-  page: {
-    title: string;
-    pageIcon: Icon;
-    contentAnimation: string;
-    headingAnimation: string;
-    pageData: T;
+export interface HomePageData {
+  infoCollection: Collection<BioCard>;
+  description: {
+    json: Document;
   };
 }
 
-export interface Collection<T> {
-  items: T[];
-}
-
-export interface Icon {
-  name: string;
-  iconCode: string;
-  classes?: string[];
-  showTooltip: boolean;
-}
-
-export interface Asset {
-  url: string;
-  width: number;
-  height: number;
-  fileName: string;
+export interface SkillsPageData {
   title: string;
-  description: string;
+  skillsSetCollection: Collection<Omit<SkillSet, "skillsetIcon">>;
 }
 
-export interface SEO {
+export interface ExperiencePageData {
   title: string;
-  description: string;
-  keywords: string[];
-  countryName: string;
-  publisher: string;
-  creator: string;
-  imagesCollection: Collection<Asset>;
-  url: string;
-  siteName: string;
-  favicon: Asset;
+  experiencesCollection: Collection<JobExperience>;
 }
+
+export interface ProjectsPageData {
+  title: string;
+  projectsCollection: Collection<ProjectCard>;
+}
+
+export type PageData =
+  | ProjectsPageData
+  | HomePageData
+  | ExperiencePageData
+  | SkillsPageData;
+
+export type ExperiencePage = Page<ExperiencePageData>;
+export type SkillsPage = Page<SkillsPageData>;
+export type ProjectsPage = Page<ProjectsPageData>;
+export type HomePage = Page<HomePageData>;
+
+export type Pages = ExperiencePage | SkillsPage | ProjectsPage | HomePage;

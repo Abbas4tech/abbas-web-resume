@@ -6,7 +6,7 @@ import {
   DropdownMenuItem,
 } from "./ui/dropdown";
 import { Icon } from "./ui/icon";
-import { Icon as IconResponse } from "@/types/generic";
+import { Icon as IconResponse } from "@/types/common";
 
 interface ThemeSwitchProps {
   defaultTheme: string;

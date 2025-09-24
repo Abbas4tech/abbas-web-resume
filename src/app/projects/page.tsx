@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/apollo/client";
+import { fetchGql } from "@/lib/client";
 import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
 import { ProjectsPage as ProjectsPageQueryResponse } from "@/types/pages";
 

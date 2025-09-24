@@ -1,10 +1,10 @@
 import React, { FC, forwardRef, HTMLAttributes, memo } from "react";
 import { cn } from "@/lib/utils";
-import { fetchGql } from "@/lib/apollo/client";
+import { fetchGql } from "@/lib/client";
 import { GET_METAPAGES } from "@/queries/getMetapages";
-import { Collection } from "@/types/generic";
-import { MetaPage } from "@/types/pages";
+import { Collection } from "@/types/common";
 import PageChangeButton from "../page-change-button";
+import { MetaPage } from "@/types/entries";
 
 interface GetMetapageQueryResponse {
   metaPageCollection: Collection<MetaPage>;

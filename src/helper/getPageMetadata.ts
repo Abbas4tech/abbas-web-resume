@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import { fetchGql } from "@/lib/apollo/client";
+import { fetchGql } from "@/lib/client";
 import { GET_METADATA } from "@/queries/getMetadataQuery";
-import { SEO } from "@/types/generic";
+import { SEO } from "@/types/common";
 
 export const getPageMetadata = async (id: string): Promise<Metadata> => {
   const {

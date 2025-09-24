@@ -11,9 +11,11 @@ import {
 import { Icon } from "@/components/ui/icon";
 import { RichText } from "@/components/rich-text";
 import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/apollo/client";
+import { fetchGql } from "@/lib/client";
 import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
-import { HomePage } from "@/types/pages";
+import { GetHomePageQueryResult } from "@/types/pages";
+import { GET_HEADER_INFO } from "@/queries/getHeaderInfo";
+import { HeaderGraphqlResult } from "@/types/entries";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY!);
@@ -21,11 +23,16 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const Home: NextPage = async () => {
-  const data = await fetchGql<HomePage>(GET_HOME_PAGE, {
+  const data = await fetchGql<GetHomePageQueryResult>(GET_HOME_PAGE, {
     id: process.env.CONTENTFUL_HOME_PAGE_KEY!,
   });
 
   const { title, contentAnimation, headingAnimation, pageData } = data.page;
+
+  const t = await fetchGql<HeaderGraphqlResult>(GET_HEADER_INFO, {
+    id: process.env.CONTENTFUL_APPLICATION_DATA_ID!,
+  });
+  console.log(t);
 
   return (
     <Page>

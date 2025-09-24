@@ -12,7 +12,7 @@ import {
 import Progress from "@/components/ui/progress";
 import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/apollo/client";
+import { fetchGql } from "@/lib/client";
 import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
 import { SkillsPage as SkillsPageQueryResponse } from "@/types/pages";
 
