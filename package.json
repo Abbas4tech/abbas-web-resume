@@ -23,7 +23,8 @@
   "devDependencies": {
     "@contentful/rich-text-types": "^17.2.4",
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4.0.12",
+    "@tailwindcss/cli": "^4.1.13",
+    "@tailwindcss/postcss": "^4.1.13",
     "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -34,8 +35,8 @@
     "eslint-config-next": "15.5.2",
     "husky": "^9.1.7",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.0.12",
-    "typescript": "^5",
-    "tailwind-merge": "^3.0.2"
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5"
   }
 }
