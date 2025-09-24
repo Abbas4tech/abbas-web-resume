@@ -1,6 +1,4 @@
-import { PageData } from "./generic";
-
-export interface Page<T extends unknown = unknown> {
+export interface Page<T> {
   page: {
     title: string;
     pageIcon: Icon;

@@ -1,4 +1,5 @@
 import { Document } from "@contentful/rich-text-types";
+
 import { Collection, Page } from "../common";
 import { BioCard } from "../entries";
 

@@ -1,4 +1,7 @@
 import React, { ComponentProps, useState } from "react";
+
+import { Icon as IconResponse } from "@/types/common";
+
 import {
   Dropdown,
   DropdownToggle,
@@ -6,7 +9,6 @@ import {
   DropdownMenuItem,
 } from "./ui/dropdown";
 import { Icon } from "./ui/icon";
-import { Icon as IconResponse } from "@/types/common";
 
 interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
   defaultTheme: string;
@@ -19,10 +21,12 @@ const ThemeSwitch = ({
   defaultTheme,
   themeIcon,
   ...props
-}: ThemeSwitchProps) => {
+}: ThemeSwitchProps): React.JSX.Element => {
   const [currentTheme, setCurrentTheme] = useState(defaultTheme.toLowerCase());
 
-  const themeChangeHandler = (theme: string = defaultTheme.toLowerCase()) => {
+  const themeChangeHandler = (
+    theme: string = defaultTheme.toLowerCase()
+  ): void => {
     setCurrentTheme(theme);
     document.documentElement.setAttribute("data-theme", theme);
   };
@@ -49,9 +53,9 @@ const ThemeSwitch = ({
               data-theme={theme.toLowerCase()}
               className="p-1 bg-base-100 rounded-md flex gap-[2px]"
             >
-              <div className="size-1 md:size-2 rounded-md bg-base-content"></div>
-              <div className="size-1 md:size-2 rounded-md bg-primary"></div>
-              <div className="size-1 md:size-2 rounded-md bg-secondary"></div>
+              <div className="size-1 md:size-2 rounded-md bg-base-content" />
+              <div className="size-1 md:size-2 rounded-md bg-primary" />
+              <div className="size-1 md:size-2 rounded-md bg-secondary" />
             </div>
           </DropdownMenuItem>
         ))}

@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
+
+import { cn } from "@/lib/utils";
+import { AppData } from "@/types/entries";
+
 import { DrawerButton } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 import { Button } from "./ui/button";
-import { cn } from "@/lib/utils";
 import ThemeSwitch from "./ThemeSwitch";
-import { AppData } from "@/types/entries";
+
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> &
   Pick<
@@ -32,8 +35,7 @@ const Header = React.memo(
         ...props
       },
       ref
-    ) => {
-      return (
+    ) => (
         <header
           ref={ref}
           {...props}
@@ -80,8 +82,7 @@ const Header = React.memo(
             </div>
           </nav>
         </header>
-      );
-    }
+      )
   )
 );
 

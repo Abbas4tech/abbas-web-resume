@@ -5,8 +5,9 @@ import React, {
   memo,
   Ref,
 } from "react";
-import { cn } from "@/lib/utils";
 import Link, { LinkProps } from "next/link";
+
+import { cn } from "@/lib/utils";
 
 type typeLinkProps = LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & {

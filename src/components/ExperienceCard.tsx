@@ -1,5 +1,7 @@
 import React, { FC, memo, useMemo } from "react";
+
 import { JobExperience } from "@/types/entries";
+import { Collection, Icon as IconResponse } from "@/types/common";
 
 import {
   Step,
@@ -11,7 +13,6 @@ import {
   StepTitle,
 } from "./ui/stepper";
 import { Icon } from "./ui/icon";
-import { Collection, Icon as IconResponse } from "@/types/common";
 
 const monthNames = [
   "January",
@@ -65,7 +66,7 @@ const ExperienceCard: FC<ExperienceCardProps> = memo(
     }, [endDate]);
 
     const remoteLabel = useMemo(
-      () => (workedRemotely ? ` - Remote` : ""),
+      () => (workedRemotely ? " - Remote" : ""),
       [workedRemotely]
     );
 

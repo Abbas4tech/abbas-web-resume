@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import { fetchGql } from "@/lib/client";
 import { GET_METADATA } from "@/queries/getMetadataQuery";
 import { SEO } from "@/types/common";

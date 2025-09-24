@@ -2,10 +2,11 @@
 import { memo, forwardRef, ComponentRef } from "react";
 
 import { cn } from "@/lib/utils";
+import { usePage, usePageProps } from "@/hooks";
+
 import { Button, ButtonProps } from "./ui/button";
 import { Icon } from "./ui/icon";
 
-import { usePage, usePageProps } from "@/hooks";
 
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> &
   usePageProps;

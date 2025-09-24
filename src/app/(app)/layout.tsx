@@ -1,3 +1,5 @@
+import React, { FC, PropsWithChildren } from "react";
+
 import { Container } from "@/components/ui/container";
 import {
   Drawer,
@@ -10,8 +12,6 @@ import {
 import { fetchGql } from "@/lib/client";
 import { GET_APPDATA } from "@/queries/getAppData";
 import { AppData } from "@/types/entries";
-import React, { FC, PropsWithChildren } from "react";
-
 import SidebarMenu from "@/components/SidebarMenu";
 import { NavigationAnimation } from "@/components/ui/navigation";
 import { ProfileBanner } from "@/components/Banner";
