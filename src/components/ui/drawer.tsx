@@ -11,6 +11,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+
 import { cn } from "@/lib/utils";
 import { useMobile } from "@/hooks";
 
@@ -32,7 +33,7 @@ type DrawerContext = {
 
 const DrawerContext = createContext<DrawerContext | null>(null);
 
-function useDrawer() {
+function useDrawer(): DrawerContext {
   const context = useContext(DrawerContext);
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.");
@@ -115,17 +116,15 @@ DrawerProvider.displayName = "SidebarProvider";
 
 const DrawerOverlay = memo(
   forwardRef<HTMLLabelElement, HTMLAttributes<HTMLLabelElement>>(
-    ({ className, ...props }, ref) => {
-      return (
-        <label
-          ref={ref}
-          htmlFor={DRAWER_ID}
-          aria-label="close sidebar"
-          className={cn("drawer-overlay", className)}
-          {...props}
-        />
-      );
-    }
+    ({ className, ...props }, ref) => (
+      <label
+        ref={ref}
+        htmlFor={DRAWER_ID}
+        aria-label="close sidebar"
+        className={cn("drawer-overlay", className)}
+        {...props}
+      />
+    )
   )
 );
 DrawerOverlay.displayName = "DrawerOverlay";
@@ -179,7 +178,8 @@ const Drawer = forwardRef<HTMLDivElement, ComponentProps<"main">>(
         className={cn(
           "drawer",
           side === "right" && "drawer-end",
-          variant === "responsive-sidebar" && "lg:drawer-open"
+          variant === "responsive-sidebar" && "lg:drawer-open",
+          className
         )}
         data-state={state}
         {...props}

@@ -1,12 +1,21 @@
-import { MetaPage } from "@/types/entries";
+import { useCallback, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useCallback, useMemo } from "react";
+
+import { MetaPage } from "@/types/entries";
 
 interface usePageProps {
   pages: MetaPage[];
 }
 
-const usePage = ({ pages }: usePageProps) => {
+interface usePageReturn {
+  currentPageData: MetaPage;
+  nextPage: MetaPage;
+  defaultPage: MetaPage;
+  changePage: () => void;
+  pages: MetaPage[];
+}
+
+const usePage = ({ pages }: usePageProps): usePageReturn => {
   const router = useRouter();
   const currentPath = usePathname();
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
+
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { Icon } from "@/components/ui/icon";
 import ExperienceCard from "@/components/ExperienceCard";
@@ -17,7 +18,7 @@ const ExperiencePage: NextPage = async () => {
   const data = await fetchGql<GetExperiencePageQueryResult>(
     GET_EXPERIENCE_PAGE,
     {
-      id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!,
+      id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string,
     }
   );
   const {

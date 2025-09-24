@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { IconType, IconBaseProps } from "react-icons";
 import dynamic, { Loader } from "next/dynamic";
+
 import { cn } from "@/lib/utils";
 import { Icon as IconResponse } from "@/types/common";
 
@@ -74,7 +75,7 @@ const Icon = memo(
           ref={ref}
           className={cn(
             "flex items-center",
-            showTooltip && `tooltip tooltip-primary`,
+            showTooltip && "tooltip tooltip-primary",
             className
           )}
           tabIndex={-1}

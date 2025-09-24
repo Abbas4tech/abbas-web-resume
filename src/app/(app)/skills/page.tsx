@@ -1,5 +1,6 @@
 import React from "react";
 import { NextPage, Metadata } from "next";
+
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
   Skill,
@@ -17,13 +18,13 @@ import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
 import { GetSkillsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
-  await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY!);
+  await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY as string);
 
 export const revalidate = 60;
 
 const SkillsPage: NextPage = async () => {
   const data = await fetchGql<GetSkillsPageQueryResult>(GET_SKILLS_PAGE, {
-    id: process.env.CONTENTFUL_SKILLS_PAGE_KEY!,
+    id: process.env.CONTENTFUL_SKILLS_PAGE_KEY as string,
   });
 
   const { title, contentAnimation, headingAnimation, pageData, pageIcon } =

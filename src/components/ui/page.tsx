@@ -1,9 +1,11 @@
 import React, { FC, forwardRef, HTMLAttributes, memo } from "react";
+
 import { cn } from "@/lib/utils";
 import { fetchGql } from "@/lib/client";
 import { GET_METAPAGES } from "@/queries/getMetapages";
-import PageChangeButton from "../PageChangeButton";
 import { AppData } from "@/types/entries";
+
+import PageChangeButton from "../PageChangeButton";
 
 interface GetMetapageQueryResponse {
   userInfo: Pick<AppData, "pagesCollection">;

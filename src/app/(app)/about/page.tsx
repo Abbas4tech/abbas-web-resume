@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
+
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
   Stat,
@@ -16,13 +17,13 @@ import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
 import { GetHomePageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
-  await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY!);
+  await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY as string);
 
 export const revalidate = 60;
 
 const Home: NextPage = async () => {
   const data = await fetchGql<GetHomePageQueryResult>(GET_HOME_PAGE, {
-    id: process.env.CONTENTFUL_HOME_PAGE_KEY!,
+    id: process.env.CONTENTFUL_HOME_PAGE_KEY as string,
   });
 
   const { title, contentAnimation, headingAnimation, pageData } = data.page;

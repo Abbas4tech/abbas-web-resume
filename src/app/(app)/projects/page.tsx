@@ -18,7 +18,7 @@ import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
 import { GetProjectsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
-  await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY!);
+  await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY as string);
 
 export const revalidate = 60;
 
@@ -47,7 +47,7 @@ const ProjectsPage: NextPage = async () => {
               height={item.thumbnail.height}
               alt={item.thumbnail.fileName}
               src={item.thumbnail.url}
-            ></CardImage>
+            />
             <CardContent>
               <CardTitle>{item.title}</CardTitle>
               <CardDescription>{item.description}</CardDescription>

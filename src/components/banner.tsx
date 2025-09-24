@@ -1,6 +1,7 @@
 import React, { forwardRef, HTMLAttributes, memo, useMemo } from "react";
 import Image, { ImageProps } from "next/image";
 import Link from "next/link";
+
 import { cn } from "@/lib/utils";
 import { AppData } from "@/types/entries";
 import { Asset } from "@/types/common";
@@ -22,7 +23,7 @@ const SocialLinkItem = memo(
     HTMLAttributes<HTMLDivElement> & {
       link: Asset;
     }
-  >(({ className, link, ...props }, ref) => (
+  >(({ link, ...props }, ref) => (
     <div
       ref={ref}
       data-tip={link.title}
@@ -56,7 +57,6 @@ const ProfileBanner = memo(
         bannerAnimation,
         bannerImage,
         profilePicture,
-        title,
         socialLinksCollection,
       } = bannerData;
 
