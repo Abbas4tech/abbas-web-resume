@@ -1,12 +1,20 @@
 import { gql } from "@apollo/client";
 
 export const GET_METAPAGES = gql`
-  query GetMetapages {
-    metaPageCollection {
-      items {
-        title
-        pageUrl
-        isDefaultPage
+  query GetMetaPages($id: String!) {
+    userInfo(id: $id) {
+      pagesCollection {
+        items {
+          pageUrl
+          isDefaultPage
+          title
+          pageIcon {
+            classes
+            iconCode
+            name
+            showTooltip
+          }
+        }
       }
     }
   }

@@ -6,7 +6,7 @@ import ExperienceCard from "@/components/ExperienceCard";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
-import { ExperiencePage as ExperiencePageQueryResponse } from "@/types/generic";
+import { GetExperiencePageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
@@ -14,7 +14,7 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const ExperiencePage: NextPage = async () => {
-  const data = await fetchGql<ExperiencePageQueryResponse>(
+  const data = await fetchGql<GetExperiencePageQueryResult>(
     GET_EXPERIENCE_PAGE,
     {
       id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY!,

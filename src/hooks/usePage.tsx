@@ -2,7 +2,11 @@ import { MetaPage } from "@/types/entries";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useCallback, useMemo } from "react";
 
-const usePage = ({ pages }: { pages: Omit<MetaPage, "pageIcon">[] }) => {
+interface usePageProps {
+  pages: MetaPage[];
+}
+
+const usePage = ({ pages }: usePageProps) => {
   const router = useRouter();
   const currentPath = usePathname();
 
@@ -35,3 +39,4 @@ const usePage = ({ pages }: { pages: Omit<MetaPage, "pageIcon">[] }) => {
 };
 
 export default usePage;
+export type { usePageProps };

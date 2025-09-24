@@ -15,7 +15,7 @@ import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
-import { ProjectsPage as ProjectsPageQueryResponse } from "@/types/generic";
+import { GetProjectsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY!);
@@ -23,7 +23,7 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const ProjectsPage: NextPage = async () => {
-  const data = await fetchGql<ProjectsPageQueryResponse>(GET_PROJECTS_PAGE, {
+  const data = await fetchGql<GetProjectsPageQueryResult>(GET_PROJECTS_PAGE, {
     id: process.env.CONTENTFUL_PROJECTS_PAGE_KEY,
   });
 

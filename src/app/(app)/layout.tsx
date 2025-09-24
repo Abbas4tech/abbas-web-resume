@@ -35,6 +35,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
     title,
     bannerData,
     layoutSettings,
+    pagesCollection,
   } = data.userInfo;
 
   const variant = layoutSettings.drawerVariant
@@ -69,7 +70,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
             </NavigationAnimation>
           </DrawerPageContent>
           <DrawerSide>
-            <SidebarMenu />
+            <SidebarMenu pages={pagesCollection.items} />
           </DrawerSide>
         </Drawer>
       </Container>

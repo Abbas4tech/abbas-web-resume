@@ -28,6 +28,12 @@ export const GET_PROJECTS_PAGE = gql`
                 fileName
               }
               deployedLink
+              deployedLinkIcon {
+                iconCode
+                name
+                showTooltip
+                classes
+              }
             }
           }
         }

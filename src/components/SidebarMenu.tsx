@@ -1,36 +1,12 @@
 "use client";
-import { usePage } from "@/hooks";
-import { IconResponse } from "@/lib/contentful";
+import { usePage, usePageProps } from "@/hooks";
 import React from "react";
 import { Button } from "./ui/button";
 import { DrawerSideMenu, DrawerSideItem } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 
-const SidebarMenu = () => {
-  const { currentPageData, defaultPage, pages } = usePage({
-    pages: [
-      {
-        title: "About",
-        pageUrl: "/",
-        isDefaultPage: true,
-      },
-      {
-        title: "Projects",
-        pageUrl: "/projects",
-        isDefaultPage: false,
-      },
-      {
-        title: "Skills",
-        pageUrl: "/skills",
-        isDefaultPage: false,
-      },
-      {
-        title: "Experience",
-        pageUrl: "/experience",
-        isDefaultPage: false,
-      },
-    ],
-  });
+const SidebarMenu = ({ pages }: usePageProps) => {
+  const { currentPageData, defaultPage } = usePage({ pages });
   return (
     <DrawerSideMenu>
       {pages.map((page) => (
@@ -46,7 +22,7 @@ const SidebarMenu = () => {
                 : ""
             }`}
           >
-            <Icon {...({} as IconResponse)} />
+            <Icon {...page.pageIcon} />
             {page.title}
           </Button>
         </DrawerSideItem>

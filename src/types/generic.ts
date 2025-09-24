@@ -11,7 +11,7 @@ export interface HomePageData {
 
 export interface SkillsPageData {
   title: string;
-  skillsSetCollection: Collection<Omit<SkillSet, "skillsetIcon">>;
+  skillsSetCollection: SkillSet;
 }
 
 export interface ExperiencePageData {

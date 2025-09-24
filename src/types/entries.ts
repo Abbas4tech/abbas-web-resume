@@ -6,7 +6,7 @@ export interface AppData {
   name: string;
   bannerData: Banner;
   role: string;
-  pages: MetaPage[];
+  pagesCollection: Collection<MetaPage>;
   resume: Asset;
   resumeIcon: Icon;
   themeList: string[];
@@ -64,11 +64,7 @@ export interface JobExperience {
   location: string;
   locationIcon: Icon;
   currentlyWorking: boolean;
-  techStack: {
-    title: string;
-    skillProgress: number;
-    skillIconsCollection: Collection<Pick<Icon, "name">>;
-  };
+  techStack: SkillGroup;
   techStackIcon: Icon;
 }
 

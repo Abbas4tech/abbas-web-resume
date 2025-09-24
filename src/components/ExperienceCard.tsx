@@ -11,6 +11,7 @@ import {
   StepTitle,
 } from "./ui/stepper";
 import { Icon } from "./ui/icon";
+import { Collection, Icon as IconResponse } from "@/types/common";
 
 const monthNames = [
   "January",
@@ -26,8 +27,15 @@ const monthNames = [
   "November",
   "December",
 ];
+interface ExperienceCardProps extends Omit<JobExperience, "techStack"> {
+  techStack: {
+    title: string;
+    skillProgress: number;
+    skillIconsCollection: Collection<Pick<IconResponse, "name">>;
+  };
+}
 
-const ExperienceCard: React.FC<JobExperience> = React.memo(
+const ExperienceCard: React.FC<ExperienceCardProps> = React.memo(
   ({
     company,
     position,
@@ -43,7 +51,7 @@ const ExperienceCard: React.FC<JobExperience> = React.memo(
     roleIcon,
     techStackIcon,
     locationIcon,
-  }: JobExperience) => {
+  }: ExperienceCardProps) => {
     ExperienceCard.displayName = "ExperienceCard";
 
     const formattedStartDate = React.useMemo(() => {

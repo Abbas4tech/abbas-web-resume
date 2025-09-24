@@ -2,12 +2,11 @@ import React, { FC, forwardRef, HTMLAttributes, memo } from "react";
 import { cn } from "@/lib/utils";
 import { fetchGql } from "@/lib/client";
 import { GET_METAPAGES } from "@/queries/getMetapages";
-import { Collection } from "@/types/common";
 import PageChangeButton from "../PageChangeButton";
-import { MetaPage } from "@/types/entries";
+import { AppData } from "@/types/entries";
 
 interface GetMetapageQueryResponse {
-  metaPageCollection: Collection<MetaPage>;
+  userInfo: Pick<AppData, "pagesCollection">;
 }
 
 const Page: FC<HTMLAttributes<HTMLDivElement>> = async ({
@@ -15,7 +14,9 @@ const Page: FC<HTMLAttributes<HTMLDivElement>> = async ({
   children,
   ...props
 }) => {
-  const data = await fetchGql<GetMetapageQueryResponse>(GET_METAPAGES);
+  const data = await fetchGql<GetMetapageQueryResponse>(GET_METAPAGES, {
+    id: process.env.CONTENTFUL_APPLICATION_DATA_ID,
+  });
 
   return (
     <div
@@ -27,7 +28,7 @@ const Page: FC<HTMLAttributes<HTMLDivElement>> = async ({
       {...props}
     >
       {children}
-      <PageChangeButton pages={data.metaPageCollection.items} />
+      <PageChangeButton pages={data.userInfo.pagesCollection.items} />
     </div>
   );
 };

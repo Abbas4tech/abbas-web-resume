@@ -14,7 +14,7 @@ import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
-import { SkillsPage as SkillsPageQueryResponse } from "@/types/generic";
+import { GetSkillsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY!);
@@ -22,7 +22,7 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const SkillsPage: NextPage = async () => {
-  const data = await fetchGql<SkillsPageQueryResponse>(GET_SKILLS_PAGE, {
+  const data = await fetchGql<GetSkillsPageQueryResult>(GET_SKILLS_PAGE, {
     id: process.env.CONTENTFUL_SKILLS_PAGE_KEY!,
   });
 

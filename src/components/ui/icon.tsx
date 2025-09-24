@@ -1,8 +1,8 @@
 import React from "react";
-import { IconResponse } from "@/lib/contentful";
 import { IconType, IconBaseProps } from "react-icons";
 import dynamic, { Loader } from "next/dynamic";
 import { cn } from "@/lib/utils";
+import { Icon as IconResponse } from "@/types/common";
 
 type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
