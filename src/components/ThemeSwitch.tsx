@@ -1,3 +1,4 @@
+"use client";
 import React, { ComponentProps, useState } from "react";
 
 import { Icon as IconResponse } from "@/types/common";
