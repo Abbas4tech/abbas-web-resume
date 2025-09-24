@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { fetchGql } from "@/lib/client";
 import { GET_METAPAGES } from "@/queries/getMetapages";
 import { Collection } from "@/types/common";
-import PageChangeButton from "../page-change-button";
+import PageChangeButton from "../PageChangeButton";
 import { MetaPage } from "@/types/entries";
 
 interface GetMetapageQueryResponse {

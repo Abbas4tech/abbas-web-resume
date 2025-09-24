@@ -4,7 +4,7 @@ import { DrawerButton } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-import ThemeSwitch from "./theme-switch";
+import ThemeSwitch from "./ThemeSwitch";
 import { AppData } from "@/types/entries";
 
 type HeaderProps = React.HTMLAttributes<HTMLElement> & {

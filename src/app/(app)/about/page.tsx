@@ -9,7 +9,7 @@ import {
   StatTitle,
 } from "@/components/ui/stat";
 import { Icon } from "@/components/ui/icon";
-import { RichText } from "@/components/rich-text";
+import { RichText } from "@/components/RichText";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
