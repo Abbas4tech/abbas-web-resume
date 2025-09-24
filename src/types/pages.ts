@@ -38,8 +38,10 @@ export interface MetaPage {
 }
 
 export interface HomePageData {
-  info: BioCard[];
-  description: Document;
+  infoCollection: Collection<BioCard>;
+  description: {
+    json: Document;
+  };
 }
 
 export interface SkillsPageData {

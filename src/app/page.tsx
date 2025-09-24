@@ -1,7 +1,5 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
-import { HomePage } from "@/lib/contentful";
-import { fetchQuery } from "@/lib/api";
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
   Stat,
@@ -13,6 +11,9 @@ import {
 import { Icon } from "@/components/ui/icon";
 import { RichText } from "@/components/rich-text";
 import { getPageMetadata } from "@/helper/getPageMetadata";
+import { fetchGql } from "@/lib/apollo/client";
+import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
+import { HomePage } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY!);
@@ -20,12 +21,11 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const Home: NextPage = async () => {
-  const {
-    title,
-    headingAnimation,
-    contentAnimation,
-    pageData: { info, description },
-  } = await fetchQuery<HomePage>(process.env.CONTENTFUL_HOME_PAGE_KEY!);
+  const data = await fetchGql<HomePage>(GET_HOME_PAGE, {
+    id: process.env.CONTENTFUL_HOME_PAGE_KEY!,
+  });
+
+  const { title, contentAnimation, headingAnimation, pageData } = data.page;
 
   return (
     <Page>
@@ -34,11 +34,11 @@ const Home: NextPage = async () => {
         <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
           <RichText
             paragraphClass="py-1.5 text-center lg:text-xl"
-            document={description}
+            document={pageData.description.json}
           />
         </div>
         <div className="grid grid-cols-1 my-2 rounded-xl gap-4 md:grid-cols-2">
-          {info.map(({ title, value, icon }) => (
+          {pageData.infoCollection.items.map(({ title, value, icon }) => (
             <Stats key={title}>
               <Stat>
                 <StatFigure>
