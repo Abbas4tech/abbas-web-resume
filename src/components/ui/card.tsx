@@ -14,10 +14,7 @@ const Card = memo(
     ({ className, ...props }, ref) => (
       <div
         ref={ref}
-        className={cn(
-          "hover:before:!bg-slate-900 before:!bg-transparent card image-full before:transition-colors before:ease-in-out before:duration-500",
-          className
-        )}
+        className={cn("card shadow-md bg-base-300", className)}
         {...props}
       />
     )
@@ -27,14 +24,7 @@ const Card = memo(
 const CardContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div
-        ref={ref}
-        className={cn(
-          "card-body p-4 md:p-6 opacity-0 hover:opacity-100",
-          className
-        )}
-        {...props}
-      />
+      <div ref={ref} className={cn("card-body", className)} {...props} />
     )
   )
 );
@@ -45,7 +35,7 @@ const CardImage = memo(
     HTMLAttributes<HTMLElement> & ComponentProps<typeof Image>
   >(({ className, src, alt, ...props }, ref) => (
     <figure className={cn("", className)} ref={ref}>
-      <Image src={src} alt={alt} {...props} />
+      <Image src={src} className="h-40 md:max-h-60" alt={alt} {...props} />
     </figure>
   ))
 );

@@ -17,7 +17,7 @@ const Stats = memo(
 const Stat = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div ref={ref} className={cn("p-2 md:p-4 stat", className)} {...props} />
+      <div ref={ref} className={cn("p-4 stat", className)} {...props} />
     )
   )
 );

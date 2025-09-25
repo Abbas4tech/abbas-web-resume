@@ -49,8 +49,10 @@ const ProjectsPage: NextPage = async () => {
               src={item.thumbnail.url}
             />
             <CardContent>
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.description}</CardDescription>
+              <CardTitle className="text-lg">{item.title}</CardTitle>
+              <CardDescription className="text-base">
+                {item.description}
+              </CardDescription>
               <CardFooter className="justify-end">
                 <Link target="_blank" href={item.deployedLink}>
                   <Icon {...item.deployedLinkIcon} />

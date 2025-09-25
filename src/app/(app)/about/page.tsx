@@ -32,7 +32,7 @@ const Home: NextPage = async () => {
     <Page>
       <PageHeading data-aos={headingAnimation}>{title}</PageHeading>
       <PageContent data-aos={contentAnimation}>
-        <div className="bg-base-300 p-2 md:p-4 mb-4 rounded-xl">
+        <div className="bg-base-300 p-4 mb-4 rounded-xl">
           <RichText
             paragraphClass="py-1.5 text-center lg:text-xl"
             document={pageData.description.json}
