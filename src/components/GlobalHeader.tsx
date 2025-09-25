@@ -17,7 +17,9 @@ type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
     | "themeIcon"
     | "themeList"
     | "defaultTheme"
-  >;
+  > & {
+    defaultRoute: string;
+  };
 
 const GlobalHeader = memo(
   forwardRef<HTMLElement, GlobalHeaderProps>(
@@ -30,6 +32,7 @@ const GlobalHeader = memo(
         themeIcon,
         themeList,
         defaultTheme,
+        defaultRoute,
         ...props
       },
       ref
@@ -55,7 +58,7 @@ const GlobalHeader = memo(
 
             <Button
               asLink
-              href={"/"}
+              href={defaultRoute}
               className="text-lg normal-case lg:text-2xl p-0 md:p-2 btn-ghost btn bg-inherit"
             >
               {title}

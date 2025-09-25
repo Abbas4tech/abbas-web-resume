@@ -1,10 +1,14 @@
+import { Document } from "@contentful/rich-text-types";
+
 import { Collection, Icon, Page } from "../common";
 
 type ExperincePageQueryResult = Page<{
   experiencesCollection: Collection<{
     company: string;
     companyIcon: Icon;
-    description: string;
+    description: {
+      json: Document;
+    };
     position: string;
     roleIcon: Icon;
     workedRemotely: boolean;

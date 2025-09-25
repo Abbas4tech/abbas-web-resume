@@ -35,7 +35,7 @@ const CardImage = memo(
     HTMLAttributes<HTMLElement> & ComponentProps<typeof Image>
   >(({ className, src, alt, ...props }, ref) => (
     <figure className={cn("", className)} ref={ref}>
-      <Image src={src} className="h-40 md:max-h-60" alt={alt} {...props} />
+      <Image src={src} className="" alt={alt} {...props} />
     </figure>
   ))
 );

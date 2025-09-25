@@ -24,7 +24,9 @@ export const GET_EXPERIENCE_PAGE = gql`
                 classes
                 showTooltip
               }
-              description
+              description {
+                json
+              }
               position
               roleIcon {
                 name

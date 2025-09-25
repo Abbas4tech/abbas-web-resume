@@ -38,6 +38,10 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
     pagesCollection,
   } = data.userInfo;
 
+  const defaultRoute =
+    pagesCollection.items.find(({ isDefaultPage }) => isDefaultPage)?.pageUrl ||
+    "/about";
+
   const variant = layoutSettings.drawerVariant
     .split(" ")
     .map((i) => i.toLowerCase())
@@ -55,6 +59,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
         resumeIcon={resumeIcon}
         themeList={themeList}
         title={title}
+        defaultRoute={defaultRoute}
       />
       <Container className="h-[calc(100vh-5rem)]">
         <Drawer>
