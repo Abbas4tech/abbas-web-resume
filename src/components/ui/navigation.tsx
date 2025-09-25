@@ -1,26 +1,26 @@
 "use client";
-import React from "react";
+import React, { HTMLAttributes, memo, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import AOS, { AosOptions } from "aos";
-import { cn } from "@lib/utils";
 
-const NavigationAnimation = React.memo(
-  React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement> & {
-      options: AosOptions;
-    }
-  >(({ className, options, ...props }, ref) => {
-    const containerRef = React.useRef<HTMLDivElement>(null);
+import { cn } from "@/lib/utils";
+
+interface NavigationAnimationProps extends HTMLAttributes<HTMLDivElement> {
+  options: AosOptions;
+}
+
+const NavigationAnimation = memo(
+  ({ className, options, ...props }: NavigationAnimationProps) => {
+    const containerRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
-    const animationKey = React.useRef(0);
-    React.useEffect(() => {
+    const animationKey = useRef(0);
+    useEffect(() => {
       AOS.init({
         once: true,
         ...options,
       });
     }, [options]);
-    React.useEffect(() => {
+    useEffect(() => {
       animationKey.current = animationKey.current + 1;
       containerRef.current?.scrollTo({
         behavior: "smooth",
@@ -29,7 +29,9 @@ const NavigationAnimation = React.memo(
     }, [pathname]);
 
     return <div ref={containerRef} {...props} className={cn("", className)} />;
-  })
+  }
 );
+
+NavigationAnimation.displayName = "NavigationAnimation";
 
 export { NavigationAnimation };

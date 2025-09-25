@@ -1,7 +1,19 @@
 "use client";
-import { cn } from "@lib/utils";
-import React from "react";
-import { useMobile } from "@hooks";
+import React, {
+  ComponentProps,
+  createContext,
+  CSSProperties,
+  forwardRef,
+  HTMLAttributes,
+  memo,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+
+import { cn } from "@/lib/utils";
+import { useMobile } from "@/hooks";
 
 const DRAWER_ID = "my-drawer-2";
 const DRAWER_WIDTH = "20rem";
@@ -19,22 +31,22 @@ type DrawerContext = {
   variant: DRAWER_VARIANTS;
 };
 
-const DrawerContext = React.createContext<DrawerContext | null>(null);
+const DrawerContext = createContext<DrawerContext | null>(null);
 
-function useDrawer() {
-  const context = React.useContext(DrawerContext);
+function useDrawer(): DrawerContext {
+  const context = useContext(DrawerContext);
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.");
   }
   return context;
 }
 
-type DrawerProviderProps = React.ComponentProps<"div"> & {
+type DrawerProviderProps = ComponentProps<"div"> & {
   side?: "left" | "right";
   variant?: "default" | "responsive-sidebar" | "dock-on-mobile";
 };
 
-const DrawerProvider = React.forwardRef<HTMLDivElement, DrawerProviderProps>(
+const DrawerProvider = forwardRef<HTMLDivElement, DrawerProviderProps>(
   (
     {
       className,
@@ -48,9 +60,9 @@ const DrawerProvider = React.forwardRef<HTMLDivElement, DrawerProviderProps>(
   ) => {
     const isMobile = useMobile();
     const alreadyOpened = variant !== "default";
-    const [open, setOpen] = React.useState(alreadyOpened);
+    const [open, setOpen] = useState(alreadyOpened);
 
-    const checkForSidebarState = React.useCallback(
+    const checkForSidebarState = useCallback(
       () =>
         variant === "responsive-sidebar"
           ? (!open && isMobile) || !isMobile
@@ -62,11 +74,11 @@ const DrawerProvider = React.forwardRef<HTMLDivElement, DrawerProviderProps>(
       [isMobile, open, variant]
     );
 
-    const toggleSidebar = React.useCallback(() => {
+    const toggleSidebar = useCallback(() => {
       setOpen((value) => !value);
     }, [setOpen]);
 
-    const contextValue = React.useMemo<DrawerContext>(
+    const contextValue = useMemo<DrawerContext>(
       () => ({
         state: checkForSidebarState(),
         isMobile,
@@ -86,7 +98,7 @@ const DrawerProvider = React.forwardRef<HTMLDivElement, DrawerProviderProps>(
               "--drawer-mobile-width": DRAWER_WIDTH_MOBILE,
               "--drawer-id": DRAWER_ID,
               ...style,
-            } as React.CSSProperties
+            } as CSSProperties
           }
           className={cn("group", className)}
           ref={ref}
@@ -102,25 +114,23 @@ const DrawerProvider = React.forwardRef<HTMLDivElement, DrawerProviderProps>(
 );
 DrawerProvider.displayName = "SidebarProvider";
 
-const DrawerOverlay = React.memo(
-  React.forwardRef<HTMLLabelElement, React.HTMLAttributes<HTMLLabelElement>>(
-    ({ className, ...props }, ref) => {
-      return (
-        <label
-          ref={ref}
-          htmlFor={DRAWER_ID}
-          aria-label="close sidebar"
-          className={cn("drawer-overlay", className)}
-          {...props}
-        />
-      );
-    }
+const DrawerOverlay = memo(
+  forwardRef<HTMLLabelElement, HTMLAttributes<HTMLLabelElement>>(
+    ({ className, ...props }, ref) => (
+      <label
+        ref={ref}
+        htmlFor={DRAWER_ID}
+        aria-label="close sidebar"
+        className={cn("drawer-overlay", className)}
+        {...props}
+      />
+    )
   )
 );
 DrawerOverlay.displayName = "DrawerOverlay";
 
-const DrawerToggle = React.memo(
-  React.forwardRef<HTMLInputElement, React.HTMLAttributes<HTMLInputElement>>(
+const DrawerToggle = memo(
+  forwardRef<HTMLInputElement, HTMLAttributes<HTMLInputElement>>(
     ({ className, ...props }, ref) => {
       const { state, toggleSidebar } = useDrawer();
       return (
@@ -138,8 +148,8 @@ const DrawerToggle = React.memo(
   )
 );
 
-const DrawerButton = React.memo(
-  React.forwardRef<HTMLLabelElement, React.HTMLAttributes<HTMLLabelElement>>(
+const DrawerButton = memo(
+  forwardRef<HTMLLabelElement, HTMLAttributes<HTMLLabelElement>>(
     ({ className, ...props }, ref) => {
       const { variant } = useDrawer();
       return (
@@ -159,7 +169,7 @@ const DrawerButton = React.memo(
   )
 );
 
-const Drawer = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(
+const Drawer = forwardRef<HTMLDivElement, ComponentProps<"main">>(
   ({ className, children, ...props }, ref) => {
     const { state, variant, side } = useDrawer();
     return (
@@ -168,7 +178,8 @@ const Drawer = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(
         className={cn(
           "drawer",
           side === "right" && "drawer-end",
-          variant === "responsive-sidebar" && "lg:drawer-open"
+          variant === "responsive-sidebar" && "lg:drawer-open",
+          className
         )}
         data-state={state}
         {...props}
@@ -181,16 +192,16 @@ const Drawer = React.forwardRef<HTMLDivElement, React.ComponentProps<"main">>(
 );
 Drawer.displayName = "Drawer";
 
-const DrawerPageContent = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const DrawerPageContent = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div ref={ref} className={cn("drawer-content", className)} {...props} />
     )
   )
 );
 
-const DrawerSide = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const DrawerSide = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, children, ...props }, ref) => {
       const { variant } = useDrawer();
       return (
@@ -213,8 +224,8 @@ const DrawerSide = React.memo(
   )
 );
 
-const DrawerSidebarFooter = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const DrawerSidebarFooter = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div ref={ref} className={cn("", className)} {...props} />
     )
@@ -223,8 +234,8 @@ const DrawerSidebarFooter = React.memo(
 
 DrawerSidebarFooter.displayName = "DrawerSidebarFooter";
 
-const DrawerSideMenu = React.memo(
-  React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
+const DrawerSideMenu = memo(
+  forwardRef<HTMLUListElement, HTMLAttributes<HTMLUListElement>>(
     ({ className, ...props }, ref) => (
       <ul role="listbox" ref={ref} className={cn("", className)} {...props} />
     )
@@ -233,8 +244,8 @@ const DrawerSideMenu = React.memo(
 
 DrawerSideMenu.displayName = "DrawerSideMenu";
 
-const DrawerSideItem = React.memo(
-  React.forwardRef<HTMLLIElement, React.HTMLAttributes<HTMLLIElement>>(
+const DrawerSideItem = memo(
+  forwardRef<HTMLLIElement, HTMLAttributes<HTMLLIElement>>(
     ({ className, ...props }, ref) => {
       const { toggleSidebar, side } = useDrawer();
       return (

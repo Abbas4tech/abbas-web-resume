@@ -1,5 +1,7 @@
-import React from "react";
-import { JobExperience } from "@lib/contentful";
+import React, { FC, memo, useMemo } from "react";
+
+import { JobExperience } from "@/types/entries";
+import { Collection, Icon as IconResponse } from "@/types/common";
 
 import {
   Step,
@@ -26,8 +28,15 @@ const monthNames = [
   "November",
   "December",
 ];
+interface ExperienceCardProps extends Omit<JobExperience, "techStack"> {
+  techStack: {
+    title: string;
+    skillProgress: number;
+    skillIconsCollection: Collection<Pick<IconResponse, "name">>;
+  };
+}
 
-const ExperienceCard: React.FC<JobExperience> = React.memo(
+const ExperienceCard: FC<ExperienceCardProps> = memo(
   ({
     company,
     position,
@@ -43,21 +52,21 @@ const ExperienceCard: React.FC<JobExperience> = React.memo(
     roleIcon,
     techStackIcon,
     locationIcon,
-  }: JobExperience) => {
+  }: ExperienceCardProps) => {
     ExperienceCard.displayName = "ExperienceCard";
 
-    const formattedStartDate = React.useMemo(() => {
+    const formattedStartDate = useMemo(() => {
       const date = new Date(startDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }, [startDate]);
 
-    const formattedEndDate = React.useMemo(() => {
+    const formattedEndDate = useMemo(() => {
       const date = new Date(endDate);
       return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     }, [endDate]);
 
-    const remoteLabel = React.useMemo(
-      () => (workedRemotely ? ` - Remote` : ""),
+    const remoteLabel = useMemo(
+      () => (workedRemotely ? " - Remote" : ""),
       [workedRemotely]
     );
 
@@ -87,9 +96,11 @@ const ExperienceCard: React.FC<JobExperience> = React.memo(
               <Icon {...roleIcon} />
               {position}
             </div>
-            <div className="flex items-start gap-2 mb-2 md:mb-4">
+            <div className="flex items-center gap-2 mb-2 md:mb-4">
               <Icon {...techStackIcon} />
-              {techStack.skillIcons.map((i) => i.name).join(", ")}
+              {techStack.skillIconsCollection.items
+                .map((i) => i.name)
+                .join(", ")}
             </div>
           </StepContent>
           <StepDescription>{description}</StepDescription>

@@ -1,10 +1,12 @@
-import { cn } from "@lib/utils";
-import React from "react";
+import React, { ComponentRef, forwardRef, HTMLAttributes, memo } from "react";
+
+import { cn } from "@/lib/utils";
+
 import { Button, ButtonProps } from "./button";
 import { useDrawer } from "./drawer";
 
-const Dropdown = React.memo(
-  React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+const Dropdown = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => {
       const { side } = useDrawer();
       return (
@@ -22,9 +24,9 @@ const Dropdown = React.memo(
   )
 );
 
-const DropdownToggle = React.memo(
-  React.forwardRef<
-    React.ComponentRef<typeof Button>,
+const DropdownToggle = memo(
+  forwardRef<
+    ComponentRef<typeof Button>,
     Extract<ButtonProps, { asLink?: false }>
   >(({ className, ...props }, ref) => (
     <Button
@@ -37,8 +39,8 @@ const DropdownToggle = React.memo(
   ))
 );
 
-const DropdownMenu = React.memo(
-  React.forwardRef<HTMLUListElement, React.HTMLAttributes<HTMLUListElement>>(
+const DropdownMenu = memo(
+  forwardRef<HTMLUListElement, HTMLAttributes<HTMLUListElement>>(
     ({ className, ...props }, ref) => (
       <ul
         ref={ref}
@@ -54,10 +56,10 @@ const DropdownMenu = React.memo(
   )
 );
 
-const DropdownMenuItem = React.memo(
-  React.forwardRef<
+const DropdownMenuItem = memo(
+  forwardRef<
     HTMLLIElement,
-    React.HTMLAttributes<HTMLLIElement> & {
+    HTMLAttributes<HTMLLIElement> & {
       isActive?: boolean;
     }
   >(({ className, children, isActive = false, ...props }, ref) => (

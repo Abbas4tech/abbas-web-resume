@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, PropsWithChildren } from "react";
 import {
   documentToReactComponents,
   Options,
@@ -10,8 +10,8 @@ interface RichTextProps {
   paragraphClass: string;
 }
 
-const RichText: React.FC<RichTextProps> = ({ document, paragraphClass }) => {
-  const Text: React.FC<React.PropsWithChildren> = ({ children }) => (
+const RichText: FC<RichTextProps> = ({ document, paragraphClass }) => {
+  const Text: FC<PropsWithChildren> = ({ children }) => (
     <p className={paragraphClass}>{children}</p>
   );
 

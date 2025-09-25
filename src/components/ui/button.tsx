@@ -1,21 +1,28 @@
-import { cn } from "@lib/utils";
+import React, {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  forwardRef,
+  memo,
+  Ref,
+} from "react";
 import Link, { LinkProps } from "next/link";
-import React from "react";
+
+import { cn } from "@/lib/utils";
 
 type typeLinkProps = LinkProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  AnchorHTMLAttributes<HTMLAnchorElement> & {
     asLink: true;
     href: LinkProps["href"];
   };
 
-type typeButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type typeButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   asLink?: false;
 };
 
 type ButtonProps = typeLinkProps | typeButtonProps;
 
-const Button = React.memo(
-  React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+const Button = memo(
+  forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     ({ className, asLink = false, ...props }, ref) => {
       if (asLink) {
         const { href, ...rest } = props as typeLinkProps;
@@ -27,7 +34,7 @@ const Button = React.memo(
               className
             )}
             {...rest}
-            ref={ref as React.Ref<HTMLAnchorElement>}
+            ref={ref as Ref<HTMLAnchorElement>}
           />
         );
       }
@@ -38,7 +45,7 @@ const Button = React.memo(
             className
           )}
           {...(props as typeButtonProps)}
-          ref={ref as React.Ref<HTMLButtonElement>}
+          ref={ref as Ref<HTMLButtonElement>}
         />
       );
     }

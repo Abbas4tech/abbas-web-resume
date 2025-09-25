@@ -1,14 +1,21 @@
-import React from "react";
-import { IconResponse } from "@lib/contentful";
+import React, {
+  ComponentType,
+  forwardRef,
+  HTMLAttributes,
+  memo,
+  useMemo,
+} from "react";
 import { IconType, IconBaseProps } from "react-icons";
 import dynamic, { Loader } from "next/dynamic";
-import { cn } from "@lib/utils";
+
+import { cn } from "@/lib/utils";
+import { Icon as IconResponse } from "@/types/common";
 
 type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
 interface IconModule {
-  [key: string]: IconType | any;
-  default?: any;
+  [key: string]: IconType | unknown;
+  default?: unknown;
 }
 
 const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
@@ -24,7 +31,7 @@ const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
 export const loadIcon = (
   library: IconLibrary,
   iconName: string
-): React.ComponentType<IconBaseProps> => {
+): ComponentType<IconBaseProps> => {
   const loader: Loader<IconBaseProps> = async () => {
     try {
       const iconModule: IconModule = await libraryImportPaths[library]();
@@ -48,19 +55,13 @@ const isIconLibrary = (library: string): library is IconLibrary => {
   return libraries.includes(library as IconLibrary);
 };
 
-const Icon = React.memo(
-  React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement> & IconResponse
-  >(
-    (
-      { className, iconCode = "", classes = [], showTooltip = true, name },
-      ref
-    ) => {
+const Icon = memo(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconResponse>(
+    ({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
       const [library, iconName] = iconCode.split("/") as [string, string];
-      const cleanClasses = classes.map((c) => c.trim()).join(" ");
+      const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
 
-      const IconComponent = React.useMemo(() => {
+      const IconComponent = useMemo(() => {
         if (isIconLibrary(library)) {
           return loadIcon(library, iconName);
         } else {
@@ -74,7 +75,7 @@ const Icon = React.memo(
           ref={ref}
           className={cn(
             "flex items-center",
-            showTooltip && `tooltip tooltip-primary`,
+            showTooltip && "tooltip tooltip-primary",
             className
           )}
           tabIndex={-1}
