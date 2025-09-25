@@ -3,7 +3,7 @@ import { Metadata, NextPage } from "next";
 
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { Icon } from "@/components/ui/icon";
-import ExperienceCard from "@/components/e";
+import ExperienceCard from "@/components/ExperienceCard";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
