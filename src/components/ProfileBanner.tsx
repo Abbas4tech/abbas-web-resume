@@ -39,6 +39,7 @@ const SocialLinkItem = memo(
         aria-label={`Visit ${link.title}`}
       >
         <Image
+          loading="lazy"
           src={link.url}
           width={link.width}
           height={link.height}
