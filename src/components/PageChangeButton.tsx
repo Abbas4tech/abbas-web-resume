@@ -7,7 +7,6 @@ import { usePage, usePageProps } from "@/hooks";
 import { Button, ButtonProps } from "./ui/button";
 import { Icon } from "./ui/icon";
 
-
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> &
   usePageProps;
 

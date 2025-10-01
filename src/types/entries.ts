@@ -10,7 +10,7 @@ export interface AppData {
   resume: Asset;
   resumeIcon: Icon;
   themeList: string[];
-  themeIcon: Icon;
+  themeIcon?: Icon;
   defaultTheme: string;
   pagesInformation: Pages[];
   layoutSettings: LayoutSettings;

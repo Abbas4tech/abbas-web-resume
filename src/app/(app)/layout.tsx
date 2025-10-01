@@ -1,6 +1,5 @@
 import React, { FC, PropsWithChildren } from "react";
 
-import { Container } from "@/components/ui/container";
 import {
   Drawer,
   DrawerPageContent,
@@ -16,6 +15,7 @@ import SidebarMenu from "@/components/SidebarMenu";
 import { NavigationAnimation } from "@/components/ui/navigation";
 import { ProfileBanner } from "@/components/ProfileBanner";
 import { GlobalHeader as Header } from "@/components/GlobalHeader";
+import NavigationDock from "@/components/NavigationDock";
 
 interface GetAppDataQueryResult {
   userInfo: AppData;
@@ -30,10 +30,10 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
     resume,
     defaultTheme,
     resumeIcon,
-    themeIcon,
     themeList,
     title,
     bannerData,
+    themeIcon,
     layoutSettings,
     pagesCollection,
   } = data.userInfo;
@@ -61,22 +61,21 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
         title={title}
         defaultRoute={defaultRoute}
       />
-      <Container className="h-[calc(100vh-5rem)]">
-        <Drawer>
-          <DrawerPageContent>
-            <NavigationAnimation
-              className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-5rem)]"
-              options={{ easing: "ease-in-cubic" }}
-            >
-              <ProfileBanner bannerData={bannerData} />
-              {children}
-            </NavigationAnimation>
-          </DrawerPageContent>
-          <DrawerSide>
-            <SidebarMenu pages={pagesCollection.items} />
-          </DrawerSide>
-        </Drawer>
-      </Container>
+      <Drawer className="scrollbar-hide overflow-hidden md:text-lg text-sm h-[calc(100vh-5rem)]">
+        <DrawerPageContent>
+          <NavigationAnimation
+            className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-5rem)]"
+            options={{ easing: "ease-in-cubic" }}
+          >
+            <ProfileBanner bannerData={bannerData} />
+            {children}
+          </NavigationAnimation>
+        </DrawerPageContent>
+        <DrawerSide>
+          <SidebarMenu pages={pagesCollection.items} />
+        </DrawerSide>
+        <NavigationDock items={pagesCollection.items} />
+      </Drawer>
     </DrawerProvider>
   );
 };

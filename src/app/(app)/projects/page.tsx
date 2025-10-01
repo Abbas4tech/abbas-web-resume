@@ -37,20 +37,24 @@ const ProjectsPage: NextPage = async () => {
         {title}
       </PageHeading>
       <PageContent
-        className="grid grid-cols-1 sm:grid-cols-2 my-2 rounded-xl gap-4"
+        className="grid grid-cols-1 md:grid-cols-2 my-2 rounded-xl gap-4"
         data-aos={contentAnimation}
       >
         {pageData.projectsCollection.items.map((item, index: number) => (
           <Card key={index}>
             <CardImage
+              className="hidden md:block"
+              loading="lazy"
               width={item.thumbnail.width}
               height={item.thumbnail.height}
               alt={item.thumbnail.fileName}
               src={item.thumbnail.url}
             />
-            <CardContent>
-              <CardTitle className="text-lg">{item.title}</CardTitle>
-              <CardDescription className="text-base">
+            <CardContent className="p-4 md:p-6">
+              <CardTitle className="text-base md:text-lg">
+                {item.title}
+              </CardTitle>
+              <CardDescription className="text-xs md:text-base">
                 {item.description}
               </CardDescription>
               <CardFooter className="justify-end">

@@ -14,8 +14,8 @@ type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
     | "title"
     | "resume"
     | "resumeIcon"
-    | "themeIcon"
     | "themeList"
+    | "themeIcon"
     | "defaultTheme"
   > & {
     defaultRoute: string;
@@ -29,8 +29,8 @@ const GlobalHeader = memo(
         title,
         resume,
         resumeIcon,
-        themeIcon,
         themeList,
+        themeIcon,
         defaultTheme,
         defaultRoute,
         ...props
@@ -41,13 +41,13 @@ const GlobalHeader = memo(
         ref={ref}
         {...props}
         className={cn(
-          "bg-base-100 group-data-[variant='responsive-sidebar']:container group-data-[variant='responsive-sidebar']:mx-auto shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
+          "bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
           className
         )}
       >
         <nav className="navbar group-data-[side='right']:flex-row-reverse bg-base-100">
           <div className="navbar-start group-data-[side='right']:flex-row-reverse gap-2">
-            <DrawerButton>
+            <DrawerButton className="">
               <Icon
                 iconCode="io5/IoMenu"
                 classes={["w-5", "h-5"]}
@@ -59,7 +59,7 @@ const GlobalHeader = memo(
             <Button
               asLink
               href={defaultRoute}
-              className="text-lg normal-case lg:text-2xl p-0 md:p-2 btn-ghost btn bg-inherit"
+              className="text-lg normal-case group-data-[variant='dock-on-mobile']:pl-2 lg:text-2xl p-0 md:p-2 btn-ghost btn bg-inherit"
             >
               {title}
             </Button>

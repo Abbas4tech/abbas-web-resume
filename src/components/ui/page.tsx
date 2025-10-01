@@ -23,10 +23,7 @@ const Page: FC<HTMLAttributes<HTMLDivElement>> = async ({
   return (
     <div
       role="main"
-      className={cn(
-        "group-data-[variant='responsive-sidebar']:container overflow-auto scrollbar-hide flex flex-col",
-        className
-      )}
+      className={cn("overflow-auto scrollbar-hide flex flex-col", className)}
       {...props}
     >
       {children}
