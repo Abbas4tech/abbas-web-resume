@@ -50,9 +50,11 @@ const ProjectsPage: NextPage = async () => {
               alt={item.thumbnail.fileName}
               src={item.thumbnail.url}
             />
-            <CardContent>
-              <CardTitle className="text-lg">{item.title}</CardTitle>
-              <CardDescription className="text-base">
+            <CardContent className="p-4 md:p-6">
+              <CardTitle className="text-base md:text-lg">
+                {item.title}
+              </CardTitle>
+              <CardDescription className="text-xs md:text-base">
                 {item.description}
               </CardDescription>
               <CardFooter className="justify-end">

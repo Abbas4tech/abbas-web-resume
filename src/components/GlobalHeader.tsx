@@ -11,7 +11,12 @@ import ThemeSwitch from "./ThemeSwitch";
 type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
   Pick<
     AppData,
-    "title" | "resume" | "resumeIcon" | "themeList" | "defaultTheme"
+    | "title"
+    | "resume"
+    | "resumeIcon"
+    | "themeList"
+    | "themeIcon"
+    | "defaultTheme"
   > & {
     defaultRoute: string;
   };
@@ -25,6 +30,7 @@ const GlobalHeader = memo(
         resume,
         resumeIcon,
         themeList,
+        themeIcon,
         defaultTheme,
         defaultRoute,
         ...props
@@ -53,7 +59,7 @@ const GlobalHeader = memo(
             <Button
               asLink
               href={defaultRoute}
-              className="text-lg normal-case lg:text-2xl p-0 md:p-2 btn-ghost btn bg-inherit"
+              className="text-lg normal-case group-data-[variant='dock-on-mobile']:pl-2 lg:text-2xl p-0 md:p-2 btn-ghost btn bg-inherit"
             >
               {title}
             </Button>
@@ -69,7 +75,11 @@ const GlobalHeader = memo(
             >
               <Icon {...resumeIcon} />
             </Button>
-            <ThemeSwitch defaultTheme={defaultTheme} themeList={themeList} />
+            <ThemeSwitch
+              themeIcon={themeIcon}
+              defaultTheme={defaultTheme}
+              themeList={themeList}
+            />
           </div>
         </nav>
       </header>

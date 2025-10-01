@@ -33,6 +33,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
     themeList,
     title,
     bannerData,
+    themeIcon,
     layoutSettings,
     pagesCollection,
   } = data.userInfo;
@@ -52,6 +53,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
       side={layoutSettings.drawerSide.toLowerCase() as DRAWER_SIDES}
     >
       <Header
+        themeIcon={themeIcon}
         defaultTheme={defaultTheme}
         resume={resume}
         resumeIcon={resumeIcon}
