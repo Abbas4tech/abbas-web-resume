@@ -71,7 +71,7 @@ const DropdownMenuItem = memo(
     >
       <span
         className={cn(
-          "justify-between",
+          "justify-between gap-4",
           isActive &&
             "text-transparent font-bold bg-clip-text bg-gradient-to-r from-primary to-secondary gradient-45 animate-gradient-x ease-in-out"
         )}

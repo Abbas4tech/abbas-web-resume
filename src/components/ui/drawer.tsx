@@ -20,7 +20,7 @@ const DRAWER_WIDTH = "20rem";
 const DRAWER_WIDTH_MOBILE = "80%";
 
 type DRAWER_STATE = "expanded" | "collapsed";
-type DRAWER_VARIANTS = "default" | "responsive-sidebar" | "dock-on-mobile";
+type DRAWER_VARIANTS = "default" | "dock-on-mobile";
 type DRAWER_SIDES = "left" | "right";
 
 type DrawerContext = {
@@ -42,8 +42,8 @@ function useDrawer(): DrawerContext {
 }
 
 type DrawerProviderProps = ComponentProps<"div"> & {
-  side?: "left" | "right";
-  variant?: "default" | "responsive-sidebar" | "dock-on-mobile";
+  side?: DRAWER_SIDES;
+  variant?: DRAWER_VARIANTS;
 };
 
 const DrawerProvider = forwardRef<HTMLDivElement, DrawerProviderProps>(
@@ -59,19 +59,11 @@ const DrawerProvider = forwardRef<HTMLDivElement, DrawerProviderProps>(
     ref
   ) => {
     const isMobile = useMobile();
-    const alreadyOpened = variant !== "default";
-    const [open, setOpen] = useState(alreadyOpened);
+    const [open, setOpen] = useState(!isMobile);
 
     const checkForSidebarState = useCallback(
-      () =>
-        variant === "responsive-sidebar"
-          ? (!open && isMobile) || !isMobile
-            ? "expanded"
-            : "collapsed"
-          : open
-          ? "expanded"
-          : "collapsed",
-      [isMobile, open, variant]
+      () => (open ? "expanded" : "collapsed"),
+      [open]
     );
 
     const toggleSidebar = useCallback(() => {
@@ -132,7 +124,10 @@ DrawerOverlay.displayName = "DrawerOverlay";
 const DrawerToggle = memo(
   forwardRef<HTMLInputElement, HTMLAttributes<HTMLInputElement>>(
     ({ className, ...props }, ref) => {
-      const { state, toggleSidebar } = useDrawer();
+      const { state, toggleSidebar, variant, isMobile } = useDrawer();
+      if (variant === "dock-on-mobile" && isMobile) {
+        return <span className="sr-only">DrawerToggle is not available!</span>;
+      }
       return (
         <input
           ref={ref}
@@ -151,14 +146,16 @@ const DrawerToggle = memo(
 const DrawerButton = memo(
   forwardRef<HTMLLabelElement, HTMLAttributes<HTMLLabelElement>>(
     ({ className, ...props }, ref) => {
-      const { variant } = useDrawer();
+      const { variant, isMobile } = useDrawer();
+      if (variant === "dock-on-mobile" && isMobile) {
+        return <span className="sr-only">DrawerButton is not available!</span>;
+      }
       return (
         <label
           ref={ref}
           tabIndex={0}
           className={cn(
-            "btn btn-ghost btn-circle drawer-button",
-            variant === "responsive-sidebar" && "lg:hidden",
+            "btn btn-ghost btn-circle drawer-button lg:hidden",
             className
           )}
           htmlFor={DRAWER_ID}
@@ -171,14 +168,13 @@ const DrawerButton = memo(
 
 const Drawer = forwardRef<HTMLDivElement, ComponentProps<"main">>(
   ({ className, children, ...props }, ref) => {
-    const { state, variant, side } = useDrawer();
+    const { state, side } = useDrawer();
     return (
       <main
         ref={ref}
         className={cn(
-          "drawer",
+          "drawer lg:drawer-open",
           side === "right" && "drawer-end",
-          variant === "responsive-sidebar" && "lg:drawer-open",
           className
         )}
         data-state={state}
@@ -203,15 +199,14 @@ const DrawerPageContent = memo(
 const DrawerSide = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, children, ...props }, ref) => {
-      const { variant } = useDrawer();
+      const { variant, isMobile } = useDrawer();
+      if (variant === "dock-on-mobile" && isMobile) {
+        return <span className="sr-only">DrawerSide is not available!</span>;
+      }
       return (
         <div
           ref={ref}
-          className={cn(
-            "drawer-side top-16",
-            variant === "responsive-sidebar" && "md:top-0",
-            className
-          )}
+          className={cn("drawer-side top-16 lg:top-0", className)}
           {...props}
         >
           <DrawerOverlay />

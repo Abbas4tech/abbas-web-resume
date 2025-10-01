@@ -11,12 +11,7 @@ import ThemeSwitch from "./ThemeSwitch";
 type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
   Pick<
     AppData,
-    | "title"
-    | "resume"
-    | "resumeIcon"
-    | "themeIcon"
-    | "themeList"
-    | "defaultTheme"
+    "title" | "resume" | "resumeIcon" | "themeList" | "defaultTheme"
   > & {
     defaultRoute: string;
   };
@@ -29,7 +24,6 @@ const GlobalHeader = memo(
         title,
         resume,
         resumeIcon,
-        themeIcon,
         themeList,
         defaultTheme,
         defaultRoute,
@@ -41,13 +35,13 @@ const GlobalHeader = memo(
         ref={ref}
         {...props}
         className={cn(
-          "bg-base-100 group-data-[variant='responsive-sidebar']:container group-data-[variant='responsive-sidebar']:mx-auto shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
+          "bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
           className
         )}
       >
         <nav className="navbar group-data-[side='right']:flex-row-reverse bg-base-100">
           <div className="navbar-start group-data-[side='right']:flex-row-reverse gap-2">
-            <DrawerButton>
+            <DrawerButton className="">
               <Icon
                 iconCode="io5/IoMenu"
                 classes={["w-5", "h-5"]}
@@ -75,11 +69,7 @@ const GlobalHeader = memo(
             >
               <Icon {...resumeIcon} />
             </Button>
-            <ThemeSwitch
-              themeIcon={themeIcon}
-              defaultTheme={defaultTheme}
-              themeList={themeList}
-            />
+            <ThemeSwitch defaultTheme={defaultTheme} themeList={themeList} />
           </div>
         </nav>
       </header>

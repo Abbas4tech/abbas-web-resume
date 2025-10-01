@@ -30,14 +30,20 @@ const CardContent = memo(
 );
 
 const CardImage = memo(
-  forwardRef<
-    HTMLElement & ComponentRef<typeof Image>,
-    HTMLAttributes<HTMLElement> & ComponentProps<typeof Image>
-  >(({ className, src, alt, ...props }, ref) => (
-    <figure className={cn("", className)} ref={ref}>
-      <Image src={src} className="" alt={alt} {...props} />
-    </figure>
-  ))
+  forwardRef<ComponentRef<typeof Image>, ComponentProps<typeof Image>>(
+    ({ className, src, alt, loading, ...props }, ref) => (
+      <figure className="card-image">
+        <Image
+          ref={ref}
+          src={src}
+          loading={loading}
+          className={className}
+          alt={alt}
+          {...props}
+        />
+      </figure>
+    )
+  )
 );
 
 const CardTitle = memo(

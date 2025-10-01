@@ -1,8 +1,6 @@
 "use client";
 import React, { ComponentProps, useState } from "react";
 
-import { Icon as IconResponse } from "@/types/common";
-
 import {
   Dropdown,
   DropdownToggle,
@@ -14,13 +12,24 @@ import { Icon } from "./ui/icon";
 interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
   defaultTheme: string;
   themeList: string[];
-  themeIcon: IconResponse;
 }
+
+const Palette = (theme: string): React.JSX.Element => (
+  <div
+    data-tip="Theme"
+    data-theme={theme}
+    className="p-1 bg-base-100 border-base-content/10 border rounded-md grid grid-cols-2 gap-0.5 tooltip tooltip-primary"
+  >
+    <div className="size-1 md:size-1.5 rounded-md bg-base-content" />
+    <div className="size-1 md:size-1.5 rounded-md bg-primary" />
+    <div className="size-1 md:size-1.5 rounded-md bg-secondary" />
+    <div className="size-1 md:size-1.5 rounded-md bg-accent" />
+  </div>
+);
 
 const ThemeSwitch = ({
   themeList,
   defaultTheme,
-  themeIcon,
   ...props
 }: ThemeSwitchProps): React.JSX.Element => {
   const [currentTheme, setCurrentTheme] = useState(defaultTheme.toLowerCase());
@@ -33,8 +42,8 @@ const ThemeSwitch = ({
   };
   return (
     <Dropdown {...props}>
-      <DropdownToggle>
-        <Icon {...themeIcon} />
+      <DropdownToggle className="btn-ghost">
+        {Palette(currentTheme)}
         <Icon
           classes={[]}
           iconCode="io5/IoChevronDown"
@@ -47,17 +56,11 @@ const ThemeSwitch = ({
           <DropdownMenuItem
             isActive={theme.toLowerCase() === currentTheme}
             key={theme}
+            className="text-sm gap-4 md:gap-6"
             onClick={() => themeChangeHandler(theme.toLowerCase())}
           >
             {theme}
-            <div
-              data-theme={theme.toLowerCase()}
-              className="p-1 bg-base-100 rounded-md flex gap-[2px]"
-            >
-              <div className="size-1 md:size-2 rounded-md bg-base-content" />
-              <div className="size-1 md:size-2 rounded-md bg-primary" />
-              <div className="size-1 md:size-2 rounded-md bg-secondary" />
-            </div>
+            {Palette(theme.toLowerCase())}
           </DropdownMenuItem>
         ))}
       </DropdownMenu>

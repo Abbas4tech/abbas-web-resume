@@ -1,14 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextMiddleware, NextResponse } from "next/server";
 
-export async function middleware(
-  request: NextRequest
-): Promise<NextResponse<unknown>> {
+export const middleware: NextMiddleware = async (request) => {
   if (request.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/about", request.url));
   }
 
   return NextResponse.next();
-}
+};
 
 export const config = {
   matcher: "/",
