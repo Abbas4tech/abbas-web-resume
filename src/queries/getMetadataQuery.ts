@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_METADATA = gql`
-  query GetExperiencePageMetadata($id: String!) {
+  query GetMatadata($id: String!) {
     page(id: $id) {
       pageSeo {
         title
