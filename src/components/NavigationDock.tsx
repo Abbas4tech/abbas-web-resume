@@ -20,7 +20,7 @@ const NavigationDock = ({
   const { currentPageData } = usePage({ pages: items });
   if (variant === "dock-on-mobile" && isMobile) {
     return (
-      <Dock {...props}>
+      <Dock className="bg-base-300" {...props}>
         {items.map((e) => (
           <DockButton
             href={e.pageUrl}
@@ -36,7 +36,7 @@ const NavigationDock = ({
       </Dock>
     );
   } else {
-    return <span className="sr-only">NavigationDock is not available!</span>;
+    return <span className="sr-only">NavigationDock</span>;
   }
 };
 

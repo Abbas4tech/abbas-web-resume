@@ -126,7 +126,7 @@ const DrawerToggle = memo(
     ({ className, ...props }, ref) => {
       const { state, toggleSidebar, variant, isMobile } = useDrawer();
       if (variant === "dock-on-mobile" && isMobile) {
-        return <span className="sr-only">DrawerToggle is not available!</span>;
+        return <span className="sr-only">DrawerToggle</span>;
       }
       return (
         <input
@@ -148,7 +148,7 @@ const DrawerButton = memo(
     ({ className, ...props }, ref) => {
       const { variant, isMobile } = useDrawer();
       if (variant === "dock-on-mobile" && isMobile) {
-        return <span className="sr-only">DrawerButton is not available!</span>;
+        return <span className="sr-only">DrawerButton</span>;
       }
       return (
         <label
@@ -201,7 +201,7 @@ const DrawerSide = memo(
     ({ className, children, ...props }, ref) => {
       const { variant, isMobile } = useDrawer();
       if (variant === "dock-on-mobile" && isMobile) {
-        return <span className="sr-only">DrawerSide is not available!</span>;
+        return <span className="sr-only">DrawerSide</span>;
       }
       return (
         <div
