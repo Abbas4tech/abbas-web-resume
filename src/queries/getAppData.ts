@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_APPDATA = gql`
-  query GetHeaderInfo($id: String!) {
+  query GetAppData($id: String!) {
     userInfo(id: $id) {
       title
       name
