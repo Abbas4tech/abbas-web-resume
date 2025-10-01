@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_SKILLS_PAGE = gql`
-  query GetProjectsPage($id: String!) {
+  query GetSkillsPage($id: String!) {
     page(id: $id) {
       title
       pageIcon {
