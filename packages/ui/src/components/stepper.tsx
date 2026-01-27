@@ -11,9 +11,9 @@ const Step = memo(
 const StepSeparator = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
     <div
+      aria-hidden="true"
       className={cn("absolute left-0 z-10 h-full border-gray-600 border-r-2", className)}
       ref={ref}
-      role="separator"
       {...props}
     />
   ))

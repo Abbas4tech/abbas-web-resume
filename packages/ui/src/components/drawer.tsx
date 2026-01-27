@@ -12,7 +12,7 @@ import {
   useState,
 } from "react";
 
-import { useMobile } from "@/hooks";
+import { useMobile } from "../hooks/useMobile";
 import { cn } from "../lib/utils";
 
 const DRAWER_ID = "my-drawer-2";
@@ -138,7 +138,9 @@ const DrawerButton = memo(
         htmlFor={DRAWER_ID}
         ref={ref}
         {...props}
-      />
+      >
+        <span className="sr-only">Toggle menu</span>
+      </label>
     );
   })
 );
@@ -177,7 +179,7 @@ const DrawerSide = memo(
       return (
         <div className={cn("drawer-side top-16 lg:top-0", className)} ref={ref} {...props}>
           <DrawerOverlay />
-          <div className="flex min-h-full w-[var(--drawer-mobile-width)] flex-col bg-base-300 py-4 md:w-[var(--drawer-width)]">
+          <div className="flex min-h-full w-(--drawer-mobile-width) flex-col bg-base-300 py-4 md:w-(--drawer-width)">
             {children}
           </div>
         </div>
@@ -204,16 +206,15 @@ DrawerSideMenu.displayName = "DrawerSideMenu";
 
 const DrawerSideItem = memo(
   forwardRef<HTMLLIElement, HTMLAttributes<HTMLLIElement>>(({ className, ...props }, ref) => {
-    const { toggleSidebar, side } = useDrawer();
+    const { side } = useDrawer();
     return (
       <li
         className={cn(
-          "cursor-pointer py-1 pr-2 md:py-2",
+          "py-1 pr-2 md:py-2",
           side === "right" && "pr-0 pl-2 *:flex-row-reverse",
           className
         )}
         data-aos={side === "left" ? "fade-right" : "fade-left"}
-        onClick={toggleSidebar}
         ref={ref}
         {...props}
       />

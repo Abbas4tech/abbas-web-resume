@@ -8,14 +8,10 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {
 
 const Page: FC<PageProps> = ({ className, children, footer, ...props }) => {
   return (
-    <div
-      className={cn("scrollbar-hide flex flex-col overflow-auto", className)}
-      role="main"
-      {...props}
-    >
+    <main className={cn("scrollbar-hide flex flex-col overflow-auto", className)} {...props}>
       {children}
       {footer}
-    </div>
+    </main>
   );
 };
 
@@ -27,7 +23,7 @@ const PageContent = memo(
   ))
 );
 
-PageContent.displayName = PageContent.displayName;
+PageContent.displayName = "PageContent";
 
 const PageHeading = memo(
   forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(

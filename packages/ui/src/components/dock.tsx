@@ -6,9 +6,8 @@ import {
   type HTMLAttributes,
   memo,
 } from "react";
-
-import type { Icon as IconType } from "@/types/common";
 import { cn } from "../lib/utils";
+import type { Icon as IconType } from "../types/icon";
 
 import { Icon } from "./icon";
 

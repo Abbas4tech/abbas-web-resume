@@ -36,7 +36,7 @@ const DropdownMenu = memo(
   forwardRef<HTMLUListElement, HTMLAttributes<HTMLUListElement>>(({ className, ...props }, ref) => (
     <ul
       className={cn(
-        "dropdown-content menu z-[1] w-max rounded-box bg-base-300 p-2 shadow-2xl",
+        "dropdown-content menu z-1 w-max rounded-box bg-base-300 p-2 shadow-2xl",
         className
       )}
       ref={ref}
@@ -57,7 +57,7 @@ const DropdownMenuItem = memo(
         className={cn(
           "justify-between gap-4",
           isActive &&
-            "gradient-45 animate-gradient-x bg-gradient-to-r from-primary to-secondary bg-clip-text font-bold text-transparent ease-in-out"
+            "gradient-45 animate-gradient-x bg-linear-to-r from-primary to-secondary bg-clip-text font-bold text-transparent ease-in-out"
         )}
       >
         {children}

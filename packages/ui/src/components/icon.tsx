@@ -1,9 +1,8 @@
 import dynamic, { type Loader } from "next/dynamic";
 import { type ComponentType, forwardRef, type HTMLAttributes, memo, useMemo } from "react";
 import type { IconBaseProps, IconType } from "react-icons";
-
-import type { Icon as IconResponse } from "@/types/common";
 import { cn } from "../lib/utils";
+import type { Icon as IconResponse } from "../types/icon";
 
 type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
@@ -50,7 +49,7 @@ const Icon = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconResponse>(
     ({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
       const [library, iconName] = iconCode.split("/") as [string, string];
-      const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
+      const cleanClasses = (classes || []).map((c: string) => c.trim()).join(" ");
 
       const IconComponent = useMemo(() => {
         if (isIconLibrary(library)) {

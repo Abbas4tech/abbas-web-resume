@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@abbas-web-resume/ui/components/button";
-import { DrawerSideItem, DrawerSideMenu } from "@abbas-web-resume/ui/components/drawer";
+import { DrawerSideItem, DrawerSideMenu, useDrawer } from "@abbas-web-resume/ui/components/drawer";
 import { Icon } from "@abbas-web-resume/ui/components/icon";
 import type React from "react";
 import type { ComponentProps } from "react";
@@ -12,6 +12,7 @@ const SidebarMenu = ({
   ...props
 }: ComponentProps<typeof DrawerSideMenu> & usePageProps): React.JSX.Element => {
   const { currentPageData, defaultPage } = usePage({ pages });
+  const { toggleSidebar } = useDrawer();
   return (
     <DrawerSideMenu {...props}>
       {pages.map((page) => (
@@ -24,6 +25,7 @@ const SidebarMenu = ({
                 : ""
             }`}
             href={`${[page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl]}`}
+            onClick={toggleSidebar}
           >
             <Icon {...page.pageIcon} />
             {page.title}
