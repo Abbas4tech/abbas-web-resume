@@ -1,10 +1,10 @@
 "use client";
 
-import { Button, type ButtonProps } from "@abbas-web-resume/ui/components/button";
-import { Icon } from "@abbas-web-resume/ui/components/icon";
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 import { type ComponentRef, forwardRef, memo } from "react";
+import { Button, type ButtonProps } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { usePage, type usePageProps } from "@/hooks/use-page";
+import { cn } from "@/lib/utils";
 
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> & usePageProps;
 
