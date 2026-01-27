@@ -1,8 +1,7 @@
-import { Icon } from "@abbas-web-resume/ui/components/icon";
-import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
 import type { Metadata, NextPage } from "next";
 import ExperienceCard from "@/components/experience-card";
-import { Page } from "@/components/page";
+import { Icon } from "@/components/ui/icon";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/get-experience-page-query";

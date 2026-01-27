@@ -1,3 +1,10 @@
+import type { FC, PropsWithChildren } from "react";
+import { GlobalHeader as Header } from "@/components/global-header";
+import { NavigationAnimation } from "@/components/navigation";
+import NavigationDock from "@/components/navigation-dock";
+import PageChangeButton from "@/components/page-change-button";
+import { ProfileBanner } from "@/components/profile-banner";
+import SidebarMenu from "@/components/sidebar-menu";
 import {
   type DRAWER_SIDES,
   type DRAWER_VARIANTS,
@@ -5,13 +12,7 @@ import {
   DrawerPageContent,
   DrawerProvider,
   DrawerSide,
-} from "@abbas-web-resume/ui/components/drawer";
-import { NavigationAnimation } from "@abbas-web-resume/ui/components/navigation";
-import type { FC, PropsWithChildren } from "react";
-import { GlobalHeader as Header } from "@/components/global-header";
-import NavigationDock from "@/components/navigation-dock";
-import { ProfileBanner } from "@/components/profile-banner";
-import SidebarMenu from "@/components/sidebar-menu";
+} from "@/components/ui/drawer";
 import { fetchGql } from "@/lib/client";
 import { GET_APPDATA } from "@/queries/get-app-data";
 import type { AppData } from "@/types/entries";
@@ -68,6 +69,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
             <ProfileBanner bannerData={bannerData} />
             {children}
           </NavigationAnimation>
+          <PageChangeButton pages={pagesCollection.items} />
         </DrawerPageContent>
         <DrawerSide>
           <SidebarMenu pages={pagesCollection.items} />

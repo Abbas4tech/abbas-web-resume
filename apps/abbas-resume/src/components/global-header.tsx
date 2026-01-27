@@ -1,8 +1,8 @@
-import { Button } from "@abbas-web-resume/ui/components/button";
-import { DrawerButton } from "@abbas-web-resume/ui/components/drawer";
-import { Icon } from "@abbas-web-resume/ui/components/icon";
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 import { forwardRef, type HTMLAttributes, memo } from "react";
+import { Button } from "@/components/ui/button";
+import { DrawerButton } from "@/components/ui/drawer";
+import { Icon } from "@/components/ui/icon";
+import { cn } from "@/lib/utils";
 import type { AppData } from "@/types/entries";
 import ThemeSwitch from "./theme-switch";
 
@@ -48,7 +48,7 @@ const GlobalHeader = memo(
 
             <Button
               asLink
-              className="btn-ghost btn bg-inherit p-0 text-lg normal-case group-data-[variant='dock-on-mobile']:pl-2 md:p-2 lg:text-2xl"
+              className="btn btn-ghost p-0 text-lg normal-case group-data-[variant='dock-on-mobile']:pl-2 md:p-2 lg:text-2xl"
               href={defaultRoute}
             >
               {title}
@@ -58,7 +58,7 @@ const GlobalHeader = memo(
           <div className="navbar-end items-center gap-2 group-data-[side='right']:flex-row-reverse">
             <Button
               asLink
-              className="btn btn-ghost cursor-pointer bg-inherit px-2 py-1 md:px-4 md:py-2"
+              className="btn btn-ghost px-2 py-1 md:px-4 md:py-2"
               href={resume.url}
               passHref
               target="_blank"

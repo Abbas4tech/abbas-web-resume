@@ -1,4 +1,6 @@
-import { Icon } from "@abbas-web-resume/ui/components/icon";
+import type { Document } from "@contentful/rich-text-types";
+import { type FC, memo, useMemo } from "react";
+import { Icon } from "@/components/ui/icon";
 import {
   Step,
   StepBody,
@@ -6,12 +8,10 @@ import {
   StepIndicator,
   StepSeparator,
   StepTitle,
-} from "@abbas-web-resume/ui/components/stepper";
-import type { Document } from "@contentful/rich-text-types";
-import { type FC, memo, useMemo } from "react";
+} from "@/components/ui/stepper";
 import type { Collection, Icon as IconResponse } from "@/types/common";
 import type { JobExperience } from "@/types/entries";
-import { RichText } from "./rich-text";
+import { RichText } from "./ui/rich-text";
 
 const monthNames = [
   "January",
