@@ -1,13 +1,12 @@
 "use client";
-import type React from "react";
-import type { ComponentProps } from "react";
-
-import { usePage } from "@/hooks";
-import type { MetaPage } from "@/types/entries";
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 
 import { Dock, DockButton } from "@abbas-web-resume/ui/components/dock";
 import { useDrawer } from "@abbas-web-resume/ui/components/drawer";
+import { cn } from "@abbas-web-resume/ui/lib/utils";
+import type React from "react";
+import type { ComponentProps } from "react";
+import { usePage } from "@/hooks";
+import type { MetaPage } from "@/types/entries";
 
 type NavigationDockProps = ComponentProps<typeof Dock> & {
   items: MetaPage[];
@@ -21,19 +20,18 @@ const NavigationDock = ({ items, ...props }: NavigationDockProps): React.JSX.Ele
       <Dock className="bg-base-300" {...props}>
         {items.map((e) => (
           <DockButton
-            href={e.pageUrl}
             className={cn(e.pageUrl === currentPageData.pageUrl && "dock-active")}
-            key={e.title}
+            href={e.pageUrl}
             icon={e.pageIcon}
+            key={e.title}
           >
             {e.title}
           </DockButton>
         ))}
       </Dock>
     );
-  } else {
-    return <span className="sr-only">NavigationDock</span>;
   }
+  return <span className="sr-only">NavigationDock</span>;
 };
 
 export default NavigationDock;

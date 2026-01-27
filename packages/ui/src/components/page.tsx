@@ -1,4 +1,4 @@
-import React, { type FC, forwardRef, type HTMLAttributes, memo, type ReactNode } from "react";
+import { type FC, forwardRef, type HTMLAttributes, memo, type ReactNode } from "react";
 
 import { cn } from "../lib/utils";
 
@@ -9,8 +9,8 @@ interface PageProps extends HTMLAttributes<HTMLDivElement> {
 const Page: FC<PageProps> = ({ className, children, footer, ...props }) => {
   return (
     <div
+      className={cn("scrollbar-hide flex flex-col overflow-auto", className)}
       role="main"
-      className={cn("overflow-auto scrollbar-hide flex flex-col", className)}
       {...props}
     >
       {children}
@@ -23,7 +23,7 @@ Page.displayName = "Page";
 
 const PageContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("", className)} {...props} />
+    <div className={cn("", className)} ref={ref} {...props} />
   ))
 );
 
@@ -33,11 +33,11 @@ const PageHeading = memo(
   forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
     ({ className, ...props }, ref) => (
       <h1
-        ref={ref}
         className={cn(
-          "flex items-center justify-center gap-4 p-4 px-0 text-xl font-bold md:py-6 md:text-4xl",
+          "flex items-center justify-center gap-4 p-4 px-0 font-bold text-xl md:py-6 md:text-4xl",
           className
         )}
+        ref={ref}
         {...props}
       />
     )

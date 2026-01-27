@@ -1,9 +1,3 @@
-import type { Document } from "@contentful/rich-text-types";
-import React, { type FC, memo, useMemo } from "react";
-
-import type { Collection, Icon as IconResponse } from "@/types/common";
-import type { JobExperience } from "@/types/entries";
-
 import { Icon } from "@abbas-web-resume/ui/components/icon";
 import {
   Step,
@@ -13,6 +7,10 @@ import {
   StepSeparator,
   StepTitle,
 } from "@abbas-web-resume/ui/components/stepper";
+import type { Document } from "@contentful/rich-text-types";
+import { type FC, memo, useMemo } from "react";
+import type { Collection, Icon as IconResponse } from "@/types/common";
+import type { JobExperience } from "@/types/entries";
 import { RichText } from "./RichText";
 
 const monthNames = [
@@ -95,7 +93,7 @@ const ExperienceCard: FC<ExperienceCardProps> = memo(
               <Icon {...roleIcon} />
               {position}
             </div>
-            <div className="flex items-center list-sty gap-2 leading- mb-2 md:mb-4">
+            <div className="leading- mb-2 flex list-sty items-center gap-2 md:mb-4">
               <Icon {...techStackIcon} />
               {techStack.skillIconsCollection.items.map((i) => i.name).join(", ")}
             </div>

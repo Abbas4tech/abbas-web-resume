@@ -1,5 +1,5 @@
 import dynamic, { type Loader } from "next/dynamic";
-import React, { type ComponentType, forwardRef, type HTMLAttributes, memo, useMemo } from "react";
+import { type ComponentType, forwardRef, type HTMLAttributes, memo, useMemo } from "react";
 import type { IconBaseProps, IconType } from "react-icons";
 
 import type { Icon as IconResponse } from "@/types/common";
@@ -55,20 +55,19 @@ const Icon = memo(
       const IconComponent = useMemo(() => {
         if (isIconLibrary(library)) {
           return loadIcon(library, iconName);
-        } else {
-          console.error(`Invalid icon library: "${library}"`);
-          return loadIcon("md", "MdError");
         }
+        console.error(`Invalid icon library: "${library}"`);
+        return loadIcon("md", "MdError");
       }, [library, iconName]);
 
       return (
         <div
-          ref={ref}
           className={cn("flex items-center", showTooltip && "tooltip tooltip-primary", className)}
-          tabIndex={-1}
           data-tip={name}
+          ref={ref}
+          tabIndex={-1}
         >
-          <IconComponent className={cleanClasses} aria-label={name} role="img" />
+          <IconComponent aria-label={name} className={cleanClasses} role="img" />
         </div>
       );
     }

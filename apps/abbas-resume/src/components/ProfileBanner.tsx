@@ -1,10 +1,9 @@
+import { cn } from "@abbas-web-resume/ui/lib/utils";
 import Image, { type ImageProps } from "next/image";
 import Link from "next/link";
-import React, { forwardRef, type HTMLAttributes, memo, useMemo } from "react";
-
+import { forwardRef, type HTMLAttributes, memo, useMemo } from "react";
 import type { Asset } from "@/types/common";
 import type { AppData } from "@/types/entries";
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 
 const SOCIAL_LINK_IMAGE_CLASS = "w-6 h-6 md:w-8 md:h-8";
 
@@ -25,25 +24,25 @@ const SocialLinkItem = memo(
     }
   >(({ link, ...props }, ref) => (
     <div
-      ref={ref}
-      data-tip={link.title}
-      className="tooltip tooltip-bottom"
-      role="tooltip"
       aria-label={link.title}
+      className="tooltip tooltip-bottom"
+      data-tip={link.title}
+      ref={ref}
+      role="tooltip"
       {...props}
     >
       <Link
-        href={link.description}
-        target="_blank"
-        rel="noopener noreferrer"
         aria-label={`Visit ${link.title}`}
+        href={link.description}
+        rel="noopener noreferrer"
+        target="_blank"
       >
         <Image
-          src={link.url}
-          width={link.width}
-          height={link.height}
           alt={`${link.title} icon`}
           className={SOCIAL_LINK_IMAGE_CLASS}
+          height={link.height}
+          src={link.url}
+          width={link.width}
         />
       </Link>
     </div>
@@ -64,41 +63,41 @@ const ProfileBanner = memo(
 
     return (
       <div
-        ref={ref}
+        className={cn("relative flex flex-col items-center justify-center", className)}
         data-aos={bannerAnimation}
-        className={cn("flex flex-col justify-center items-center relative", className)}
+        ref={ref}
         {...props}
       >
         <div className="w-full">
           <Image
             {...createImageProps(bannerImage)}
-            className="w-full h-auto"
             alt={bannerImage.title}
+            className="h-auto w-full"
             priority
             sizes="(max-width: 768px) 100vw, 75vw"
           />
         </div>
 
         <div className="avatar mt-[-2rem] md:mt-[-6rem]">
-          <div className="ring-base-100 ring-offset-base-100 w-24 md:w-48 rounded-full ring ring-offset-2">
+          <div className="w-24 rounded-full ring ring-base-100 ring-offset-2 ring-offset-base-100 md:w-48">
             <Image
               {...createImageProps(profilePicture)}
-              className="rounded-full"
               alt={profilePicture.title}
+              className="rounded-full"
               priority
               sizes="(max-width: 768px) 100vw, 75vw"
             />
           </div>
         </div>
 
-        <div className="flex justify-between items-center w-full pb-4 md:pb-12 mt-[-3rem] md:mt-[-5rem]">
-          <div data-aos="fade-right" className="flex gap-4">
+        <div className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12">
+          <div className="flex gap-4" data-aos="fade-right">
             {firstChunk.map((link) => (
               <SocialLinkItem key={link.title} link={link} />
             ))}
           </div>
 
-          <div data-aos="fade-left" className="flex gap-4">
+          <div className="flex gap-4" data-aos="fade-left">
             {secondChunk.map((link) => (
               <SocialLinkItem key={link.title} link={link} />
             ))}

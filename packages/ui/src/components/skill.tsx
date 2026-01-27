@@ -1,11 +1,11 @@
-import React, { forwardRef, type HTMLAttributes, memo } from "react";
+import { forwardRef, type HTMLAttributes, memo } from "react";
 
 import { cn } from "../lib/utils";
 
 const Skill = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
     <div
-      className={cn("mockup-window bg-base-300 border-neutral border", className)}
+      className={cn("mockup-window border border-neutral bg-base-300", className)}
       {...props}
       ref={ref}
     />
@@ -16,7 +16,7 @@ Skill.displayName = "Skills";
 
 const SkillsContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div className={cn("p-4 bg-base-200", className)} {...props} ref={ref} />
+    <div className={cn("bg-base-200 p-4", className)} {...props} ref={ref} />
   ))
 );
 
@@ -26,7 +26,7 @@ const SkillTitle = memo(
   forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
     ({ className, ...props }, ref) => (
       <h2
-        className={cn("flex text-xl font-bold items-center md:text-3xl gap-4 mb-4", className)}
+        className={cn("mb-4 flex items-center gap-4 font-bold text-xl md:text-3xl", className)}
         {...props}
         ref={ref}
       />
@@ -38,7 +38,7 @@ SkillTitle.displayName = "SkillTitle";
 const SkillGroup = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
     <div
-      className={cn("grid grid-cols-1 md:grid-cols-2 gap-8 p-2 md:p-4", className)}
+      className={cn("grid grid-cols-1 gap-8 p-2 md:grid-cols-2 md:p-4", className)}
       {...props}
       ref={ref}
     />
@@ -48,7 +48,7 @@ SkillGroup.displayName = "SkillGroup";
 
 const SkillGroupContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div className={cn("grid items-center grid-cols-2", className)} {...props} ref={ref} />
+    <div className={cn("grid grid-cols-2 items-center", className)} {...props} ref={ref} />
   ))
 );
 SkillGroupContent.displayName = "SkillGroupContent";

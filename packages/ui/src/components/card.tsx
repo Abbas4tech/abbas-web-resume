@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, {
+import {
   type ComponentProps,
   type ComponentRef,
   forwardRef,
@@ -11,13 +11,13 @@ import { cn } from "../lib/utils";
 
 const Card = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("card shadow-md bg-base-300", className)} {...props} />
+    <div className={cn("card bg-base-300 shadow-md", className)} ref={ref} {...props} />
   ))
 );
 
 const CardContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("card-body", className)} {...props} />
+    <div className={cn("card-body", className)} ref={ref} {...props} />
   ))
 );
 
@@ -25,7 +25,7 @@ const CardImage = memo(
   forwardRef<ComponentRef<typeof Image>, ComponentProps<typeof Image>>(
     ({ className, src, alt, loading, ...props }, ref) => (
       <figure className="card-image">
-        <Image ref={ref} src={src} loading={loading} className={className} alt={alt} {...props} />
+        <Image alt={alt} className={className} loading={loading} ref={ref} src={src} {...props} />
       </figure>
     )
   )
@@ -34,7 +34,7 @@ const CardImage = memo(
 const CardTitle = memo(
   forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
     ({ className, ...props }, ref) => (
-      <h2 ref={ref} className={cn("card-title", className)} {...props} />
+      <h2 className={cn("card-title", className)} ref={ref} {...props} />
     )
   )
 );
@@ -42,14 +42,14 @@ const CardTitle = memo(
 const CardDescription = memo(
   forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
     ({ className, ...props }, ref) => (
-      <p ref={ref} className={cn("card-description", className)} {...props} />
+      <p className={cn("card-description", className)} ref={ref} {...props} />
     )
   )
 );
 
 const CardFooter = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("card-actions", className)} {...props} />
+    <div className={cn("card-actions", className)} ref={ref} {...props} />
   ))
 );
 

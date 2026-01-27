@@ -1,24 +1,20 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "includes": [
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.json",
+      "**/*.jsonc"
+    ]
+  },
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
-  },
-  "files": {
-    "ignoreUnknown": false,
-    "ignore": [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "dist/**",
-      "*.config.js",
-      "*.config.mjs",
-      "next-env.d.ts",
-      "playwright-report/**",
-      "test-results/**"
-    ]
   },
   "formatter": {
     "enabled": true,
@@ -28,23 +24,27 @@
     "lineWidth": 100,
     "lineEnding": "lf"
   },
-  "organizeImports": {
-    "enabled": true
-  },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true,
+      "a11y": {
+        "noLabelWithoutControl": "warn",
+        "noNoninteractiveElementInteractions": "warn",
+        "noNoninteractiveElementToInteractiveRole": "warn",
+        "useAriaPropsForRole": "warn",
+        "useFocusableInteractive": "warn",
+        "useKeyWithClickEvents": "warn",
+        "useSemanticElements": "warn"
+      },
       "complexity": {
         "noExtraBooleanCast": "error",
-        "noMultipleSpacesInRegularExpressionLiterals": "error",
         "noUselessCatch": "error",
         "noUselessConstructor": "error",
         "noUselessLabel": "error",
         "noUselessRename": "error",
         "noUselessTernary": "error",
         "noVoid": "error",
-        "noWith": "error",
         "useLiteralKeys": "error",
         "useOptionalChain": "error"
       },
@@ -55,10 +55,11 @@
         "noEmptyPattern": "error",
         "noGlobalObjectCalls": "error",
         "noInvalidConstructorSuper": "error",
-        "noInvalidNewBuiltin": "error",
+        "noInvalidBuiltinInstantiation": "error",
+        "noNestedComponentDefinitions": "warn",
         "noNonoctalDecimalEscape": "error",
         "noPrecisionLoss": "error",
-        "noSelfAssign": "error",
+        "noSelfAssign": "warn",
         "noSetterReturn": "error",
         "noSwitchDeclarations": "error",
         "noUndeclaredVariables": "error",
@@ -73,10 +74,15 @@
         "useYield": "error"
       },
       "style": {
-        "noCommaOperator": "error",
-        "noVar": "error",
         "useConst": "error",
-        "useTemplate": "error"
+        "useTemplate": "error",
+        "useFilenamingConvention": "off",
+        "noExportedImports": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off",
+        "noNamespaceImport": "off",
+        "useTopLevelRegex": "warn"
       },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",
@@ -102,8 +108,11 @@
         "noRedeclare": "error",
         "noShadowRestrictedNames": "error",
         "noUnsafeNegation": "error",
-        "useGetterReturn": "error",
-        "useValidTypeof": "error"
+        "noVar": "error",
+        "noWith": "error",
+        "noArrayIndexKey": "warn",
+        "useAwait": "warn",
+        "useGetterReturn": "error"
       }
     }
   },
@@ -118,5 +127,10 @@
       "bracketSameLine": false,
       "quoteStyle": "double"
     }
-  }
+  },
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ]
 }

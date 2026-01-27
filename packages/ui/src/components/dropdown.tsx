@@ -1,4 +1,4 @@
-import React, { type ComponentRef, forwardRef, type HTMLAttributes, memo } from "react";
+import { type ComponentRef, forwardRef, type HTMLAttributes, memo } from "react";
 
 import { cn } from "../lib/utils";
 
@@ -10,8 +10,8 @@ const Dropdown = memo(
     const { side } = useDrawer();
     return (
       <div
-        ref={ref}
         className={cn("dropdown", side === "left" ? "dropdown-end" : "dropdown-start", className)}
+        ref={ref}
         {...props}
       />
     );
@@ -22,10 +22,10 @@ const DropdownToggle = memo(
   forwardRef<ComponentRef<typeof Button>, Extract<ButtonProps, { asLink?: false }>>(
     ({ className, ...props }, ref) => (
       <Button
+        className={cn("md:btn mx-2 md:m-1", className)}
         ref={ref}
         role="button"
         tabIndex={0}
-        className={cn("md:btn md:m-1 mx-2", className)}
         {...props}
       />
     )
@@ -35,13 +35,11 @@ const DropdownToggle = memo(
 const DropdownMenu = memo(
   forwardRef<HTMLUListElement, HTMLAttributes<HTMLUListElement>>(({ className, ...props }, ref) => (
     <ul
-      ref={ref}
-      role="menu"
-      tabIndex={0}
       className={cn(
-        "dropdown-content menu bg-base-300 rounded-box w-max z-[1] p-2 shadow-2xl",
+        "dropdown-content menu z-[1] w-max rounded-box bg-base-300 p-2 shadow-2xl",
         className
       )}
+      ref={ref}
       {...props}
     />
   ))
@@ -54,17 +52,12 @@ const DropdownMenuItem = memo(
       isActive?: boolean;
     }
   >(({ className, children, isActive = false, ...props }, ref) => (
-    <li
-      role="menuitem"
-      ref={ref}
-      className={cn("menu-sm md:menu-md font-bold", className)}
-      {...props}
-    >
+    <li className={cn("menu-sm md:menu-md font-bold", className)} ref={ref} {...props}>
       <span
         className={cn(
           "justify-between gap-4",
           isActive &&
-            "text-transparent font-bold bg-clip-text bg-gradient-to-r from-primary to-secondary gradient-45 animate-gradient-x ease-in-out"
+            "gradient-45 animate-gradient-x bg-gradient-to-r from-primary to-secondary bg-clip-text font-bold text-transparent ease-in-out"
         )}
       >
         {children}

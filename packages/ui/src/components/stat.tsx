@@ -1,39 +1,39 @@
-import React, { forwardRef, type HTMLAttributes, memo } from "react";
+import { forwardRef, type HTMLAttributes, memo } from "react";
 
 import { cn } from "../lib/utils";
 
 const Stats = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("w-full shadow stats bg-base-300", className)} {...props} />
+    <div className={cn("stats w-full bg-base-300 shadow", className)} ref={ref} {...props} />
   ))
 );
 
 const Stat = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-4 stat", className)} {...props} />
+    <div className={cn("stat p-4", className)} ref={ref} {...props} />
   ))
 );
 
 const StatFigure = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("stat-figure", className)} {...props} />
+    <div className={cn("stat-figure", className)} ref={ref} {...props} />
   ))
 );
 
 const StatTitle = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("stat-title", className)} {...props} />
+    <div className={cn("stat-title", className)} ref={ref} {...props} />
   ))
 );
 
 const StatDescription = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (
     <div
-      ref={ref}
       className={cn(
-        "text-lg font-normal md:font-semibold lg:text-xl xl:text-2xl stat-value",
+        "stat-value font-normal text-lg md:font-semibold lg:text-xl xl:text-2xl",
         className
       )}
+      ref={ref}
       {...props}
     />
   ))

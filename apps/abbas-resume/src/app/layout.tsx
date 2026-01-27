@@ -12,7 +12,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>): Promise<JSX.Element> {
   return (
-    <html lang="en" className="scrollbar-hide">
+    <html className="scrollbar-hide" lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   );

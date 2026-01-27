@@ -1,8 +1,4 @@
 "use client";
-import type React from "react";
-import { type ComponentProps, useState } from "react";
-
-import type { Icon as IconResponse } from "@/types/common";
 
 import {
   Dropdown,
@@ -11,6 +7,9 @@ import {
   DropdownToggle,
 } from "@abbas-web-resume/ui/components/dropdown";
 import { Icon } from "@abbas-web-resume/ui/components/icon";
+import type React from "react";
+import { type ComponentProps, useState } from "react";
+import type { Icon as IconResponse } from "@/types/common";
 
 interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
   defaultTheme: string;
@@ -20,14 +19,14 @@ interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
 
 const Palette = (theme: string): React.JSX.Element => (
   <div
-    data-tip="Theme"
+    className="tooltip tooltip-primary grid grid-cols-2 gap-0.5 rounded-md border border-base-content/10 bg-base-100 p-1"
     data-theme={theme}
-    className="p-1 bg-base-100 border-base-content/10 border rounded-md grid grid-cols-2 gap-0.5 tooltip tooltip-primary"
+    data-tip="Theme"
   >
-    <div className="size-1 md:size-1.5 rounded-md bg-base-content" />
-    <div className="size-1 md:size-1.5 rounded-md bg-primary" />
-    <div className="size-1 md:size-1.5 rounded-md bg-secondary" />
-    <div className="size-1 md:size-1.5 rounded-md bg-accent" />
+    <div className="size-1 rounded-md bg-base-content md:size-1.5" />
+    <div className="size-1 rounded-md bg-primary md:size-1.5" />
+    <div className="size-1 rounded-md bg-secondary md:size-1.5" />
+    <div className="size-1 rounded-md bg-accent md:size-1.5" />
   </div>
 );
 
@@ -47,14 +46,14 @@ const ThemeSwitch = ({
     <Dropdown {...props}>
       <DropdownToggle className="btn-ghost">
         {themeIcon ? <Icon {...themeIcon} /> : Palette(currentTheme)}
-        <Icon classes={[]} iconCode="io5/IoChevronDown" showTooltip={false} name="arrow" />
+        <Icon classes={[]} iconCode="io5/IoChevronDown" name="arrow" showTooltip={false} />
       </DropdownToggle>
       <DropdownMenu>
         {themeList.map((theme) => (
           <DropdownMenuItem
+            className="gap-4 text-sm md:gap-6"
             isActive={theme.toLowerCase() === currentTheme}
             key={theme}
-            className="text-sm gap-4 md:gap-6"
             onClick={() => themeChangeHandler(theme.toLowerCase())}
           >
             {theme}

@@ -1,12 +1,3 @@
-import type { Metadata, NextPage } from "next";
-import Link from "next/link";
-import React from "react";
-
-import { Page, PageContent, PageHeading } from "@/components/Page";
-import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/client";
-import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
-import type { GetProjectsPageQueryResult } from "@/types/pages";
 import {
   Card,
   CardContent,
@@ -16,6 +7,13 @@ import {
   CardTitle,
 } from "@abbas-web-resume/ui/components/card";
 import { Icon } from "@abbas-web-resume/ui/components/icon";
+import type { Metadata, NextPage } from "next";
+import Link from "next/link";
+import { Page, PageContent, PageHeading } from "@/components/Page";
+import { getPageMetadata } from "@/helper/getPageMetadata";
+import { fetchGql } from "@/lib/client";
+import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
+import type { GetProjectsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY as string);
@@ -36,24 +34,24 @@ const ProjectsPage: NextPage = async () => {
         {title}
       </PageHeading>
       <PageContent
-        className="grid grid-cols-1 md:grid-cols-2 my-2 rounded-xl gap-4"
+        className="my-2 grid grid-cols-1 gap-4 rounded-xl md:grid-cols-2"
         data-aos={contentAnimation}
       >
         {pageData.projectsCollection.items.map((item, index: number) => (
           <Card key={index}>
             <CardImage
-              className="hidden md:block"
-              loading="lazy"
-              width={item.thumbnail.width}
-              height={item.thumbnail.height}
               alt={item.thumbnail.fileName}
+              className="hidden md:block"
+              height={item.thumbnail.height}
+              loading="lazy"
               src={item.thumbnail.url}
+              width={item.thumbnail.width}
             />
             <CardContent className="p-4 md:p-6">
               <CardTitle className="text-base md:text-lg">{item.title}</CardTitle>
               <CardDescription className="text-xs md:text-base">{item.description}</CardDescription>
               <CardFooter className="justify-end">
-                <Link target="_blank" href={item.deployedLink}>
+                <Link href={item.deployedLink} target="_blank">
                   <Icon {...item.deployedLinkIcon} />
                 </Link>
               </CardFooter>

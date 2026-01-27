@@ -1,13 +1,11 @@
+import { Icon } from "@abbas-web-resume/ui/components/icon";
 import type { Metadata, NextPage } from "next";
-import React from "react";
-
 import ExperienceCard from "@/components/ExperienceCard";
 import { Page, PageContent, PageHeading } from "@/components/Page";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
 import type { GetExperiencePageQueryResult } from "@/types/pages";
-import { Icon } from "@abbas-web-resume/ui/components/icon";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
@@ -32,7 +30,7 @@ const ExperiencePage: NextPage = async () => {
         <Icon {...pageIcon} />
         {title}
       </PageHeading>
-      <PageContent data-aos={contentAnimation} className="px-2 pl-4 mt-2 md:mt-4 md:px-12">
+      <PageContent className="mt-2 px-2 pl-4 md:mt-4 md:px-12" data-aos={contentAnimation}>
         {experiencesCollection.items.map((experience, index: number) => (
           <ExperienceCard {...experience} key={index} />
         ))}

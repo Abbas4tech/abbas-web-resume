@@ -1,11 +1,3 @@
-import type { Metadata, NextPage } from "next";
-import React from "react";
-
-import { Page, PageContent, PageHeading } from "@/components/Page";
-import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/client";
-import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
-import type { GetSkillsPageQueryResult } from "@/types/pages";
 import { Icon } from "@abbas-web-resume/ui/components/icon";
 import Progress from "@abbas-web-resume/ui/components/progress";
 import {
@@ -13,9 +5,15 @@ import {
   SkillGroup,
   SkillGroupContent,
   SkillList,
-  SkillTitle,
   SkillsContent,
+  SkillTitle,
 } from "@abbas-web-resume/ui/components/skill";
+import type { Metadata, NextPage } from "next";
+import { Page, PageContent, PageHeading } from "@/components/Page";
+import { getPageMetadata } from "@/helper/getPageMetadata";
+import { fetchGql } from "@/lib/client";
+import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
+import type { GetSkillsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY as string);

@@ -1,9 +1,8 @@
-import React, { type FC, type HTMLAttributes } from "react";
-
+import { PageContent, PageHeading, Page as UIPage } from "@abbas-web-resume/ui/components/page";
+import type { FC, HTMLAttributes } from "react";
 import { fetchGql } from "@/lib/client";
 import { GET_METAPAGES } from "@/queries/getMetapages";
 import type { AppData } from "@/types/entries";
-import { PageContent, PageHeading, Page as UIPage } from "@abbas-web-resume/ui/components/page";
 import PageChangeButton from "./PageChangeButton";
 
 interface GetMetapageQueryResponse {

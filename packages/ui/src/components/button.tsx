@@ -1,5 +1,5 @@
 import Link, { type LinkProps } from "next/link";
-import React, {
+import {
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
   forwardRef,
@@ -28,8 +28,8 @@ const Button = memo(
         const { href, ...rest } = props as typeLinkProps;
         return (
           <Link
+            className={cn("inline-flex gap-2 bg-base-300 text-base-content capitalize", className)}
             href={href}
-            className={cn("capitalize text-base-content bg-base-300 inline-flex gap-2", className)}
             {...rest}
             ref={ref as Ref<HTMLAnchorElement>}
           />
@@ -38,7 +38,7 @@ const Button = memo(
       return (
         <button
           className={cn(
-            "btn-sm btn md:btn-md text-sm md:text-base capitalize text-base-content bg-base-300 inline-flex gap-2",
+            "btn-sm btn md:btn-md inline-flex gap-2 bg-base-300 text-base-content text-sm capitalize md:text-base",
             className
           )}
           {...(props as typeButtonProps)}
