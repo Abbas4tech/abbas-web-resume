@@ -1,6 +1,7 @@
-import { Icon } from "@abbas-web-resume/ui/components/icon";
-import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
-import Progress from "@abbas-web-resume/ui/components/progress";
+import type { Metadata, NextPage } from "next";
+import { Icon } from "@/components/ui/icon";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
+import Progress from "@/components/ui/progress";
 import {
   Skill,
   SkillGroup,
@@ -8,9 +9,7 @@ import {
   SkillList,
   SkillsContent,
   SkillTitle,
-} from "@abbas-web-resume/ui/components/skill";
-import type { Metadata, NextPage } from "next";
-import { Page } from "@/components/page";
+} from "@/components/ui/skill";
 import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
 import { GET_SKILLS_PAGE } from "@/queries/get-skills-page-query";

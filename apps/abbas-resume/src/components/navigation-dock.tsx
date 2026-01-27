@@ -1,11 +1,11 @@
 "use client";
 
-import { Dock, DockButton } from "@abbas-web-resume/ui/components/dock";
-import { useDrawer } from "@abbas-web-resume/ui/components/drawer";
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 import type React from "react";
 import type { ComponentProps } from "react";
+import { Dock, DockButton } from "@/components/ui/dock";
+import { useDrawer } from "@/components/ui/drawer";
 import { usePage } from "@/hooks/use-page";
+import { cn } from "@/lib/utils";
 import type { MetaPage } from "@/types/entries";
 
 type NavigationDockProps = ComponentProps<typeof Dock> & {
