@@ -1,5 +1,11 @@
 import { expect, test } from "@playwright/test";
 
+const ABBAS_TITLE_PATTERN = /Abbas/;
+const ABOUT_URL_PATTERN = /about/;
+const EXPERIENCE_URL_PATTERN = /experience/;
+const PROJECTS_URL_PATTERN = /projects/;
+const SKILLS_URL_PATTERN = /skills/;
+
 test.describe("Home Page", () => {
   test("should load the home page successfully", async ({ page }) => {
     await page.goto("/");
@@ -8,7 +14,7 @@ test.describe("Home Page", () => {
     await page.waitForLoadState("networkidle");
 
     // Check if the page title is present
-    await expect(page).toHaveTitle(/Abbas/);
+    await expect(page).toHaveTitle(ABBAS_TITLE_PATTERN);
   });
 
   test("should have profile banner visible", async ({ page }) => {
@@ -35,7 +41,7 @@ test.describe("Navigation", () => {
     if (await aboutLink.isVisible()) {
       await aboutLink.click();
       await page.waitForURL("**/about**");
-      await expect(page).toHaveURL(/about/);
+      await expect(page).toHaveURL(ABOUT_URL_PATTERN);
     }
   });
 
@@ -47,7 +53,7 @@ test.describe("Navigation", () => {
     if (await expLink.isVisible()) {
       await expLink.click();
       await page.waitForURL("**/experience**");
-      await expect(page).toHaveURL(/experience/);
+      await expect(page).toHaveURL(EXPERIENCE_URL_PATTERN);
     }
   });
 
@@ -59,7 +65,7 @@ test.describe("Navigation", () => {
     if (await projectsLink.isVisible()) {
       await projectsLink.click();
       await page.waitForURL("**/projects**");
-      await expect(page).toHaveURL(/projects/);
+      await expect(page).toHaveURL(PROJECTS_URL_PATTERN);
     }
   });
 
@@ -71,7 +77,7 @@ test.describe("Navigation", () => {
     if (await skillsLink.isVisible()) {
       await skillsLink.click();
       await page.waitForURL("**/skills**");
-      await expect(page).toHaveURL(/skills/);
+      await expect(page).toHaveURL(SKILLS_URL_PATTERN);
     }
   });
 });
@@ -85,7 +91,7 @@ test.describe("Responsive Design", () => {
     await page.waitForLoadState("networkidle");
 
     // Check if page loads on mobile
-    await expect(page).toHaveTitle(/Abbas/);
+    await expect(page).toHaveTitle(ABBAS_TITLE_PATTERN);
   });
 
   test("should be tablet responsive", async ({ page }) => {
@@ -96,7 +102,7 @@ test.describe("Responsive Design", () => {
     await page.waitForLoadState("networkidle");
 
     // Check if page loads on tablet
-    await expect(page).toHaveTitle(/Abbas/);
+    await expect(page).toHaveTitle(ABBAS_TITLE_PATTERN);
   });
 });
 

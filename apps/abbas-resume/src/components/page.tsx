@@ -1,9 +1,9 @@
-import { PageContent, PageHeading, Page as UIPage } from "@abbas-web-resume/ui/components/page";
+import { Page as UIPage } from "@abbas-web-resume/ui/components/page";
 import type { FC, HTMLAttributes } from "react";
 import { fetchGql } from "@/lib/client";
-import { GET_METAPAGES } from "@/queries/getMetapages";
+import { GET_METAPAGES } from "@/queries/get-metapages";
 import type { AppData } from "@/types/entries";
-import PageChangeButton from "./PageChangeButton";
+import PageChangeButton from "./page-change-button";
 
 interface GetMetapageQueryResponse {
   userInfo: Pick<AppData, "pagesCollection">;
@@ -27,4 +27,4 @@ const Page: FC<HTMLAttributes<HTMLDivElement>> = async ({ className, children, .
 
 Page.displayName = "Page";
 
-export { Page, PageContent, PageHeading };
+export { Page };

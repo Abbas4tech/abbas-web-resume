@@ -1,4 +1,5 @@
 import { Icon } from "@abbas-web-resume/ui/components/icon";
+import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
 import Progress from "@abbas-web-resume/ui/components/progress";
 import {
   Skill,
@@ -9,10 +10,10 @@ import {
   SkillTitle,
 } from "@abbas-web-resume/ui/components/skill";
 import type { Metadata, NextPage } from "next";
-import { Page, PageContent, PageHeading } from "@/components/Page";
-import { getPageMetadata } from "@/helper/getPageMetadata";
+import { Page } from "@/components/page";
+import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
-import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
+import { GET_SKILLS_PAGE } from "@/queries/get-skills-page-query";
 import type { GetSkillsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
@@ -34,32 +35,30 @@ const SkillsPage: NextPage = async () => {
         {title}
       </PageHeading>
       <PageContent className="flex flex-col gap-4" data-aos={contentAnimation}>
-        {pageData.skillsSetCollection.items.map(
-          ({ icon, title, skillsArrayCollection }, index: number) => (
-            <Skill key={index}>
-              <SkillsContent>
-                <SkillTitle>
-                  <Icon {...icon} />
-                  {title}
-                </SkillTitle>
-                <SkillGroup>
-                  {skillsArrayCollection.items.map(
-                    ({ title, skillIconsCollection, skillProgress }) => (
-                      <SkillGroupContent key={title}>
-                        <SkillList>
-                          {skillIconsCollection.items.map((skill) => (
-                            <Icon key={title} {...skill} />
-                          ))}
-                        </SkillList>
-                        <Progress count={skillProgress} />
-                      </SkillGroupContent>
-                    )
-                  )}
-                </SkillGroup>
-              </SkillsContent>
-            </Skill>
-          )
-        )}
+        {pageData.skillsSetCollection.items.map(({ icon, title, skillsArrayCollection }) => (
+          <Skill key={title}>
+            <SkillsContent>
+              <SkillTitle>
+                <Icon {...icon} />
+                {title}
+              </SkillTitle>
+              <SkillGroup>
+                {skillsArrayCollection.items.map(
+                  ({ title, skillIconsCollection, skillProgress }) => (
+                    <SkillGroupContent key={title}>
+                      <SkillList>
+                        {skillIconsCollection.items.map((skill) => (
+                          <Icon key={title} {...skill} />
+                        ))}
+                      </SkillList>
+                      <Progress count={skillProgress} />
+                    </SkillGroupContent>
+                  )
+                )}
+              </SkillGroup>
+            </SkillsContent>
+          </Skill>
+        ))}
       </PageContent>
     </Page>
   );

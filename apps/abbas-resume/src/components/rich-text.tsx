@@ -24,6 +24,12 @@ const defaultGetHeadingClass =
       ? headingClass(level)
       : (headingClass ?? "text-2xl font-semibold");
 
+const TextComponent: FC<PropsWithChildren<{ className?: string; paragraphClass: string }>> = ({
+  children,
+  className,
+  paragraphClass,
+}) => <p className={cn("", className || paragraphClass)}>{children}</p>;
+
 const RichText: FC<RichTextProps> = ({
   document,
   className = "",
@@ -39,10 +45,6 @@ const RichText: FC<RichTextProps> = ({
 }) => {
   const getHeadingClass = defaultGetHeadingClass(headingClass);
 
-  const Text: FC<PropsWithChildren<{ className?: string }>> = ({ children, className }) => (
-    <p className={cn("", className || paragraphClass)}>{children}</p>
-  );
-
   const options: Options = {
     renderMark: {
       bold: (text) => <strong>{text}</strong>,
@@ -54,7 +56,9 @@ const RichText: FC<RichTextProps> = ({
     renderNode: {
       [BLOCKS.DOCUMENT]: (_node, children) => <div className={className}>{children}</div>,
 
-      [BLOCKS.PARAGRAPH]: (_node, children) => <Text>{children}</Text>,
+      [BLOCKS.PARAGRAPH]: (_node, children) => (
+        <TextComponent paragraphClass={paragraphClass}>{children}</TextComponent>
+      ),
 
       [BLOCKS.HEADING_1]: (_node, children) => <h1 className={getHeadingClass(1)}>{children}</h1>,
       [BLOCKS.HEADING_2]: (_node, children) => <h2 className={getHeadingClass(2)}>{children}</h2>,

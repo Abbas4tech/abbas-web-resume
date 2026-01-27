@@ -5,7 +5,7 @@ import { useDrawer } from "@abbas-web-resume/ui/components/drawer";
 import { cn } from "@abbas-web-resume/ui/lib/utils";
 import type React from "react";
 import type { ComponentProps } from "react";
-import { usePage } from "@/hooks";
+import { usePage } from "@/hooks/use-page";
 import type { MetaPage } from "@/types/entries";
 
 type NavigationDockProps = ComponentProps<typeof Dock> & {

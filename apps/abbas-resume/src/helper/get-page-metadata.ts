@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { fetchGql } from "@/lib/client";
-import { GET_METADATA } from "@/queries/getMetadataQuery";
+import { GET_METADATA } from "@/queries/get-metadata-query";
 import type { SEO } from "@/types/common";
 
 export const getPageMetadata = async (id: string): Promise<Metadata> => {

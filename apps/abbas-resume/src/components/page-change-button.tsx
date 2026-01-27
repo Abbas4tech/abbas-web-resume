@@ -4,7 +4,7 @@ import { Button, type ButtonProps } from "@abbas-web-resume/ui/components/button
 import { Icon } from "@abbas-web-resume/ui/components/icon";
 import { cn } from "@abbas-web-resume/ui/lib/utils";
 import { type ComponentRef, forwardRef, memo } from "react";
-import { usePage, type usePageProps } from "@/hooks";
+import { usePage, type usePageProps } from "@/hooks/use-page";
 
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> & usePageProps;
 
