@@ -1,4 +1,5 @@
 import { Icon } from "@abbas-web-resume/ui/components/icon";
+import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
 import {
   Stat,
   StatDescription,
@@ -7,11 +8,11 @@ import {
   StatTitle,
 } from "@abbas-web-resume/ui/components/stat";
 import type { Metadata, NextPage } from "next";
-import { Page, PageContent, PageHeading } from "@/components/Page";
-import { RichText } from "@/components/RichText";
-import { getPageMetadata } from "@/helper/getPageMetadata";
+import { Page } from "@/components/page";
+import { RichText } from "@/components/rich-text";
+import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
-import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
+import { GET_HOME_PAGE } from "@/queries/get-home-page-query";
 import type { GetHomePageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>

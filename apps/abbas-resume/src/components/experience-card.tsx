@@ -11,7 +11,7 @@ import type { Document } from "@contentful/rich-text-types";
 import { type FC, memo, useMemo } from "react";
 import type { Collection, Icon as IconResponse } from "@/types/common";
 import type { JobExperience } from "@/types/entries";
-import { RichText } from "./RichText";
+import { RichText } from "./rich-text";
 
 const monthNames = [
   "January",

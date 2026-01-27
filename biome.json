@@ -29,13 +29,13 @@
     "rules": {
       "recommended": true,
       "a11y": {
-        "noLabelWithoutControl": "warn",
-        "noNoninteractiveElementInteractions": "warn",
-        "noNoninteractiveElementToInteractiveRole": "warn",
-        "useAriaPropsForRole": "warn",
-        "useFocusableInteractive": "warn",
-        "useKeyWithClickEvents": "warn",
-        "useSemanticElements": "warn"
+        "noLabelWithoutControl": "error",
+        "noNoninteractiveElementInteractions": "error",
+        "noNoninteractiveElementToInteractiveRole": "error",
+        "useAriaPropsForRole": "error",
+        "useFocusableInteractive": "error",
+        "useKeyWithClickEvents": "error",
+        "useSemanticElements": "error"
       },
       "complexity": {
         "noExtraBooleanCast": "error",
@@ -56,10 +56,10 @@
         "noGlobalObjectCalls": "error",
         "noInvalidConstructorSuper": "error",
         "noInvalidBuiltinInstantiation": "error",
-        "noNestedComponentDefinitions": "warn",
+        "noNestedComponentDefinitions": "error",
         "noNonoctalDecimalEscape": "error",
         "noPrecisionLoss": "error",
-        "noSelfAssign": "warn",
+        "noSelfAssign": "error",
         "noSetterReturn": "error",
         "noSwitchDeclarations": "error",
         "noUndeclaredVariables": "error",
@@ -76,13 +76,13 @@
       "style": {
         "useConst": "error",
         "useTemplate": "error",
-        "useFilenamingConvention": "off",
-        "noExportedImports": "off"
+        "useFilenamingConvention": "error",
+        "noExportedImports": "error"
       },
       "performance": {
-        "noBarrelFile": "off",
-        "noNamespaceImport": "off",
-        "useTopLevelRegex": "warn"
+        "noBarrelFile": "error",
+        "noNamespaceImport": "error",
+        "useTopLevelRegex": "error"
       },
       "suspicious": {
         "noAsyncPromiseExecutor": "error",
@@ -110,8 +110,8 @@
         "noUnsafeNegation": "error",
         "noVar": "error",
         "noWith": "error",
-        "noArrayIndexKey": "warn",
-        "useAwait": "warn",
+        "noArrayIndexKey": "error",
+        "useAwait": "error",
         "useGetterReturn": "error"
       }
     }
@@ -128,6 +128,18 @@
       "quoteStyle": "double"
     }
   },
+  "overrides": [
+    {
+      "includes": ["packages/ui/src/index.ts"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noBarrelFile": "off"
+          }
+        }
+      }
+    }
+  ],
   "extends": [
     "ultracite/biome/core",
     "ultracite/biome/react",

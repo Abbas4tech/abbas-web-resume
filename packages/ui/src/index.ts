@@ -58,7 +58,7 @@ export {
   StepTitle,
 } from "./components/stepper";
 // Hooks
-export { useMobile } from "./hooks/useMobile";
+export { useMobile } from "./hooks/use-mobile";
 // Utils
 export { cn } from "./lib/utils";
 
