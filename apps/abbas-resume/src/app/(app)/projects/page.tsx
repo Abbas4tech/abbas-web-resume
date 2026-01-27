@@ -1,3 +1,5 @@
+import type { Metadata, NextPage } from "next";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -5,12 +7,9 @@ import {
   CardFooter,
   CardImage,
   CardTitle,
-} from "@abbas-web-resume/ui/components/card";
-import { Icon } from "@abbas-web-resume/ui/components/icon";
-import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
-import type { Metadata, NextPage } from "next";
-import Link from "next/link";
-import { Page } from "@/components/page";
+} from "@/components/ui/card";
+import { Icon } from "@/components/ui/icon";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
 import { GET_PROJECTS_PAGE } from "@/queries/get-projects-page-query";
@@ -40,7 +39,6 @@ const ProjectsPage: NextPage = async () => {
       >
         {pageData.projectsCollection.items.map((item) => (
           <Card key={item.title}>
-            )
             <CardImage
               alt={item.thumbnail.fileName}
               className="hidden md:block"

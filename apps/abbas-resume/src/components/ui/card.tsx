@@ -7,7 +7,7 @@ import {
   memo,
 } from "react";
 
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 
 const Card = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(({ className, ...props }, ref) => (

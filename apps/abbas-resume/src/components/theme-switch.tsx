@@ -1,14 +1,9 @@
 "use client";
 
-import {
-  Dropdown,
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownToggle,
-} from "@abbas-web-resume/ui/components/dropdown";
-import { Icon } from "@abbas-web-resume/ui/components/icon";
 import type React from "react";
 import { type ComponentProps, useState } from "react";
+import { Dropdown, DropdownMenu, DropdownMenuItem, DropdownToggle } from "@/components/ui/dropdown";
+import { Icon } from "@/components/ui/icon";
 import type { Icon as IconResponse } from "@/types/common";
 
 interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {

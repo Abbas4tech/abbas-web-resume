@@ -1,7 +1,7 @@
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 import { documentToReactComponents, type Options } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, type Document } from "@contentful/rich-text-types";
 import type { FC, PropsWithChildren } from "react";
+import { cn } from "@/lib/utils";
 
 export interface RichTextProps {
   document: Document;

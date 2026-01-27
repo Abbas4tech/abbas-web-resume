@@ -12,8 +12,8 @@ import {
   useState,
 } from "react";
 
-import { useMobile } from "../hooks/use-mobile";
-import { cn } from "../lib/utils";
+import { useMobile } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
 
 const DRAWER_ID = "my-drawer-2";
 const DRAWER_WIDTH = "20rem";

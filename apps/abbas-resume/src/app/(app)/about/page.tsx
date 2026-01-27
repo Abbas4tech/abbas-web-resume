@@ -1,15 +1,8 @@
-import { Icon } from "@abbas-web-resume/ui/components/icon";
-import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
-import {
-  Stat,
-  StatDescription,
-  StatFigure,
-  Stats,
-  StatTitle,
-} from "@abbas-web-resume/ui/components/stat";
 import type { Metadata, NextPage } from "next";
-import { Page } from "@/components/page";
-import { RichText } from "@/components/rich-text";
+import { Icon } from "@/components/ui/icon";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
+import { RichText } from "@/components/ui/rich-text";
+import { Stat, StatDescription, StatFigure, Stats, StatTitle } from "@/components/ui/stat";
 import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
 import { GET_HOME_PAGE } from "@/queries/get-home-page-query";

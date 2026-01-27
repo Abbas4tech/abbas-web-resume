@@ -1,7 +1,7 @@
-import { cn } from "@abbas-web-resume/ui/lib/utils";
 import Image, { type ImageProps } from "next/image";
 import Link from "next/link";
 import { forwardRef, type HTMLAttributes, memo, useMemo } from "react";
+import { cn } from "@/lib/utils";
 import type { Asset } from "@/types/common";
 import type { AppData } from "@/types/entries";
 

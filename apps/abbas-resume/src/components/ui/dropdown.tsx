@@ -1,6 +1,6 @@
 import { type ComponentRef, forwardRef, type HTMLAttributes, memo } from "react";
 
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 
 import { Button, type ButtonProps } from "./button";
 import { useDrawer } from "./drawer";
@@ -36,10 +36,12 @@ const DropdownMenu = memo(
   forwardRef<HTMLUListElement, HTMLAttributes<HTMLUListElement>>(({ className, ...props }, ref) => (
     <ul
       className={cn(
-        "dropdown-content menu z-1 w-max rounded-box bg-base-300 p-2 shadow-2xl",
+        "dropdown-content menu z-[1] w-max rounded-box bg-base-300 p-2 shadow-2xl",
         className
       )}
       ref={ref}
+      role="menu"
+      tabIndex={0}
       {...props}
     />
   ))
@@ -52,12 +54,17 @@ const DropdownMenuItem = memo(
       isActive?: boolean;
     }
   >(({ className, children, isActive = false, ...props }, ref) => (
-    <li className={cn("menu-sm md:menu-md font-bold", className)} ref={ref} {...props}>
+    <li
+      className={cn("menu-sm md:menu-md font-bold", className)}
+      ref={ref}
+      role="menuitem"
+      {...props}
+    >
       <span
         className={cn(
           "justify-between gap-4",
           isActive &&
-            "gradient-45 animate-gradient-x bg-linear-to-r from-primary to-secondary bg-clip-text font-bold text-transparent ease-in-out"
+            "gradient-45 animate-gradient-x bg-gradient-to-r from-primary to-secondary bg-clip-text font-bold text-transparent ease-in-out"
         )}
       >
         {children}
