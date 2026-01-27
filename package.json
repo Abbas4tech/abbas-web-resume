@@ -1,42 +1,25 @@
 {
-  "name": "abbas-web-resume",
+  "name": "abbas-web-resume-monorepo",
   "version": "4.1.7",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@apollo/client": "^4.0.5",
-    "@contentful/rich-text-react-renderer": "^15.22.11",
-    "aos": "^2.3.4",
-    "graphql": "^16.11.0",
-    "next": "^14.2.28",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-icons": "^5.3.0"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e"
   },
   "devDependencies": {
-    "@contentful/rich-text-types": "^17.2.4",
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/cli": "^4.1.13",
-    "@tailwindcss/postcss": "^4.1.13",
-    "@types/aos": "^3.0.7",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "clsx": "^2.1.1",
-    "daisyui": "^5.1.18",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
-    "husky": "^9.1.7",
-    "postcss": "^8.5.3",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.1.13",
+    "@biomejs/biome": "^1.9.4",
+    "turbo": "^2.3.3",
     "typescript": "^5"
   },
-  "browserslist": "> 1%"
+  "packageManager": "pnpm@9.15.1",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
 }

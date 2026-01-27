@@ -1,0 +1,20 @@
+{
+  "servers": {
+    "contentful": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-contentful"],
+      "env": {
+        "CONTENTFUL_SPACE_ID": "${CONTENTFUL_SPACE_ID}",
+        "CONTENTFUL_ACCESS_TOKEN": "${CONTENTFUL_ACCESS_TOKEN}",
+        "CONTENTFUL_ENVIRONMENT": "master"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-playwright"],
+      "env": {
+        "PLAYWRIGHT_PROJECT_PATH": "${workspaceFolder}/apps/abbas-resume-e2e"
+      }
+    }
+  }
+}
