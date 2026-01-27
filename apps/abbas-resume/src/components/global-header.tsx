@@ -4,7 +4,7 @@ import { Icon } from "@abbas-web-resume/ui/components/icon";
 import { cn } from "@abbas-web-resume/ui/lib/utils";
 import { forwardRef, type HTMLAttributes, memo } from "react";
 import type { AppData } from "@/types/entries";
-import ThemeSwitch from "./ThemeSwitch";
+import ThemeSwitch from "./theme-switch";
 
 type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
   Pick<AppData, "title" | "resume" | "resumeIcon" | "themeList" | "themeIcon" | "defaultTheme"> & {

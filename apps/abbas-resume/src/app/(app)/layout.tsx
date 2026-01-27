@@ -8,12 +8,12 @@ import {
 } from "@abbas-web-resume/ui/components/drawer";
 import { NavigationAnimation } from "@abbas-web-resume/ui/components/navigation";
 import type { FC, PropsWithChildren } from "react";
-import { GlobalHeader as Header } from "@/components/GlobalHeader";
-import NavigationDock from "@/components/NavigationDock";
-import { ProfileBanner } from "@/components/ProfileBanner";
-import SidebarMenu from "@/components/SidebarMenu";
+import { GlobalHeader as Header } from "@/components/global-header";
+import NavigationDock from "@/components/navigation-dock";
+import { ProfileBanner } from "@/components/profile-banner";
+import SidebarMenu from "@/components/sidebar-menu";
 import { fetchGql } from "@/lib/client";
-import { GET_APPDATA } from "@/queries/getAppData";
+import { GET_APPDATA } from "@/queries/get-app-data";
 import type { AppData } from "@/types/entries";
 
 interface GetAppDataQueryResult {

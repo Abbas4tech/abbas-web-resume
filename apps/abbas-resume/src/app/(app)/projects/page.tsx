@@ -7,12 +7,13 @@ import {
   CardTitle,
 } from "@abbas-web-resume/ui/components/card";
 import { Icon } from "@abbas-web-resume/ui/components/icon";
+import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
 import type { Metadata, NextPage } from "next";
 import Link from "next/link";
-import { Page, PageContent, PageHeading } from "@/components/Page";
-import { getPageMetadata } from "@/helper/getPageMetadata";
+import { Page } from "@/components/page";
+import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
-import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
+import { GET_PROJECTS_PAGE } from "@/queries/get-projects-page-query";
 import type { GetProjectsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
@@ -37,8 +38,9 @@ const ProjectsPage: NextPage = async () => {
         className="my-2 grid grid-cols-1 gap-4 rounded-xl md:grid-cols-2"
         data-aos={contentAnimation}
       >
-        {pageData.projectsCollection.items.map((item, index: number) => (
-          <Card key={index}>
+        {pageData.projectsCollection.items.map((item) => (
+          <Card key={item.title}>
+            )
             <CardImage
               alt={item.thumbnail.fileName}
               className="hidden md:block"
