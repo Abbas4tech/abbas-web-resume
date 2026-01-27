@@ -12,7 +12,7 @@ import {
   useState,
 } from "react";
 
-import { useMobile } from "../hooks/useMobile";
+import { useMobile } from "../hooks/use-mobile";
 import { cn } from "../lib/utils";
 
 const DRAWER_ID = "my-drawer-2";

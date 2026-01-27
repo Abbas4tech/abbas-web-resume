@@ -5,7 +5,7 @@ import { DrawerSideItem, DrawerSideMenu, useDrawer } from "@abbas-web-resume/ui/
 import { Icon } from "@abbas-web-resume/ui/components/icon";
 import type React from "react";
 import type { ComponentProps } from "react";
-import { usePage, type usePageProps } from "@/hooks";
+import { usePage, type usePageProps } from "@/hooks/use-page";
 
 const SidebarMenu = ({
   pages,

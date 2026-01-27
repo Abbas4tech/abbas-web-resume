@@ -43,4 +43,5 @@ const usePage = ({ pages }: usePageProps): usePageReturn => {
 };
 
 export default usePage;
+export { usePage };
 export type { usePageProps };
