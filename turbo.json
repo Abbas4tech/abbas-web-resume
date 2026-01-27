@@ -1,10 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "ui": "tui",
+  "ui": "stream",
+  "envMode": "strict",
+  "remoteCache": {
+    "enabled": true
+  },
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "dependsOn": ["^build", "lint", "format"],
+      "outputs": [".next/**", "!.next/cache/**", "dist/**"],
+      "cache": true
     },
     "dev": {
       "cache": false,
@@ -15,19 +20,30 @@
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "cache": true,
+      "outputs": []
+    },
+    "format": {
+      "dependsOn": ["^format"],
+      "cache": true,
+      "outputs": []
+    },
+    "check": {
+      "cache": true,
+      "outputs": []
+    },
+    "fix": {
+      "cache": false,
+      "outputs": []
     },
     "test": {
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": ["coverage/**"]
     },
     "test:e2e": {
       "dependsOn": ["^build"],
-      "cache": false
-    },
-    "format": {
-      "cache": false
-    },
-    "check": {
       "cache": false
     }
   }
