@@ -1,6 +1,6 @@
-import { NextMiddleware, NextResponse } from "next/server";
+import { ProxyConfig, NextResponse, NextProxy } from "next/server";
 
-export const middleware: NextMiddleware = async (request) => {
+export const proxy: NextProxy = async (request) => {
   if (request.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/about", request.url));
   }
@@ -8,6 +8,6 @@ export const middleware: NextMiddleware = async (request) => {
   return NextResponse.next();
 };
 
-export const config = {
+export const config: ProxyConfig = {
   matcher: "/",
 };
