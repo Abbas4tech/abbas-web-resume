@@ -30,8 +30,8 @@ const PageChangeButton = memo(
           />
         </Button>
       );
-    }
-  )
+    },
+  ),
 );
 
 export default PageChangeButton;

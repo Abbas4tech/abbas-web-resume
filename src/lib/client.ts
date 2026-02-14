@@ -9,7 +9,7 @@ const BASE_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env
 function createServerApolloClient(revalidateSeconds = 60): ApolloClient {
   const fetchWithNext = (
     input: RequestInfo,
-    init?: RequestInit
+    init?: RequestInit,
   ): Promise<Response> => {
     const nextOpts =
       revalidateSeconds === undefined
@@ -37,7 +37,7 @@ function createServerApolloClient(revalidateSeconds = 60): ApolloClient {
 export async function fetchGql<T>(
   query: DocumentNode,
   variables?: Record<string, unknown>,
-  revalidateSeconds?: number
+  revalidateSeconds?: number,
 ): Promise<T> {
   const client = createServerApolloClient(revalidateSeconds);
   const result = await client.query<T>({ query, variables });

@@ -1,5 +1,6 @@
 import React from "react";
 import { Metadata, NextPage } from "next";
+import { GraphQLClient } from "graphql-request";
 
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import {
@@ -15,6 +16,10 @@ import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_HOME_PAGE } from "@/queries/getHomePageQuery";
 import { GetHomePageQueryResult } from "@/types/pages";
+import { getSdk } from "@/gql/sdk";
+
+const BASE_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT_ID}`;
+const c = new GraphQLClient(BASE_URL);
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_HOME_PAGE_KEY as string);
@@ -25,6 +30,15 @@ const Home: NextPage = async () => {
   const data = await fetchGql<GetHomePageQueryResult>(GET_HOME_PAGE, {
     id: process.env.CONTENTFUL_HOME_PAGE_KEY as string,
   });
+
+  const t = await getSdk(c).GetAppData(
+    {
+      id: process.env.CONTENTFUL_APPLICATION_DATA_ID as string,
+    },
+    { Authorization: `Bearer ${process.env.CONTENTFUL_API_KEY}` },
+  );
+
+  console.log(t.data.userInfo?.themeList);
 
   const { title, contentAnimation, headingAnimation, pageData } = data.page;
 
