@@ -1,0 +1,32 @@
+query fetchPageByPath($path: String!) {
+  pageCollection(where: { path: $path }, limit: 1) {
+    items {
+      _id
+      path
+      title
+      contentAnimation
+      pageSeo {
+        ...SeoData
+      }
+      pageData {
+        __typename
+        ... on HomePageData {
+          ...HomePageData
+        }
+        ... on ExperiencePageData {
+          ...ExperiencePageData
+        }
+        ... on SkillsPageData {
+          ...SkillsPageData
+        }
+        ... on ProjectsPageData {
+          ...ProjectsPageData
+        }
+      }
+      headingAnimation
+      pageIcon {
+        ...Icon
+      }
+    }
+  }
+}

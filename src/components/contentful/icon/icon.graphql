@@ -1,0 +1,8 @@
+fragment Icon on Icon {
+  _id
+  classes
+  __typename
+  name
+  iconCode
+  showTooltip
+}

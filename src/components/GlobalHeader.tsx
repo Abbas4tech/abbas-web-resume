@@ -1,16 +1,16 @@
 import React, { forwardRef, HTMLAttributes, memo } from "react";
 
 import { cn } from "@/lib/utils";
-import { AppData } from "@/types/entries";
+import { AdaptedAppData } from "@/gql/queries/content/fetch-app-data.adapter";
 
 import { DrawerButton } from "./ui/drawer";
-import { Icon } from "./ui/icon";
+import { Icon } from "./contentful/icon/icon";
 import { Button } from "./ui/button";
 import ThemeSwitch from "./ThemeSwitch";
 
 type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
   Pick<
-    AppData,
+    AdaptedAppData,
     | "title"
     | "resume"
     | "resumeIcon"
@@ -35,20 +35,21 @@ const GlobalHeader = memo(
         defaultRoute,
         ...props
       },
-      ref
+      ref,
     ) => (
       <header
         ref={ref}
         {...props}
         className={cn(
           "bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
-          className
+          className,
         )}
       >
         <nav className="navbar group-data-[side='right']:flex-row-reverse bg-base-100">
           <div className="navbar-start group-data-[side='right']:flex-row-reverse gap-2">
             <DrawerButton className="">
               <Icon
+                id="toggle"
                 iconCode="io5/IoMenu"
                 classes={["w-5", "h-5"]}
                 name="Toggle"
@@ -83,8 +84,8 @@ const GlobalHeader = memo(
           </div>
         </nav>
       </header>
-    )
-  )
+    ),
+  ),
 );
 
 GlobalHeader.displayName = "GlobalHeader";

@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "src/gql/__generated__/**",
+      "src/gql/sdk.ts",
     ],
   },
   {

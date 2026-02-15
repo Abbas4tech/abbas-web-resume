@@ -1,0 +1,38 @@
+fragment JobExperience on JobExperience {
+  company
+  companyIcon {
+    ...Icon
+  }
+  currentlyWorking
+  __typename
+  workedRemotely
+  techStackIcon {
+    ...Icon
+  }
+  description {
+    json
+  }
+  durationIcon {
+    ...Icon
+  }
+  endDate
+  position
+  startDate
+  location
+  locationIcon {
+    ...Icon
+  }
+  roleIcon {
+    ...Icon
+  }
+  techStack {
+    skillProgress
+    _id
+    title
+    skillIconsCollection {
+      items {
+        ...Icon
+      }
+    }
+  }
+}

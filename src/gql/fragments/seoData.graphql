@@ -1,0 +1,22 @@
+fragment SeoData on SeoData {
+  countryName
+  creator
+  description
+  keywords
+  __typename
+  url
+  siteName
+  publisher
+  imagesCollection {
+    items {
+      ...Asset
+    }
+  }
+  favicon {
+    ...Asset
+  }
+  title
+  sys {
+    id
+  }
+}

@@ -8,57 +8,40 @@ import {
   DrawerSide,
   DrawerProvider,
 } from "@/components/ui/drawer";
-import { fetchGql } from "@/lib/client";
-import { GET_APPDATA } from "@/queries/getAppData";
-import { AppData } from "@/types/entries";
 import SidebarMenu from "@/components/SidebarMenu";
 import { NavigationAnimation } from "@/components/ui/navigation";
 import { ProfileBanner } from "@/components/ProfileBanner";
 import { GlobalHeader as Header } from "@/components/GlobalHeader";
 import NavigationDock from "@/components/NavigationDock";
-
-interface GetAppDataQueryResult {
-  userInfo: AppData;
-}
+import fetchAppData from "@/gql/queries/content/fetch-app-data";
+import { appDataAdapter } from "@/gql/queries/content/fetch-app-data.adapter";
 
 const layout: FC<PropsWithChildren> = async ({ children }) => {
-  const data = await fetchGql<GetAppDataQueryResult>(GET_APPDATA, {
-    id: process.env.CONTENTFUL_APPLICATION_DATA_ID,
-  });
-
-  const {
-    resume,
-    defaultTheme,
-    resumeIcon,
-    themeList,
-    title,
-    bannerData,
-    themeIcon,
-    layoutSettings,
-    pagesCollection,
-  } = data.userInfo;
+  const userInfo = await fetchAppData(
+    process.env.CONTENTFUL_APPLICATION_DATA_ID || "",
+  );
+  const appData = appDataAdapter(userInfo);
 
   const defaultRoute =
-    pagesCollection.items.find(({ isDefaultPage }) => isDefaultPage)?.pageUrl ||
-    "/about";
+    appData.pages.find((page) => page.isDefaultPage)?.pageUrl || "/about";
 
-  const variant = layoutSettings.drawerVariant
+  const variant = appData.layoutSettings.drawerVariant
     .split(" ")
-    .map((i) => i.toLowerCase())
+    .map((i: string) => i.toLowerCase())
     .join("-") as DRAWER_VARIANTS;
 
+  const drawerSide =
+    (appData.layoutSettings.drawerSide.toLowerCase() as DRAWER_SIDES) || "left";
+
   return (
-    <DrawerProvider
-      variant={variant}
-      side={layoutSettings.drawerSide.toLowerCase() as DRAWER_SIDES}
-    >
+    <DrawerProvider variant={variant} side={drawerSide}>
       <Header
-        themeIcon={themeIcon}
-        defaultTheme={defaultTheme}
-        resume={resume}
-        resumeIcon={resumeIcon}
-        themeList={themeList}
-        title={title}
+        themeIcon={appData.themeIcon}
+        defaultTheme={appData.defaultTheme}
+        resume={appData.resume}
+        resumeIcon={appData.resumeIcon}
+        themeList={appData.themeList}
+        title={appData.title}
         defaultRoute={defaultRoute}
       />
       <Drawer className="scrollbar-hide overflow-hidden md:text-lg text-sm h-[calc(100vh-5rem)]">
@@ -67,14 +50,14 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
             className="scrollbar-hide overflow-auto p-4 h-[calc(100vh-5rem)]"
             options={{ easing: "ease-in-cubic" }}
           >
-            <ProfileBanner bannerData={bannerData} />
+            <ProfileBanner bannerData={appData.bannerData} />
             {children}
           </NavigationAnimation>
         </DrawerPageContent>
         <DrawerSide>
-          <SidebarMenu pages={pagesCollection.items} />
+          <SidebarMenu pages={appData.pages} />
         </DrawerSide>
-        <NavigationDock items={pagesCollection.items} />
+        <NavigationDock items={appData.pages} />
       </Drawer>
     </DrawerProvider>
   );

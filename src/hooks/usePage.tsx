@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import { MetaPage } from "@/types/entries";
+import { MetaPage } from "@/gql/queries/content/fetch-app-data.adapter";
 
 interface usePageProps {
   pages: MetaPage[];
@@ -34,7 +34,7 @@ const usePage = ({ pages }: usePageProps): usePageReturn => {
     router.push(
       nextPageData.pageUrl === defaultPage.pageUrl
         ? defaultPage.pageUrl
-        : nextPageData.pageUrl
+        : nextPageData.pageUrl,
     );
   }, [nextPageData, defaultPage, router]);
 
