@@ -6,7 +6,7 @@ import {
   bioCardAdapter,
   type AdaptedBioCard,
   type BioCardItemType,
-} from "../content/biocard.adapter";
+} from "../biocard/biocard.adapter";
 
 export interface AdaptedHomePageData {
   id: string;

@@ -3,10 +3,10 @@ import React from "react";
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import fetchPageByPath from "@/gql/queries/pages/fetchPageByPath";
 
-import HomePageDataSection from "./fixtures/HomePageDataSection";
-import ExperiencePageDataSection from "./fixtures/ExperiencePageDataSection";
-import SkillsPageDataSection from "./fixtures/SkillsPageDataSection";
-import ProjectsPageDataSection from "./fixtures/ProjectsPageDataSection";
+import HomePageDataSection from "./contentful/home-page-section/home-page-section";
+import ExperiencePageDataSection from "./contentful/experience-page-section/experience-page-section";
+import SkillsPageDataSection from "./contentful/skills-page-section/skills-page-section";
+import ProjectsPageDataSection from "./contentful/projects-page-section/projects-page-section";
 
 interface ContentfulPageProps {
   path: string;

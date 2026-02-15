@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { AppData } from "@/types/entries";
 
 import { DrawerButton } from "./ui/drawer";
-import { Icon } from "./ui/icon";
+import { Icon } from "./contentful/icon/icon";
 import { Button } from "./ui/button";
 import ThemeSwitch from "./ThemeSwitch";
 
@@ -35,14 +35,14 @@ const GlobalHeader = memo(
         defaultRoute,
         ...props
       },
-      ref
+      ref,
     ) => (
       <header
         ref={ref}
         {...props}
         className={cn(
           "bg-base-100 shadow-lg shadow-base-300 text-base-content sticky top-0 z-30 flex w-full justify-center md:p-2",
-          className
+          className,
         )}
       >
         <nav className="navbar group-data-[side='right']:flex-row-reverse bg-base-100">
@@ -83,8 +83,8 @@ const GlobalHeader = memo(
           </div>
         </nav>
       </header>
-    )
-  )
+    ),
+  ),
 );
 
 GlobalHeader.displayName = "GlobalHeader";

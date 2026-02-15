@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ExperiencePageDataFragment } from "@/gql/sdk";
-import { experiencePageDataAdapter } from "@/gql/adapters/data/experience-page-data.adapter";
+import { experiencePageDataAdapter } from "@/components/contentful/experience-page-section/experience-page-data.adapter";
 
-import ExperienceCard from "../ExperienceCard";
+import ExperienceCard from "../job-experience/job-experience";
 
 interface ExperiencePageDataSectionProps {
   data: ExperiencePageDataFragment;

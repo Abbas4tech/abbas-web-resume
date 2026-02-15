@@ -11,9 +11,9 @@ import {
   StepIndicator,
   StepSeparator,
   StepTitle,
-} from "./ui/stepper";
-import { Icon } from "./ui/icon";
-import { RichText } from "./RichText";
+} from "../../ui/stepper";
+import { Icon } from "../icon/icon";
+import { RichText } from "../../RichText";
 
 const monthNames = [
   "January",
@@ -29,8 +29,10 @@ const monthNames = [
   "November",
   "December",
 ];
-interface ExperienceCardProps
-  extends Omit<JobExperience, "techStack" | "description"> {
+interface ExperienceCardProps extends Omit<
+  JobExperience,
+  "techStack" | "description"
+> {
   techStack: {
     title: string;
     skillProgress: number;
@@ -72,7 +74,7 @@ const ExperienceCard: FC<ExperienceCardProps> = memo(
 
     const remoteLabel = useMemo(
       () => (workedRemotely ? " - Remote" : ""),
-      [workedRemotely]
+      [workedRemotely],
     );
 
     return (
@@ -112,7 +114,7 @@ const ExperienceCard: FC<ExperienceCardProps> = memo(
         </StepBody>
       </Step>
     );
-  }
+  },
 );
 
 export default ExperienceCard;

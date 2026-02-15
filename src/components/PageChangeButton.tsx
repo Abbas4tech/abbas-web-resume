@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { usePage, usePageProps } from "@/hooks";
 
 import { Button, ButtonProps } from "./ui/button";
-import { Icon } from "./ui/icon";
+import { Icon } from "./contentful/icon/icon";
 
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> &
   usePageProps;

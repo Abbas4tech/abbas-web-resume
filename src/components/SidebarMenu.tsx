@@ -5,7 +5,7 @@ import { usePage, usePageProps } from "@/hooks";
 
 import { Button } from "./ui/button";
 import { DrawerSideMenu, DrawerSideItem } from "./ui/drawer";
-import { Icon } from "./ui/icon";
+import { Icon } from "./contentful/icon/icon";
 
 const SidebarMenu = ({
   pages,

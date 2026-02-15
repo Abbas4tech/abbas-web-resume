@@ -3,7 +3,7 @@ import { ExperiencePageDataFragment, Maybe } from "@/gql/sdk";
 import {
   jobExperienceAdapter,
   AdaptedJobExperience,
-} from "../content/job-experience.adapter";
+} from "../job-experience/job-experience.adapter";
 
 export interface AdaptedExperiencePageData {
   id: string;

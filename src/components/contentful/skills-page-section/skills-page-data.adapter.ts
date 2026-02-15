@@ -1,6 +1,6 @@
 import { SkillsPageDataFragment, Maybe } from "@/gql/sdk";
 
-import { iconAdapter, AdaptedIcon } from "../content/icon.adapter";
+import { iconAdapter, AdaptedIcon } from "../icon/icon.adapter";
 
 export interface AdaptedSkill {
   id: string;

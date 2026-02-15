@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import { ProjectsPageDataFragment } from "@/gql/sdk";
-import { projectsPageDataAdapter } from "@/gql/adapters/data/projects-page-data.adapter";
+import { projectsPageDataAdapter } from "@/components/contentful/projects-page-section/projects-page-data.adapter";
 
 import {
   Card,
@@ -11,8 +11,8 @@ import {
   CardFooter,
   CardImage,
   CardTitle,
-} from "../ui/card";
-import { Icon } from "../ui/icon";
+} from "../../ui/card";
+import { Icon } from "../icon/icon";
 
 interface ProjectsPageDataSectionProps {
   data: ProjectsPageDataFragment;

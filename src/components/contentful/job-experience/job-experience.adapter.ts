@@ -2,7 +2,7 @@ import { Document } from "@contentful/rich-text-types";
 
 import { JobExperienceFragment, Maybe } from "@/gql/sdk";
 
-import { iconAdapter, AdaptedIcon } from "./icon.adapter";
+import { iconAdapter, AdaptedIcon } from "../icon/icon.adapter";
 
 export interface AdaptedSkillGroup {
   id: string;

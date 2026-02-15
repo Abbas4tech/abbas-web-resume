@@ -1,7 +1,7 @@
 import React from "react";
 
 import { SkillsPageDataFragment } from "@/gql/sdk";
-import { skillsPageDataAdapter } from "@/gql/adapters/data/skills-page-data.adapter";
+import { skillsPageDataAdapter } from "@/components/contentful/skills-page-section/skills-page-data.adapter";
 
 import {
   Skill,
@@ -10,9 +10,9 @@ import {
   SkillGroup,
   SkillGroupContent,
   SkillList,
-} from "../ui/skill";
-import { Icon } from "../ui/icon";
-import Progress from "../ui/progress";
+} from "../../ui/skill";
+import { Icon } from "../icon/icon";
+import Progress from "../../ui/progress";
 
 interface SkillsPageDataSectionProps {
   data: SkillsPageDataFragment;

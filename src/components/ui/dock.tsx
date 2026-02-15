@@ -10,14 +10,14 @@ import Link, { LinkProps } from "next/link";
 import { Icon as IconType } from "@/types/common";
 import { cn } from "@/lib/utils";
 
-import { Icon } from "./icon";
+import { Icon } from "../contentful/icon/icon";
 
 const Dock = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div {...props} ref={ref} className={cn("dock dock-md", className)} />
-    )
-  )
+    ),
+  ),
 );
 
 type DockButtonProps = LinkProps &
@@ -32,8 +32,8 @@ const DockButton = memo(
         <Icon {...icon} />
         <span className="dock-label">{children}</span>
       </Link>
-    )
-  )
+    ),
+  ),
 );
 
 DockButton.displayName = "DockButton";

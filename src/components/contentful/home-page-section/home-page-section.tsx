@@ -1,7 +1,7 @@
 import React from "react";
 
 import { HomePageDataFragment } from "@/gql/sdk";
-import { homePageDataAdapter } from "@/gql/adapters/data/home-page-data.adapter";
+import { homePageDataAdapter } from "@/components/contentful/home-page-section/home-page-data.adapter";
 
 import {
   Stat,
@@ -9,9 +9,9 @@ import {
   Stats,
   StatTitle,
   StatDescription,
-} from "../ui/stat";
-import { RichText } from "../RichText";
-import { Icon } from "../ui/icon";
+} from "../../ui/stat";
+import { RichText } from "../../RichText";
+import { Icon } from "../icon/icon";
 
 interface HomePageDataSectionProps {
   data: HomePageDataFragment;

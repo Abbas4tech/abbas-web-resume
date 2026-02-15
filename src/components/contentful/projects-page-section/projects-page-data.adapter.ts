@@ -1,7 +1,7 @@
 import { ProjectsPageDataFragment, Maybe } from "@/gql/sdk";
 
-import { iconAdapter, AdaptedIcon } from "../content/icon.adapter";
-import { assetAdapter, AdaptedAsset } from "../content/asset.adapter";
+import { iconAdapter, AdaptedIcon } from "../icon/icon.adapter";
+import { assetAdapter, AdaptedAsset } from "../asset/asset.adapter";
 
 export interface AdaptedProject {
   id: string;

@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownMenuItem,
 } from "./ui/dropdown";
-import { Icon } from "./ui/icon";
+import { Icon } from "./contentful/icon/icon";
 
 interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
   defaultTheme: string;
@@ -39,7 +39,7 @@ const ThemeSwitch = ({
   const [currentTheme, setCurrentTheme] = useState(defaultTheme.toLowerCase());
 
   const themeChangeHandler = (
-    theme: string = defaultTheme.toLowerCase()
+    theme: string = defaultTheme.toLowerCase(),
   ): void => {
     setCurrentTheme(theme);
     document.documentElement.setAttribute("data-theme", theme);

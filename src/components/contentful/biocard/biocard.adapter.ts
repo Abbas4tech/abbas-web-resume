@@ -1,6 +1,6 @@
 import { BioCard, IconFragment, Maybe } from "@/gql/sdk";
 
-import { iconAdapter, AdaptedIcon } from "./icon.adapter";
+import { iconAdapter, AdaptedIcon } from "../icon/icon.adapter";
 
 export interface AdaptedBioCard {
   __typename: string;
