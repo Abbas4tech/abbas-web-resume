@@ -23,6 +23,7 @@ const PageChangeButton = memo(
         >
           {nextPage.title}
           <Icon
+            id="faarrowright"
             classes={[]}
             showTooltip={false}
             name="Next Page"

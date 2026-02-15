@@ -9,7 +9,8 @@ import { IconType, IconBaseProps } from "react-icons";
 import dynamic, { Loader } from "next/dynamic";
 
 import { cn } from "@/lib/utils";
-import { Icon as IconResponse } from "@/types/common";
+
+import { AdaptedIcon } from "./icon.adapter";
 
 type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
@@ -30,7 +31,7 @@ const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
 
 export const loadIcon = (
   library: IconLibrary,
-  iconName: string
+  iconName: string,
 ): ComponentType<IconBaseProps> => {
   const loader: Loader<IconBaseProps> = async () => {
     try {
@@ -56,7 +57,7 @@ const isIconLibrary = (library: string): library is IconLibrary => {
 };
 
 const Icon = memo(
-  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconResponse>(
+  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & AdaptedIcon>(
     ({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
       const [library, iconName] = iconCode.split("/") as [string, string];
       const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
@@ -76,7 +77,7 @@ const Icon = memo(
           className={cn(
             "flex items-center",
             showTooltip && "tooltip tooltip-primary",
-            className
+            className,
           )}
           tabIndex={-1}
           data-tip={name}
@@ -88,8 +89,8 @@ const Icon = memo(
           />
         </div>
       );
-    }
-  )
+    },
+  ),
 );
 
 Icon.displayName = "DynamicIcon";

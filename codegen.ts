@@ -3,15 +3,38 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const getSchemaUrl = (): string => {
+  const baseUrl =
+    process.env.CONTENTFUL_BASE_URL ||
+    "https://graphql.contentful.com/content/v1";
+  const spaceId = process.env.CONTENTFUL_SPACE_ID;
+  const environmentId = process.env.CONTENTFUL_ENVIRONMENT_ID || "master";
+
+  if (!spaceId) {
+    throw new Error("CONTENTFUL_SPACE_ID environment variable is not set");
+  }
+
+  return `${baseUrl}/spaces/${spaceId}/environments/${environmentId}`;
+};
+
+const getAuthToken = (): string => {
+  const apiKey = process.env.CONTENTFUL_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("CONTENTFUL_API_KEY environment variable is not set");
+  }
+
+  return apiKey;
+};
+
 const config: CodegenConfig = {
   schema: [
     {
-      "https://graphql.contentful.com/content/v1/spaces/6mdmgsjzhh4y/environments/development":
-        {
-          headers: {
-            Authorization: "Bearer 5N_INxc9D8ap7anQIVwWjEpTehJk5hapkysQzcuqKvQ",
-          },
+      [getSchemaUrl()]: {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
         },
+      },
     },
   ],
 

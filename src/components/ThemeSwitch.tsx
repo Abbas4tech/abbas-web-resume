@@ -1,8 +1,7 @@
 "use client";
 import React, { ComponentProps, useState } from "react";
 
-import { Icon as IconResponse } from "@/types/common";
-
+import { AdaptedIcon } from "./contentful/icon/icon.adapter";
 import {
   Dropdown,
   DropdownToggle,
@@ -14,7 +13,7 @@ import { Icon } from "./contentful/icon/icon";
 interface ThemeSwitchProps extends ComponentProps<typeof Dropdown> {
   defaultTheme: string;
   themeList: string[];
-  themeIcon?: IconResponse;
+  themeIcon?: AdaptedIcon;
 }
 
 const Palette = (theme: string): React.JSX.Element => (
@@ -49,6 +48,7 @@ const ThemeSwitch = ({
       <DropdownToggle className="btn-ghost">
         {themeIcon ? <Icon {...themeIcon} /> : Palette(currentTheme)}
         <Icon
+          id="chevrondown"
           classes={[]}
           iconCode="io5/IoChevronDown"
           showTooltip={false}

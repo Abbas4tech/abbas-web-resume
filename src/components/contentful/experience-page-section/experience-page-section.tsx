@@ -20,20 +20,23 @@ const ExperiencePageDataSection = ({
           key={index}
           company={experience.company}
           position={experience.position}
-          description={{ json: experience.description }}
+          description={experience.description}
           location={experience.location}
           startDate={experience.startDate}
           endDate={experience.endDate}
           workedRemotely={experience.workedRemotely}
           currentlyWorking={experience.currentlyWorking}
           techStack={{
+            id: experience.techStack.id,
             title: experience.techStack.title,
             skillProgress: experience.techStack.skillProgress,
-            skillIconsCollection: {
-              items: experience.techStack.icons.map((icon) => ({
-                name: icon.name,
-              })),
-            },
+            icons: experience.techStack.icons.map((icon) => ({
+              id: icon.id,
+              name: icon.name,
+              classes: icon.classes,
+              showTooltip: icon.showTooltip,
+              iconCode: icon.iconCode,
+            })),
           }}
           companyIcon={experience.companyIcon}
           durationIcon={experience.durationIcon}

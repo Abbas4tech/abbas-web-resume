@@ -1,9 +1,6 @@
 import React, { FC, memo, useMemo } from "react";
-import { Document } from "@contentful/rich-text-types";
 
-import { JobExperience } from "@/types/entries";
-import { Collection, Icon as IconResponse } from "@/types/common";
-
+import { AdaptedJobExperience } from "./job-experience.adapter";
 import {
   Step,
   StepBody,
@@ -29,19 +26,8 @@ const monthNames = [
   "November",
   "December",
 ];
-interface ExperienceCardProps extends Omit<
-  JobExperience,
-  "techStack" | "description"
-> {
-  techStack: {
-    title: string;
-    skillProgress: number;
-    skillIconsCollection: Collection<Pick<IconResponse, "name">>;
-  };
-  description: {
-    json: Document;
-  };
-}
+
+type ExperienceCardProps = AdaptedJobExperience;
 
 const ExperienceCard: FC<ExperienceCardProps> = memo(
   ({
@@ -105,12 +91,10 @@ const ExperienceCard: FC<ExperienceCardProps> = memo(
             </div>
             <div className="flex items-center list-sty gap-2 leading- mb-2 md:mb-4">
               <Icon {...techStackIcon} />
-              {techStack.skillIconsCollection.items
-                .map((i) => i.name)
-                .join(", ")}
+              {techStack.icons.map((i) => i.name).join(", ")}
             </div>
           </StepContent>
-          <RichText className="description" document={description.json} />
+          <RichText className="description" document={description} />
         </StepBody>
       </Step>
     );

@@ -7,9 +7,9 @@ import React, {
 } from "react";
 import Link, { LinkProps } from "next/link";
 
-import { Icon as IconType } from "@/types/common";
 import { cn } from "@/lib/utils";
 
+import { AdaptedIcon } from "../contentful/icon/icon.adapter";
 import { Icon } from "../contentful/icon/icon";
 
 const Dock = memo(
@@ -22,7 +22,7 @@ const Dock = memo(
 
 type DockButtonProps = LinkProps &
   AnchorHTMLAttributes<HTMLAnchorElement> & {
-    icon: IconType;
+    icon: AdaptedIcon;
   };
 
 const DockButton = memo(

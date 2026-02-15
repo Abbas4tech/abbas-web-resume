@@ -1,7 +1,7 @@
 import React, { forwardRef, HTMLAttributes, memo } from "react";
 
 import { cn } from "@/lib/utils";
-import { AppData } from "@/types/entries";
+import { AdaptedAppData } from "@/gql/queries/content/fetch-app-data.adapter";
 
 import { DrawerButton } from "./ui/drawer";
 import { Icon } from "./contentful/icon/icon";
@@ -10,7 +10,7 @@ import ThemeSwitch from "./ThemeSwitch";
 
 type GlobalHeaderProps = HTMLAttributes<HTMLElement> &
   Pick<
-    AppData,
+    AdaptedAppData,
     | "title"
     | "resume"
     | "resumeIcon"
@@ -49,6 +49,7 @@ const GlobalHeader = memo(
           <div className="navbar-start group-data-[side='right']:flex-row-reverse gap-2">
             <DrawerButton className="">
               <Icon
+                id="toggle"
                 iconCode="io5/IoMenu"
                 classes={["w-5", "h-5"]}
                 name="Toggle"

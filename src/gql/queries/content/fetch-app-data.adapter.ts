@@ -2,6 +2,13 @@ import { assetAdapter } from "@/components/contentful/asset/asset.adapter";
 import { iconAdapter } from "@/components/contentful/icon/icon.adapter";
 import { GetAppDataQuery } from "@/gql/sdk";
 
+export interface MetaPage {
+  pageUrl: string;
+  isDefaultPage: boolean;
+  title: string;
+  pageIcon: ReturnType<typeof iconAdapter>;
+}
+
 export interface AdaptedAppData {
   title: string;
   name: string;
@@ -24,12 +31,7 @@ export interface AdaptedAppData {
     drawerSide: string;
     title: string | null;
   };
-  pages: Array<{
-    pageUrl: string;
-    isDefaultPage: boolean;
-    title: string;
-    pageIcon: ReturnType<typeof iconAdapter>;
-  }>;
+  pages: MetaPage[];
 }
 
 export const appDataAdapter = (
