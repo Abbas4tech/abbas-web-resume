@@ -1,4 +1,4 @@
-import { IconFragment, Maybe } from "@/gql/sdk";
+import { IconFragment } from "@/gql/sdk";
 
 export interface AdaptedIcon {
   id: string;
@@ -8,7 +8,18 @@ export interface AdaptedIcon {
   name: string;
 }
 
-export const iconAdapter = (props?: Maybe<IconFragment>): AdaptedIcon => ({
+export const iconAdapter = (
+  props?:
+    | IconFragment
+    | {
+        _id?: string | null;
+        classes?: (string | null)[] | null;
+        showTooltip?: boolean | null;
+        name?: string | null;
+        iconCode?: string | null;
+      }
+    | null,
+): AdaptedIcon => ({
   id: props?._id ?? "",
   classes: props?.classes?.filter((e): e is NonNullable<typeof e> => !!e) ?? [],
   showTooltip: Boolean(props?.showTooltip),

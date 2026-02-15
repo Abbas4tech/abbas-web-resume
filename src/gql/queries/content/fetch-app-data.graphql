@@ -40,6 +40,8 @@ query GetAppData($id: String!) {
       fileName
       title
       url
+      width
+      height
     }
     role
     pagesCollection {
@@ -48,6 +50,7 @@ query GetAppData($id: String!) {
         isDefaultPage
         title
         pageIcon {
+          _id
           classes
           iconCode
           name
@@ -56,6 +59,7 @@ query GetAppData($id: String!) {
       }
     }
     resumeIcon {
+      _id
       classes
       showTooltip
       name
@@ -68,6 +72,7 @@ query GetAppData($id: String!) {
       url
     }
     themeIcon {
+      _id
       classes
       showTooltip
       name

@@ -4635,124 +4635,6 @@ export type BioCardFragment = {
   } | null;
 };
 
-export type IconFragment = {
-  __typename: "Icon";
-  _id: string;
-  classes?: Array<string | null> | null;
-  name?: string | null;
-  iconCode?: string | null;
-  showTooltip?: boolean | null;
-};
-
-export type JobExperienceFragment = {
-  __typename: "JobExperience";
-  company?: string | null;
-  currentlyWorking?: boolean | null;
-  workedRemotely?: boolean | null;
-  endDate?: any | null;
-  position?: string | null;
-  startDate?: any | null;
-  location?: string | null;
-  companyIcon?: {
-    __typename: "Icon";
-    _id: string;
-    classes?: Array<string | null> | null;
-    name?: string | null;
-    iconCode?: string | null;
-    showTooltip?: boolean | null;
-  } | null;
-  techStackIcon?: {
-    __typename: "Icon";
-    _id: string;
-    classes?: Array<string | null> | null;
-    name?: string | null;
-    iconCode?: string | null;
-    showTooltip?: boolean | null;
-  } | null;
-  description?: { __typename?: "JobExperienceDescription"; json: any } | null;
-  durationIcon?: {
-    __typename: "Icon";
-    _id: string;
-    classes?: Array<string | null> | null;
-    name?: string | null;
-    iconCode?: string | null;
-    showTooltip?: boolean | null;
-  } | null;
-  locationIcon?: {
-    __typename: "Icon";
-    _id: string;
-    classes?: Array<string | null> | null;
-    name?: string | null;
-    iconCode?: string | null;
-    showTooltip?: boolean | null;
-  } | null;
-  roleIcon?: {
-    __typename: "Icon";
-    _id: string;
-    classes?: Array<string | null> | null;
-    name?: string | null;
-    iconCode?: string | null;
-    showTooltip?: boolean | null;
-  } | null;
-  techStack?: {
-    __typename?: "SkillGroup";
-    skillProgress?: number | null;
-    _id: string;
-    title?: string | null;
-    skillIconsCollection?: {
-      __typename?: "SkillGroupSkillIconsCollection";
-      items: Array<{
-        __typename: "Icon";
-        _id: string;
-        classes?: Array<string | null> | null;
-        name?: string | null;
-        iconCode?: string | null;
-        showTooltip?: boolean | null;
-      } | null>;
-    } | null;
-  } | null;
-};
-
-export type SeoDataFragment = {
-  __typename: "SeoData";
-  countryName?: string | null;
-  creator?: string | null;
-  description?: string | null;
-  keywords?: Array<string | null> | null;
-  url?: string | null;
-  siteName?: string | null;
-  publisher?: string | null;
-  title?: string | null;
-  imagesCollection?: {
-    __typename?: "AssetCollection";
-    items: Array<{
-      __typename: "Asset";
-      width?: number | null;
-      url?: string | null;
-      title?: string | null;
-      size?: number | null;
-      height?: number | null;
-      description?: string | null;
-      fileName?: string | null;
-      contentType?: string | null;
-      sys: { __typename?: "Sys"; id: string };
-    } | null>;
-  } | null;
-  favicon?: {
-    __typename: "Asset";
-    width?: number | null;
-    url?: string | null;
-    title?: string | null;
-    size?: number | null;
-    height?: number | null;
-    description?: string | null;
-    fileName?: string | null;
-    contentType?: string | null;
-    sys: { __typename?: "Sys"; id: string };
-  } | null;
-  sys: { __typename?: "Sys"; id: string };
-};
-
 export type ExperiencePageDataFragment = {
   __typename: "ExperiencePageData";
   title?: string | null;
@@ -4856,6 +4738,84 @@ export type HomePageDataFragment = {
   } | null;
 };
 
+export type IconFragment = {
+  __typename: "Icon";
+  _id: string;
+  classes?: Array<string | null> | null;
+  name?: string | null;
+  iconCode?: string | null;
+  showTooltip?: boolean | null;
+};
+
+export type JobExperienceFragment = {
+  __typename: "JobExperience";
+  company?: string | null;
+  currentlyWorking?: boolean | null;
+  workedRemotely?: boolean | null;
+  endDate?: any | null;
+  position?: string | null;
+  startDate?: any | null;
+  location?: string | null;
+  companyIcon?: {
+    __typename: "Icon";
+    _id: string;
+    classes?: Array<string | null> | null;
+    name?: string | null;
+    iconCode?: string | null;
+    showTooltip?: boolean | null;
+  } | null;
+  techStackIcon?: {
+    __typename: "Icon";
+    _id: string;
+    classes?: Array<string | null> | null;
+    name?: string | null;
+    iconCode?: string | null;
+    showTooltip?: boolean | null;
+  } | null;
+  description?: { __typename?: "JobExperienceDescription"; json: any } | null;
+  durationIcon?: {
+    __typename: "Icon";
+    _id: string;
+    classes?: Array<string | null> | null;
+    name?: string | null;
+    iconCode?: string | null;
+    showTooltip?: boolean | null;
+  } | null;
+  locationIcon?: {
+    __typename: "Icon";
+    _id: string;
+    classes?: Array<string | null> | null;
+    name?: string | null;
+    iconCode?: string | null;
+    showTooltip?: boolean | null;
+  } | null;
+  roleIcon?: {
+    __typename: "Icon";
+    _id: string;
+    classes?: Array<string | null> | null;
+    name?: string | null;
+    iconCode?: string | null;
+    showTooltip?: boolean | null;
+  } | null;
+  techStack?: {
+    __typename?: "SkillGroup";
+    skillProgress?: number | null;
+    _id: string;
+    title?: string | null;
+    skillIconsCollection?: {
+      __typename?: "SkillGroupSkillIconsCollection";
+      items: Array<{
+        __typename: "Icon";
+        _id: string;
+        classes?: Array<string | null> | null;
+        name?: string | null;
+        iconCode?: string | null;
+        showTooltip?: boolean | null;
+      } | null>;
+    } | null;
+  } | null;
+};
+
 export type ProjectsPageDataFragment = {
   __typename: "ProjectsPageData";
   _id: string;
@@ -4930,6 +4890,145 @@ export type SkillsPageDataFragment = {
         } | null>;
       } | null;
     } | null>;
+  } | null;
+};
+
+export type SeoDataFragment = {
+  __typename: "SeoData";
+  countryName?: string | null;
+  creator?: string | null;
+  description?: string | null;
+  keywords?: Array<string | null> | null;
+  url?: string | null;
+  siteName?: string | null;
+  publisher?: string | null;
+  title?: string | null;
+  imagesCollection?: {
+    __typename?: "AssetCollection";
+    items: Array<{
+      __typename: "Asset";
+      width?: number | null;
+      url?: string | null;
+      title?: string | null;
+      size?: number | null;
+      height?: number | null;
+      description?: string | null;
+      fileName?: string | null;
+      contentType?: string | null;
+      sys: { __typename?: "Sys"; id: string };
+    } | null>;
+  } | null;
+  favicon?: {
+    __typename: "Asset";
+    width?: number | null;
+    url?: string | null;
+    title?: string | null;
+    size?: number | null;
+    height?: number | null;
+    description?: string | null;
+    fileName?: string | null;
+    contentType?: string | null;
+    sys: { __typename?: "Sys"; id: string };
+  } | null;
+  sys: { __typename?: "Sys"; id: string };
+};
+
+export type GetAppDataQueryVariables = Exact<{
+  id: Scalars["String"]["input"];
+}>;
+
+export type GetAppDataQuery = {
+  __typename?: "Query";
+  userInfo?: {
+    __typename?: "UserInfo";
+    title?: string | null;
+    name?: string | null;
+    defaultTheme?: string | null;
+    themeList?: Array<string | null> | null;
+    role?: string | null;
+    bannerData?: {
+      __typename?: "Banner";
+      bannerAnimation?: string | null;
+      title?: string | null;
+      profilePicture?: {
+        __typename?: "Asset";
+        description?: string | null;
+        fileName?: string | null;
+        width?: number | null;
+        height?: number | null;
+        title?: string | null;
+        url?: string | null;
+      } | null;
+      socialLinksCollection?: {
+        __typename?: "AssetCollection";
+        items: Array<{
+          __typename?: "Asset";
+          description?: string | null;
+          fileName?: string | null;
+          width?: number | null;
+          height?: number | null;
+          title?: string | null;
+          url?: string | null;
+        } | null>;
+      } | null;
+      bannerImage?: {
+        __typename?: "Asset";
+        title?: string | null;
+        url?: string | null;
+        description?: string | null;
+        fileName?: string | null;
+        height?: number | null;
+        width?: number | null;
+      } | null;
+    } | null;
+    resume?: {
+      __typename?: "Asset";
+      description?: string | null;
+      fileName?: string | null;
+      title?: string | null;
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+    } | null;
+    pagesCollection?: {
+      __typename?: "UserInfoPagesCollection";
+      items: Array<{
+        __typename?: "MetaPage";
+        pageUrl?: string | null;
+        isDefaultPage?: boolean | null;
+        title?: string | null;
+        pageIcon?: {
+          __typename?: "Icon";
+          _id: string;
+          classes?: Array<string | null> | null;
+          iconCode?: string | null;
+          name?: string | null;
+          showTooltip?: boolean | null;
+        } | null;
+      } | null>;
+    } | null;
+    resumeIcon?: {
+      __typename?: "Icon";
+      _id: string;
+      classes?: Array<string | null> | null;
+      showTooltip?: boolean | null;
+      name?: string | null;
+      iconCode?: string | null;
+    } | null;
+    themeIcon?: {
+      __typename?: "Icon";
+      _id: string;
+      classes?: Array<string | null> | null;
+      showTooltip?: boolean | null;
+      name?: string | null;
+      iconCode?: string | null;
+    } | null;
+    layoutSettings?: {
+      __typename?: "LayoutSettings";
+      drawerSide?: string | null;
+      drawerVariant?: string | null;
+      title?: string | null;
+    } | null;
   } | null;
 };
 
@@ -5180,100 +5279,6 @@ export type FetchPageByPathQuery = {
   } | null;
 };
 
-export type GetAppDataQueryVariables = Exact<{
-  id: Scalars["String"]["input"];
-}>;
-
-export type GetAppDataQuery = {
-  __typename?: "Query";
-  userInfo?: {
-    __typename?: "UserInfo";
-    title?: string | null;
-    name?: string | null;
-    defaultTheme?: string | null;
-    themeList?: Array<string | null> | null;
-    role?: string | null;
-    bannerData?: {
-      __typename?: "Banner";
-      bannerAnimation?: string | null;
-      title?: string | null;
-      profilePicture?: {
-        __typename?: "Asset";
-        description?: string | null;
-        fileName?: string | null;
-        width?: number | null;
-        height?: number | null;
-        title?: string | null;
-        url?: string | null;
-      } | null;
-      socialLinksCollection?: {
-        __typename?: "AssetCollection";
-        items: Array<{
-          __typename?: "Asset";
-          description?: string | null;
-          fileName?: string | null;
-          width?: number | null;
-          height?: number | null;
-          title?: string | null;
-          url?: string | null;
-        } | null>;
-      } | null;
-      bannerImage?: {
-        __typename?: "Asset";
-        title?: string | null;
-        url?: string | null;
-        description?: string | null;
-        fileName?: string | null;
-        height?: number | null;
-        width?: number | null;
-      } | null;
-    } | null;
-    resume?: {
-      __typename?: "Asset";
-      description?: string | null;
-      fileName?: string | null;
-      title?: string | null;
-      url?: string | null;
-    } | null;
-    pagesCollection?: {
-      __typename?: "UserInfoPagesCollection";
-      items: Array<{
-        __typename?: "MetaPage";
-        pageUrl?: string | null;
-        isDefaultPage?: boolean | null;
-        title?: string | null;
-        pageIcon?: {
-          __typename?: "Icon";
-          classes?: Array<string | null> | null;
-          iconCode?: string | null;
-          name?: string | null;
-          showTooltip?: boolean | null;
-        } | null;
-      } | null>;
-    } | null;
-    resumeIcon?: {
-      __typename?: "Icon";
-      classes?: Array<string | null> | null;
-      showTooltip?: boolean | null;
-      name?: string | null;
-      iconCode?: string | null;
-    } | null;
-    themeIcon?: {
-      __typename?: "Icon";
-      classes?: Array<string | null> | null;
-      showTooltip?: boolean | null;
-      name?: string | null;
-      iconCode?: string | null;
-    } | null;
-    layoutSettings?: {
-      __typename?: "LayoutSettings";
-      drawerSide?: string | null;
-      drawerVariant?: string | null;
-      title?: string | null;
-    } | null;
-  } | null;
-};
-
 export const IconFragmentDoc = gql`
   fragment Icon on Icon {
     _id
@@ -5295,47 +5300,6 @@ export const BioCardFragmentDoc = gql`
     }
   }
   ${IconFragmentDoc}
-`;
-export const AssetFragmentDoc = gql`
-  fragment Asset on Asset {
-    __typename
-    sys {
-      id
-    }
-    width
-    url
-    title
-    size
-    height
-    description
-    fileName
-    contentType
-  }
-`;
-export const SeoDataFragmentDoc = gql`
-  fragment SeoData on SeoData {
-    countryName
-    creator
-    description
-    keywords
-    __typename
-    url
-    siteName
-    publisher
-    imagesCollection {
-      items {
-        ...Asset
-      }
-    }
-    favicon {
-      ...Asset
-    }
-    title
-    sys {
-      id
-    }
-  }
-  ${AssetFragmentDoc}
 `;
 export const JobExperienceFragmentDoc = gql`
   fragment JobExperience on JobExperience {
@@ -5412,6 +5376,22 @@ export const HomePageDataFragmentDoc = gql`
   }
   ${IconFragmentDoc}
 `;
+export const AssetFragmentDoc = gql`
+  fragment Asset on Asset {
+    __typename
+    sys {
+      id
+    }
+    width
+    url
+    title
+    size
+    height
+    description
+    fileName
+    contentType
+  }
+`;
 export const ProjectsPageDataFragmentDoc = gql`
   fragment ProjectsPageData on ProjectsPageData {
     _id
@@ -5466,45 +5446,30 @@ export const SkillsPageDataFragmentDoc = gql`
   }
   ${IconFragmentDoc}
 `;
-export const FetchPageByPathDocument = gql`
-  query fetchPageByPath($path: String!) {
-    pageCollection(where: { path: $path }, limit: 1) {
+export const SeoDataFragmentDoc = gql`
+  fragment SeoData on SeoData {
+    countryName
+    creator
+    description
+    keywords
+    __typename
+    url
+    siteName
+    publisher
+    imagesCollection {
       items {
-        _id
-        path
-        title
-        contentAnimation
-        pageSeo {
-          ...SeoData
-        }
-        pageData {
-          __typename
-          ... on HomePageData {
-            ...HomePageData
-          }
-          ... on ExperiencePageData {
-            ...ExperiencePageData
-          }
-          ... on SkillsPageData {
-            ...SkillsPageData
-          }
-          ... on ProjectsPageData {
-            ...ProjectsPageData
-          }
-        }
-        headingAnimation
-        pageIcon {
-          ...Icon
-        }
+        ...Asset
       }
     }
+    favicon {
+      ...Asset
+    }
+    title
+    sys {
+      id
+    }
   }
-  ${SeoDataFragmentDoc}
-  ${HomePageDataFragmentDoc}
-  ${ExperiencePageDataFragmentDoc}
-  ${SkillsPageDataFragmentDoc}
-  ${ProjectsPageDataFragmentDoc}
-  ${IconFragmentDoc}
+  ${AssetFragmentDoc}
 `;
 export const GetAppDataDocument = gql`
   query GetAppData($id: String!) {
@@ -5549,6 +5514,8 @@ export const GetAppDataDocument = gql`
         fileName
         title
         url
+        width
+        height
       }
       role
       pagesCollection {
@@ -5557,6 +5524,7 @@ export const GetAppDataDocument = gql`
           isDefaultPage
           title
           pageIcon {
+            _id
             classes
             iconCode
             name
@@ -5565,6 +5533,7 @@ export const GetAppDataDocument = gql`
         }
       }
       resumeIcon {
+        _id
         classes
         showTooltip
         name
@@ -5577,6 +5546,7 @@ export const GetAppDataDocument = gql`
         url
       }
       themeIcon {
+        _id
         classes
         showTooltip
         name
@@ -5592,6 +5562,46 @@ export const GetAppDataDocument = gql`
     }
   }
 `;
+export const FetchPageByPathDocument = gql`
+  query fetchPageByPath($path: String!) {
+    pageCollection(where: { path: $path }, limit: 1) {
+      items {
+        _id
+        path
+        title
+        contentAnimation
+        pageSeo {
+          ...SeoData
+        }
+        pageData {
+          __typename
+          ... on HomePageData {
+            ...HomePageData
+          }
+          ... on ExperiencePageData {
+            ...ExperiencePageData
+          }
+          ... on SkillsPageData {
+            ...SkillsPageData
+          }
+          ... on ProjectsPageData {
+            ...ProjectsPageData
+          }
+        }
+        headingAnimation
+        pageIcon {
+          ...Icon
+        }
+      }
+    }
+  }
+  ${SeoDataFragmentDoc}
+  ${HomePageDataFragmentDoc}
+  ${ExperiencePageDataFragmentDoc}
+  ${SkillsPageDataFragmentDoc}
+  ${ProjectsPageDataFragmentDoc}
+  ${IconFragmentDoc}
+`;
 
 export type SdkFunctionWrapper = <T>(
   action: (requestHeaders?: Record<string, string>) => Promise<T>,
@@ -5604,33 +5614,13 @@ const defaultWrapper: SdkFunctionWrapper = (
   _operationName,
   _operationType,
 ) => action();
-const FetchPageByPathDocumentString = print(FetchPageByPathDocument);
 const GetAppDataDocumentString = print(GetAppDataDocument);
+const FetchPageByPathDocumentString = print(FetchPageByPathDocument);
 export function getSdk(
   client: GraphQLClient,
   withWrapper: SdkFunctionWrapper = defaultWrapper,
 ) {
   return {
-    fetchPageByPath(
-      variables: FetchPageByPathQueryVariables,
-      requestHeaders?: Dom.RequestInit["headers"],
-    ): Promise<{
-      data: FetchPageByPathQuery;
-      extensions?: any;
-      headers: Dom.Headers;
-      status: number;
-    }> {
-      return withWrapper(
-        (wrappedRequestHeaders) =>
-          client.rawRequest<FetchPageByPathQuery>(
-            FetchPageByPathDocumentString,
-            variables,
-            { ...requestHeaders, ...wrappedRequestHeaders },
-          ),
-        "fetchPageByPath",
-        "query",
-      );
-    },
     GetAppData(
       variables: GetAppDataQueryVariables,
       requestHeaders?: Dom.RequestInit["headers"],
@@ -5648,6 +5638,26 @@ export function getSdk(
             { ...requestHeaders, ...wrappedRequestHeaders },
           ),
         "GetAppData",
+        "query",
+      );
+    },
+    fetchPageByPath(
+      variables: FetchPageByPathQueryVariables,
+      requestHeaders?: Dom.RequestInit["headers"],
+    ): Promise<{
+      data: FetchPageByPathQuery;
+      extensions?: any;
+      headers: Dom.Headers;
+      status: number;
+    }> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.rawRequest<FetchPageByPathQuery>(
+            FetchPageByPathDocumentString,
+            variables,
+            { ...requestHeaders, ...wrappedRequestHeaders },
+          ),
+        "fetchPageByPath",
         "query",
       );
     },
