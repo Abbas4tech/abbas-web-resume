@@ -6,7 +6,7 @@ dotenv.config();
 const config: CodegenConfig = {
   schema: [
     {
-      "https://graphql.contentful.com/content/v1/spaces/6mdmgsjzhh4y/environments/master":
+      "https://graphql.contentful.com/content/v1/spaces/6mdmgsjzhh4y/environments/development":
         {
           headers: {
             Authorization: "Bearer 5N_INxc9D8ap7anQIVwWjEpTehJk5hapkysQzcuqKvQ",
@@ -16,15 +16,13 @@ const config: CodegenConfig = {
   ],
 
   documents: ["**/*.graphql"],
+  overwrite: true,
 
   generates: {
     "src/gql/__generated__/": {
       preset: "client-preset",
       plugins: [],
       config: {
-        withHooks: true,
-        reactQueryVersion: 5,
-        documentMode: "documentNodeImportFragments",
         avoidOptionals: true,
         immutableTypes: true,
         enumsAsTypes: true,
@@ -34,7 +32,7 @@ const config: CodegenConfig = {
       plugins: [
         "typescript",
         "typescript-operations",
-        "typescript-graphql-request", // ✅ Generates getSDK
+        "typescript-graphql-request",
       ],
       config: {
         rawRequest: true,

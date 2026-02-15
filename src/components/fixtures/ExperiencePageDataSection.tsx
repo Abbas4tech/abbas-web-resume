@@ -1,0 +1,49 @@
+import React from "react";
+
+import { ExperiencePageDataFragment } from "@/gql/sdk";
+import { experiencePageDataAdapter } from "@/gql/adapters/data/experience-page-data.adapter";
+
+import ExperienceCard from "../ExperienceCard";
+
+interface ExperiencePageDataSectionProps {
+  data: ExperiencePageDataFragment;
+}
+
+const ExperiencePageDataSection = ({
+  data,
+}: ExperiencePageDataSectionProps): React.JSX.Element => {
+  const content = experiencePageDataAdapter(data);
+  return (
+    <div className="px-2 pl-4 mt-2 md:mt-4 md:px-12">
+      {content.experiences.map((experience, index: number) => (
+        <ExperienceCard
+          key={index}
+          company={experience.company}
+          position={experience.position}
+          description={{ json: experience.description }}
+          location={experience.location}
+          startDate={experience.startDate}
+          endDate={experience.endDate}
+          workedRemotely={experience.workedRemotely}
+          currentlyWorking={experience.currentlyWorking}
+          techStack={{
+            title: experience.techStack.title,
+            skillProgress: experience.techStack.skillProgress,
+            skillIconsCollection: {
+              items: experience.techStack.icons.map((icon) => ({
+                name: icon.name,
+              })),
+            },
+          }}
+          companyIcon={experience.companyIcon}
+          durationIcon={experience.durationIcon}
+          roleIcon={experience.roleIcon}
+          techStackIcon={experience.techStackIcon}
+          locationIcon={experience.locationIcon}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default ExperiencePageDataSection;

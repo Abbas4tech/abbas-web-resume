@@ -1,0 +1,10 @@
+fragment ExperiencePageData on ExperiencePageData {
+  title
+  _id
+  __typename
+  experiencesCollection(limit: 10) {
+    items {
+      ...JobExperience
+    }
+  }
+}

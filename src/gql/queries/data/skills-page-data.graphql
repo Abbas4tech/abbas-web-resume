@@ -1,0 +1,27 @@
+fragment SkillsPageData on SkillsPageData {
+  _id
+  title
+  __typename
+  skillsSetCollection(limit: 10) {
+    items {
+      title
+      icon {
+        ...Icon
+      }
+      skillsArrayCollection(limit: 10) {
+        items {
+          _id
+          title
+          skillIconsCollection(limit: 10) {
+            __typename
+            items {
+              ...Icon
+            }
+          }
+          skillProgress
+          __typename
+        }
+      }
+    }
+  }
+}
