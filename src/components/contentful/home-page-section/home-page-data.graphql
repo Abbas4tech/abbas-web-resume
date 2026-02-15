@@ -1,0 +1,18 @@
+fragment HomePageData on HomePageData {
+  _id
+  description {
+    json
+  }
+  title
+  __typename
+  infoCollection {
+    items {
+      title
+      __typename
+      value
+      icon {
+        ...Icon
+      }
+    }
+  }
+}

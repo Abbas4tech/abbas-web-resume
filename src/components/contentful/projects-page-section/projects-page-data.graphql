@@ -1,0 +1,20 @@
+fragment ProjectsPageData on ProjectsPageData {
+  _id
+  title
+  __typename
+  projectsCollection {
+    items {
+      _id
+      deployedLink
+      title
+      __typename
+      description
+      deployedLinkIcon {
+        ...Icon
+      }
+      thumbnail {
+        ...Asset
+      }
+    }
+  }
+}
