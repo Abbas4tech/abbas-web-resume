@@ -16,8 +16,9 @@ export const generateMetadata = async ({
 
   try {
     const page = await fetchPageByPath(path);
-    return generatePageMetadata(page.pageSeo);
-  } catch {
+    return generatePageMetadata(page.pageSeo, page.title || undefined);
+  } catch (error) {
+    console.error("Error generating metadata for path:", path, error);
     return {
       title: "Page Not Found",
       description: "The requested page could not be found",
