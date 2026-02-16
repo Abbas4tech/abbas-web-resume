@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { notFound } from "next/navigation";
 
 import { contentful } from "@/gql/contentful";
@@ -5,13 +6,14 @@ import { contentful } from "@/gql/contentful";
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const fetchPageByPath = async (path: string) => {
   try {
-    console.warn("...Fetching Contentful page for path: ", path);
+    console.log("...Fetching Contentful page for path: ", path);
     const pages = await contentful().fetchPageByPath({ path });
     const page = pages.data.pageCollection?.items[0];
     if (!page?.pageData || !page) {
       console.error("Couldn't found the contentful page for path: ", path);
       notFound();
     }
+    console.log("Fetched Contentful page: ", page);
     return page;
   } catch (err) {
     throw new Error((err as Error).message);

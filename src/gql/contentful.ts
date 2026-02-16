@@ -2,8 +2,56 @@ import { GraphQLClient } from "graphql-request";
 
 import { getSdk, Sdk } from "./sdk";
 
+const validateEnvironmentVariables = (): void => {
+  const requiredVars = [
+    "CONTENTFUL_BASE_URL",
+    "CONTENTFUL_SPACE_ID",
+    "CONTENTFUL_ENVIRONMENT_ID",
+    "CONTENTFUL_API_KEY",
+  ];
+
+  const missingVars = requiredVars.filter(
+    (varName) => !process.env[varName] || process.env[varName] === "",
+  );
+
+  if (missingVars.length > 0) {
+    console.error(
+      "❌ Missing Contentful environment variables:",
+      missingVars.join(", "),
+    );
+    console.error(
+      "Please set these variables in your environment or Vercel project settings.",
+    );
+    throw new Error(
+      `Missing required Contentful environment variables: ${missingVars.join(", ")}`,
+    );
+  }
+};
+
+const buildContentfulUrl = (): string => {
+  const baseUrl = process.env.CONTENTFUL_BASE_URL;
+  const spaceId = process.env.CONTENTFUL_SPACE_ID;
+  const environmentId = process.env.CONTENTFUL_ENVIRONMENT_ID;
+
+  if (!baseUrl || !spaceId || !environmentId) {
+    throw new Error(
+      "Contentful URL cannot be constructed: missing base URL, space ID, or environment ID",
+    );
+  }
+
+  const url = `${baseUrl}/spaces/${spaceId}/environments/${environmentId}`;
+  return url;
+};
+
 export const contentful = (): Sdk => {
-  const BASE_URL = `${process.env.CONTENTFUL_BASE_URL}/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT_ID}`;
+  validateEnvironmentVariables();
+
+  const BASE_URL = buildContentfulUrl();
+
+  console.warn("✅ Contentful initialized:", {
+    spaceId: process.env.CONTENTFUL_SPACE_ID?.slice(0, 5) + "***",
+    environment: process.env.CONTENTFUL_ENVIRONMENT_ID,
+  });
 
   const client = new GraphQLClient(BASE_URL, {
     headers: {
@@ -24,6 +72,7 @@ export const contentful = (): Sdk => {
             data?: unknown;
             error?: Array<{ extensions?: { contentful?: { code?: string } } }>;
           };
+          status?: number;
         };
 
         if (gqlError.response?.data) {
@@ -32,7 +81,6 @@ export const contentful = (): Sdk => {
             {
               operationName,
               errorCount: gqlError.response.error?.length,
-
               errorType: gqlError.response.error?.map(
                 (e) => e.extensions?.contentful?.code,
               ),
@@ -40,10 +88,24 @@ export const contentful = (): Sdk => {
           );
         }
 
+        // Log 400 errors with more detail
+        if (gqlError.status === 400) {
+          console.error(`❌ Graphql operation ${operationName} returned 400:`, {
+            status: gqlError.status,
+            error: gqlError.response?.error,
+          });
+        }
+
         return gqlError.response as T;
       }
 
-      console.warn(`Graphql operation ${operationName} failed`, error as Error);
+      // Log other errors
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      console.error(
+        `❌ Graphql operation ${operationName} failed:`,
+        errorMessage,
+      );
       throw error;
     }
   };
