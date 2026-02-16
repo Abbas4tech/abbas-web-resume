@@ -7,6 +7,12 @@ import fetchPageByPath from "@/gql/queries/pages/fetchPageByPath";
 import { generatePageMetadata } from "@/lib/metadata";
 import fetchAllPagePaths from "@/gql/queries/pages/fetch-all-page-path";
 
+// Allow dynamic paths not in generateStaticParams to be rendered on-demand
+export const dynamicParams = true;
+
+// Revalidate every 60 seconds for ISR (Incremental Static Regeneration)
+export const revalidate = 60;
+
 export const generateStaticParams = async (): Promise<
   {
     path: string;
