@@ -5,6 +5,19 @@ import ContentfulPage from "@/components/ContentfulPage";
 import { getSanitizedPath } from "@/lib/utils";
 import fetchPageByPath from "@/gql/queries/pages/fetchPageByPath";
 import { generatePageMetadata } from "@/lib/metadata";
+import fetchAllPagePaths from "@/gql/queries/pages/fetch-all-page-path";
+
+export const generateStaticParams = async (): Promise<
+  {
+    path: string;
+  }[]
+> => {
+  const paths = (await fetchAllPagePaths()) || [];
+  return paths
+    .map((e) => e?.path ?? "")
+    .filter(Boolean)
+    .map((path) => ({ path: path.replace(/^\//, "") }));
+};
 
 export const generateMetadata = async ({
   params,
@@ -16,7 +29,7 @@ export const generateMetadata = async ({
 
   try {
     const page = await fetchPageByPath(path);
-    return generatePageMetadata(page.pageSeo, page.title || undefined);
+    return generatePageMetadata(page.pageSeo);
   } catch (error) {
     console.error("Error generating metadata for path:", path, error);
     return {

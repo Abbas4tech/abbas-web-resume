@@ -4627,6 +4627,11 @@ export type GetAppDataQueryVariables = Exact<{
 
 export type GetAppDataQuery = { __typename?: 'Query', userInfo?: { __typename?: 'UserInfo', title?: string | null, name?: string | null, defaultTheme?: string | null, themeList?: Array<string | null> | null, role?: string | null, bannerData?: { __typename?: 'Banner', bannerAnimation?: string | null, title?: string | null, profilePicture?: { __typename?: 'Asset', description?: string | null, fileName?: string | null, width?: number | null, height?: number | null, title?: string | null, url?: string | null } | null, socialLinksCollection?: { __typename?: 'AssetCollection', items: Array<{ __typename?: 'Asset', description?: string | null, fileName?: string | null, width?: number | null, height?: number | null, title?: string | null, url?: string | null } | null> } | null, bannerImage?: { __typename?: 'Asset', title?: string | null, url?: string | null, description?: string | null, fileName?: string | null, height?: number | null, width?: number | null } | null } | null, resume?: { __typename?: 'Asset', description?: string | null, fileName?: string | null, title?: string | null, url?: string | null, width?: number | null, height?: number | null } | null, pagesCollection?: { __typename?: 'UserInfoPagesCollection', items: Array<{ __typename?: 'MetaPage', pageUrl?: string | null, isDefaultPage?: boolean | null, title?: string | null, pageIcon?: { __typename?: 'Icon', _id: string, classes?: Array<string | null> | null, iconCode?: string | null, name?: string | null, showTooltip?: boolean | null } | null } | null> } | null, resumeIcon?: { __typename?: 'Icon', _id: string, classes?: Array<string | null> | null, showTooltip?: boolean | null, name?: string | null, iconCode?: string | null } | null, themeIcon?: { __typename?: 'Icon', _id: string, classes?: Array<string | null> | null, showTooltip?: boolean | null, name?: string | null, iconCode?: string | null } | null, layoutSettings?: { __typename?: 'LayoutSettings', drawerSide?: string | null, drawerVariant?: string | null, title?: string | null } | null } | null };
 
+export type FetchAllPagePathsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FetchAllPagePathsQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename?: 'Page', path?: string | null } | null> } | null };
+
 export type FetchPageByPathQueryVariables = Exact<{
   path: Scalars['String']['input'];
 }>;
@@ -4910,6 +4915,15 @@ export const GetAppDataDocument = gql`
   }
 }
     `;
+export const FetchAllPagePathsDocument = gql`
+    query fetchAllPagePaths {
+  pageCollection(limit: 100) {
+    items {
+      path
+    }
+  }
+}
+    `;
 export const FetchPageByPathDocument = gql`
     query fetchPageByPath($path: String!) {
   pageCollection(where: {path: $path}, limit: 1) {
@@ -4955,11 +4969,15 @@ export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, str
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType) => action();
 const GetAppDataDocumentString = print(GetAppDataDocument);
+const FetchAllPagePathsDocumentString = print(FetchAllPagePathsDocument);
 const FetchPageByPathDocumentString = print(FetchPageByPathDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
     GetAppData(variables: GetAppDataQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data: GetAppDataQuery; extensions?: any; headers: Dom.Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetAppDataQuery>(GetAppDataDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetAppData', 'query');
+    },
+    fetchAllPagePaths(variables?: FetchAllPagePathsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data: FetchAllPagePathsQuery; extensions?: any; headers: Dom.Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<FetchAllPagePathsQuery>(FetchAllPagePathsDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'fetchAllPagePaths', 'query');
     },
     fetchPageByPath(variables: FetchPageByPathQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<{ data: FetchPageByPathQuery; extensions?: any; headers: Dom.Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<FetchPageByPathQuery>(FetchPageByPathDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'fetchPageByPath', 'query');

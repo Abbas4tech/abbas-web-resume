@@ -15,67 +15,35 @@ interface ContentfulPageProps {
 const ContentfulPage = async ({
   path,
 }: ContentfulPageProps): Promise<React.JSX.Element | null> => {
-  try {
-    console.warn("Fetching page for path:", path);
-    const page = await fetchPageByPath(path);
+  const page = await fetchPageByPath(path);
 
-    console.warn("Page fetched successfully:", {
-      path,
-      title: page.title,
-      hasPageData: !!page.pageData,
-      typename: page.pageData?.__typename,
-    });
-
-    if (!page.pageData || !page.pageData.__typename) {
-      const typename = (
-        page.pageData as { __typename?: string } | null | undefined
-      )?.__typename;
-      console.error("No _typename found for PageSection: ", {
-        pageData: page.pageData,
-        typename,
-      });
-      return null;
-    }
-
-    const Fixtures = {
-      HomePageData: HomePageDataSection,
-      ExperiencePageData: ExperiencePageDataSection,
-      SkillsPageData: SkillsPageDataSection,
-      ProjectsPageData: ProjectsPageDataSection,
-    };
-
-    const Fixture = Fixtures[page.pageData.__typename] as React.ComponentType<{
-      data: typeof page.pageData;
-    }>;
-
-    if (!Fixture) {
-      console.error(
-        `No component found for typename: ${page.pageData.__typename}`,
-      );
-      return null;
-    }
-
-    return (
-      <Page>
-        {page.headingAnimation && page.title && (
-          <PageHeading data-aos={page.headingAnimation}>
-            {page.title}
-          </PageHeading>
-        )}
-        <PageContent
-          {...(page.contentAnimation && { "data-aos": page.contentAnimation })}
-        >
-          <Fixture data={page.pageData} />
-        </PageContent>
-      </Page>
-    );
-  } catch (error) {
-    console.error("Error rendering ContentfulPage:", {
-      path,
-      error: error instanceof Error ? error.message : String(error),
-    });
-    throw error;
+  if (!page.pageData || !page.pageData.__typename) {
+    return null;
   }
+
+  const Fixtures = {
+    HomePageData: HomePageDataSection,
+    ExperiencePageData: ExperiencePageDataSection,
+    SkillsPageData: SkillsPageDataSection,
+    ProjectsPageData: ProjectsPageDataSection,
+  };
+
+  const Fixture = Fixtures[page.pageData.__typename] as React.ComponentType<{
+    data: typeof page.pageData;
+  }>;
+
+  return (
+    <Page>
+      {page.headingAnimation && page.title && (
+        <PageHeading data-aos={page.headingAnimation}>{page.title}</PageHeading>
+      )}
+      <PageContent
+        {...(page.contentAnimation && { "data-aos": page.contentAnimation })}
+      >
+        <Fixture data={page.pageData} />
+      </PageContent>
+    </Page>
+  );
 };
 
 export default ContentfulPage;
