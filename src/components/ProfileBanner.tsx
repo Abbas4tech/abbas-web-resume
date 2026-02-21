@@ -3,14 +3,15 @@ import Image, { ImageProps } from "next/image";
 import Link from "next/link";
 
 import { cn } from "@/lib/utils";
-import { AppData } from "@/types/entries";
-import { Asset } from "@/types/common";
+import { AdaptedAppData } from "@/gql/queries/content/fetch-app-data.adapter";
+import { AdaptedAsset } from "@/components/contentful/asset/asset.adapter";
 
 const SOCIAL_LINK_IMAGE_CLASS = "w-6 h-6 md:w-8 md:h-8";
 
-type BannerProps = HTMLAttributes<HTMLDivElement> & Pick<AppData, "bannerData">;
+type BannerProps = HTMLAttributes<HTMLDivElement> &
+  Pick<AdaptedAppData, "bannerData">;
 
-const createImageProps = (image: Asset): ImageProps => ({
+const createImageProps = (image: AdaptedAsset): ImageProps => ({
   src: image.url,
   width: image.width,
   height: image.height,
@@ -21,7 +22,7 @@ const SocialLinkItem = memo(
   forwardRef<
     HTMLDivElement,
     HTMLAttributes<HTMLDivElement> & {
-      link: Asset;
+      link: AdaptedAsset;
     }
   >(({ link, ...props }, ref) => (
     <div
@@ -47,7 +48,7 @@ const SocialLinkItem = memo(
         />
       </Link>
     </div>
-  ))
+  )),
 );
 
 const ProfileBanner = memo(
@@ -74,7 +75,7 @@ const ProfileBanner = memo(
           data-aos={bannerAnimation}
           className={cn(
             "flex flex-col justify-center items-center relative",
-            className
+            className,
           )}
           {...props}
         >
@@ -115,8 +116,8 @@ const ProfileBanner = memo(
           </div>
         </div>
       );
-    }
-  )
+    },
+  ),
 );
 
 ProfileBanner.displayName = "ProfileCard";

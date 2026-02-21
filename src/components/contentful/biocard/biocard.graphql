@@ -1,0 +1,9 @@
+fragment BioCard on BioCard {
+  title
+  value
+  __typename
+  _id
+  icon {
+    ...Icon
+  }
+}

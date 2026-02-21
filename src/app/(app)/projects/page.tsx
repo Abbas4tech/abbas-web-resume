@@ -1,73 +1,39 @@
 import React from "react";
-import { Metadata, NextPage } from "next";
-import Link from "next/link";
+import { Metadata } from "next";
 
-import { Page, PageContent, PageHeading } from "@/components/ui/page";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardImage,
-  CardTitle,
-} from "@/components/ui/card";
-import { Icon } from "@/components/ui/icon";
-import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/client";
-import { GET_PROJECTS_PAGE } from "@/queries/getProjectsPageQuery";
-import { GetProjectsPageQueryResult } from "@/types/pages";
+import ContentfulPage from "@/components/ContentfulPage";
+import fetchPageByPath from "@/gql/queries/pages/fetchPageByPath";
+import { generatePageMetadata } from "@/lib/metadata";
 
-export const generateMetadata = async (): Promise<Metadata> =>
-  await getPageMetadata(process.env.CONTENTFUL_PROJECTS_PAGE_KEY as string);
+const PATH = "/projects";
 
 export const revalidate = 60;
 
-const ProjectsPage: NextPage = async () => {
-  const data = await fetchGql<GetProjectsPageQueryResult>(GET_PROJECTS_PAGE, {
-    id: process.env.CONTENTFUL_PROJECTS_PAGE_KEY,
-  });
-
-  const { title, contentAnimation, headingAnimation, pageIcon, pageData } =
-    data.page;
-
-  return (
-    <Page>
-      <PageHeading data-aos={headingAnimation}>
-        <Icon {...pageIcon} />
-        {title}
-      </PageHeading>
-      <PageContent
-        className="grid grid-cols-1 md:grid-cols-2 my-2 rounded-xl gap-4"
-        data-aos={contentAnimation}
-      >
-        {pageData.projectsCollection.items.map((item, index: number) => (
-          <Card key={index}>
-            <CardImage
-              className="hidden md:block"
-              loading="lazy"
-              width={item.thumbnail.width}
-              height={item.thumbnail.height}
-              alt={item.thumbnail.fileName}
-              src={item.thumbnail.url}
-            />
-            <CardContent className="p-4 md:p-6">
-              <CardTitle className="text-base md:text-lg">
-                {item.title}
-              </CardTitle>
-              <CardDescription className="text-xs md:text-base">
-                {item.description}
-              </CardDescription>
-              <CardFooter className="justify-end">
-                <Link target="_blank" href={item.deployedLink}>
-                  <Icon {...item.deployedLinkIcon} />
-                </Link>
-              </CardFooter>
-            </CardContent>
-          </Card>
-        ))}
-      </PageContent>
-    </Page>
-  );
+export const generateMetadata = async (): Promise<Metadata> => {
+  try {
+    const page = await fetchPageByPath(PATH);
+    return generatePageMetadata(page.pageSeo);
+  } catch (error) {
+    console.error("Error generating metadata for /projects:", error);
+    return {
+      title: "Projects | Abbas Shaikh",
+      description: "Projects of Abbas Shaikh",
+    };
+  }
 };
 
-export default ProjectsPage;
+const Page = async (): Promise<React.JSX.Element> => {
+  try {
+    return <ContentfulPage path={PATH} />;
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("❌ Error in /projects page:", errorMessage);
+    return (
+      <div className="alert alert-error">
+        <span>Failed to load page: {errorMessage}</span>
+      </div>
+    );
+  }
+};
+
+export default Page;

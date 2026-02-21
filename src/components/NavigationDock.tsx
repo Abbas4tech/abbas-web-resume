@@ -1,7 +1,7 @@
 "use client";
 import React, { ComponentProps } from "react";
 
-import { MetaPage } from "@/types/entries";
+import { MetaPage } from "@/gql/queries/content/fetch-app-data.adapter";
 import { usePage } from "@/hooks";
 import { cn } from "@/lib/utils";
 
@@ -25,7 +25,7 @@ const NavigationDock = ({
           <DockButton
             href={e.pageUrl}
             className={cn(
-              e.pageUrl === currentPageData.pageUrl && "dock-active"
+              e.pageUrl === currentPageData.pageUrl && "dock-active",
             )}
             key={e.title}
             icon={e.pageIcon}

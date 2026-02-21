@@ -1,0 +1,89 @@
+query GetAppData($id: String!) {
+  userInfo(id: $id) {
+    title
+    name
+    bannerData {
+      bannerAnimation
+      title
+      profilePicture {
+        description
+        fileName
+        width
+        height
+        title
+        url
+      }
+      bannerAnimation
+      socialLinksCollection {
+        items {
+          description
+          fileName
+          width
+          height
+          title
+          url
+        }
+      }
+      bannerImage {
+        title
+        url
+        description
+        fileName
+        height
+        width
+      }
+    }
+    defaultTheme
+    themeList
+    resume {
+      description
+      fileName
+      title
+      url
+      width
+      height
+    }
+    role
+    pagesCollection {
+      items {
+        pageUrl
+        isDefaultPage
+        title
+        pageIcon {
+          _id
+          classes
+          iconCode
+          name
+          showTooltip
+        }
+      }
+    }
+    resumeIcon {
+      _id
+      classes
+      showTooltip
+      name
+      iconCode
+    }
+    resume {
+      description
+      fileName
+      title
+      url
+    }
+    themeIcon {
+      _id
+      classes
+      showTooltip
+      name
+      iconCode
+    }
+    themeList
+    defaultTheme
+    layoutSettings {
+      drawerSide
+      drawerVariant
+      title
+    }
+  }
+}

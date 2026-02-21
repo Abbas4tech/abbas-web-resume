@@ -1,50 +1,39 @@
 import React from "react";
-import { Metadata, NextPage } from "next";
+import { Metadata } from "next";
 
-import { Page, PageContent, PageHeading } from "@/components/ui/page";
-import { Icon } from "@/components/ui/icon";
-import ExperienceCard from "@/components/ExperienceCard";
-import { getPageMetadata } from "@/helper/getPageMetadata";
-import { fetchGql } from "@/lib/client";
-import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
-import { GetExperiencePageQueryResult } from "@/types/pages";
+import ContentfulPage from "@/components/ContentfulPage";
+import fetchPageByPath from "@/gql/queries/pages/fetchPageByPath";
+import { generatePageMetadata } from "@/lib/metadata";
 
-export const generateMetadata = async (): Promise<Metadata> =>
-  await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
+const PATH = "/experience";
 
 export const revalidate = 60;
 
-const ExperiencePage: NextPage = async () => {
-  const data = await fetchGql<GetExperiencePageQueryResult>(
-    GET_EXPERIENCE_PAGE,
-    {
-      id: process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string,
-    }
-  );
-  const {
-    title,
-    headingAnimation,
-    contentAnimation,
-    pageIcon,
-    pageData: { experiencesCollection },
-  } = data.page;
-
-  return (
-    <Page>
-      <PageHeading data-aos={headingAnimation}>
-        <Icon {...pageIcon} />
-        {title}
-      </PageHeading>
-      <PageContent
-        data-aos={contentAnimation}
-        className="px-2 pl-4 mt-2 md:mt-4 md:px-12"
-      >
-        {experiencesCollection.items.map((experience, index: number) => (
-          <ExperienceCard {...experience} key={index} />
-        ))}
-      </PageContent>
-    </Page>
-  );
+export const generateMetadata = async (): Promise<Metadata> => {
+  try {
+    const page = await fetchPageByPath(PATH);
+    return generatePageMetadata(page.pageSeo);
+  } catch (error) {
+    console.error("Error generating metadata for /experience:", error);
+    return {
+      title: "Experience | Abbas Shaikh",
+      description: "Experience of Abbas Shaikh",
+    };
+  }
 };
 
-export default ExperiencePage;
+const Page = async (): Promise<React.JSX.Element> => {
+  try {
+    return <ContentfulPage path={PATH} />;
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("❌ Error in /experience page:", errorMessage);
+    return (
+      <div className="alert alert-error">
+        <span>Failed to load page: {errorMessage}</span>
+      </div>
+    );
+  }
+};
+
+export default Page;

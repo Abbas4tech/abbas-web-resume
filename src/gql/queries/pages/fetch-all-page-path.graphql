@@ -1,0 +1,7 @@
+query fetchAllPagePaths {
+  pageCollection(limit: 100) {
+    items {
+      path
+    }
+  }
+}
