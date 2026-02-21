@@ -1,0 +1,67 @@
+import { Icon } from "@abbas-web-resume/ui/components/icon";
+import { PageContent, PageHeading } from "@abbas-web-resume/ui/components/page";
+import Progress from "@abbas-web-resume/ui/components/progress";
+import {
+  Skill,
+  SkillGroup,
+  SkillGroupContent,
+  SkillList,
+  SkillsContent,
+  SkillTitle,
+} from "@abbas-web-resume/ui/components/skill";
+import type { Metadata, NextPage } from "next";
+import { Page } from "@/components/page";
+import { getPageMetadata } from "@/helper/get-page-metadata";
+import { fetchGql } from "@/lib/client";
+import { GET_SKILLS_PAGE } from "@/queries/get-skills-page-query";
+import type { GetSkillsPageQueryResult } from "@/types/pages";
+
+export const generateMetadata = async (): Promise<Metadata> =>
+  await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY as string);
+
+export const revalidate = 60;
+
+const SkillsPage: NextPage = async () => {
+  const data = await fetchGql<GetSkillsPageQueryResult>(GET_SKILLS_PAGE, {
+    id: process.env.CONTENTFUL_SKILLS_PAGE_KEY as string,
+  });
+
+  const { title, contentAnimation, headingAnimation, pageData, pageIcon } = data.page;
+
+  return (
+    <Page>
+      <PageHeading data-aos={headingAnimation}>
+        <Icon {...pageIcon} />
+        {title}
+      </PageHeading>
+      <PageContent className="flex flex-col gap-4" data-aos={contentAnimation}>
+        {pageData.skillsSetCollection.items.map(({ icon, title, skillsArrayCollection }) => (
+          <Skill key={title}>
+            <SkillsContent>
+              <SkillTitle>
+                <Icon {...icon} />
+                {title}
+              </SkillTitle>
+              <SkillGroup>
+                {skillsArrayCollection.items.map(
+                  ({ title, skillIconsCollection, skillProgress }) => (
+                    <SkillGroupContent key={title}>
+                      <SkillList>
+                        {skillIconsCollection.items.map((skill) => (
+                          <Icon key={title} {...skill} />
+                        ))}
+                      </SkillList>
+                      <Progress count={skillProgress} />
+                    </SkillGroupContent>
+                  )
+                )}
+              </SkillGroup>
+            </SkillsContent>
+          </Skill>
+        ))}
+      </PageContent>
+    </Page>
+  );
+};
+
+export default SkillsPage;
