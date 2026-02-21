@@ -1,10 +1,11 @@
 /* eslint-disable no-console */
+import { cache } from "react";
 import { notFound } from "next/navigation";
 
 import { contentful } from "@/gql/contentful";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const fetchPageByPath = async (path: string) => {
+// Actual fetch logic
+const _fetchPageByPath = async (path: string) => {
   try {
     console.log("...Fetching Contentful page for path: ", path);
     const pages = await contentful().fetchPageByPath({ path });
@@ -19,5 +20,9 @@ const fetchPageByPath = async (path: string) => {
     throw new Error((err as Error).message);
   }
 };
+
+// Cache the fetch to prevent duplicate API calls within the same request
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const fetchPageByPath = cache(_fetchPageByPath);
 
 export default fetchPageByPath;

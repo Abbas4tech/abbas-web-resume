@@ -1,7 +1,9 @@
+import { cache } from "react";
+
 import { contentful } from "@/gql/contentful";
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const fetchAppData = async (id: string) => {
+// Actual fetch logic
+const _fetchAppData = async (id: string) => {
   try {
     console.warn("...Fetching Contentful app data");
     const result = await contentful().GetAppData({ id });
@@ -17,5 +19,9 @@ const fetchAppData = async (id: string) => {
     throw new Error((err as Error).message);
   }
 };
+
+// Cache the fetch to prevent duplicate API calls within the same request
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+const fetchAppData = cache(_fetchAppData);
 
 export default fetchAppData;
