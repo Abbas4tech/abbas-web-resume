@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import { cache } from "react";
-import { notFound } from "next/navigation";
 
 import { contentful } from "@/gql/contentful";
 
@@ -12,7 +11,7 @@ const _fetchPageByPath = async (path: string) => {
     const page = pages.data.pageCollection?.items[0];
     if (!page?.pageData || !page) {
       console.error("Couldn't found the contentful page for path: ", path);
-      notFound();
+      throw new Error("Page not found");
     }
     console.log("Fetched Contentful page: ", page);
     return page;
