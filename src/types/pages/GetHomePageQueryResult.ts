@@ -1,7 +1,7 @@
-import { Document } from "@contentful/rich-text-types";
+import type { Document } from "@contentful/rich-text-types";
 
-import { Collection, Page } from "../common";
-import { BioCard } from "../entries";
+import type { Collection, Page } from "../common";
+import type { BioCard } from "../entries";
 
 type HomePageQueryResult = Page<{
   infoCollection: Collection<BioCard>;

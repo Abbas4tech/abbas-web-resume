@@ -1,7 +1,7 @@
 "use client";
-import React, { HTMLAttributes, memo, useEffect, useRef } from "react";
+import AOS, { type AosOptions } from "aos";
 import { usePathname } from "next/navigation";
-import AOS, { AosOptions } from "aos";
+import { type HTMLAttributes, memo, useEffect, useRef } from "react";
 
 import { cn } from "@/lib/utils";
 

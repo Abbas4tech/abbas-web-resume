@@ -1,17 +1,17 @@
-import { useCallback, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
 
-import { MetaPage } from "@/types/entries";
+import type { MetaPage } from "@/types/entries";
 
 interface usePageProps {
   pages: MetaPage[];
 }
 
 interface usePageReturn {
-  currentPageData: MetaPage;
-  nextPage: MetaPage;
-  defaultPage: MetaPage;
   changePage: () => void;
+  currentPageData: MetaPage;
+  defaultPage: MetaPage;
+  nextPage: MetaPage;
   pages: MetaPage[];
 }
 

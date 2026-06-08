@@ -1,9 +1,9 @@
-import React, { FC, memo, useMemo } from "react";
-import { Document } from "@contentful/rich-text-types";
-
-import { JobExperience } from "@/types/entries";
-import { Collection, Icon as IconResponse } from "@/types/common";
-
+import type { Document } from "@contentful/rich-text-types";
+import { type FC, memo, useMemo } from "react";
+import type { Collection, Icon as IconResponse } from "@/types/common";
+import type { JobExperience } from "@/types/entries";
+import { RichText } from "./RichText";
+import { Icon } from "./ui/icon";
 import {
   Step,
   StepBody,
@@ -12,8 +12,6 @@ import {
   StepSeparator,
   StepTitle,
 } from "./ui/stepper";
-import { Icon } from "./ui/icon";
-import { RichText } from "./RichText";
 
 const monthNames = [
   "January",
@@ -31,13 +29,13 @@ const monthNames = [
 ];
 interface ExperienceCardProps
   extends Omit<JobExperience, "techStack" | "description"> {
+  description: {
+    json: Document;
+  };
   techStack: {
     title: string;
     skillProgress: number;
     skillIconsCollection: Collection<Pick<IconResponse, "name">>;
-  };
-  description: {
-    json: Document;
   };
 }
 
@@ -101,7 +99,7 @@ const ExperienceCard: FC<ExperienceCardProps> = memo(
               <Icon {...roleIcon} />
               {position}
             </div>
-            <div className="flex items-center list-sty gap-2 leading- mb-2 md:mb-4">
+            <div className="leading- mb-2 flex list-sty items-center gap-2 md:mb-4">
               <Icon {...techStackIcon} />
               {techStack.skillIconsCollection.items
                 .map((i) => i.name)

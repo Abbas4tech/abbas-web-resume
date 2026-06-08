@@ -1,11 +1,11 @@
-import React, {
-  ComponentProps,
-  ComponentRef,
+import Image from "next/image";
+import {
+  type ComponentProps,
+  type ComponentRef,
   forwardRef,
-  HTMLAttributes,
+  type HTMLAttributes,
   memo,
 } from "react";
-import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
@@ -13,8 +13,8 @@ const Card = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
+        className={cn("card bg-base-300 shadow-md", className)}
         ref={ref}
-        className={cn("card shadow-md bg-base-300", className)}
         {...props}
       />
     )
@@ -24,7 +24,7 @@ const Card = memo(
 const CardContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div ref={ref} className={cn("card-body", className)} {...props} />
+      <div className={cn("card-body", className)} ref={ref} {...props} />
     )
   )
 );
@@ -34,11 +34,11 @@ const CardImage = memo(
     ({ className, src, alt, loading, ...props }, ref) => (
       <figure className="card-image">
         <Image
+          alt={alt}
+          className={className}
+          loading={loading}
           ref={ref}
           src={src}
-          loading={loading}
-          className={className}
-          alt={alt}
           {...props}
         />
       </figure>
@@ -49,7 +49,7 @@ const CardImage = memo(
 const CardTitle = memo(
   forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
     ({ className, ...props }, ref) => (
-      <h2 ref={ref} className={cn("card-title", className)} {...props} />
+      <h2 className={cn("card-title", className)} ref={ref} {...props} />
     )
   )
 );
@@ -57,7 +57,7 @@ const CardTitle = memo(
 const CardDescription = memo(
   forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
     ({ className, ...props }, ref) => (
-      <p ref={ref} className={cn("card-description", className)} {...props} />
+      <p className={cn("card-description", className)} ref={ref} {...props} />
     )
   )
 );
@@ -65,9 +65,9 @@ const CardDescription = memo(
 const CardFooter = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div ref={ref} className={cn("card-actions", className)} {...props} />
+      <div className={cn("card-actions", className)} ref={ref} {...props} />
     )
   )
 );
 
-export { Card, CardTitle, CardContent, CardDescription, CardImage, CardFooter };
+export { Card, CardContent, CardDescription, CardFooter, CardImage, CardTitle };

@@ -1,18 +1,46 @@
 @import "tailwindcss";
 @import "aos/dist/aos.css";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake, dracula, night,
-    bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine,
-    halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black,
-    luxury, dracula, cmyk, autumn, business, night, coffee, winter, caramellatte,
-    abyss, silk;
+  themes:
+    light --default,
+    dark --prefersdark,
+    cupcake,
+    dracula,
+    night,
+    bumblebee,
+    emerald,
+    corporate,
+    synthwave,
+    retro,
+    cyberpunk,
+    valentine,
+    halloween,
+    garden,
+    forest,
+    aqua,
+    lofi,
+    pastel,
+    fantasy,
+    wireframe,
+    black,
+    luxury,
+    dracula,
+    cmyk,
+    autumn,
+    business,
+    night,
+    coffee,
+    winter,
+    caramellatte,
+    abyss,
+    silk;
 }
 
 @utility scrollbar-hide {
+  scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
   }
-  scrollbar-width: none;
 }
 
 @utility gradient-45 {

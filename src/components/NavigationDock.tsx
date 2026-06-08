@@ -1,9 +1,9 @@
 "use client";
-import React, { ComponentProps } from "react";
-
-import { MetaPage } from "@/types/entries";
+import type React from "react";
+import type { ComponentProps } from "react";
 import { usePage } from "@/hooks";
 import { cn } from "@/lib/utils";
+import type { MetaPage } from "@/types/entries";
 
 import { Dock, DockButton } from "./ui/dock";
 import { useDrawer } from "./ui/drawer";
@@ -23,21 +23,20 @@ const NavigationDock = ({
       <Dock className="bg-base-300" {...props}>
         {items.map((e) => (
           <DockButton
-            href={e.pageUrl}
             className={cn(
               e.pageUrl === currentPageData.pageUrl && "dock-active"
             )}
-            key={e.title}
+            href={e.pageUrl}
             icon={e.pageIcon}
+            key={e.title}
           >
             {e.title}
           </DockButton>
         ))}
       </Dock>
     );
-  } else {
-    return <span className="sr-only">NavigationDock</span>;
   }
+  return <span className="sr-only">NavigationDock</span>;
 };
 
 export default NavigationDock;

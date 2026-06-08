@@ -1,14 +1,4 @@
 {
-  "name": "abbas-web-resume",
-  "version": "4.1.7",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "prepare": "husky"
-  },
   "dependencies": {
     "@apollo/client": "^4.0.5",
     "@contentful/rich-text-react-renderer": "^15.22.11",
@@ -20,6 +10,7 @@
     "react-icons": "^5.3.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
     "@contentful/rich-text-types": "^17.2.4",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/cli": "^4.1.13",
@@ -36,7 +27,20 @@
     "postcss": "^8.5.3",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5"
+    "typescript": "^5",
+    "ultracite": "^7.8.2"
   },
+  "name": "abbas-web-resume",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "prepare": "husky",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
+  },
+  "version": "4.1.7",
+  "private": true,
   "browserslist": "> 1%"
 }

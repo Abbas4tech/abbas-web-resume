@@ -1,13 +1,11 @@
-import React from "react";
-import { Metadata, NextPage } from "next";
-
-import { Page, PageContent, PageHeading } from "@/components/ui/page";
-import { Icon } from "@/components/ui/icon";
+import type { Metadata, NextPage } from "next";
 import ExperienceCard from "@/components/ExperienceCard";
+import { Icon } from "@/components/ui/icon";
+import { Page, PageContent, PageHeading } from "@/components/ui/page";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_EXPERIENCE_PAGE } from "@/queries/getExperiencePageQuery";
-import { GetExperiencePageQueryResult } from "@/types/pages";
+import type { GetExperiencePageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_EXPERIENCE_PAGE_KEY as string);
@@ -36,8 +34,8 @@ const ExperiencePage: NextPage = async () => {
         {title}
       </PageHeading>
       <PageContent
+        className="mt-2 px-2 pl-4 md:mt-4 md:px-12"
         data-aos={contentAnimation}
-        className="px-2 pl-4 mt-2 md:mt-4 md:px-12"
       >
         {experiencesCollection.items.map((experience, index: number) => (
           <ExperienceCard {...experience} key={index} />

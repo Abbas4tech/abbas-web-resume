@@ -1,21 +1,21 @@
-import React, {
-  ComponentType,
+import dynamic, { type Loader } from "next/dynamic";
+import {
+  type ComponentType,
   forwardRef,
-  HTMLAttributes,
+  type HTMLAttributes,
   memo,
   useMemo,
 } from "react";
-import { IconType, IconBaseProps } from "react-icons";
-import dynamic, { Loader } from "next/dynamic";
+import type { IconBaseProps, IconType } from "react-icons";
 
 import { cn } from "@/lib/utils";
-import { Icon as IconResponse } from "@/types/common";
+import type { Icon as IconResponse } from "@/types/common";
 
 type IconLibrary = "fa" | "fa6" | "io" | "io5" | "md" | "ri" | "si";
 
 interface IconModule {
-  [key: string]: IconType | unknown;
   default?: unknown;
+  [key: string]: IconType | unknown;
 }
 
 const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
@@ -64,26 +64,25 @@ const Icon = memo(
       const IconComponent = useMemo(() => {
         if (isIconLibrary(library)) {
           return loadIcon(library, iconName);
-        } else {
-          console.error(`Invalid icon library: "${library}"`);
-          return loadIcon("md", "MdError");
         }
+        console.error(`Invalid icon library: "${library}"`);
+        return loadIcon("md", "MdError");
       }, [library, iconName]);
 
       return (
         <div
-          ref={ref}
           className={cn(
             "flex items-center",
             showTooltip && "tooltip tooltip-primary",
             className
           )}
-          tabIndex={-1}
           data-tip={name}
+          ref={ref}
+          tabIndex={-1}
         >
           <IconComponent
-            className={cleanClasses}
             aria-label={name}
+            className={cleanClasses}
             role="img"
           />
         </div>

@@ -1,8 +1,8 @@
 "use server";
 /* eslint-disable no-undef */
 
-import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import { DocumentNode } from "graphql";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import type { DocumentNode } from "graphql";
 
 const BASE_URL = `https://graphql.contentful.com/content/v1/spaces/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT_ID}`;
 

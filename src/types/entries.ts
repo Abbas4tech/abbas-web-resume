@@ -1,84 +1,84 @@
-import { Asset, Collection, Icon } from "./common";
-import { Pages } from "./generic";
+import type { Asset, Collection, Icon } from "./common";
+import type { Pages } from "./generic";
 
 export interface AppData {
-  title: string;
-  name: string;
   bannerData: Banner;
-  role: string;
+  defaultTheme: string;
+  layoutSettings: LayoutSettings;
+  name: string;
   pagesCollection: Collection<MetaPage>;
+  pagesInformation: Pages[];
   resume: Asset;
   resumeIcon: Icon;
-  themeList: string[];
+  role: string;
   themeIcon?: Icon;
-  defaultTheme: string;
-  pagesInformation: Pages[];
-  layoutSettings: LayoutSettings;
+  themeList: string[];
+  title: string;
 }
 
 export interface Banner {
-  title: string;
-  profilePicture: Asset;
-  bannerImage: Asset;
   bannerAnimation: string;
+  bannerImage: Asset;
+  profilePicture: Asset;
   socialLinksCollection: Collection<Asset>;
+  title: string;
 }
 
 export interface LayoutSettings {
-  title: string;
   drawerSide: string;
   drawerVariant: string;
+  title: string;
 }
 
 export interface MetaPage {
-  title: string;
+  isDefaultPage: boolean;
   pageIcon: Icon;
   pageUrl: string;
-  isDefaultPage: boolean;
+  title: string;
 }
 
 export interface ProjectCard {
-  title: string;
   deployedLink: string;
   deployedLinkIcon: Icon;
-  thumbnail: Asset;
   description: string;
+  thumbnail: Asset;
+  title: string;
 }
 
 export interface BioCard {
+  icon: Icon;
   title: string;
   value: string;
-  icon: Icon;
 }
 
 export interface JobExperience {
   company: string;
   companyIcon: Icon;
+  currentlyWorking: boolean;
   description: string;
-  position: string;
-  roleIcon: Icon;
-  workedRemotely: boolean;
-  startDate: string;
-  endDate: string;
   durationIcon: Icon;
+  endDate: string;
   location: string;
   locationIcon: Icon;
-  currentlyWorking: boolean;
+  position: string;
+  roleIcon: Icon;
+  startDate: string;
   techStack: SkillGroup;
   techStackIcon: Icon;
+  workedRemotely: boolean;
 }
 
 export interface SkillGroup {
-  title: string;
-  skillProgress: number;
   skillIconsCollection: Collection<Icon>;
+  skillProgress: number;
+  title: string;
 }
 
 export interface SkillSet {
-  title: string;
-  skillsetIcon: Asset;
   icon: Icon;
   skillsArrayCollection: Collection<SkillGroup>;
+  skillsetIcon: Asset;
+  title: string;
 }
 
 export interface HeaderGraphqlResult {

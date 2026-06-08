@@ -13,30 +13,30 @@ export interface Collection<T> {
 }
 
 export interface Icon {
-  name: string;
-  iconCode: string;
   classes?: string[];
+  iconCode: string;
+  name: string;
   showTooltip: boolean;
 }
 
 export interface Asset {
+  description: string;
+  fileName: string;
+  height: number;
+  title: string;
   url: string;
   width: number;
-  height: number;
-  fileName: string;
-  title: string;
-  description: string;
 }
 
 export interface SEO {
-  title: string;
-  description: string;
-  keywords: string[];
   countryName: string;
-  publisher: string;
   creator: string;
-  imagesCollection: Collection<Asset>;
-  url: string;
-  siteName: string;
+  description: string;
   favicon: Asset;
+  imagesCollection: Collection<Asset>;
+  keywords: string[];
+  publisher: string;
+  siteName: string;
+  title: string;
+  url: string;
 }

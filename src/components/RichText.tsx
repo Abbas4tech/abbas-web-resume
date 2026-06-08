@@ -1,24 +1,24 @@
-import React, { FC, PropsWithChildren } from "react";
 import {
   documentToReactComponents,
-  Options,
+  type Options,
 } from "@contentful/rich-text-react-renderer";
-import { BLOCKS, Document } from "@contentful/rich-text-types";
+import { BLOCKS, type Document } from "@contentful/rich-text-types";
+import type { FC, PropsWithChildren } from "react";
 
 import { cn } from "@/lib/utils";
 
 export interface RichTextProps {
-  document: Document;
+  blockquoteClass?: string;
   className?: string;
-  paragraphClass?: string;
+  codeClass?: string;
+  document: Document;
   headingClass?: string | ((_level: number) => string);
   listClass?: string;
   listItemClass?: string;
+  paragraphClass?: string;
+  tableCellClass?: string;
   tableClass?: string;
   tableRowClass?: string;
-  tableCellClass?: string;
-  blockquoteClass?: string;
-  codeClass?: string;
 }
 
 const defaultGetHeadingClass =
@@ -26,7 +26,7 @@ const defaultGetHeadingClass =
   (level: number): string =>
     typeof headingClass === "function"
       ? headingClass(level)
-      : headingClass ?? "text-2xl font-semibold";
+      : (headingClass ?? "text-2xl font-semibold");
 
 const RichText: FC<RichTextProps> = ({
   document,

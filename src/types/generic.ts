@@ -1,28 +1,28 @@
-import { Document } from "@contentful/rich-text-types";
+import type { Document } from "@contentful/rich-text-types";
 
-import { Collection, Page } from "./common";
-import { BioCard, SkillSet, JobExperience, ProjectCard } from "./entries";
+import type { Collection, Page } from "./common";
+import type { BioCard, JobExperience, ProjectCard, SkillSet } from "./entries";
 
 export interface HomePageData {
-  infoCollection: Collection<BioCard>;
   description: {
     json: Document;
   };
+  infoCollection: Collection<BioCard>;
 }
 
 export interface SkillsPageData {
-  title: string;
   skillsSetCollection: SkillSet;
+  title: string;
 }
 
 export interface ExperiencePageData {
-  title: string;
   experiencesCollection: Collection<JobExperience>;
+  title: string;
 }
 
 export interface ProjectsPageData {
-  title: string;
   projectsCollection: Collection<ProjectCard>;
+  title: string;
 }
 
 export type PageData =

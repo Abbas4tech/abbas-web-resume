@@ -1,5 +1,6 @@
-import React, { JSX } from "react";
 import { Poppins } from "next/font/google";
+import type React from "react";
+import type { JSX } from "react";
 
 import "./globals.css";
 
@@ -11,7 +12,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>): Promise<JSX.Element> {
   return (
-    <html lang="en" className="scrollbar-hide">
+    <html className="scrollbar-hide" lang="en">
       <body className={inter.className}>{children}</body>
     </html>
   );

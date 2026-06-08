@@ -1,4 +1,4 @@
-import { NextMiddleware, NextResponse } from "next/server";
+import { type NextMiddleware, NextResponse } from "next/server";
 
 export const middleware: NextMiddleware = async (request) => {
   if (request.nextUrl.pathname === "/") {

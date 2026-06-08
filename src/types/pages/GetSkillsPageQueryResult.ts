@@ -1,5 +1,5 @@
-import { Collection, Page } from "../common";
-import { SkillSet } from "../entries";
+import type { Collection, Page } from "../common";
+import type { SkillSet } from "../entries";
 
 type SkillsPageQueryResult = Page<{
   skillsSetCollection: Collection<Omit<SkillSet, "skillsetIcon">>;

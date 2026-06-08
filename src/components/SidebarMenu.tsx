@@ -1,10 +1,11 @@
 "use client";
-import React, { ComponentProps } from "react";
+import type React from "react";
+import type { ComponentProps } from "react";
 
-import { usePage, usePageProps } from "@/hooks";
+import { usePage, type usePageProps } from "@/hooks";
 
 import { Button } from "./ui/button";
-import { DrawerSideMenu, DrawerSideItem } from "./ui/drawer";
+import { DrawerSideItem, DrawerSideMenu } from "./ui/drawer";
 import { Icon } from "./ui/icon";
 
 const SidebarMenu = ({
@@ -15,17 +16,17 @@ const SidebarMenu = ({
   return (
     <DrawerSideMenu {...props}>
       {pages.map((page) => (
-        <DrawerSideItem key={page.title} id={page.title}>
+        <DrawerSideItem id={page.title} key={page.title}>
           <Button
             asLink={true}
+            className={`flex w-full items-center gap-2 px-4 py-2 md:py-3 ${
+              page.pageUrl === currentPageData.pageUrl
+                ? "transform border-primary bg-base-200 font-bold transition-all duration-200 ease-out group-data-[side='right']:border-r-4 group-data-[side='left']:border-l-4"
+                : ""
+            }`}
             href={`${[
               page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl,
             ]}`}
-            className={`px-4 py-2 md:py-3 w-full flex gap-2 items-center ${
-              page.pageUrl === currentPageData.pageUrl
-                ? "border-primary group-data-[side='left']:border-l-4 group-data-[side='right']:border-r-4 bg-base-200 transform font-bold duration-200 ease-out transition-all"
-                : ""
-            }`}
           >
             <Icon {...page.pageIcon} />
             {page.title}

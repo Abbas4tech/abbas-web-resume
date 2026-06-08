@@ -1,21 +1,20 @@
-import React, {
+import Link, { type LinkProps } from "next/link";
+import {
+  type AnchorHTMLAttributes,
+  type ComponentRef,
   forwardRef,
-  HTMLAttributes,
+  type HTMLAttributes,
   memo,
-  AnchorHTMLAttributes,
-  ComponentRef,
 } from "react";
-import Link, { LinkProps } from "next/link";
-
-import { Icon as IconType } from "@/types/common";
 import { cn } from "@/lib/utils";
+import type { Icon as IconType } from "@/types/common";
 
 import { Icon } from "./icon";
 
 const Dock = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div {...props} ref={ref} className={cn("dock dock-md", className)} />
+      <div {...props} className={cn("dock dock-md", className)} ref={ref} />
     )
   )
 );

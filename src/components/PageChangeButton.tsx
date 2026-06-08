@@ -1,10 +1,9 @@
 "use client";
-import { memo, forwardRef, ComponentRef } from "react";
-
+import { type ComponentRef, forwardRef, memo } from "react";
+import { usePage, type usePageProps } from "@/hooks";
 import { cn } from "@/lib/utils";
-import { usePage, usePageProps } from "@/hooks";
 
-import { Button, ButtonProps } from "./ui/button";
+import { Button, type ButtonProps } from "./ui/button";
 import { Icon } from "./ui/icon";
 
 type PageChangeButtonProps = Extract<ButtonProps, { asLink?: false }> &
@@ -16,7 +15,7 @@ const PageChangeButton = memo(
       const { changePage, nextPage } = usePage({ pages });
       return (
         <Button
-          className={cn("mt-4 justify-self-end self-end", className)}
+          className={cn("mt-4 self-end justify-self-end", className)}
           onClick={changePage}
           ref={ref}
           {...props}
@@ -24,9 +23,9 @@ const PageChangeButton = memo(
           {nextPage.title}
           <Icon
             classes={[]}
-            showTooltip={false}
-            name="Next Page"
             iconCode="fa/FaArrowRight"
+            name="Next Page"
+            showTooltip={false}
           />
         </Button>
       );

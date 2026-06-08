@@ -1,6 +1,6 @@
-import { Document } from "@contentful/rich-text-types";
+import type { Document } from "@contentful/rich-text-types";
 
-import { Collection, Icon, Page } from "../common";
+import type { Collection, Icon, Page } from "../common";
 
 type ExperincePageQueryResult = Page<{
   experiencesCollection: Collection<{

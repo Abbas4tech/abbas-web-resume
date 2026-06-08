@@ -1,21 +1,19 @@
-import React from "react";
-import { NextPage, Metadata } from "next";
-
+import type { Metadata, NextPage } from "next";
+import { Icon } from "@/components/ui/icon";
 import { Page, PageContent, PageHeading } from "@/components/ui/page";
+import Progress from "@/components/ui/progress";
 import {
   Skill,
+  SkillGroup,
   SkillGroupContent,
+  SkillList,
   SkillsContent,
   SkillTitle,
-  SkillGroup,
-  SkillList,
 } from "@/components/ui/skill";
-import Progress from "@/components/ui/progress";
-import { Icon } from "@/components/ui/icon";
 import { getPageMetadata } from "@/helper/getPageMetadata";
 import { fetchGql } from "@/lib/client";
 import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
-import { GetSkillsPageQueryResult } from "@/types/pages";
+import type { GetSkillsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
   await getPageMetadata(process.env.CONTENTFUL_SKILLS_PAGE_KEY as string);

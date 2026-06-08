@@ -1,8 +1,8 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 import { fetchGql } from "@/lib/client";
 import { GET_METADATA } from "@/queries/getMetadataQuery";
-import { SEO } from "@/types/common";
+import type { SEO } from "@/types/common";
 
 export const getPageMetadata = async (id: string): Promise<Metadata> => {
   const {
