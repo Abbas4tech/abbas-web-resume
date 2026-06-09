@@ -1,0 +1,26 @@
+import { forwardRef, memo } from "react";
+import { Progress } from "@/components/elements/progress";
+import { cn } from "@/lib/utils";
+import type { IconProgressRowProps } from "./types";
+
+/**
+ * A grid row: icon cluster (left) + progress bar (right).
+ * Children on the left slot are the icons (pass <IconCluster> content).
+ */
+const IconProgressRow = memo(
+  forwardRef<HTMLDivElement, IconProgressRowProps>(
+    ({ className, progress, children, ...props }, ref) => (
+      <div
+        className={cn("grid grid-cols-2 items-center", className)}
+        ref={ref}
+        {...props}
+      >
+        <div className="flex gap-4 text-xl md:text-4xl">{children}</div>
+        <Progress count={progress} />
+      </div>
+    )
+  )
+);
+IconProgressRow.displayName = "IconProgressRow";
+
+export { IconProgressRow };

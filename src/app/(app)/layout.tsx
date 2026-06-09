@@ -1,19 +1,24 @@
 import type { FC, PropsWithChildren } from "react";
-import { GlobalHeader as Header } from "@/components/GlobalHeader";
-import NavigationDock from "@/components/NavigationDock";
-import { ProfileBanner } from "@/components/ProfileBanner";
-import SidebarMenu from "@/components/SidebarMenu";
+import { AppHeader } from "@/components/blocks/app-header";
+import { adaptAppHeader } from "@/components/blocks/app-header/adapter";
+import { BottomDock } from "@/components/blocks/bottom-dock";
+import { adaptBottomDock } from "@/components/blocks/bottom-dock/adapter";
+import { HeroBanner } from "@/components/blocks/hero-banner";
+import { adaptHeroBanner } from "@/components/blocks/hero-banner/adapter";
+import { SidebarNav } from "@/components/blocks/sidebar-nav";
+import { adaptSidebarNav } from "@/components/blocks/sidebar-nav/adapter";
+
 import {
-  type DRAWER_SIDES,
-  type DRAWER_VARIANTS,
   Drawer,
   DrawerPageContent,
   DrawerProvider,
   DrawerSide,
-} from "@/components/ui/drawer";
-import { NavigationAnimation } from "@/components/ui/navigation";
+  type DrawerSides,
+  type DrawerVariants,
+} from "@/components/elements/drawer";
+import { NavigationAnimation } from "@/components/elements/navigation";
 import { fetchGql } from "@/lib/client";
-import { GET_APPDATA } from "@/queries/getAppData";
+import { GET_APPDATA } from "@/queries/get-app-data";
 import type { AppData } from "@/types/entries";
 
 interface GetAppDataQueryResult {
@@ -44,21 +49,23 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
   const variant = layoutSettings.drawerVariant
     .split(" ")
     .map((i) => i.toLowerCase())
-    .join("-") as DRAWER_VARIANTS;
+    .join("-") as DrawerVariants;
 
   return (
     <DrawerProvider
-      side={layoutSettings.drawerSide.toLowerCase() as DRAWER_SIDES}
+      side={layoutSettings.drawerSide.toLowerCase() as DrawerSides}
       variant={variant}
     >
-      <Header
-        defaultRoute={defaultRoute}
-        defaultTheme={defaultTheme}
-        resume={resume}
-        resumeIcon={resumeIcon}
-        themeIcon={themeIcon}
-        themeList={themeList}
-        title={title}
+      <AppHeader
+        {...adaptAppHeader({
+          title,
+          resume,
+          resumeIcon,
+          themeList,
+          themeIcon,
+          defaultTheme,
+          defaultRoute,
+        })}
       />
       <Drawer className="scrollbar-hide h-[calc(100vh-5rem)] overflow-hidden text-sm md:text-lg">
         <DrawerPageContent>
@@ -66,14 +73,14 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
             className="scrollbar-hide h-[calc(100vh-5rem)] overflow-auto p-4"
             options={{ easing: "ease-in-cubic" }}
           >
-            <ProfileBanner bannerData={bannerData} />
+            <HeroBanner {...adaptHeroBanner(bannerData)} />
             {children}
           </NavigationAnimation>
         </DrawerPageContent>
         <DrawerSide>
-          <SidebarMenu pages={pagesCollection.items} />
+          <SidebarNav {...adaptSidebarNav(pagesCollection.items)} />
         </DrawerSide>
-        <NavigationDock items={pagesCollection.items} />
+        <BottomDock {...adaptBottomDock(pagesCollection.items)} />
       </Drawer>
     </DrawerProvider>
   );

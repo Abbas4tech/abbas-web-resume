@@ -1,18 +1,17 @@
 import type { Metadata, NextPage } from "next";
-import { Icon } from "@/components/ui/icon";
-import { Page, PageContent, PageHeading } from "@/components/ui/page";
-import Progress from "@/components/ui/progress";
-import {
-  Skill,
-  SkillGroup,
-  SkillGroupContent,
-  SkillList,
-  SkillsContent,
-  SkillTitle,
-} from "@/components/ui/skill";
-import { getPageMetadata } from "@/helper/getPageMetadata";
+import { PageWrapper } from "@/components/blocks/page-wrapper";
+import { adaptPageWrapper } from "@/components/blocks/page-wrapper/adapter";
+import { PanelShowcase } from "@/components/blocks/panel-showcase";
+import { adaptPanelShowcase } from "@/components/blocks/panel-showcase/adapter";
+import { Icon } from "@/components/elements/icon";
+import { SectionHeading } from "@/components/patterns/section-heading";
+import { adaptSectionHeading } from "@/components/patterns/section-heading/adapter";
+
+import { getPageMetadata } from "@/helper/get-page-metadata";
 import { fetchGql } from "@/lib/client";
-import { GET_SKILLS_PAGE } from "@/queries/getSkillsPageQuery";
+import { GET_METAPAGES } from "@/queries/get-metapages";
+import { GET_SKILLS_PAGE } from "@/queries/get-skills-page-query";
+import type { AppData } from "@/types/entries";
 import type { GetSkillsPageQueryResult } from "@/types/pages";
 
 export const generateMetadata = async (): Promise<Metadata> =>
@@ -21,48 +20,32 @@ export const generateMetadata = async (): Promise<Metadata> =>
 export const revalidate = 60;
 
 const SkillsPage: NextPage = async () => {
-  const data = await fetchGql<GetSkillsPageQueryResult>(GET_SKILLS_PAGE, {
-    id: process.env.CONTENTFUL_SKILLS_PAGE_KEY as string,
-  });
+  const [data, metaData] = await Promise.all([
+    fetchGql<GetSkillsPageQueryResult>(GET_SKILLS_PAGE, {
+      id: process.env.CONTENTFUL_SKILLS_PAGE_KEY as string,
+    }),
+    fetchGql<{ userInfo: Pick<AppData, "pagesCollection"> }>(GET_METAPAGES, {
+      id: process.env.CONTENTFUL_APPLICATION_DATA_ID,
+    }),
+  ]);
 
   const { title, contentAnimation, headingAnimation, pageData, pageIcon } =
     data.page;
 
   return (
-    <Page>
-      <PageHeading data-aos={headingAnimation}>
-        <Icon {...pageIcon} />
-        {title}
-      </PageHeading>
-      <PageContent className="flex flex-col gap-4" data-aos={contentAnimation}>
-        {pageData.skillsSetCollection.items.map(
-          ({ icon, title, skillsArrayCollection }, index: number) => (
-            <Skill key={index}>
-              <SkillsContent>
-                <SkillTitle>
-                  <Icon {...icon} />
-                  {title}
-                </SkillTitle>
-                <SkillGroup>
-                  {skillsArrayCollection.items.map(
-                    ({ title, skillIconsCollection, skillProgress }) => (
-                      <SkillGroupContent key={title}>
-                        <SkillList>
-                          {skillIconsCollection.items.map((skill) => (
-                            <Icon key={title} {...skill} />
-                          ))}
-                        </SkillList>
-                        <Progress count={skillProgress} />
-                      </SkillGroupContent>
-                    )
-                  )}
-                </SkillGroup>
-              </SkillsContent>
-            </Skill>
-          )
-        )}
-      </PageContent>
-    </Page>
+    <PageWrapper
+      {...adaptPageWrapper({
+        pagesCollection: metaData.userInfo.pagesCollection,
+        children: null,
+      })}
+    >
+      <SectionHeading
+        data-aos={headingAnimation}
+        icon={<Icon {...pageIcon} />}
+        {...adaptSectionHeading({ title })}
+      />
+      <PanelShowcase {...adaptPanelShowcase({ contentAnimation, pageData })} />
+    </PageWrapper>
   );
 };
 
