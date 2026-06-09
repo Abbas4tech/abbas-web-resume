@@ -1,5 +1,4 @@
 "use server";
-/* eslint-disable no-undef */
 
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
 import type { DocumentNode } from "graphql";

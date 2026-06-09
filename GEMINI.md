@@ -1,18 +1,3 @@
-## Agent skills
-
-### Issue tracker
-
-Issues live in GitHub Issues (`Abbas4tech/abbas-web-resume`), managed via the `gh` CLI. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-Default label vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Single-context layout — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
-
-
 # Ultracite Code Standards
 
 This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.
