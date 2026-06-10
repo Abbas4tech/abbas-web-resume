@@ -40,3 +40,17 @@ _Avoid_: interface, API
 
 Elements ← Patterns ← Blocks. A lower layer never imports from a higher layer. Files never mix layers — a file that contains an Element sub-part does not also contain a Pattern.
 _Avoid_: co-located cross-layer components
+
+### Content Modeling Vocabulary
+
+**Layout**:
+The single source of truth for all global, persistent site configurations. This includes the global navigation menu (`ContentList` of `Link` atoms), global headers, footer text, theme definitions (`defaultTheme`, `themeList`), site logo, and global UI action icons (e.g. `resumeIcon`, `themeIcon`). Replaces legacy `AppData` or `userInfo` singletons.
+_Avoid_: AppData, userInfo, GlobalSettings
+
+**Page**:
+A strictly routable entity that defines a specific URL path. A Page contains composable lists and sections (`topContentArea`, `bottomContentArea`).
+_Avoid_: route component
+
+**Content Section**:
+A standalone, non-global presentation wrapper (e.g. a "Hero Banner" or "Feature Teaser") placed directly on a `Page`. Sections do NOT belong in `Layout` unless they strictly appear across all URL routes.
+_Avoid_: bannerData, heroWidget

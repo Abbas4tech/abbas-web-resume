@@ -3,8 +3,6 @@ import { AppHeader } from "@/components/blocks/app-header";
 import { adaptAppHeader } from "@/components/blocks/app-header/adapter";
 import { BottomDock } from "@/components/blocks/bottom-dock";
 import { adaptBottomDock } from "@/components/blocks/bottom-dock/adapter";
-import { HeroBanner } from "@/components/blocks/hero-banner";
-import { adaptHeroBanner } from "@/components/blocks/hero-banner/adapter";
 import { SidebarNav } from "@/components/blocks/sidebar-nav";
 import { adaptSidebarNav } from "@/components/blocks/sidebar-nav/adapter";
 
@@ -17,18 +15,17 @@ import {
   type DrawerVariants,
 } from "@/components/elements/drawer";
 import { NavigationAnimation } from "@/components/elements/navigation";
-import { fetchGql } from "@/lib/client";
-import { GET_APPDATA } from "@/queries/get-app-data";
-import type { AppData } from "@/types/entries";
-
-interface GetAppDataQueryResult {
-  userInfo: AppData;
-}
+import { adaptLayout } from "@/contentful/adapters/layout";
+import { contentfulSdk } from "@/contentful/lib/client";
 
 const layout: FC<PropsWithChildren> = async ({ children }) => {
-  const data = await fetchGql<GetAppDataQueryResult>(GET_APPDATA, {
-    id: process.env.CONTENTFUL_APPLICATION_DATA_ID,
-  });
+  const response = await contentfulSdk.GetLayout();
+  const rawLayout = response.data?.layoutCollection?.items?.[0];
+  const layoutData = adaptLayout(rawLayout);
+
+  if (!layoutData) {
+    return <div>Layout data missing</div>;
+  }
 
   const {
     resume,
@@ -36,34 +33,57 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
     resumeIcon,
     themeList,
     title,
-    bannerData,
     themeIcon,
-    layoutSettings,
-    pagesCollection,
-  } = data.userInfo;
+    drawerVariant,
+    drawerSide,
+    navigation,
+  } = layoutData;
 
-  const defaultRoute =
-    pagesCollection.items.find(({ isDefaultPage }) => isDefaultPage)?.pageUrl ||
-    "/about";
+  const defaultRoute = "/about"; // This could be fetched dynamically if needed
 
-  const variant = layoutSettings.drawerVariant
+  const variant = drawerVariant
     .split(" ")
     .map((i) => i.toLowerCase())
     .join("-") as DrawerVariants;
 
+  const mappedNavItems = (navigation?.customEntries || []).map((item) => ({
+    pageUrl:
+      item.links?.[0]?.href || `/${item.entryField.toLowerCase()}` || "/",
+    title: item.title,
+    pageIcon: item.icon
+      ? {
+          iconCode: item.icon.iconCode,
+          name: item.icon.name,
+          showTooltip: item.icon.showTooltip,
+        }
+      : { iconCode: "" },
+  }));
+
   return (
     <DrawerProvider
-      side={layoutSettings.drawerSide.toLowerCase() as DrawerSides}
+      side={(drawerSide?.toLowerCase() || "left") as DrawerSides}
       variant={variant}
     >
       <AppHeader
         {...adaptAppHeader({
           title,
-          resume,
-          resumeIcon,
-          themeList,
-          themeIcon,
-          defaultTheme,
+          resume: resume || { url: "" },
+          resumeIcon: resumeIcon
+            ? {
+                iconCode: resumeIcon.iconCode,
+                name: resumeIcon.name,
+                showTooltip: resumeIcon.showTooltip,
+              }
+            : {},
+          themeList: themeList || [],
+          themeIcon: themeIcon
+            ? {
+                iconCode: themeIcon.iconCode,
+                name: themeIcon.name,
+                showTooltip: themeIcon.showTooltip,
+              }
+            : undefined,
+          defaultTheme: defaultTheme || "light",
           defaultRoute,
         })}
       />
@@ -73,14 +93,13 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
             className="scrollbar-hide h-[calc(100vh-5rem)] overflow-auto p-4"
             options={{ easing: "ease-in-cubic" }}
           >
-            <HeroBanner {...adaptHeroBanner(bannerData)} />
             {children}
           </NavigationAnimation>
         </DrawerPageContent>
         <DrawerSide>
-          <SidebarNav {...adaptSidebarNav(pagesCollection.items)} />
+          <SidebarNav {...adaptSidebarNav(mappedNavItems)} />
         </DrawerSide>
-        <BottomDock {...adaptBottomDock(pagesCollection.items)} />
+        <BottomDock {...adaptBottomDock(mappedNavItems)} />
       </Drawer>
     </DrawerProvider>
   );
