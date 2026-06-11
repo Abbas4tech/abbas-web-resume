@@ -1,20 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
-import { AppHeader } from "@/components/blocks/app-header/app-header";
-import { adaptAppHeader } from "@/components/blocks/app-header/app-header.adapter";
-import { BottomDock } from "@/components/blocks/bottom-dock/bottom-dock";
-import { adaptBottomDock } from "@/components/blocks/bottom-dock/bottom-dock.adapter";
-import { SidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav";
-import { adaptSidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav.adapter";
-
-import {
-  Drawer,
-  DrawerPageContent,
-  DrawerProvider,
-  DrawerSide,
-  type DrawerSides,
-  type DrawerVariants,
-} from "@/components/elements/drawer/drawer";
-import { NavigationAnimation } from "@/components/elements/navigation/navigation";
+import { ContentfulLayout } from "@/components/contentful/contentful-layout";
 import { adaptLayout } from "@/contentful/adapters/layout";
 import { contentfulSdk } from "@/contentful/lib/client";
 
@@ -27,82 +12,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
     return <div>Layout data missing</div>;
   }
 
-  const {
-    resume,
-    defaultTheme,
-    resumeIcon,
-    themeList,
-    title,
-    themeIcon,
-    drawerVariant,
-    drawerSide,
-    navigation,
-  } = layoutData;
-
-  const defaultRoute = "/about"; // This could be fetched dynamically if needed
-
-  const variant = drawerVariant
-    .split(" ")
-    .map((i) => i.toLowerCase())
-    .join("-") as DrawerVariants;
-
-  const mappedNavItems = (navigation?.customEntries || []).map((item) => ({
-    pageUrl:
-      item.links?.[0]?.href || `/${item.entryField.toLowerCase()}` || "/",
-    title: item.title,
-    pageIcon: item.icon
-      ? {
-          iconCode: item.icon.iconCode,
-          name: item.icon.name,
-          showTooltip: item.icon.showTooltip,
-        }
-      : { iconCode: "" },
-  }));
-
-  return (
-    <DrawerProvider
-      side={(drawerSide?.toLowerCase() || "left") as DrawerSides}
-      variant={variant}
-    >
-      <AppHeader
-        {...adaptAppHeader({
-          title,
-          resume: resume || { url: "" },
-          resumeIcon: resumeIcon
-            ? {
-                iconCode: resumeIcon.iconCode,
-                name: resumeIcon.name,
-                showTooltip: resumeIcon.showTooltip,
-              }
-            : {},
-          themeList: themeList || [],
-          themeIcon: themeIcon
-            ? {
-                iconCode: themeIcon.iconCode,
-                name: themeIcon.name,
-                showTooltip: themeIcon.showTooltip,
-              }
-            : undefined,
-          defaultTheme: defaultTheme || "light",
-          defaultRoute,
-        })}
-      />
-      <Drawer className="scrollbar-hide h-[calc(100vh-5rem)] overflow-hidden text-sm md:text-lg">
-        <DrawerPageContent>
-          <NavigationAnimation
-            className="scrollbar-hide h-[calc(100vh-5rem)] overflow-auto p-4"
-            options={{ easing: "ease-in-cubic" }}
-          >
-            {children}
-          </NavigationAnimation>
-        </DrawerPageContent>
-        <DrawerSide>
-          <SidebarNav {...adaptSidebarNav(mappedNavItems)} />
-        </DrawerSide>
-        <BottomDock {...adaptBottomDock(mappedNavItems)} />
-      </Drawer>
-    </DrawerProvider>
-  );
+  return <ContentfulLayout data={layoutData}>{children}</ContentfulLayout>;
 };
 
 export default layout;
