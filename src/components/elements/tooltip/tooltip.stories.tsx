@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Tooltip } from "./index";
+import { Tooltip } from "./tooltip";
 import { baseMock } from "./tooltip.mock";
 
 const meta = {

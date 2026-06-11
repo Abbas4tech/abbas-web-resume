@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PanelShowcase } from "./index";
+import { PanelShowcase } from "./panel-showcase";
 import { baseMock } from "./panel-showcase.mock";
 
 const meta = {

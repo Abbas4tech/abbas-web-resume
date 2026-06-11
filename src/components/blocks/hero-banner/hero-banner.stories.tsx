@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { HeroBanner } from "./hero-banner";
 import { baseMock } from "./hero-banner.mock";
-import { HeroBanner } from "./index";
 
 const meta = {
   title: "Blocks/HeroBanner",

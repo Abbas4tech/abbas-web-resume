@@ -1,6 +1,6 @@
 import React from "react";
-import { AccordionItem } from "./index";
-import type { AccordionProps } from "./types";
+import type { AccordionProps } from "./accordion";
+import { AccordionItem } from "./accordion";
 
 export const baseMock: AccordionProps = {
   children: [

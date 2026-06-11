@@ -1,5 +1,5 @@
 import React from "react";
-import type { TimelineEntryProps } from "./types";
+import type { TimelineEntryProps } from "./timeline-entry";
 
 export const baseMock: TimelineEntryProps = {
   title: "Senior Software Engineer",

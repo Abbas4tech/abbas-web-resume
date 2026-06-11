@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Dock } from "./dock";
 import { baseMock } from "./dock.mock";
-import { Dock } from "./index";
 
 const meta = {
   title: "Elements/Dock",

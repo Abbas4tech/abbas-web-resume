@@ -1,4 +1,4 @@
-import type { ProgressProps } from "./types";
+import type { ProgressProps } from "./progress";
 
 export const baseMock: ProgressProps = {
   count: 75,

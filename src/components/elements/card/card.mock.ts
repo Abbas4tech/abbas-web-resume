@@ -1,6 +1,6 @@
 import React from "react";
-import { CardContent, CardDescription, CardTitle } from "./index";
-import type { CardProps } from "./types";
+import type { CardProps } from "./card";
+import { CardContent, CardDescription, CardTitle } from "./card";
 
 export const baseMock: CardProps = {
   className: "w-96 shadow-xl",
