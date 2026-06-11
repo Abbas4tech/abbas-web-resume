@@ -1,0 +1,15 @@
+fragment ContentListFields on ContentList {
+  sys {
+    id
+  }
+  internalName
+  ui
+  title
+  description
+  entries
+  customEntriesCollection(limit: 10) {
+    items {
+      ...ContentItemFields
+    }
+  }
+}

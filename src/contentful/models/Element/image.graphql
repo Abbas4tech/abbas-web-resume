@@ -1,0 +1,15 @@
+fragment ImageFields on Image {
+  sys {
+    id
+  }
+  internalName
+  image {
+    url
+    title
+    description
+    width
+    height
+  }
+  alternativeText
+  caption
+}

@@ -35,8 +35,27 @@ _Avoid_: interface, API
 - **Element names** mirror the DaisyUI component class they wrap (e.g. `MockupWindow` ← `mockup-window`, `Badge` ← `badge`).
 - **Pattern names** describe the visual structure they encode (e.g. `IconProgressRow`, `NavItem`). No domain words.
 - **Block names** describe the visual slot they occupy in the layout (e.g. `HeroBanner`, `AppHeader`, `SidebarNav`). No domain words (e.g. not `ProfileBanner`, not `ExperienceCard`).
+- **Component files**: Do not use `index.tsx` or generic file names inside component folders. Files must own their component namespace explicitly to avoid editor tab confusion (e.g., `button.tsx`, `button.mock.ts`, `button.stories.tsx`, `button.adapter.ts`). Types should live in the main component `.tsx` file.
 
 ### Layer Dependency Rule
 
 Elements ← Patterns ← Blocks. A lower layer never imports from a higher layer. Files never mix layers — a file that contains an Element sub-part does not also contain a Pattern.
 _Avoid_: co-located cross-layer components
+
+### Content Modeling Vocabulary
+
+**Layout**:
+The single source of truth for all global, persistent site configurations. This includes the global navigation menu (`ContentList` of `Link` atoms), global headers, footer text, theme definitions (`defaultTheme`, `themeList`), site logo, and global UI action icons (e.g. `resumeIcon`, `themeIcon`). Replaces legacy `AppData` or `userInfo` singletons.
+_Avoid_: AppData, userInfo, GlobalSettings
+
+**Page**:
+A strictly routable entity that defines a specific URL path. A Page contains composable lists and sections (`topContentArea`, `bottomContentArea`).
+_Avoid_: route component
+
+**ContentfulPage / ContentfulLayout**:
+The Contentful-aware Block renderers. Next.js route files (`page.tsx`, `layout.tsx`) only fetch data and pass it to these components. These components live in `src/components/contentful/` and are solely responsible for mapping the domain data (e.g. `AdaptedPage`, `AdaptedLayout`) to UI Blocks using `ui` properties. They contain no logic other than mapping and rendering.
+_Avoid_: doing mapping in Next.js routes
+
+**Content Section**:
+A standalone, non-global presentation wrapper (e.g. a "Hero Banner" or "Feature Teaser") placed directly on a `Page`. Sections do NOT belong in `Layout` unless they strictly appear across all URL routes.
+_Avoid_: bannerData, heroWidget
