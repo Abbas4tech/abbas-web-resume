@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { IconProgressGroup } from "./icon-progress-group";
 import { baseMock } from "./icon-progress-group.mock";
-import { IconProgressGroup } from "./index";
 
 const meta = {
   title: "Patterns/IconProgressGroup",

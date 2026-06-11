@@ -1,0 +1,7 @@
+query GetLayout($preview: Boolean = false) {
+  layoutCollection(limit: 1, preview: $preview) {
+    items {
+      ...LayoutFields
+    }
+  }
+}

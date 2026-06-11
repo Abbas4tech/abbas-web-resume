@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ProjectPreviewCard } from "./index";
+import { ProjectPreviewCard } from "./project-preview-card";
 import { baseMock } from "./project-preview-card.mock";
 
 const meta = {

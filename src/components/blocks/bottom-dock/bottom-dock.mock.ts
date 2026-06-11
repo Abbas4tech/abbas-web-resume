@@ -1,4 +1,4 @@
-import type { BottomDockProps } from "./types";
+import type { BottomDockProps } from "./bottom-dock";
 
 export const baseMock: BottomDockProps = {
   items: [

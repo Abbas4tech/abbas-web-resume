@@ -1,5 +1,5 @@
 import React from "react";
-import type { NavigationAnimationProps } from "./types";
+import type { NavigationAnimationProps } from "./navigation";
 
 export const baseMock: NavigationAnimationProps = {
   options: {

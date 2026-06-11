@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Swap } from "./index";
+import { Swap } from "./swap";
 import { baseMock } from "./swap.mock";
 
 const meta = {

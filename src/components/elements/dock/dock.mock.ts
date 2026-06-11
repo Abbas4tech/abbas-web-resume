@@ -1,7 +1,7 @@
 import React from "react";
-import { Icon } from "@/components/elements/icon";
-import { DockItem } from "./index";
-import type { DockProps } from "./types";
+import { Icon } from "@/components/elements/icon/icon";
+import type { DockProps } from "./dock";
+import { DockItem } from "./dock";
 
 export const baseMock: DockProps = {
   children: [

@@ -1,5 +1,5 @@
 import React from "react";
-import type { PageWrapperProps } from "./types";
+import type { PageWrapperProps } from "./page-wrapper";
 
 export const baseMock: PageWrapperProps = {
   children: React.createElement(

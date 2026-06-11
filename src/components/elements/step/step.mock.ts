@@ -1,6 +1,6 @@
 import React from "react";
-import { StepBody, StepDescription, StepIndicator, StepTitle } from "./index";
-import type { StepProps } from "./types";
+import type { StepProps } from "./step";
+import { StepBody, StepDescription, StepIndicator, StepTitle } from "./step";
 
 export const baseMock: StepProps = {
   className: "step-primary",

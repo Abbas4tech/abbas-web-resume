@@ -1,6 +1,6 @@
 import React from "react";
-import { MockupWindowBody } from "./index";
-import type { MockupWindowProps } from "./types";
+import type { MockupWindowProps } from "./mockup-window";
+import { MockupWindowBody } from "./mockup-window";
 
 export const baseMock: MockupWindowProps = {
   className: "border bg-base-300 w-full max-w-md",

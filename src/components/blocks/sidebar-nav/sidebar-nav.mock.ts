@@ -1,4 +1,4 @@
-import type { SidebarNavProps } from "./types";
+import type { SidebarNavProps } from "./sidebar-nav";
 
 export const baseMock: SidebarNavProps = {
   pages: [

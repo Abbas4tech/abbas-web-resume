@@ -1,6 +1,6 @@
 import React from "react";
-import { MenuItem } from "./index";
-import type { MenuProps } from "./types";
+import type { MenuProps } from "./menu";
+import { MenuItem } from "./menu";
 
 export const baseMock: MenuProps = {
   className: "bg-base-200 w-56 rounded-box",

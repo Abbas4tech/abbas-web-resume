@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import { Divider } from "./divider";
 import { baseMock } from "./divider.mock";
-import { Divider } from "./index";
 
 const meta = {
   title: "Elements/Divider",

@@ -1,5 +1,5 @@
-import type { IconProps } from "@/components/elements/icon/types";
-import type { AppHeaderProps } from "./types";
+import type { IconProps } from "@/components/elements/icon/icon";
+import type { AppHeaderProps } from "./app-header";
 
 const mockResumeIcon: IconProps = {
   iconCode: "md/MdOutlineDocumentScanner",
