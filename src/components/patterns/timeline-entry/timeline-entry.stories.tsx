@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TimelineEntry } from "./index";
+import { TimelineEntry } from "./timeline-entry";
 import { baseMock } from "./timeline-entry.mock";
 
 const meta = {

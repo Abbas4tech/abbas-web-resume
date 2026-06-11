@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { NavigationAnimation } from "./index";
+import { NavigationAnimation } from "./navigation";
 import { baseMock } from "./navigation.mock";
 
 const meta = {

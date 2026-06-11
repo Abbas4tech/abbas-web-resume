@@ -1,4 +1,4 @@
-import type { BadgeProps } from "./types";
+import type { BadgeProps } from "./badge";
 
 export const baseMock: BadgeProps = {
   children: "New Feature",

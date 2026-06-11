@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SocialLink } from "./index";
+import { SocialLink } from "./social-link";
 import { baseMock } from "./social-link.mock";
 
 const meta = {

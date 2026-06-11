@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ThemeToggle } from "./index";
+import { ThemeToggle } from "./theme-toggle";
 import { baseMock } from "./theme-toggle.mock";
 
 const meta = {

@@ -1,6 +1,6 @@
 import React from "react";
-import { Icon } from "@/components/elements/icon";
-import type { IconClusterProps } from "./types";
+import { Icon } from "@/components/elements/icon/icon";
+import type { IconClusterProps } from "./icon-cluster";
 
 export const baseMock: IconClusterProps = {
   children: [

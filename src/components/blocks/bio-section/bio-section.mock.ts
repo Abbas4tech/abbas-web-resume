@@ -1,28 +1,26 @@
 import { BLOCKS } from "@contentful/rich-text-types";
-import type { BioSectionProps } from "./types";
+import type { BioSectionProps } from "./bio-section";
 
 export const baseMock: BioSectionProps = {
   animation: "fade-up",
   description: {
-    document: {
-      nodeType: BLOCKS.DOCUMENT,
-      data: {},
-      content: [
-        {
-          nodeType: BLOCKS.PARAGRAPH,
-          data: {},
-          content: [
-            {
-              nodeType: "text",
-              value:
-                "Hello! I am a full-stack developer passionate about building scalable, user-centric web applications. I specialize in React, Node.js, and cloud architecture.",
-              marks: [],
-              data: {},
-            },
-          ],
-        },
-      ],
-    },
+    nodeType: BLOCKS.DOCUMENT,
+    data: {},
+    content: [
+      {
+        nodeType: BLOCKS.PARAGRAPH,
+        data: {},
+        content: [
+          {
+            nodeType: "text",
+            value:
+              "Hello! I am a full-stack developer passionate about building scalable, user-centric web applications. I specialize in React, Node.js, and cloud architecture.",
+            marks: [],
+            data: {},
+          },
+        ],
+      },
+    ],
   },
   infoRows: [
     {

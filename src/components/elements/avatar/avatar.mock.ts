@@ -1,6 +1,6 @@
 import React from "react";
-import { AvatarImage } from "./index";
-import type { AvatarImageProps, AvatarProps } from "./types";
+import type { AvatarImageProps, AvatarProps } from "./avatar";
+import { AvatarImage } from "./avatar";
 
 export const baseMock: AvatarProps = {
   size: "md",

@@ -1,6 +1,6 @@
 import React from "react";
-import { ModalBox } from "./index";
-import type { ModalProps } from "./types";
+import type { ModalProps } from "./modal";
+import { ModalBox } from "./modal";
 
 export const baseMock: ModalProps = {
   open: true,

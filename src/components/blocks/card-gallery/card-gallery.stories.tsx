@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { CardGallery } from "./card-gallery";
 import { baseMock } from "./card-gallery.mock";
-import { CardGallery } from "./index";
 
 const meta = {
   title: "Blocks/CardGallery",

@@ -1,0 +1,11 @@
+fragment BadgeFields on Badge {
+  sys {
+    id
+  }
+  internalName
+  title
+  progress
+  icon {
+    ...IconFields
+  }
+}

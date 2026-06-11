@@ -1,5 +1,5 @@
 import { BLOCKS } from "@contentful/rich-text-types";
-import type { TimelineSectionProps } from "./types";
+import type { TimelineSectionProps } from "./timeline-section";
 
 export const baseMock: TimelineSectionProps = {
   animation: "fade-up",

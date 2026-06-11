@@ -1,6 +1,6 @@
 import React from "react";
-import { PageHeading } from "./index";
-import type { PageContentProps } from "./types";
+import type { PageContentProps } from "./page";
+import { PageHeading } from "./page";
 
 export const baseMock: PageContentProps = {
   className: "max-w-3xl mx-auto py-10",

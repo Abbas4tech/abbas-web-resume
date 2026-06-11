@@ -1,4 +1,4 @@
-import type { PageNavButtonProps } from "./types";
+import type { PageNavButtonProps } from "./page-nav-button";
 
 export const baseMock: PageNavButtonProps = {
   pages: [

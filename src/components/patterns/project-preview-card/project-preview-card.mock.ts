@@ -1,4 +1,4 @@
-import type { ProjectPreviewCardProps } from "./types";
+import type { ProjectPreviewCardProps } from "./project-preview-card";
 
 export const baseMock: ProjectPreviewCardProps = {
   title: "AI Assistant Platform",
