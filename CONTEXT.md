@@ -52,6 +52,10 @@ _Avoid_: AppData, userInfo, GlobalSettings
 A strictly routable entity that defines a specific URL path. A Page contains composable lists and sections (`topContentArea`, `bottomContentArea`).
 _Avoid_: route component
 
+**ContentfulPage / ContentfulLayout**:
+The Contentful-aware Block renderers. Next.js route files (`page.tsx`, `layout.tsx`) only fetch data and pass it to these components. These components live in `src/components/contentful/` and are solely responsible for mapping the domain data (e.g. `AdaptedPage`, `AdaptedLayout`) to UI Blocks using `ui` properties. They contain no logic other than mapping and rendering.
+_Avoid_: doing mapping in Next.js routes
+
 **Content Section**:
 A standalone, non-global presentation wrapper (e.g. a "Hero Banner" or "Feature Teaser") placed directly on a `Page`. Sections do NOT belong in `Layout` unless they strictly appear across all URL routes.
 _Avoid_: bannerData, heroWidget

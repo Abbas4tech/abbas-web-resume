@@ -1,8 +1,7 @@
+import type { AdaptedLayout } from "@/contentful/adapters/layout";
+import { extractNavPages } from "@/contentful/adapters/nav-mapper";
 import type { SidebarNavProps } from "./sidebar-nav";
 
-/** Passthrough — pages array is passed as-is from layout */
-export function adaptSidebarNav(
-  pages: SidebarNavProps["pages"]
-): SidebarNavProps {
-  return { pages };
+export function adaptSidebarNav(layout: AdaptedLayout): SidebarNavProps {
+  return { pages: extractNavPages(layout) };
 }
