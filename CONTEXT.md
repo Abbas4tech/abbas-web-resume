@@ -35,6 +35,7 @@ _Avoid_: interface, API
 - **Element names** mirror the DaisyUI component class they wrap (e.g. `MockupWindow` ← `mockup-window`, `Badge` ← `badge`).
 - **Pattern names** describe the visual structure they encode (e.g. `IconProgressRow`, `NavItem`). No domain words.
 - **Block names** describe the visual slot they occupy in the layout (e.g. `HeroBanner`, `AppHeader`, `SidebarNav`). No domain words (e.g. not `ProfileBanner`, not `ExperienceCard`).
+- **Component files**: Do not use `index.tsx` or generic file names inside component folders. Files must own their component namespace explicitly to avoid editor tab confusion (e.g., `button.tsx`, `button.mock.ts`, `button.stories.tsx`, `button.adapter.ts`). Types should live in the main component `.tsx` file.
 
 ### Layer Dependency Rule
 

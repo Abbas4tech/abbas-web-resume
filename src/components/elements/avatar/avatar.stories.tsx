@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Avatar } from "./avatar";
 import { baseMock } from "./avatar.mock";
-import { Avatar } from "./index";
 
 const meta = {
   title: "Elements/Avatar",

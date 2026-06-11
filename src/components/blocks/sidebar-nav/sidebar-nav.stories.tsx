@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SidebarNav } from "./index";
+import { SidebarNav } from "./sidebar-nav";
 import { baseMock } from "./sidebar-nav.mock";
 
 const meta = {

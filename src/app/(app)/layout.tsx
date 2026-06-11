@@ -1,10 +1,10 @@
 import type { FC, PropsWithChildren } from "react";
-import { AppHeader } from "@/components/blocks/app-header";
-import { adaptAppHeader } from "@/components/blocks/app-header/adapter";
-import { BottomDock } from "@/components/blocks/bottom-dock";
-import { adaptBottomDock } from "@/components/blocks/bottom-dock/adapter";
-import { SidebarNav } from "@/components/blocks/sidebar-nav";
-import { adaptSidebarNav } from "@/components/blocks/sidebar-nav/adapter";
+import { AppHeader } from "@/components/blocks/app-header/app-header";
+import { adaptAppHeader } from "@/components/blocks/app-header/app-header.adapter";
+import { BottomDock } from "@/components/blocks/bottom-dock/bottom-dock";
+import { adaptBottomDock } from "@/components/blocks/bottom-dock/bottom-dock.adapter";
+import { SidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav";
+import { adaptSidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav.adapter";
 
 import {
   Drawer,
@@ -13,8 +13,8 @@ import {
   DrawerSide,
   type DrawerSides,
   type DrawerVariants,
-} from "@/components/elements/drawer";
-import { NavigationAnimation } from "@/components/elements/navigation";
+} from "@/components/elements/drawer/drawer";
+import { NavigationAnimation } from "@/components/elements/navigation/navigation";
 import { adaptLayout } from "@/contentful/adapters/layout";
 import { contentfulSdk } from "@/contentful/lib/client";
 

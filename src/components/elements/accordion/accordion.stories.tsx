@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Accordion } from "./accordion";
 import { baseMock } from "./accordion.mock";
-import { Accordion } from "./index";
 
 const meta = {
   title: "Elements/Accordion",

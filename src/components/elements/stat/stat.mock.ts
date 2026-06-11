@@ -1,6 +1,6 @@
 import React from "react";
-import { Stat, StatDescription, StatFigure, StatTitle } from "./index";
-import type { StatsProps } from "./types";
+import type { StatsProps } from "./stat";
+import { Stat, StatDescription, StatFigure, StatTitle } from "./stat";
 
 export const baseMock: StatsProps = {
   className: "shadow",

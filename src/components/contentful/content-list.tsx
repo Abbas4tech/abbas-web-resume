@@ -1,9 +1,9 @@
-import { CardGallery } from "@/components/blocks/card-gallery";
-import { adaptCardGallery } from "@/components/blocks/card-gallery/adapter";
-import { PanelShowcase } from "@/components/blocks/panel-showcase";
-import { adaptPanelShowcase } from "@/components/blocks/panel-showcase/adapter";
-import { TimelineSection } from "@/components/blocks/timeline-section";
-import { adaptTimelineSection } from "@/components/blocks/timeline-section/adapter";
+import { CardGallery } from "@/components/blocks/card-gallery/card-gallery";
+import { adaptCardGallery } from "@/components/blocks/card-gallery/card-gallery.adapter";
+import { PanelShowcase } from "@/components/blocks/panel-showcase/panel-showcase";
+import { adaptPanelShowcase } from "@/components/blocks/panel-showcase/panel-showcase.adapter";
+import { TimelineSection } from "@/components/blocks/timeline-section/timeline-section";
+import { adaptTimelineSection } from "@/components/blocks/timeline-section/timeline-section.adapter";
 import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import { ContentItem } from "./content-item";
 

@@ -1,4 +1,4 @@
-import { Icon as UIIcon } from "@/components/elements/icon";
+import { Icon as UIIcon } from "@/components/elements/icon/icon";
 import type { AdaptedIcon } from "@/contentful/adapters/icon";
 
 interface Props {

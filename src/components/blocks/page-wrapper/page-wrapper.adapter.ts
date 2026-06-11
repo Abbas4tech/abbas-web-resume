@@ -1,0 +1,16 @@
+import { adaptPageNavButton } from "@/components/patterns/page-nav-button/page-nav-button.adapter";
+import type { MetaPage } from "@/types/common";
+import type { PageWrapperProps } from "./page-wrapper";
+
+/**
+ * Adapter extracts the pages array for the PageNavButton pattern.
+ */
+export function adaptPageWrapper(input: {
+  pagesCollection: { items: MetaPage[] };
+  children: React.ReactNode;
+}): PageWrapperProps {
+  return {
+    pages: adaptPageNavButton(input.pagesCollection.items).pages,
+    children: input.children,
+  };
+}

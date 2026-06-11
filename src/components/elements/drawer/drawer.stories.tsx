@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { DrawerProvider } from "./drawer";
 import { baseMock } from "./drawer.mock";
-import { DrawerProvider } from "./index";
 
 const meta = {
   title: "Elements/Drawer",

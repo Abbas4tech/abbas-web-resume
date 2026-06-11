@@ -1,4 +1,4 @@
-import { RichText } from "@/components/patterns/rich-text";
+import { RichText } from "@/components/patterns/rich-text/rich-text";
 import type { AdaptedContentItem } from "@/contentful/adapters/content-item";
 import { Badge } from "./badge";
 import { Icon } from "./icon";

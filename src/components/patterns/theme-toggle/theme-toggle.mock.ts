@@ -1,4 +1,4 @@
-import type { ThemeToggleProps } from "./types";
+import type { ThemeToggleProps } from "./theme-toggle";
 
 export const baseMock: ThemeToggleProps = {
   defaultTheme: "dark",

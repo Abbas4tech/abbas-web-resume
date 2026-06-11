@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageWrapper } from "@/components/blocks/page-wrapper";
-import { adaptPageWrapper } from "@/components/blocks/page-wrapper/adapter";
+import { PageWrapper } from "@/components/blocks/page-wrapper/page-wrapper";
+import { adaptPageWrapper } from "@/components/blocks/page-wrapper/page-wrapper.adapter";
 import { ContentList } from "@/components/contentful/content-list";
 import { ContentSection } from "@/components/contentful/content-section";
 import { adaptIcon } from "@/contentful/adapters/icon";

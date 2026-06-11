@@ -1,4 +1,4 @@
-import type { HeroBannerProps } from "./types";
+import type { HeroBannerProps } from "./hero-banner";
 
 export const baseMock: HeroBannerProps = {
   animation: "fade-down",

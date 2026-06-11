@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { SectionHeading } from "./index";
+import { SectionHeading } from "./section-heading";
 import { baseMock } from "./section-heading.mock";
 
 const meta = {

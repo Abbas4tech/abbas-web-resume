@@ -1,7 +1,7 @@
-import { BioSection } from "@/components/blocks/bio-section";
-import { adaptBioSection } from "@/components/blocks/bio-section/adapter";
-import { HeroBanner } from "@/components/blocks/hero-banner";
-import { adaptHeroBanner } from "@/components/blocks/hero-banner/adapter";
+import { BioSection } from "@/components/blocks/bio-section/bio-section";
+import { adaptBioSection } from "@/components/blocks/bio-section/bio-section.adapter";
+import { HeroBanner } from "@/components/blocks/hero-banner/hero-banner";
+import { adaptHeroBanner } from "@/components/blocks/hero-banner/hero-banner.adapter";
 import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
 import { ContentItem } from "./content-item";
 

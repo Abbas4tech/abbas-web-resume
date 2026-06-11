@@ -1,5 +1,5 @@
 import { BLOCKS } from "@contentful/rich-text-types";
-import type { BioSectionProps } from "./types";
+import type { BioSectionProps } from "./bio-section";
 
 export const baseMock: BioSectionProps = {
   animation: "fade-up",
