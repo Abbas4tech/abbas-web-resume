@@ -91,6 +91,12 @@
       "skillPath": "skills/engineering/triage/SKILL.md",
       "computedHash": "56ff15b41bbebfa4cb329d96150d9b297c1d919ce30784d883b8755b4bfd8e7e"
     },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "skillPath": "skills/vitest/SKILL.md",
+      "computedHash": "0efd9cf8c56aada060d418d009cfe621a7915d0c73a958fe611985bc0c2fa4b8"
+    },
     "write-a-skill": {
       "source": "mattpocock/skills",
       "sourceType": "github",
