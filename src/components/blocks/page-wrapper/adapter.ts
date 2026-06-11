@@ -1,5 +1,5 @@
 import { adaptPageNavButton } from "@/components/patterns/page-nav-button/adapter";
-import type { MetaPage } from "@/types/entries";
+import type { MetaPage } from "@/types/common";
 import type { PageWrapperProps } from "./types";
 
 /**

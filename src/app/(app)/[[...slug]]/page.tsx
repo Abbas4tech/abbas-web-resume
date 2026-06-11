@@ -7,7 +7,7 @@ import { ContentSection } from "@/components/contentful/content-section";
 import { adaptIcon } from "@/contentful/adapters/icon";
 import { adaptPage } from "@/contentful/adapters/page";
 import { contentfulSdk } from "@/contentful/lib/client";
-import type { MetaPage } from "@/types/entries";
+import type { MetaPage } from "@/types/common";
 
 interface PageProps {
   params: { slug?: string[] };
@@ -67,14 +67,16 @@ export default async function ComposablePage({ params }: PageProps) {
       title: item?.title || "",
       isDefaultPage: false,
       pageIcon: adaptedIcon
-        ? {
-            iconCode: adaptedIcon.iconCode,
-            name: adaptedIcon.title || "",
-            showTooltip: adaptedIcon.showTooltip,
-          }
+        ? adaptedIcon
         : {
-            iconCode: "fa/FaFile",
+            __typename: "Icon" as const,
+            id: "default-icon",
+            internalName: "Default Icon",
             name: "Page",
+            library: "fa",
+            title: "Page",
+            color: "",
+            iconCode: "fa/FaFile",
             showTooltip: false,
           },
     };
