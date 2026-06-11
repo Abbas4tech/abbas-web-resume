@@ -1,36 +1,21 @@
-import type { IconProps } from "@/components/elements/icon/types";
-import { adaptIconProgressRow } from "@/components/patterns/icon-progress-row/adapter";
+import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import type { PanelShowcaseProps } from "./types";
 
 /**
- * Maps Contentful "Skills Page" data directly to the PanelShowcase block.
+ * Maps generic AdaptedContentList to the PanelShowcase block props.
  */
-export function adaptPanelShowcase(input: {
-  contentAnimation?: string;
-  pageData: {
-    skillsSetCollection: {
-      items: Array<{
-        title: string;
-        icon: IconProps;
-        skillsArrayCollection: {
-          items: Array<{
-            skillProgress: number;
-            skillIconsCollection: { items: IconProps[] };
-          }>;
-        };
-      }>;
-    };
-  };
-}): PanelShowcaseProps {
+export function adaptPanelShowcase(
+  data: AdaptedContentList
+): PanelShowcaseProps {
   return {
-    animation: input.contentAnimation,
-    panels: input.pageData.skillsSetCollection.items.map((panel) => ({
+    animation: undefined,
+    panels: data.customEntries.map((panel) => ({
       title: panel.title,
-      headingIcon: panel.icon,
-      rows: panel.skillsArrayCollection.items.map((row) => ({
-        progress: adaptIconProgressRow({ skillProgress: row.skillProgress })
-          .progress,
-        icons: row.skillIconsCollection.items,
+      headingIcon: panel.icon || { iconCode: "" },
+      rows: (panel.subItems || []).map((row) => ({
+        progress: row.progress || 0,
+        // Since badge currently only supports one icon, we pass it as an array of one
+        icons: row.icon ? [row.icon] : [],
       })),
     })),
   };

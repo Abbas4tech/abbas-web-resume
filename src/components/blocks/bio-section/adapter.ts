@@ -1,32 +1,17 @@
-import type { Document } from "@contentful/rich-text-types";
-import { adaptInfoStatRow } from "@/components/patterns/info-stat-row/adapter";
-import { adaptRichText } from "@/components/patterns/rich-text/adapter";
+import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
 import type { BioSectionProps } from "./types";
 
 /**
- * Maps Contentful "About Page" data directly to the BioSection block.
+ * Maps generic AdaptedContentSection to the BioSection block props.
  */
-export function adaptBioSection(input: {
-  contentAnimation?: string;
-  pageData: {
-    description: { json: Document };
-    infoCollection: {
-      items: Array<{
-        title: string;
-        value: string;
-        icon: {
-          iconCode?: string;
-          classes?: string[];
-          showTooltip?: boolean;
-          name?: string;
-        };
-      }>;
-    };
-  };
-}): BioSectionProps {
+export function adaptBioSection(data: AdaptedContentSection): BioSectionProps {
   return {
-    animation: input.contentAnimation,
-    description: adaptRichText({ json: input.pageData.description.json }),
-    infoRows: input.pageData.infoCollection.items.map(adaptInfoStatRow),
+    animation: undefined,
+    description: data.entry?.body,
+    infoRows: (data.entry?.subItems || []).map((badge) => ({
+      label: badge.internalName,
+      value: badge.title || "",
+      icon: badge.icon || { iconCode: "" },
+    })),
   };
 }

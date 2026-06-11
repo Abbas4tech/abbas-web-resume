@@ -4,6 +4,7 @@ import { PageWrapper } from "@/components/blocks/page-wrapper";
 import { adaptPageWrapper } from "@/components/blocks/page-wrapper/adapter";
 import { ContentList } from "@/components/contentful/content-list";
 import { ContentSection } from "@/components/contentful/content-section";
+import { adaptIcon } from "@/contentful/adapters/icon";
 import { adaptPage } from "@/contentful/adapters/page";
 import { contentfulSdk } from "@/contentful/lib/client";
 import type { MetaPage } from "@/types/entries";
@@ -55,25 +56,29 @@ export default async function ComposablePage({ params }: PageProps) {
       ?.customEntriesCollection?.items || [];
 
   // adaptPageWrapper expects pagesCollection shape from old API. We map our new items to that shape.
-  const mappedPages: MetaPage[] = layoutItems.map((item) => ({
-    pageUrl:
-      item?.linksCollection?.items?.[0]?.url ||
-      `/${item?.entryField?.toLowerCase()}` ||
-      "/",
-    title: item?.title || "",
-    isDefaultPage: false,
-    pageIcon: item?.icon
-      ? {
-          iconCode: item.icon.iconCode || "",
-          name: item.icon.name || "",
-          showTooltip: item.icon.showTooltip ?? false,
-        }
-      : {
-          iconCode: "file",
-          name: "Page",
-          showTooltip: false,
-        },
-  }));
+  const mappedPages: MetaPage[] = layoutItems.map((item) => {
+    const adaptedIcon = adaptIcon(item?.icon);
+    console.log(item?.linksCollection?.items[0]?.url);
+    return {
+      pageUrl:
+        item?.linksCollection?.items?.[0]?.url ||
+        `/${item?.entryField?.toLowerCase()}` ||
+        "/",
+      title: item?.title || "",
+      isDefaultPage: false,
+      pageIcon: adaptedIcon
+        ? {
+            iconCode: adaptedIcon.iconCode,
+            name: adaptedIcon.title || "",
+            showTooltip: adaptedIcon.showTooltip,
+          }
+        : {
+            iconCode: "fa/FaFile",
+            name: "Page",
+            showTooltip: false,
+          },
+    };
+  });
 
   return (
     <PageWrapper
@@ -84,7 +89,7 @@ export default async function ComposablePage({ params }: PageProps) {
         children: null,
       })}
     >
-      <div className="flex flex-col gap-16 py-8">
+      <div className="flex flex-col gap-8 py-8">
         {pageData.topContentArea.map((block) => {
           if (block.__typename === "ContentSection") {
             return <ContentSection data={block} key={block.id} />;

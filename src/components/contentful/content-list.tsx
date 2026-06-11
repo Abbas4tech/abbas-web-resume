@@ -1,3 +1,9 @@
+import { CardGallery } from "@/components/blocks/card-gallery";
+import { adaptCardGallery } from "@/components/blocks/card-gallery/adapter";
+import { PanelShowcase } from "@/components/blocks/panel-showcase";
+import { adaptPanelShowcase } from "@/components/blocks/panel-showcase/adapter";
+import { TimelineSection } from "@/components/blocks/timeline-section";
+import { adaptTimelineSection } from "@/components/blocks/timeline-section/adapter";
 import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import { ContentItem } from "./content-item";
 
@@ -7,9 +13,24 @@ interface Props {
 }
 
 export function ContentList({ data, className }: Props) {
-  // In a real application, we would use data.ui to switch between patterns
-  // e.g. if (data.ui === "Carousel") return <Carousel items={data.customEntries} />
+  // Map data.ui to specific Blocks
+  if (data.ui === "TimelineSection") {
+    return (
+      <TimelineSection {...adaptTimelineSection(data)} className={className} />
+    );
+  }
 
+  if (data.ui === "CardGallery") {
+    return <CardGallery {...adaptCardGallery(data)} className={className} />;
+  }
+
+  if (data.ui === "PanelShowcase") {
+    return (
+      <PanelShowcase {...adaptPanelShowcase(data)} className={className} />
+    );
+  }
+
+  // Default fallback rendering
   return (
     <section className={`flex w-full flex-col gap-8 ${className || ""}`}>
       {(data.title || data.description) && (

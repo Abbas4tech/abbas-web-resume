@@ -1,24 +1,22 @@
-import { adaptProjectPreviewCard } from "@/components/patterns/project-preview-card/adapter";
+import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import type { CardGalleryProps } from "./types";
 
 /**
- * Maps Contentful "Projects Page" data directly to the CardGallery block.
+ * Maps generic AdaptedContentList to the CardGallery block props.
  */
-export function adaptCardGallery(input: {
-  contentAnimation?: string;
-  pageData: {
-    projectsCollection: {
-      // biome-ignore lint/suspicious/noExplicitAny: temporary
-      items: any[];
-    };
-  };
-}): CardGalleryProps {
+export function adaptCardGallery(data: AdaptedContentList): CardGalleryProps {
+  console.log("Card Gallery Data: ", data);
   return {
-    animation: input.contentAnimation,
-    cards: input.pageData.projectsCollection.items.map((item) =>
-      adaptProjectPreviewCard(
-        item as Parameters<typeof adaptProjectPreviewCard>[0]
-      )
-    ),
+    animation: undefined,
+    cards: data.customEntries.map((item) => ({
+      title: item.title,
+      description: item.subtitle || "",
+      href: item.links?.[0]?.href || "#",
+      linkIcon: item.icon || { iconCode: "" },
+      thumbnailAlt: item.image?.alternativeText || item.image?.title || "",
+      thumbnailSrc: item.image?.url || "",
+      thumbnailWidth: item.image?.width || 0,
+      thumbnailHeight: item.image?.height || 0,
+    })),
   };
 }

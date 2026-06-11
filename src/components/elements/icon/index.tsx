@@ -1,70 +1,116 @@
-import dynamic, { type Loader } from "next/dynamic";
-import {
-  type ComponentType,
-  forwardRef,
-  type HTMLAttributes,
-  memo,
-  useMemo,
-} from "react";
+import dynamic from "next/dynamic";
+import { forwardRef, type HTMLAttributes, memo } from "react";
 import type { IconBaseProps, IconType } from "react-icons";
+import { MdError } from "react-icons/md";
 
 import { cn } from "@/lib/utils";
 import type { IconLibrary, IconProps } from "./types";
 
 interface IconModule {
-  default?: unknown;
-  [key: string]: IconType | unknown;
+  [key: string]: IconType;
 }
 
 const libraryImportPaths: Record<IconLibrary, () => Promise<IconModule>> = {
-  fa: () => import("react-icons/fa"),
-  fa6: () => import("react-icons/fa6"),
-  io: () => import("react-icons/io"),
-  io5: () => import("react-icons/io5"),
-  md: () => import("react-icons/md"),
-  ri: () => import("react-icons/ri"),
-  si: () => import("react-icons/si"),
+  fa: () => import("react-icons/fa") as unknown as Promise<IconModule>,
+  fa6: () => import("react-icons/fa6") as unknown as Promise<IconModule>,
+  io: () => import("react-icons/io") as unknown as Promise<IconModule>,
+  io5: () => import("react-icons/io5") as unknown as Promise<IconModule>,
+  md: () => import("react-icons/md") as unknown as Promise<IconModule>,
+  pi: () => import("react-icons/pi") as unknown as Promise<IconModule>,
+  ri: () => import("react-icons/ri") as unknown as Promise<IconModule>,
+  si: () => import("react-icons/si") as unknown as Promise<IconModule>,
 };
 
-export const loadIcon = (
-  library: IconLibrary,
-  iconName: string
-): ComponentType<IconBaseProps> => {
-  const loader: Loader<IconBaseProps> = async () => {
-    try {
-      const iconModule: IconModule = await libraryImportPaths[library]();
-      if (!iconModule[iconName]) {
-        console.error(`Icon "${iconName}" not found in library "${library}"`);
-        return () => null;
-      }
-      return iconModule[iconName] as IconType;
-    } catch (error) {
-      console.error(`Failed to load icons from library "${library}":`, error);
-      return () => null;
-    }
-  };
-
-  return dynamic<IconBaseProps>(() => loader());
+type IconRendererProps = IconBaseProps & {
+  iconName: string;
 };
 
-const isIconLibrary = (library: string): library is IconLibrary => {
-  const libraries: IconLibrary[] = ["fa", "fa6", "io", "io5", "md", "ri", "si"];
-  return libraries.includes(library as IconLibrary);
+function makeIconRenderer(loader: () => Promise<IconModule>, library: string) {
+  return dynamic<IconRendererProps>(
+    () =>
+      loader().then((mod) => ({
+        default({ iconName, ...rest }: IconRendererProps) {
+          const IconComp = mod[iconName];
+          if (!IconComp) {
+            console.error(
+              `Icon "${iconName}" not found in library "${library}"`
+            );
+            return <MdError {...rest} />;
+          }
+          return <IconComp {...rest} />;
+        },
+      })),
+    { ssr: true }
+  );
+}
+
+const DYNAMIC_ICON_COMPONENTS: Record<
+  string,
+  ReturnType<typeof makeIconRenderer>
+> = {
+  fa: makeIconRenderer(libraryImportPaths.fa, "fa"),
+  fa6: makeIconRenderer(libraryImportPaths.fa6, "fa6"),
+  io: makeIconRenderer(libraryImportPaths.io, "io"),
+  io5: makeIconRenderer(libraryImportPaths.io5, "io5"),
+  md: makeIconRenderer(libraryImportPaths.md, "md"),
+  pi: makeIconRenderer(libraryImportPaths.pi, "pi"),
+  ri: makeIconRenderer(libraryImportPaths.ri, "ri"),
+  si: makeIconRenderer(libraryImportPaths.si, "si"),
 };
+
+const isIconLibrary = (library: string): library is IconLibrary =>
+  library in DYNAMIC_ICON_COMPONENTS;
 
 const Icon = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconProps>(
-    ({ className, iconCode = "", classes, showTooltip = true, name }, ref) => {
-      const [library, iconName] = iconCode.split("/") as [string, string];
+    (
+      {
+        className,
+        iconCode = "",
+        library: propLibrary,
+        iconName: propIconName,
+        color,
+        classes,
+        showTooltip = true,
+        name,
+        size = "1.5rem",
+      },
+      ref
+    ) => {
+      const splitCode = iconCode.split("/");
+      const resolvedLibrary = propLibrary || splitCode[0];
+      const resolvedIconName = propIconName || splitCode[1];
       const cleanClasses = (classes || []).map((c) => c.trim()).join(" ");
 
-      const IconComponent = useMemo(() => {
-        if (isIconLibrary(library)) {
-          return loadIcon(library, iconName);
+      const IconComponent =
+        resolvedLibrary && isIconLibrary(resolvedLibrary)
+          ? DYNAMIC_ICON_COMPONENTS[resolvedLibrary]
+          : null;
+
+      if (!IconComponent) {
+        if (resolvedLibrary) {
+          console.error(`Invalid icon library: "${resolvedLibrary}"`);
         }
-        console.error(`Invalid icon library: "${library}"`);
-        return loadIcon("md", "MdError");
-      }, [library, iconName]);
+        return (
+          <div
+            className={cn(
+              "flex items-center",
+              showTooltip && "tooltip tooltip-primary",
+              className
+            )}
+            data-tip={name}
+            ref={ref}
+            tabIndex={-1}
+          >
+            <MdError
+              aria-label={name}
+              className={cleanClasses}
+              role="img"
+              style={color ? { color } : undefined}
+            />
+          </div>
+        );
+      }
 
       return (
         <div
@@ -80,7 +126,10 @@ const Icon = memo(
           <IconComponent
             aria-label={name}
             className={cleanClasses}
+            iconName={resolvedIconName || ""}
             role="img"
+            size={size}
+            style={color ? { color } : undefined}
           />
         </div>
       );

@@ -5,6 +5,15 @@ export function adaptIcon(item: IconFieldsFragment | null | undefined) {
     return null;
   }
 
+  // Prefer iconCode, fallback to name.
+  const rawCode = item.iconCode || item.name || "";
+
+  // Only prefix if we have a library and the code isn't already prefixed
+  const iconCode =
+    item.library && rawCode && !rawCode.includes("/")
+      ? `${item.library}/${rawCode}`
+      : rawCode;
+
   return {
     __typename: "Icon" as const,
     id: item.sys.id || "",
@@ -13,7 +22,7 @@ export function adaptIcon(item: IconFieldsFragment | null | undefined) {
     library: item.library || "",
     title: item.title || "",
     color: item.color || "",
-    iconCode: item.iconCode || "",
+    iconCode,
     showTooltip: item.showTooltip ?? false,
   };
 }

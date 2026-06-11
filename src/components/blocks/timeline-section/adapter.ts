@@ -1,33 +1,41 @@
-import { adaptRichText } from "@/components/patterns/rich-text/adapter";
-import { adaptTimelineEntry } from "@/components/patterns/timeline-entry/adapter";
+import { BLOCKS } from "@contentful/rich-text-types";
+import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import type { TimelineSectionProps } from "./types";
 
 /**
- * Maps Contentful "Experience Page" data directly to the TimelineSection block.
+ * Maps generic AdaptedContentList to the TimelineSection block props.
  */
-export function adaptTimelineSection(input: {
-  contentAnimation?: string;
-  pageData: {
-    experiencesCollection: {
-      // biome-ignore lint/suspicious/noExplicitAny: temporary patch
-      items: any[];
-    };
-  };
-}): TimelineSectionProps {
+export function adaptTimelineSection(
+  data: AdaptedContentList
+): TimelineSectionProps {
   return {
-    animation: input.contentAnimation,
-    entries: input.pageData.experiencesCollection.items.map((item) => {
-      // adaptTimelineEntry expects a ReactNode body, but our block takes a document struct.
-      // So we adapt the entry ignoring body, then inject the rich text document struct.
-      const entry = adaptTimelineEntry({
-        ...(item as Parameters<typeof adaptTimelineEntry>[0]),
-        body: null,
-      });
+    animation: undefined,
+    entries: data.customEntries.map((item) => {
+      const metaRows: { icon: { iconCode: string }; text: string }[] = [];
+      if (item.startDate || item.endDate) {
+        metaRows.push({
+          icon: { iconCode: "calendar" },
+          text: `${item.startDate || ""} - ${item.endDate || "Present"}`,
+        });
+      }
+      if (item.subtitle) {
+        metaRows.push({
+          icon: { iconCode: "briefcase" },
+          text: item.subtitle,
+        });
+      }
+
       return {
-        title: entry.title,
-        indicatorIcon: entry.indicatorIcon,
-        metaRows: entry.metaRows,
-        description: adaptRichText(item.description),
+        title: item.title,
+        indicatorIcon: item.icon || { iconCode: "" },
+        metaRows,
+        description: {
+          document: item.body || {
+            nodeType: BLOCKS.DOCUMENT,
+            data: {},
+            content: [],
+          },
+        },
       };
     }),
   };
