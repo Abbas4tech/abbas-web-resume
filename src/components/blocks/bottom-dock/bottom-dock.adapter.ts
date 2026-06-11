@@ -1,8 +1,7 @@
+import type { AdaptedLayout } from "@/contentful/adapters/layout";
+import { extractNavPages } from "@/contentful/adapters/nav-mapper";
 import type { BottomDockProps } from "./bottom-dock";
 
-/** Passthrough stub */
-export function adaptBottomDock(
-  items: BottomDockProps["items"]
-): BottomDockProps {
-  return { items };
+export function adaptBottomDock(layout: AdaptedLayout): BottomDockProps {
+  return { items: extractNavPages(layout) };
 }
