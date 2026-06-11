@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PageContent } from "./index";
+import { PageContent } from "./page";
 import { baseMock } from "./page.mock";
 
 const meta = {

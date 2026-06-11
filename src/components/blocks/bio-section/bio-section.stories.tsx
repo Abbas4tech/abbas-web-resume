@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { BioSection } from "./bio-section";
 import { baseMock } from "./bio-section.mock";
-import { BioSection } from "./index";
 
 const meta = {
   title: "Blocks/BioSection",

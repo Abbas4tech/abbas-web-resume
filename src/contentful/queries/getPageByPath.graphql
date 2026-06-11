@@ -1,0 +1,7 @@
+query GetPageByPath($path: String!, $preview: Boolean = false) {
+  pageCollection(where: { path: $path }, limit: 1, preview: $preview) {
+    items {
+      ...PageFields
+    }
+  }
+}

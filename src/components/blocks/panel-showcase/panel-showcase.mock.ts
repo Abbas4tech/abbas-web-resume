@@ -1,4 +1,4 @@
-import type { PanelShowcaseProps } from "./types";
+import type { PanelShowcaseProps } from "./panel-showcase";
 
 export const baseMock: PanelShowcaseProps = {
   animation: "fade-right",

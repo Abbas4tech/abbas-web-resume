@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Skeleton } from "./index";
+import { Skeleton } from "./skeleton";
 import { baseMock } from "./skeleton.mock";
 
 const meta = {

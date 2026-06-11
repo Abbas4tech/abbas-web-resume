@@ -1,0 +1,16 @@
+fragment LinkFields on Link {
+  sys {
+    id
+  }
+  internalName
+  text
+  url
+  page {
+    sys {
+      id
+    }
+    # Don't expand the full page to avoid recursion/heavy queries
+    # Just enough to build a URL path
+    path
+  }
+}

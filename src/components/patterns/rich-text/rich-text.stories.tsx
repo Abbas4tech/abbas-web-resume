@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { RichText } from "./index";
+import { RichText } from "./rich-text";
 import { baseMock } from "./rich-text.mock";
 
 const meta = {

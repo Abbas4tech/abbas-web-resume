@@ -1,4 +1,4 @@
-import type { CardGalleryProps } from "./types";
+import type { CardGalleryProps } from "./card-gallery";
 
 export const baseMock: CardGalleryProps = {
   animation: "fade-up",

@@ -1,6 +1,6 @@
 import React from "react";
-import { Icon } from "@/components/elements/icon";
-import type { SectionHeadingProps } from "./types";
+import { Icon } from "@/components/elements/icon/icon";
+import type { SectionHeadingProps } from "./section-heading";
 
 export const baseMock: SectionHeadingProps = {
   children: "Experience",

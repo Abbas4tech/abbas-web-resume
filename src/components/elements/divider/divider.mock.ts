@@ -1,4 +1,4 @@
-import type { DividerProps } from "./types";
+import type { DividerProps } from "./divider";
 
 export const baseMock: DividerProps = {
   children: "OR",

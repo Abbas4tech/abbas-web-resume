@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Badge } from "./badge";
 import { baseMock } from "./badge.mock";
-import { Badge } from "./index";
 
 const meta = {
   title: "Elements/Badge",

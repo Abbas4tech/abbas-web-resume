@@ -1,6 +1,6 @@
 import React from "react";
-import { Tab } from "./index";
-import type { TabsProps } from "./types";
+import type { TabsProps } from "./tabs";
+import { Tab } from "./tabs";
 
 export const baseMock: TabsProps = {
   variant: "boxed",

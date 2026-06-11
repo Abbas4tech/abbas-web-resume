@@ -1,4 +1,4 @@
-import type { NavItemProps } from "./types";
+import type { NavItemProps } from "./nav-item";
 
 export const baseMock: NavItemProps = {
   href: "/about",

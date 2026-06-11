@@ -1,4 +1,4 @@
-import type { LinkButtonProps, NativeButtonProps } from "./types";
+import type { LinkButtonProps, NativeButtonProps } from "./button";
 
 export const nativeMock: NativeButtonProps = {
   children: "Click Me",

@@ -1,0 +1,15 @@
+fragment SeoMetadataFields on SeoMetadata {
+  sys {
+    id
+  }
+  internalName
+  title
+  description
+  keywords
+  canonicalUrl
+  noIndex
+  noFollow
+  ogImage {
+    ...ImageFields
+  }
+}

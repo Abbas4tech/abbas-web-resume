@@ -1,5 +1,5 @@
 import { BLOCKS } from "@contentful/rich-text-types";
-import type { RichTextProps } from "./types";
+import type { RichTextProps } from "./rich-text";
 
 export const baseMock: RichTextProps = {
   document: {

@@ -1,4 +1,4 @@
-import type { SocialLinkProps } from "./types";
+import type { SocialLinkProps } from "./social-link";
 
 export const baseMock: SocialLinkProps = {
   href: "https://github.com",

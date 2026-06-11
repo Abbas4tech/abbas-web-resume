@@ -1,4 +1,5 @@
 import React from "react";
+import type { DrawerProviderProps } from "./drawer";
 import {
   Drawer,
   DrawerButton,
@@ -6,8 +7,7 @@ import {
   DrawerSide,
   DrawerSideItem,
   DrawerSideMenu,
-} from "./index";
-import type { DrawerProviderProps } from "./types";
+} from "./drawer";
 
 export const baseMock: DrawerProviderProps = {
   children: React.createElement(Drawer, null, [

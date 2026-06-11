@@ -1,0 +1,10 @@
+fragment ContentSectionFields on ContentSection {
+  sys {
+    id
+  }
+  internalName
+  ui
+  entry {
+    ...ContentItemFields
+  }
+}

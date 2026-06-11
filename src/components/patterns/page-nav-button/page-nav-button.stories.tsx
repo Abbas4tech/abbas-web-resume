@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PageNavButton } from "./index";
+import { PageNavButton } from "./page-nav-button";
 import { baseMock } from "./page-nav-button.mock";
 
 const meta = {

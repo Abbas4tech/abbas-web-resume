@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { MockupWindow } from "./index";
+import { MockupWindow } from "./mockup-window";
 import { baseMock } from "./mockup-window.mock";
 
 const meta = {

@@ -1,6 +1,6 @@
 import React from "react";
-import { DropdownMenu, DropdownMenuItem, DropdownToggle } from "./index";
-import type { DropdownProps } from "./types";
+import type { DropdownProps } from "./dropdown";
+import { DropdownMenu, DropdownMenuItem, DropdownToggle } from "./dropdown";
 
 export const baseMock: DropdownProps = {
   className: "dropdown",

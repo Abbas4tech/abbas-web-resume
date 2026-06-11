@@ -1,6 +1,6 @@
 import React from "react";
-import { Icon } from "@/components/elements/icon";
-import type { SwapProps } from "./types";
+import { Icon } from "@/components/elements/icon/icon";
+import type { SwapProps } from "./swap";
 
 export const baseMock: SwapProps = {
   active: false,

@@ -1,5 +1,5 @@
 import React from "react";
-import type { ContainerProps } from "./types";
+import type { ContainerProps } from "./container";
 
 export const baseMock: ContainerProps = {
   className: "bg-base-200 p-8 rounded-xl shadow-inner",

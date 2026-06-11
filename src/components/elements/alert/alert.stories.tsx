@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Alert } from "./alert";
 import { baseMock } from "./alert.mock";
-import { Alert } from "./index";
 
 const meta = {
   title: "Elements/Alert",

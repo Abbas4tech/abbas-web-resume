@@ -1,0 +1,59 @@
+import type { FC, ReactNode } from "react";
+import { AppHeader } from "@/components/blocks/app-header/app-header";
+import { adaptAppHeader } from "@/components/blocks/app-header/app-header.adapter";
+import { BottomDock } from "@/components/blocks/bottom-dock/bottom-dock";
+import { adaptBottomDock } from "@/components/blocks/bottom-dock/bottom-dock.adapter";
+import { PageWrapper } from "@/components/blocks/page-wrapper/page-wrapper";
+import { adaptPageWrapper } from "@/components/blocks/page-wrapper/page-wrapper.adapter";
+import { SidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav";
+import { adaptSidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav.adapter";
+import {
+  Drawer,
+  DrawerPageContent,
+  DrawerProvider,
+  DrawerSide,
+  type DrawerSides,
+  type DrawerVariants,
+} from "@/components/elements/drawer/drawer";
+import { NavigationAnimation } from "@/components/elements/navigation/navigation";
+import type { AdaptedLayout } from "@/contentful/adapters/layout";
+
+export interface ContentfulLayoutProps {
+  children: ReactNode;
+  data: AdaptedLayout;
+}
+
+export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
+  data,
+  children,
+}) => {
+  const variant = (data.drawerVariant || "")
+    .split(" ")
+    .map((i) => i.toLowerCase())
+    .join("-") as DrawerVariants;
+
+  const defaultRoute = "/about"; // This could be fetched dynamically if needed
+
+  return (
+    <DrawerProvider
+      side={(data.drawerSide?.toLowerCase() || "left") as DrawerSides}
+      variant={variant}
+    >
+      <AppHeader {...adaptAppHeader(data, defaultRoute)} />
+      <Drawer className="scrollbar-hide h-[calc(100vh-5rem)] overflow-hidden text-sm md:text-lg">
+        <DrawerPageContent>
+          <NavigationAnimation
+            className="scrollbar-hide h-[calc(100vh-5rem)] overflow-auto p-4"
+            options={{ easing: "ease-in-cubic" }}
+          >
+            <PageWrapper {...adaptPageWrapper(data, children)} />
+          </NavigationAnimation>
+        </DrawerPageContent>
+        <DrawerSide>
+          <SidebarNav {...adaptSidebarNav(data)} />
+        </DrawerSide>
+        <BottomDock {...adaptBottomDock(data)} />
+      </Drawer>
+    </DrawerProvider>
+  );
+};

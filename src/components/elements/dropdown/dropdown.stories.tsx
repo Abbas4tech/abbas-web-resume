@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { Dropdown } from "./dropdown";
 import { baseMock } from "./dropdown.mock";
-import { Dropdown } from "./index";
 
 const meta = {
   title: "Elements/Dropdown",

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { BottomDock } from "./bottom-dock";
 import { baseMock } from "./bottom-dock.mock";
-import { BottomDock } from "./index";
 
 const meta = {
   title: "Blocks/BottomDock",
