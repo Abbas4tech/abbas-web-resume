@@ -1,0 +1,39 @@
+import { describe, expect, it } from "vitest";
+import { adaptProjectPreviewCard } from "./project-preview-card.adapter";
+
+describe("adaptProjectPreviewCard", () => {
+  it("adapts raw contentful data to ProjectPreviewCardProps", () => {
+    const rawData = {
+      title: "My Awesome Project",
+      description: "A very cool project doing cool things.",
+      thumbnail: {
+        url: "https://example.com/image.png",
+        fileName: "image.png",
+        width: 800,
+        height: 600,
+      },
+      deployedLink: "https://my-awesome-project.com",
+      deployedLinkIcon: {
+        iconCode: "fa/FaExternalLinkAlt",
+        name: "Visit Project",
+      },
+    };
+
+    const expected = {
+      title: "My Awesome Project",
+      description: "A very cool project doing cool things.",
+      thumbnailSrc: "https://example.com/image.png",
+      thumbnailAlt: "image.png",
+      thumbnailWidth: 800,
+      thumbnailHeight: 600,
+      href: "https://my-awesome-project.com",
+      linkIcon: {
+        iconCode: "fa/FaExternalLinkAlt",
+        name: "Visit Project",
+      },
+    };
+
+    const result = adaptProjectPreviewCard(rawData);
+    expect(result).toEqual(expected);
+  });
+});

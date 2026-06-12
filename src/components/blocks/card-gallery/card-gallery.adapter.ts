@@ -5,7 +5,6 @@ import type { CardGalleryProps } from "./card-gallery";
  * Maps generic AdaptedContentList to the CardGallery block props.
  */
 export function adaptCardGallery(data: AdaptedContentList): CardGalleryProps {
-  console.log("Card Gallery Data: ", data);
   return {
     animation: undefined,
     cards: data.customEntries.map((item) => ({
