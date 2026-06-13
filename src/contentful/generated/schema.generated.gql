@@ -281,199 +281,6 @@ enum AssetOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/badge)
-"""
-type Badge implements Entry & _Node {
-  _id: ID!
-  contentfulMetadata: ContentfulMetadata!
-  iconsCollection(limit: Int = 100, locale: String, order: [BadgeIconsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: IconFilter): BadgeIconsCollection
-  iconsCursorCollection(limit: Int = 100, locale: String, order: [BadgeIconsCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): BadgeIconsCursorCollection
-  internalName(locale: String, useFallbackLocale: Boolean): String
-  linkedFrom(allowedLocales: [String]): BadgeLinkingCollections
-  progress(locale: String, useFallbackLocale: Boolean): Int
-  sys: Sys!
-  title(locale: String, useFallbackLocale: Boolean): String
-}
-
-type BadgeCollection {
-  items: [Badge]!
-  limit: Int!
-  skip: Int!
-  total: Int!
-}
-
-type BadgeCursorCollection {
-  items: [Badge]!
-  limit: Int!
-  pages: CursorPages!
-}
-
-input BadgeFilter {
-  AND: [BadgeFilter]
-  OR: [BadgeFilter]
-  contentfulMetadata: ContentfulMetadataFilter
-  icons: cfIconNestedFilter
-  iconsCollection_exists: Boolean
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  progress: Int
-  progress_exists: Boolean
-  progress_gt: Int
-  progress_gte: Int
-  progress_in: [Int]
-  progress_lt: Int
-  progress_lte: Int
-  progress_not: Int
-  progress_not_in: [Int]
-  sys: SysFilter
-  title: String
-  title_contains: String
-  title_exists: Boolean
-  title_in: [String]
-  title_not: String
-  title_not_contains: String
-  title_not_in: [String]
-}
-
-type BadgeIconsCollection {
-  items: [Icon]!
-  limit: Int!
-  skip: Int!
-  total: Int!
-}
-
-enum BadgeIconsCollectionOrder {
-  color_ASC
-  color_DESC
-  iconCode_ASC
-  iconCode_DESC
-  internalName_ASC
-  internalName_DESC
-  library_ASC
-  library_DESC
-  name_ASC
-  name_DESC
-  showTooltip_ASC
-  showTooltip_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-type BadgeIconsCursorCollection {
-  items: [Icon]!
-  limit: Int!
-  pages: CursorPages!
-}
-
-enum BadgeIconsCursorCollectionOrder {
-  color_ASC
-  color_DESC
-  iconCode_ASC
-  iconCode_DESC
-  internalName_ASC
-  internalName_DESC
-  library_ASC
-  library_DESC
-  name_ASC
-  name_DESC
-  showTooltip_ASC
-  showTooltip_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-type BadgeLinkingCollections {
-  contentItemCollection(limit: Int = 100, locale: String, order: [BadgeLinkingCollectionsContentItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): ContentItemCollection
-  contentItemCursorCollection(limit: Int = 100, locale: String, order: [BadgeLinkingCollectionsContentItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentItemCursorCollection
-  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-  entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
-}
-
-enum BadgeLinkingCollectionsContentItemCollectionOrder {
-  endDate_ASC
-  endDate_DESC
-  entryField_ASC
-  entryField_DESC
-  progress_ASC
-  progress_DESC
-  startDate_ASC
-  startDate_DESC
-  subtitle_ASC
-  subtitle_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-enum BadgeLinkingCollectionsContentItemCursorCollectionOrder {
-  endDate_ASC
-  endDate_DESC
-  entryField_ASC
-  entryField_DESC
-  progress_ASC
-  progress_DESC
-  startDate_ASC
-  startDate_DESC
-  subtitle_ASC
-  subtitle_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-enum BadgeOrder {
-  internalName_ASC
-  internalName_DESC
-  progress_ASC
-  progress_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-"""
 [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/config)
 """
 type Config implements Entry & _Node {
@@ -576,8 +383,8 @@ type ContentItem implements Entry & _Node {
   linksCursorCollection(limit: Int = 100, locale: String, order: [ContentItemLinksCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: LinkFilter): ContentItemLinksCursorCollection
   progress(locale: String, useFallbackLocale: Boolean): Int
   startDate(locale: String, useFallbackLocale: Boolean): DateTime
-  subItemsCollection(limit: Int = 100, locale: String, order: [ContentItemSubItemsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: BadgeFilter): ContentItemSubItemsCollection
-  subItemsCursorCollection(limit: Int = 100, locale: String, order: [ContentItemSubItemsCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: BadgeFilter): ContentItemSubItemsCursorCollection
+  subItemsCollection(limit: Int = 100, locale: String, order: [ContentItemSubItemsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: StatItemFilter): ContentItemSubItemsCollection
+  subItemsCursorCollection(limit: Int = 100, locale: String, order: [ContentItemSubItemsCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: StatItemFilter): ContentItemSubItemsCursorCollection
   subtitle(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
   tags(locale: String, useFallbackLocale: Boolean): [String]
@@ -691,7 +498,7 @@ input ContentItemFilter {
   startDate_lte: DateTime
   startDate_not: DateTime
   startDate_not_in: [DateTime]
-  subItems: cfBadgeNestedFilter
+  subItems: cfStatItemNestedFilter
   subItemsCollection_exists: Boolean
   subtitle: String
   subtitle_contains: String
@@ -862,7 +669,7 @@ enum ContentItemOrder {
 }
 
 type ContentItemSubItemsCollection {
-  items: [Badge]!
+  items: [StatItem]!
   limit: Int!
   skip: Int!
   total: Int!
@@ -886,7 +693,7 @@ enum ContentItemSubItemsCollectionOrder {
 }
 
 type ContentItemSubItemsCursorCollection {
-  items: [Badge]!
+  items: [StatItem]!
   limit: Int!
   pages: CursorPages!
 }
@@ -1442,8 +1249,6 @@ input IconFilter {
 }
 
 type IconLinkingCollections {
-  badgeCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsBadgeCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): BadgeCollection
-  badgeCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsBadgeCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): BadgeCursorCollection
   contentItemCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsContentItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): ContentItemCollection
   contentItemCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsContentItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentItemCursorCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
@@ -1452,40 +1257,6 @@ type IconLinkingCollections {
   layoutCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
   statItemCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): StatItemCollection
   statItemCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): StatItemCursorCollection
-}
-
-enum IconLinkingCollectionsBadgeCollectionOrder {
-  internalName_ASC
-  internalName_DESC
-  progress_ASC
-  progress_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-enum IconLinkingCollectionsBadgeCursorCollectionOrder {
-  internalName_ASC
-  internalName_DESC
-  progress_ASC
-  progress_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
 }
 
 enum IconLinkingCollectionsContentItemCollectionOrder {
@@ -2474,9 +2245,6 @@ type Query {
   asset(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: AssetFilter): AssetCollection
   assetCursorCollection(limit: Int = 100, locale: String, order: [AssetOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: AssetFilter): AssetCursorCollection
-  badge(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Badge
-  badgeCollection(limit: Int = 100, locale: String, order: [BadgeOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: BadgeFilter): BadgeCollection
-  badgeCursorCollection(limit: Int = 100, locale: String, order: [BadgeOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: BadgeFilter): BadgeCursorCollection
   config(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Config
   configCollection(limit: Int = 100, locale: String, order: [ConfigOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ConfigFilter): ConfigCollection
   configCursorCollection(limit: Int = 100, locale: String, order: [ConfigOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: ConfigFilter): ConfigCursorCollection
@@ -2846,8 +2614,56 @@ enum StatItemIconsCursorCollectionOrder {
 }
 
 type StatItemLinkingCollections {
+  contentItemCollection(limit: Int = 100, locale: String, order: [StatItemLinkingCollectionsContentItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): ContentItemCollection
+  contentItemCursorCollection(limit: Int = 100, locale: String, order: [StatItemLinkingCollectionsContentItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentItemCursorCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
+}
+
+enum StatItemLinkingCollectionsContentItemCollectionOrder {
+  endDate_ASC
+  endDate_DESC
+  entryField_ASC
+  entryField_DESC
+  progress_ASC
+  progress_DESC
+  startDate_ASC
+  startDate_DESC
+  subtitle_ASC
+  subtitle_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum StatItemLinkingCollectionsContentItemCursorCollectionOrder {
+  endDate_ASC
+  endDate_DESC
+  entryField_ASC
+  entryField_DESC
+  progress_ASC
+  progress_DESC
+  startDate_ASC
+  startDate_DESC
+  subtitle_ASC
+  subtitle_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
 }
 
 enum StatItemOrder {
@@ -3002,37 +2818,6 @@ enum VideoOrder {
 
 interface _Node {
   _id: ID!
-}
-
-input cfBadgeNestedFilter {
-  AND: [cfBadgeNestedFilter]
-  OR: [cfBadgeNestedFilter]
-  contentfulMetadata: ContentfulMetadataFilter
-  iconsCollection_exists: Boolean
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  progress: Int
-  progress_exists: Boolean
-  progress_gt: Int
-  progress_gte: Int
-  progress_in: [Int]
-  progress_lt: Int
-  progress_lte: Int
-  progress_not: Int
-  progress_not_in: [Int]
-  sys: SysFilter
-  title: String
-  title_contains: String
-  title_exists: Boolean
-  title_in: [String]
-  title_not: String
-  title_not_contains: String
-  title_not_in: [String]
 }
 
 input cfContentItemNestedFilter {
@@ -3328,6 +3113,37 @@ input cfSeoMetadataNestedFilter {
   noIndex_exists: Boolean
   noIndex_not: Boolean
   ogImage_exists: Boolean
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+input cfStatItemNestedFilter {
+  AND: [cfStatItemNestedFilter]
+  OR: [cfStatItemNestedFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  iconsCollection_exists: Boolean
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  progress: Int
+  progress_exists: Boolean
+  progress_gt: Int
+  progress_gte: Int
+  progress_in: [Int]
+  progress_lt: Int
+  progress_lte: Int
+  progress_not: Int
+  progress_not_in: [Int]
   sys: SysFilter
   title: String
   title_contains: String

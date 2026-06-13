@@ -1,4 +1,4 @@
-fragment StatItemFields on Badge {
+fragment StatItemFields on StatItem {
   sys {
     id
   }
