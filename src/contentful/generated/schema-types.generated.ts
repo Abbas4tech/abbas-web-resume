@@ -505,7 +505,8 @@ export type Badge = Entry & _Node & {
   __typename?: 'Badge';
   _id: Scalars['ID']['output'];
   contentfulMetadata: ContentfulMetadata;
-  icon?: Maybe<Icon>;
+  iconsCollection?: Maybe<BadgeIconsCollection>;
+  iconsCursorCollection?: Maybe<BadgeIconsCursorCollection>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<BadgeLinkingCollections>;
   progress?: Maybe<Scalars['Int']['output']>;
@@ -515,8 +516,24 @@ export type Badge = Entry & _Node & {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/badge) */
-export type BadgeIconArgs = {
+export type BadgeIconsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<BadgeIconsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/badge) */
+export type BadgeIconsCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<BadgeIconsCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<IconFilter>;
@@ -568,8 +585,8 @@ export type BadgeFilter = {
   AND?: InputMaybe<Array<InputMaybe<BadgeFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<BadgeFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  icon?: InputMaybe<CfIconNestedFilter>;
-  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  icons?: InputMaybe<CfIconNestedFilter>;
+  iconsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -595,6 +612,69 @@ export type BadgeFilter = {
   title_not_contains?: InputMaybe<Scalars['String']['input']>;
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
+
+export type BadgeIconsCollection = {
+  __typename?: 'BadgeIconsCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type BadgeIconsCollectionOrder =
+  | 'color_ASC'
+  | 'color_DESC'
+  | 'iconCode_ASC'
+  | 'iconCode_DESC'
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'library_ASC'
+  | 'library_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'showTooltip_ASC'
+  | 'showTooltip_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
+export type BadgeIconsCursorCollection = {
+  __typename?: 'BadgeIconsCursorCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export type BadgeIconsCursorCollectionOrder =
+  | 'color_ASC'
+  | 'color_DESC'
+  | 'iconCode_ASC'
+  | 'iconCode_DESC'
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'library_ASC'
+  | 'library_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'showTooltip_ASC'
+  | 'showTooltip_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
 
 export type BadgeLinkingCollections = {
   __typename?: 'BadgeLinkingCollections';
@@ -2175,6 +2255,8 @@ export type IconLinkingCollections = {
   entryCursorCollection?: Maybe<EntryCursorCollection>;
   layoutCollection?: Maybe<LayoutCollection>;
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
+  statItemCollection?: Maybe<StatItemCollection>;
+  statItemCursorCollection?: Maybe<StatItemCursorCollection>;
 };
 
 
@@ -2253,6 +2335,27 @@ export type IconLinkingCollectionsLayoutCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLayoutCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionsStatItemCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsStatItemCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionsStatItemCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsStatItemCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2376,6 +2479,38 @@ export type IconLinkingCollectionsLayoutCursorCollectionOrder =
   | 'internalName_DESC'
   | 'role_ASC'
   | 'role_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
+export type IconLinkingCollectionsStatItemCollectionOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'progress_ASC'
+  | 'progress_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
+export type IconLinkingCollectionsStatItemCursorCollectionOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'progress_ASC'
+  | 'progress_DESC'
   | 'sys_firstPublishedAt_ASC'
   | 'sys_firstPublishedAt_DESC'
   | 'sys_id_ASC'
@@ -3681,6 +3816,9 @@ export type Query = {
   seoMetadata?: Maybe<SeoMetadata>;
   seoMetadataCollection?: Maybe<SeoMetadataCollection>;
   seoMetadataCursorCollection?: Maybe<SeoMetadataCursorCollection>;
+  statItem?: Maybe<StatItem>;
+  statItemCollection?: Maybe<StatItemCollection>;
+  statItemCursorCollection?: Maybe<StatItemCursorCollection>;
   video?: Maybe<Video>;
   videoCollection?: Maybe<VideoCollection>;
   videoCursorCollection?: Maybe<VideoCursorCollection>;
@@ -4129,6 +4267,37 @@ export type QuerySeoMetadataCursorCollectionArgs = {
 };
 
 
+export type QueryStatItemArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryStatItemCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<StatItemFilter>;
+};
+
+
+export type QueryStatItemCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<StatItemFilter>;
+};
+
+
 export type QueryVideoArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -4487,6 +4656,223 @@ export type SeoMetadataOrder =
   | 'title_ASC'
   | 'title_DESC';
 
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItem = Entry & _Node & {
+  __typename?: 'StatItem';
+  _id: Scalars['ID']['output'];
+  contentfulMetadata: ContentfulMetadata;
+  iconsCollection?: Maybe<StatItemIconsCollection>;
+  iconsCursorCollection?: Maybe<StatItemIconsCursorCollection>;
+  internalName?: Maybe<Scalars['String']['output']>;
+  linkedFrom?: Maybe<StatItemLinkingCollections>;
+  progress?: Maybe<Scalars['Int']['output']>;
+  sys: Sys;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemIconsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemIconsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemIconsCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemIconsCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemInternalNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemProgressArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemTitleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type StatItemCollection = {
+  __typename?: 'StatItemCollection';
+  items: Array<Maybe<StatItem>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type StatItemCursorCollection = {
+  __typename?: 'StatItemCursorCollection';
+  items: Array<Maybe<StatItem>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export type StatItemFilter = {
+  AND?: InputMaybe<Array<InputMaybe<StatItemFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<StatItemFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  icons?: InputMaybe<CfIconNestedFilter>;
+  iconsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  progress?: InputMaybe<Scalars['Int']['input']>;
+  progress_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  progress_gt?: InputMaybe<Scalars['Int']['input']>;
+  progress_gte?: InputMaybe<Scalars['Int']['input']>;
+  progress_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  progress_lt?: InputMaybe<Scalars['Int']['input']>;
+  progress_lte?: InputMaybe<Scalars['Int']['input']>;
+  progress_not?: InputMaybe<Scalars['Int']['input']>;
+  progress_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  title_contains?: InputMaybe<Scalars['String']['input']>;
+  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  title_not?: InputMaybe<Scalars['String']['input']>;
+  title_not_contains?: InputMaybe<Scalars['String']['input']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type StatItemIconsCollection = {
+  __typename?: 'StatItemIconsCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type StatItemIconsCollectionOrder =
+  | 'color_ASC'
+  | 'color_DESC'
+  | 'iconCode_ASC'
+  | 'iconCode_DESC'
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'library_ASC'
+  | 'library_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'showTooltip_ASC'
+  | 'showTooltip_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
+export type StatItemIconsCursorCollection = {
+  __typename?: 'StatItemIconsCursorCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export type StatItemIconsCursorCollectionOrder =
+  | 'color_ASC'
+  | 'color_DESC'
+  | 'iconCode_ASC'
+  | 'iconCode_DESC'
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'library_ASC'
+  | 'library_DESC'
+  | 'name_ASC'
+  | 'name_DESC'
+  | 'showTooltip_ASC'
+  | 'showTooltip_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
+export type StatItemLinkingCollections = {
+  __typename?: 'StatItemLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  entryCursorCollection?: Maybe<EntryCursorCollection>;
+};
+
+
+export type StatItemLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type StatItemLinkingCollectionsEntryCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type StatItemOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'progress_ASC'
+  | 'progress_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
 export type Sys = {
   __typename?: 'Sys';
   environmentId: Scalars['String']['output'];
@@ -4676,7 +5062,7 @@ export type CfBadgeNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfBadgeNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfBadgeNestedFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  iconsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;

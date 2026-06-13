@@ -1,0 +1,13 @@
+fragment StatItemFields on Badge {
+  sys {
+    id
+  }
+  internalName
+  title
+  progress
+  iconsCollection(limit: 5) {
+    items {
+      ...IconFields
+    }
+  }
+}

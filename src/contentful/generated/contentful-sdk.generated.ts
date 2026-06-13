@@ -516,7 +516,8 @@ export type Badge = Entry & _Node & {
   __typename?: 'Badge';
   _id: Scalars['ID']['output'];
   contentfulMetadata: ContentfulMetadata;
-  icon?: Maybe<Icon>;
+  iconsCollection?: Maybe<BadgeIconsCollection>;
+  iconsCursorCollection?: Maybe<BadgeIconsCursorCollection>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<BadgeLinkingCollections>;
   progress?: Maybe<Scalars['Int']['output']>;
@@ -526,8 +527,24 @@ export type Badge = Entry & _Node & {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/badge) */
-export type BadgeiconArgs = {
+export type BadgeiconsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<BadgeIconsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/badge) */
+export type BadgeiconsCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<BadgeIconsCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<IconFilter>;
@@ -579,8 +596,8 @@ export type BadgeFilter = {
   AND?: InputMaybe<Array<InputMaybe<BadgeFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<BadgeFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  icon?: InputMaybe<cfIconNestedFilter>;
-  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  icons?: InputMaybe<cfIconNestedFilter>;
+  iconsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -606,6 +623,71 @@ export type BadgeFilter = {
   title_not_contains?: InputMaybe<Scalars['String']['input']>;
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
+
+export type BadgeIconsCollection = {
+  __typename?: 'BadgeIconsCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum BadgeIconsCollectionOrder {
+  color_ASC = 'color_ASC',
+  color_DESC = 'color_DESC',
+  iconCode_ASC = 'iconCode_ASC',
+  iconCode_DESC = 'iconCode_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  library_ASC = 'library_ASC',
+  library_DESC = 'library_DESC',
+  name_ASC = 'name_ASC',
+  name_DESC = 'name_DESC',
+  showTooltip_ASC = 'showTooltip_ASC',
+  showTooltip_DESC = 'showTooltip_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export type BadgeIconsCursorCollection = {
+  __typename?: 'BadgeIconsCursorCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export enum BadgeIconsCursorCollectionOrder {
+  color_ASC = 'color_ASC',
+  color_DESC = 'color_DESC',
+  iconCode_ASC = 'iconCode_ASC',
+  iconCode_DESC = 'iconCode_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  library_ASC = 'library_ASC',
+  library_DESC = 'library_DESC',
+  name_ASC = 'name_ASC',
+  name_DESC = 'name_DESC',
+  showTooltip_ASC = 'showTooltip_ASC',
+  showTooltip_DESC = 'showTooltip_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
 
 export type BadgeLinkingCollections = {
   __typename?: 'BadgeLinkingCollections';
@@ -2210,6 +2292,8 @@ export type IconLinkingCollections = {
   entryCursorCollection?: Maybe<EntryCursorCollection>;
   layoutCollection?: Maybe<LayoutCollection>;
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
+  statItemCollection?: Maybe<StatItemCollection>;
+  statItemCursorCollection?: Maybe<StatItemCursorCollection>;
 };
 
 
@@ -2288,6 +2372,27 @@ export type IconLinkingCollectionslayoutCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLayoutCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionsstatItemCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsStatItemCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionsstatItemCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsStatItemCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2416,6 +2521,40 @@ export enum IconLinkingCollectionsLayoutCursorCollectionOrder {
   internalName_DESC = 'internalName_DESC',
   role_ASC = 'role_ASC',
   role_DESC = 'role_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum IconLinkingCollectionsStatItemCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  progress_ASC = 'progress_ASC',
+  progress_DESC = 'progress_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum IconLinkingCollectionsStatItemCursorCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  progress_ASC = 'progress_ASC',
+  progress_DESC = 'progress_DESC',
   sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
   sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
   sys_id_ASC = 'sys_id_ASC',
@@ -3740,6 +3879,9 @@ export type Query = {
   seoMetadata?: Maybe<SeoMetadata>;
   seoMetadataCollection?: Maybe<SeoMetadataCollection>;
   seoMetadataCursorCollection?: Maybe<SeoMetadataCursorCollection>;
+  statItem?: Maybe<StatItem>;
+  statItemCollection?: Maybe<StatItemCollection>;
+  statItemCursorCollection?: Maybe<StatItemCursorCollection>;
   video?: Maybe<Video>;
   videoCollection?: Maybe<VideoCollection>;
   videoCursorCollection?: Maybe<VideoCursorCollection>;
@@ -4188,6 +4330,37 @@ export type QueryseoMetadataCursorCollectionArgs = {
 };
 
 
+export type QuerystatItemArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QuerystatItemCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<StatItemFilter>;
+};
+
+
+export type QuerystatItemCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<StatItemFilter>;
+};
+
+
 export type QueryvideoArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -4551,6 +4724,226 @@ export enum SeoMetadataOrder {
   title_DESC = 'title_DESC'
 }
 
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItem = Entry & _Node & {
+  __typename?: 'StatItem';
+  _id: Scalars['ID']['output'];
+  contentfulMetadata: ContentfulMetadata;
+  iconsCollection?: Maybe<StatItemIconsCollection>;
+  iconsCursorCollection?: Maybe<StatItemIconsCursorCollection>;
+  internalName?: Maybe<Scalars['String']['output']>;
+  linkedFrom?: Maybe<StatItemLinkingCollections>;
+  progress?: Maybe<Scalars['Int']['output']>;
+  sys: Sys;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemiconsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemIconsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemiconsCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemIconsCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatIteminternalNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemlinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemprogressArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem) */
+export type StatItemtitleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type StatItemCollection = {
+  __typename?: 'StatItemCollection';
+  items: Array<Maybe<StatItem>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type StatItemCursorCollection = {
+  __typename?: 'StatItemCursorCollection';
+  items: Array<Maybe<StatItem>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export type StatItemFilter = {
+  AND?: InputMaybe<Array<InputMaybe<StatItemFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<StatItemFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  icons?: InputMaybe<cfIconNestedFilter>;
+  iconsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  progress?: InputMaybe<Scalars['Int']['input']>;
+  progress_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  progress_gt?: InputMaybe<Scalars['Int']['input']>;
+  progress_gte?: InputMaybe<Scalars['Int']['input']>;
+  progress_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  progress_lt?: InputMaybe<Scalars['Int']['input']>;
+  progress_lte?: InputMaybe<Scalars['Int']['input']>;
+  progress_not?: InputMaybe<Scalars['Int']['input']>;
+  progress_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  title_contains?: InputMaybe<Scalars['String']['input']>;
+  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  title_not?: InputMaybe<Scalars['String']['input']>;
+  title_not_contains?: InputMaybe<Scalars['String']['input']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type StatItemIconsCollection = {
+  __typename?: 'StatItemIconsCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum StatItemIconsCollectionOrder {
+  color_ASC = 'color_ASC',
+  color_DESC = 'color_DESC',
+  iconCode_ASC = 'iconCode_ASC',
+  iconCode_DESC = 'iconCode_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  library_ASC = 'library_ASC',
+  library_DESC = 'library_DESC',
+  name_ASC = 'name_ASC',
+  name_DESC = 'name_DESC',
+  showTooltip_ASC = 'showTooltip_ASC',
+  showTooltip_DESC = 'showTooltip_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export type StatItemIconsCursorCollection = {
+  __typename?: 'StatItemIconsCursorCollection';
+  items: Array<Maybe<Icon>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export enum StatItemIconsCursorCollectionOrder {
+  color_ASC = 'color_ASC',
+  color_DESC = 'color_DESC',
+  iconCode_ASC = 'iconCode_ASC',
+  iconCode_DESC = 'iconCode_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  library_ASC = 'library_ASC',
+  library_DESC = 'library_DESC',
+  name_ASC = 'name_ASC',
+  name_DESC = 'name_DESC',
+  showTooltip_ASC = 'showTooltip_ASC',
+  showTooltip_DESC = 'showTooltip_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export type StatItemLinkingCollections = {
+  __typename?: 'StatItemLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  entryCursorCollection?: Maybe<EntryCursorCollection>;
+};
+
+
+export type StatItemLinkingCollectionsentryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type StatItemLinkingCollectionsentryCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum StatItemOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  progress_ASC = 'progress_ASC',
+  progress_DESC = 'progress_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
 export type Sys = {
   __typename?: 'Sys';
   environmentId: Scalars['String']['output'];
@@ -4741,7 +5134,7 @@ export type cfBadgeNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<cfBadgeNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<cfBadgeNestedFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  iconsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5113,63 +5506,7 @@ export type cftopContentAreaMultiTypeNestedFilter = {
   ui_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type ContentItemFieldsFragment = { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null };
-
-export type ContentListFieldsFragment = { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-              | { sys: { id: string } }
-             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null };
-
-export type ContentSectionFieldsFragment = { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-            | { sys: { id: string } }
-           | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null };
-
-export type BadgeFieldsFragment = { internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null };
-
-export type IconFieldsFragment = { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } };
-
-export type ImageFieldsFragment = { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
-
-export type LinkFieldsFragment = { internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null };
-
-export type LayoutFieldsFragment = { internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, logo: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null, resumeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigation: { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+export type LayoutFieldsFragment = { internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, logo: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null, resumeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigation: { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                 | { sys: { id: string } }
                 | { sys: { id: string } }
                 | { sys: { id: string } }
@@ -5183,10 +5520,11 @@ export type LayoutFieldsFragment = { internalName: string | null, title: string 
                 | { sys: { id: string } }
                 | { sys: { id: string } }
                 | { sys: { id: string } }
-               | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null } | null };
+                | { sys: { id: string } }
+               | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null } | null };
 
 export type PageFieldsFragment = { internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
-      | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+      | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
@@ -5200,8 +5538,9 @@ export type PageFieldsFragment = { internalName: string | null, path: string | n
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null }
-      | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+                    | { sys: { id: string } }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+      | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                   | { sys: { id: string } }
                   | { sys: { id: string } }
                   | { sys: { id: string } }
@@ -5215,9 +5554,10 @@ export type PageFieldsFragment = { internalName: string | null, path: string | n
                   | { sys: { id: string } }
                   | { sys: { id: string } }
                   | { sys: { id: string } }
-                 | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null }
+                  | { sys: { id: string } }
+                 | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null }
      | null> } | null, bottomContentAreaCollection: { items: Array<
-      | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+      | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
@@ -5231,8 +5571,9 @@ export type PageFieldsFragment = { internalName: string | null, path: string | n
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null }
-      | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+                    | { sys: { id: string } }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+      | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                   | { sys: { id: string } }
                   | { sys: { id: string } }
                   | { sys: { id: string } }
@@ -5246,17 +5587,77 @@ export type PageFieldsFragment = { internalName: string | null, path: string | n
                   | { sys: { id: string } }
                   | { sys: { id: string } }
                   | { sys: { id: string } }
-                 | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null }
+                  | { sys: { id: string } }
+                 | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null }
      | null> } | null };
 
+export type ContentItemFieldsFragment = { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
+
+export type StatItemFieldsFragment = { internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null };
+
+export type IconFieldsFragment = { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } };
+
+export type ImageFieldsFragment = { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
+
+export type LinkFieldsFragment = { internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null };
+
 export type SeoMetadataFieldsFragment = { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null };
+
+export type ContentListFieldsFragment = { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null };
+
+export type ContentSectionFieldsFragment = { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+            | { sys: { id: string } }
+           | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null };
 
 export type GetLayoutQueryVariables = Exact<{
   preview?: boolean | null | undefined;
 }>;
 
 
-export type GetLayoutQuery = { layoutCollection: { items: Array<{ internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, logo: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null, resumeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigation: { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+export type GetLayoutQuery = { layoutCollection: { items: Array<{ internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, logo: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null, resumeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigation: { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
@@ -5270,7 +5671,8 @@ export type GetLayoutQuery = { layoutCollection: { items: Array<{ internalName: 
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null } | null } | null> } | null };
+                    | { sys: { id: string } }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null } | null } | null> } | null };
 
 export type GetPageByPathQueryVariables = Exact<{
   path: string;
@@ -5279,7 +5681,7 @@ export type GetPageByPathQueryVariables = Exact<{
 
 
 export type GetPageByPathQuery = { pageCollection: { items: Array<{ internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
-          | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+          | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
@@ -5293,8 +5695,9 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ internalName
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
-                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null }
-          | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+                        | { sys: { id: string } }
+                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+          | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                       | { sys: { id: string } }
                       | { sys: { id: string } }
                       | { sys: { id: string } }
@@ -5308,9 +5711,10 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ internalName
                       | { sys: { id: string } }
                       | { sys: { id: string } }
                       | { sys: { id: string } }
-                     | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null }
+                      | { sys: { id: string } }
+                     | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null }
          | null> } | null, bottomContentAreaCollection: { items: Array<
-          | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+          | { internalName: string | null, ui: string | null, title: string | null, description: string | null, entries: string | null, sys: { id: string }, customEntriesCollection: { items: Array<{ entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
@@ -5324,8 +5728,9 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ internalName
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
-                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null }
-          | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, progress: number | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+                        | { sys: { id: string } }
+                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+          | { internalName: string | null, ui: string | null, sys: { id: string }, entry: { entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                       | { sys: { id: string } }
                       | { sys: { id: string } }
                       | { sys: { id: string } }
@@ -5339,7 +5744,8 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ internalName
                       | { sys: { id: string } }
                       | { sys: { id: string } }
                       | { sys: { id: string } }
-                     | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null }
+                      | { sys: { id: string } }
+                     | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null }
          | null> } | null } | null> } | null };
 
 export const ImageFieldsFragmentDoc = gql`
@@ -5406,16 +5812,18 @@ export const LinkFieldsFragmentDoc = gql`
   }
 }
     `;
-export const BadgeFieldsFragmentDoc = gql`
-    fragment BadgeFields on Badge {
+export const StatItemFieldsFragmentDoc = gql`
+    fragment StatItemFields on Badge {
   sys {
     id
   }
   internalName
   title
   progress
-  icon {
-    ...IconFields
+  iconsCollection(limit: 5) {
+    items {
+      ...IconFields
+    }
   }
 }
     ${IconFieldsFragmentDoc}`;
@@ -5468,18 +5876,17 @@ export const ContentItemFieldsFragmentDoc = gql`
       ...LinkFields
     }
   }
-  subItemsCollection(limit: 20) {
+  subItemsCollection(limit: 10) {
     items {
-      ...BadgeFields
+      ...StatItemFields
     }
   }
   tags
-  progress
 }
     ${ImageFieldsFragmentDoc}
 ${IconFieldsFragmentDoc}
 ${LinkFieldsFragmentDoc}
-${BadgeFieldsFragmentDoc}`;
+${StatItemFieldsFragmentDoc}`;
 export const ContentListFieldsFragmentDoc = gql`
     fragment ContentListFields on ContentList {
   sys {

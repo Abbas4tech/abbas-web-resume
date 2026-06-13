@@ -1,9 +1,9 @@
 import type { Document } from "@contentful/rich-text-types";
 import type { ContentItemFieldsFragment } from "../generated/contentful-sdk.generated";
-import { adaptBadge } from "./badge";
 import { adaptIcon } from "./icon";
 import { adaptImage } from "./image";
 import { adaptLink } from "./link";
+import { adaptStatItem } from "./stat-item";
 
 export function adaptContentItem(
   item: ContentItemFieldsFragment | null | undefined
@@ -22,7 +22,6 @@ export function adaptContentItem(
     startDate: item.startDate ? new Date(item.startDate as string) : null,
     endDate: item.endDate ? new Date(item.endDate as string) : null,
     tags: (item.tags || []).filter((tag): tag is string => tag !== null),
-    progress: item.progress || 0,
     body: (item.body?.json as Document) || null,
     image: adaptImage(item.image),
     icon: adaptIcon(item.icon),
@@ -33,10 +32,10 @@ export function adaptContentItem(
           link !== null
       ),
     subItems: (item.subItemsCollection?.items || [])
-      .map((badge) => adaptBadge(badge))
+      .map((statItem) => adaptStatItem(statItem))
       .filter(
-        (badge): badge is NonNullable<ReturnType<typeof adaptBadge>> =>
-          badge !== null
+        (statItem): statItem is NonNullable<ReturnType<typeof adaptStatItem>> =>
+          statItem !== null
       ),
   };
 }

@@ -13,7 +13,7 @@ export function adaptSplitContentPanel(
     infoRows: (data.entry?.subItems || []).map((badge) => ({
       label: badge.internalName,
       value: badge.title || "",
-      icon: badge.icon || { iconCode: "" },
+      icon: badge.icons?.[0] || { iconCode: "" },
     })),
   };
 }

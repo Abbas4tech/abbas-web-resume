@@ -1,9 +1,9 @@
 import { RichText } from "@/components/patterns/rich-text/rich-text";
 import type { AdaptedContentItem } from "@/contentful/adapters/content-item";
-import { Badge } from "./badge";
 import { Icon } from "./icon";
 import { Image } from "./image";
 import { Link } from "./link";
+import { StatItem } from "./stat-item";
 
 interface Props {
   className?: string;
@@ -61,8 +61,8 @@ export function ContentItem({ data, className }: Props) {
 
       {data.subItems && data.subItems.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-2">
-          {data.subItems.map((badge) => (
-            <Badge data={badge} key={badge.id} />
+          {data.subItems.map((statItem) => (
+            <StatItem data={statItem} key={statItem.id} />
           ))}
         </div>
       )}

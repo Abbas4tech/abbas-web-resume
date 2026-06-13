@@ -286,7 +286,8 @@ enum AssetOrder {
 type Badge implements Entry & _Node {
   _id: ID!
   contentfulMetadata: ContentfulMetadata!
-  icon(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): Icon
+  iconsCollection(limit: Int = 100, locale: String, order: [BadgeIconsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: IconFilter): BadgeIconsCollection
+  iconsCursorCollection(limit: Int = 100, locale: String, order: [BadgeIconsCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): BadgeIconsCursorCollection
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): BadgeLinkingCollections
   progress(locale: String, useFallbackLocale: Boolean): Int
@@ -311,8 +312,8 @@ input BadgeFilter {
   AND: [BadgeFilter]
   OR: [BadgeFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  icon: cfIconNestedFilter
-  icon_exists: Boolean
+  icons: cfIconNestedFilter
+  iconsCollection_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -337,6 +338,69 @@ input BadgeFilter {
   title_not: String
   title_not_contains: String
   title_not_in: [String]
+}
+
+type BadgeIconsCollection {
+  items: [Icon]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum BadgeIconsCollectionOrder {
+  color_ASC
+  color_DESC
+  iconCode_ASC
+  iconCode_DESC
+  internalName_ASC
+  internalName_DESC
+  library_ASC
+  library_DESC
+  name_ASC
+  name_DESC
+  showTooltip_ASC
+  showTooltip_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+type BadgeIconsCursorCollection {
+  items: [Icon]!
+  limit: Int!
+  pages: CursorPages!
+}
+
+enum BadgeIconsCursorCollectionOrder {
+  color_ASC
+  color_DESC
+  iconCode_ASC
+  iconCode_DESC
+  internalName_ASC
+  internalName_DESC
+  library_ASC
+  library_DESC
+  name_ASC
+  name_DESC
+  showTooltip_ASC
+  showTooltip_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
 }
 
 type BadgeLinkingCollections {
@@ -1386,6 +1450,8 @@ type IconLinkingCollections {
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
   layoutCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLayoutCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LayoutCollection
   layoutCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
+  statItemCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): StatItemCollection
+  statItemCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): StatItemCursorCollection
 }
 
 enum IconLinkingCollectionsBadgeCollectionOrder {
@@ -1510,6 +1576,40 @@ enum IconLinkingCollectionsLayoutCursorCollectionOrder {
   internalName_DESC
   role_ASC
   role_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum IconLinkingCollectionsStatItemCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  progress_ASC
+  progress_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum IconLinkingCollectionsStatItemCursorCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  progress_ASC
+  progress_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2409,6 +2509,9 @@ type Query {
   seoMetadata(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): SeoMetadata
   seoMetadataCollection(limit: Int = 100, locale: String, order: [SeoMetadataOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: SeoMetadataFilter): SeoMetadataCollection
   seoMetadataCursorCollection(limit: Int = 100, locale: String, order: [SeoMetadataOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: SeoMetadataFilter): SeoMetadataCursorCollection
+  statItem(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): StatItem
+  statItemCollection(limit: Int = 100, locale: String, order: [StatItemOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: StatItemFilter): StatItemCollection
+  statItemCursorCollection(limit: Int = 100, locale: String, order: [StatItemOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: StatItemFilter): StatItemCursorCollection
   video(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Video
   videoCollection(limit: Int = 100, locale: String, order: [VideoOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: VideoFilter): VideoCollection
   videoCursorCollection(limit: Int = 100, locale: String, order: [VideoOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: VideoFilter): VideoCursorCollection
@@ -2619,6 +2722,151 @@ enum SeoMetadataOrder {
   title_DESC
 }
 
+"""
+[See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/statItem)
+"""
+type StatItem implements Entry & _Node {
+  _id: ID!
+  contentfulMetadata: ContentfulMetadata!
+  iconsCollection(limit: Int = 100, locale: String, order: [StatItemIconsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: IconFilter): StatItemIconsCollection
+  iconsCursorCollection(limit: Int = 100, locale: String, order: [StatItemIconsCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): StatItemIconsCursorCollection
+  internalName(locale: String, useFallbackLocale: Boolean): String
+  linkedFrom(allowedLocales: [String]): StatItemLinkingCollections
+  progress(locale: String, useFallbackLocale: Boolean): Int
+  sys: Sys!
+  title(locale: String, useFallbackLocale: Boolean): String
+}
+
+type StatItemCollection {
+  items: [StatItem]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+type StatItemCursorCollection {
+  items: [StatItem]!
+  limit: Int!
+  pages: CursorPages!
+}
+
+input StatItemFilter {
+  AND: [StatItemFilter]
+  OR: [StatItemFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  icons: cfIconNestedFilter
+  iconsCollection_exists: Boolean
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  progress: Int
+  progress_exists: Boolean
+  progress_gt: Int
+  progress_gte: Int
+  progress_in: [Int]
+  progress_lt: Int
+  progress_lte: Int
+  progress_not: Int
+  progress_not_in: [Int]
+  sys: SysFilter
+  title: String
+  title_contains: String
+  title_exists: Boolean
+  title_in: [String]
+  title_not: String
+  title_not_contains: String
+  title_not_in: [String]
+}
+
+type StatItemIconsCollection {
+  items: [Icon]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum StatItemIconsCollectionOrder {
+  color_ASC
+  color_DESC
+  iconCode_ASC
+  iconCode_DESC
+  internalName_ASC
+  internalName_DESC
+  library_ASC
+  library_DESC
+  name_ASC
+  name_DESC
+  showTooltip_ASC
+  showTooltip_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+type StatItemIconsCursorCollection {
+  items: [Icon]!
+  limit: Int!
+  pages: CursorPages!
+}
+
+enum StatItemIconsCursorCollectionOrder {
+  color_ASC
+  color_DESC
+  iconCode_ASC
+  iconCode_DESC
+  internalName_ASC
+  internalName_DESC
+  library_ASC
+  library_DESC
+  name_ASC
+  name_DESC
+  showTooltip_ASC
+  showTooltip_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+type StatItemLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
+}
+
+enum StatItemOrder {
+  internalName_ASC
+  internalName_DESC
+  progress_ASC
+  progress_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
 type Sys {
   environmentId: String!
   firstPublishedAt: DateTime
@@ -2760,7 +3008,7 @@ input cfBadgeNestedFilter {
   AND: [cfBadgeNestedFilter]
   OR: [cfBadgeNestedFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  icon_exists: Boolean
+  iconsCollection_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean

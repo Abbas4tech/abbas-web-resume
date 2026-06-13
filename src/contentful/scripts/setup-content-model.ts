@@ -1,6 +1,8 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: false */
 
-import "dotenv/config";
+import { config } from "dotenv";
+
+config({ path: ".env.local" });
 
 const contentfulManagement = require("contentful-management");
 
@@ -219,11 +221,12 @@ async function main() {
   });
 
   // --------------------------------------------------
-  // 1.5. Badge (Distinct sub-item type)
+  // 1.5. Stat Item (Sub-item with multiple icons)
   // --------------------------------------------------
-  await upsertContentType(environment, "badge", {
-    name: "🖼 [Element] Badge",
-    description: "Lightweight item for tags and skills (no sub-items)",
+  await upsertContentType(environment, "statItem", {
+    name: "📚 [Content] Stat Item",
+    description:
+      "Lightweight item for stats, tags, and skills with multiple icons",
     displayField: "internalName",
     fields: [
       {
@@ -243,13 +246,17 @@ async function main() {
         validations: [],
       },
       {
-        id: "icon",
-        name: "icon",
-        type: "Link",
-        linkType: "Entry",
+        id: "icons",
+        name: "icons",
+        type: "Array",
         required: false,
         localized: false,
-        validations: [{ linkContentType: ["icon"] }],
+        items: {
+          type: "Link",
+          linkType: "Entry",
+          validations: [{ linkContentType: ["icon"] }],
+        },
+        validations: [{ size: { max: 10 } }],
       },
       {
         id: "progress",
@@ -366,7 +373,7 @@ async function main() {
         items: {
           type: "Link",
           linkType: "Entry",
-          validations: [{ linkContentType: ["badge"] }],
+          validations: [{ linkContentType: ["statItem"] }],
         },
       },
       // Metadata tags
@@ -692,7 +699,7 @@ async function main() {
   });
 
   await upsertContentType(environment, "layout", {
-    name: "⚙️ Layout",
+    name: "⚙️ [Assembly] Layout",
     description: "Site-wide configuration (formerly AppData)",
     displayField: "internalName",
     fields: [

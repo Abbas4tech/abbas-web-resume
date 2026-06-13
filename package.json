@@ -64,6 +64,7 @@
     "lint": "ultracite check",
     "prepare": "husky",
     "check": "ultracite check",
+    "contentful:setup": "npx --yes tsx src/contentful/scripts/setup-content-model.ts",
     "fix": "ultracite fix",
     "generate": "graphql-codegen",
     "storybook": "storybook dev -p 6006",

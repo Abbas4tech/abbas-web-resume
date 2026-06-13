@@ -10,8 +10,18 @@ describe("adaptPanelShowcase", () => {
           title: "Frontend Skills",
           icon: { iconCode: "fa/FaReact" },
           subItems: [
-            { progress: 90, icon: { iconCode: "fa/FaJs" } },
-            { progress: 80, icon: { iconCode: "fa/FaCss3" } },
+            {
+              id: "item1",
+              internalName: "JavaScript",
+              title: "JavaScript",
+              progress: 90,
+              icons: [
+                {
+                  iconCode: "fa/FaJs",
+                },
+              ],
+            },
+            { progress: 80, icons: [{ iconCode: "fa/FaCss3" }] },
           ],
         },
       ],

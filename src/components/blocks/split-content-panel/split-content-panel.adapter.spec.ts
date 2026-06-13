@@ -16,9 +16,14 @@ describe("adaptSplitContentPanel", () => {
         },
         subItems: [
           {
+            id: "badge1",
             internalName: "Experience",
             title: "5 Years",
-            icon: { iconCode: "fa/FaBriefcase" },
+            icons: [
+              {
+                iconCode: "fa/FaBriefcase",
+              },
+            ],
           },
         ],
       },

@@ -30,11 +30,11 @@ Links and navigation items for buttons and CTAs.
 * **page** (Entry Link to `page`): Internal routing link.
 * **url** (Symbol): External URL.
 
-### 🖼 Badge (`badge`)
-Lightweight item for tags and skills (no sub-items).
+### 🖼 Stat Item (`badge`)
+Lightweight item for stats, tags, and skills.
 * **internalName** (Symbol, Required)
 * **title** (Symbol, Required)
-* **icon** (Entry Link to `icon`)
+* **icons** (Array of Entry Links to `icon`)
 * **progress** (Integer 0-100)
 
 ---
@@ -54,7 +54,6 @@ Reusable, flexible content blocks used for experiences, projects, or articles.
 * **links** (Array of `link` entries)
 * **subItems** (Array of `badge` entries): For nested items like TechStack in an Experience.
 * **tags** (Array of Symbols)
-* **progress** (Integer 0-100)
 
 ### 💎 Content Section (`contentSection`)
 Two-column content layouts with image positioning or hero areas.

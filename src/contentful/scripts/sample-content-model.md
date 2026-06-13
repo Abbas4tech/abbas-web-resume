@@ -670,12 +670,20 @@ async function main() {
         validations: [{ size: { max: 160 } }],
       },
       {
-        id: "keywords",
-        name: "keywords",
+        id: "tags",
+        name: "tags",
         type: "Array",
         required: false,
-        localized: true,
+        localized: false,
         items: { type: "Symbol" },
+      },
+      {
+        id: "progress",
+        name: "progress",
+        type: "Integer",
+        required: false,
+        localized: false,
+        validations: [{ range: { min: 0, max: 100 } }],
       },
       {
         id: "canonicalUrl",

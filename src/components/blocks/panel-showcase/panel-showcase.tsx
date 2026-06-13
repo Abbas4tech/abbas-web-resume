@@ -45,7 +45,7 @@ const PanelShowcase = memo(
               <SectionHeading icon={<Icon {...panel.headingIcon} />}>
                 {panel.title}
               </SectionHeading>
-              <div className="flex w-full flex-col gap-4">
+              <div className="grid grid-cols-1 gap-8 p-2 md:grid-cols-2 md:p-4">
                 {panel.rows.map((row) => (
                   <IconProgressRow
                     key={`${panel.title}-progress-${row.progress}`}
