@@ -59,3 +59,15 @@ _Avoid_: doing mapping in Next.js routes
 **Content Section**:
 A standalone, non-global presentation wrapper (e.g. a "Hero Banner" or "Feature Teaser") placed directly on a `Page`. Sections do NOT belong in `Layout` unless they strictly appear across all URL routes.
 _Avoid_: bannerData, heroWidget
+
+### Testing Architecture Vocabulary
+
+**Component Test**:
+A fast, isolated test executing in Vitest + jsdom that mounts a single Element, Pattern, or Block to verify its interactions and rendering. It mocks next.js APIs natively.
+
+**E2E Test**:
+A Playwright-driven browser test that verifies full page routes, navigation, and visual regression. Because the application utilizes Next.js App Router Server Components (which fetch data outside the browser's network layer), E2E tests are detached from live Contentful data using **Mock Service Worker (MSW)** at the Node.js server level, returning predetermined structures using the same mock schemas expected by the Contentful SDK adapters.
+
+**Block Object Model**:
+A variation of the Page Object Model (POM) specific to our three-layer architecture. Since UI layout is dynamic and driven by CMS data, Playwright locators and actions are encapsulated within Block Object Models (e.g. `AppHeaderModel`, `SidebarNavModel`) rather than rigid Page Object Models. Tests dynamically compose Block Object Models based on the mock data injected.
+_Avoid_: Page Object Model (POM) for full pages, since pages are dynamic.
