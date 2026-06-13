@@ -8,10 +8,10 @@ import {
 } from "@/components/elements/mockup-window/mockup-window";
 import { PageContent } from "@/components/elements/page/page";
 import { IconCluster } from "@/components/patterns/icon-cluster/icon-cluster";
-import { IconProgressGroup } from "@/components/patterns/icon-progress-group/icon-progress-group";
 import type { IconProgressRowProps } from "@/components/patterns/icon-progress-row/icon-progress-row";
 import { IconProgressRow } from "@/components/patterns/icon-progress-row/icon-progress-row";
 import { SectionHeading } from "@/components/patterns/section-heading/section-heading";
+
 import { cn } from "@/lib/utils";
 
 export interface PanelShowcaseRow
@@ -45,7 +45,7 @@ const PanelShowcase = memo(
               <SectionHeading icon={<Icon {...panel.headingIcon} />}>
                 {panel.title}
               </SectionHeading>
-              <IconProgressGroup>
+              <div className="flex w-full flex-col gap-4">
                 {panel.rows.map((row) => (
                   <IconProgressRow
                     key={`${panel.title}-progress-${row.progress}`}
@@ -61,7 +61,7 @@ const PanelShowcase = memo(
                     </IconCluster>
                   </IconProgressRow>
                 ))}
-              </IconProgressGroup>
+              </div>
             </MockupWindowBody>
           </MockupWindow>
         ))}

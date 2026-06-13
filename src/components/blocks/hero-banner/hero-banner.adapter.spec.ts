@@ -25,14 +25,14 @@ describe("adaptHeroBanner", () => {
     expect(result.bannerImageAlt).toBe("Hero Image");
     expect(result.avatarSrc).toBe("/hero.jpg"); // Falls back to same image based on current logic
 
-    expect(result.socialLinks).toHaveLength(2);
-    expect(result.socialLinks[0].label).toBe("LinkedIn");
-    expect(result.socialLinks[0].href).toBe("https://linkedin.com");
+    expect(result.iconLinks).toHaveLength(2);
+    expect(result.iconLinks[0].label).toBe("LinkedIn");
+    expect(result.iconLinks[0].href).toBe("https://linkedin.com");
   });
 
   it("handles missing data gracefully", () => {
     const result = adaptHeroBanner({ entry: null } as any);
     expect(result.bannerImageSrc).toBe("");
-    expect(result.socialLinks).toEqual([]);
+    expect(result.iconLinks).toEqual([]);
   });
 });

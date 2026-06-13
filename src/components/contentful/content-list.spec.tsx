@@ -4,17 +4,17 @@ import { render, screen } from "@/test/utils";
 import { ContentList } from "./content-list";
 
 describe("ContentList", () => {
-  it("renders CardGallery block for CardGallery ui type", () => {
+  it("renders CardGrid block for CardGrid ui type", () => {
     const mockData: AdaptedContentList = {
       __typename: "ContentList",
       id: "1",
       internalName: "List",
-      ui: "CardGallery",
+      ui: "CardGrid",
       customEntries: [{ title: "Card 1" }],
     } as unknown as AdaptedContentList;
 
     render(<ContentList data={mockData} data-testid="list-wrapper" />);
-    // Verify it renders the CardGallery block (checks grid cols from block styling)
+    // Verify it renders the CardGrid block (checks grid cols from block styling)
     expect(screen.getByText("Card 1")).toBeInTheDocument();
   });
 

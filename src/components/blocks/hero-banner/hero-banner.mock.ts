@@ -10,7 +10,7 @@ export const baseMock: HeroBannerProps = {
   bannerImageHeight: 400,
   bannerImageWidth: 1200,
   bannerImageSrc: "https://placehold.co/1200x400/png",
-  socialLinks: [
+  iconLinks: [
     {
       label: "GitHub",
       href: "https://github.com",

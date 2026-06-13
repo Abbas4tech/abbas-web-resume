@@ -17,7 +17,7 @@ export function adaptHeroBanner(data: AdaptedContentSection): HeroBannerProps {
     avatarAlt: "",
     avatarWidth: 0,
     avatarHeight: 0,
-    socialLinks: (item?.links || []).map((link) => ({
+    iconLinks: (item?.links || []).map((link) => ({
       label: link.text,
       href: link.href || "#",
       // Generic Link doesn't have an icon image, fallback to empty or handle gracefully in component

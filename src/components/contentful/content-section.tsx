@@ -1,7 +1,7 @@
-import { BioSection } from "@/components/blocks/bio-section/bio-section";
-import { adaptBioSection } from "@/components/blocks/bio-section/bio-section.adapter";
 import { HeroBanner } from "@/components/blocks/hero-banner/hero-banner";
 import { adaptHeroBanner } from "@/components/blocks/hero-banner/hero-banner.adapter";
+import { SplitContentPanel } from "@/components/blocks/split-content-panel/split-content-panel";
+import { adaptSplitContentPanel } from "@/components/blocks/split-content-panel/split-content-panel.adapter";
 import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
 import { ContentItem } from "./content-item";
 
@@ -20,8 +20,13 @@ export function ContentSection({ data, className }: Props) {
     return <HeroBanner {...adaptHeroBanner(data)} className={className} />;
   }
 
-  if (data.ui === "BioSection") {
-    return <BioSection {...adaptBioSection(data)} className={className} />;
+  if (data.ui === "SplitContentPanel") {
+    return (
+      <SplitContentPanel
+        {...adaptSplitContentPanel(data)}
+        className={className}
+      />
+    );
   }
 
   // Default fallback rendering

@@ -37,6 +37,24 @@ _Avoid_: interface, API
 - **Block names** describe the visual slot they occupy in the layout (e.g. `HeroBanner`, `AppHeader`, `SidebarNav`). No domain words (e.g. not `ProfileBanner`, not `ExperienceCard`).
 - **Component files**: Do not use `index.tsx` or generic file names inside component folders. Files must own their component namespace explicitly to avoid editor tab confusion (e.g., `button.tsx`, `button.mock.ts`, `button.stories.tsx`, `button.adapter.ts`). Types should live in the main component `.tsx` file.
 
+### Generic Composables (Variants)
+
+**SplitContentPanel**:
+A generic block layout featuring side-by-side text and media. Can be reversed or adjusted via variants.
+_Avoid_: bio-section, profile-banner
+
+**MediaCard**:
+A generic card pattern that pairs media with text. Relies on layout and size variants instead of fixed domains.
+_Avoid_: project-preview-card, experience-card
+
+**IconLink**:
+A pattern representing a hyperlink visually presented as an icon.
+_Avoid_: social-link
+
+**StatGroup**:
+A group of statistics, using variants (e.g., `direction="row|col"`) for layout orientation.
+_Avoid_: info-stat-row, icon-progress-group
+
 ### Layer Dependency Rule
 
 Elements ← Patterns ← Blocks. A lower layer never imports from a higher layer. Files never mix layers — a file that contains an Element sub-part does not also contain a Pattern.

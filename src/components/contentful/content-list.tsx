@@ -1,5 +1,5 @@
-import { CardGallery } from "@/components/blocks/card-gallery/card-gallery";
-import { adaptCardGallery } from "@/components/blocks/card-gallery/card-gallery.adapter";
+import { CardGrid } from "@/components/blocks/card-grid/card-grid";
+import { adaptCardGrid } from "@/components/blocks/card-grid/card-grid.adapter";
 import { PanelShowcase } from "@/components/blocks/panel-showcase/panel-showcase";
 import { adaptPanelShowcase } from "@/components/blocks/panel-showcase/panel-showcase.adapter";
 import { TimelineSection } from "@/components/blocks/timeline-section/timeline-section";
@@ -20,8 +20,8 @@ export function ContentList({ data, className }: Props) {
     );
   }
 
-  if (data.ui === "CardGallery") {
-    return <CardGallery {...adaptCardGallery(data)} className={className} />;
+  if (data.ui === "CardGrid") {
+    return <CardGrid {...adaptCardGrid(data)} className={className} />;
   }
 
   if (data.ui === "PanelShowcase") {

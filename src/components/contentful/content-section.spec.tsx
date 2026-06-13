@@ -18,12 +18,12 @@ describe("ContentSection", () => {
     expect(container.querySelectorAll("img").length).toBeGreaterThan(0);
   });
 
-  it("renders BioSection block for BioSection ui type", () => {
+  it("renders SplitContentPanel block for SplitContentPanel ui type", () => {
     const mockData: AdaptedContentSection = {
       __typename: "ContentSection",
       id: "1",
       internalName: "Bio",
-      ui: "BioSection",
+      ui: "SplitContentPanel",
       entry: {
         body: { nodeType: "document", content: [] },
         subItems: [],
@@ -31,7 +31,7 @@ describe("ContentSection", () => {
     } as unknown as AdaptedContentSection;
 
     render(<ContentSection data={mockData} />);
-    // BioSection wraps items in flex flex-col gap-4
+    // SplitContentPanel wraps items in flex flex-col gap-4
     const bioSec = screen
       .getAllByRole("generic")
       .find(

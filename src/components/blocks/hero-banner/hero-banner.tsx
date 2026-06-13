@@ -1,8 +1,8 @@
 import Image from "next/image";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo, useMemo } from "react";
-import type { SocialLinkProps } from "@/components/patterns/social-link/social-link";
-import { SocialLink } from "@/components/patterns/social-link/social-link";
+import type { IconLinkProps } from "@/components/patterns/icon-link/icon-link";
+import { IconLink } from "@/components/patterns/icon-link/icon-link";
 import { cn } from "@/lib/utils";
 
 export interface HeroBannerProps extends HTMLAttributes<HTMLDivElement> {
@@ -15,7 +15,7 @@ export interface HeroBannerProps extends HTMLAttributes<HTMLDivElement> {
   bannerImageHeight: number;
   bannerImageSrc: string;
   bannerImageWidth: number;
-  socialLinks: SocialLinkProps[];
+  iconLinks: IconLinkProps[];
 }
 
 const HeroBanner = memo(
@@ -32,15 +32,15 @@ const HeroBanner = memo(
         avatarWidth,
         avatarHeight,
         animation,
-        socialLinks,
+        iconLinks,
         ...props
       },
       ref
     ) => {
       const [firstChunk, secondChunk] = useMemo(() => {
-        const mid = Math.ceil(socialLinks.length / 2);
-        return [socialLinks.slice(0, mid), socialLinks.slice(mid)];
-      }, [socialLinks]);
+        const mid = Math.ceil(iconLinks.length / 2);
+        return [iconLinks.slice(0, mid), iconLinks.slice(mid)];
+      }, [iconLinks]);
 
       return (
         <div
@@ -81,12 +81,12 @@ const HeroBanner = memo(
           <div className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12">
             <div className="flex gap-4" data-aos="fade-right">
               {firstChunk.map((link) => (
-                <SocialLink key={link.label} {...link} />
+                <IconLink key={link.label} {...link} />
               ))}
             </div>
             <div className="flex gap-4" data-aos="fade-left">
               {secondChunk.map((link) => (
-                <SocialLink key={link.label} {...link} />
+                <IconLink key={link.label} {...link} />
               ))}
             </div>
           </div>

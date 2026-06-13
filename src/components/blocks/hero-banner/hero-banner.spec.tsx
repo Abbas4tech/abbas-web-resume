@@ -13,7 +13,7 @@ describe("HeroBanner", () => {
     avatarHeight: 200,
     avatarSrc: "/avatar.jpg",
     avatarWidth: 200,
-    socialLinks: [
+    iconLinks: [
       {
         href: "/social1",
         iconHeight: 32,
