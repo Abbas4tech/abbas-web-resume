@@ -14,4 +14,7 @@ fragment LinkFields on Link {
     # Just enough to build a URL path
     path
   }
+  icon {
+    ...IconFields
+  }
 }

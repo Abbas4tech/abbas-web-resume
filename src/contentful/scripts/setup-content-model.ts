@@ -48,6 +48,99 @@ async function main() {
     process.env.CONTENTFUL_ENVIRONMENT || "development"
   );
 
+  const DAISY_THEMES = [
+    "light",
+    "dark",
+    "cupcake",
+    "dracula",
+    "night",
+    "bumblebee",
+    "emerald",
+    "corporate",
+    "synthwave",
+    "retro",
+    "cyberpunk",
+    "valentine",
+    "halloween",
+    "garden",
+    "forest",
+    "aqua",
+    "lofi",
+    "pastel",
+    "fantasy",
+    "wireframe",
+    "black",
+    "luxury",
+    "cmyk",
+    "autumn",
+    "business",
+    "coffee",
+    "winter",
+    "caramellatte",
+    "abyss",
+    "silk",
+  ];
+  const DRAWER_VARIANTS = ["default", "dock-on-mobile"];
+  const DRAWER_SIDES = ["left", "right"];
+
+  async function sanitizeLayoutEntries() {
+    try {
+      console.log(
+        "🧹 Sanitizing existing Layout entries to match new schema..."
+      );
+      const entries = await environment.getEntries({ content_type: "layout" });
+      for (const entry of entries.items) {
+        let changed = false;
+
+        // Helper to check and fix a single string field
+        const fixStringField = (
+          fieldName: string,
+          allowedValues: string[],
+          defaultValue: string
+        ) => {
+          const val = entry.fields[fieldName]?.["en-US"];
+          if (val && !allowedValues.includes(val)) {
+            const lower = val.toLowerCase();
+            entry.fields[fieldName]["en-US"] = allowedValues.includes(lower)
+              ? lower
+              : defaultValue;
+            changed = true;
+          }
+        };
+
+        fixStringField("drawerVariant", DRAWER_VARIANTS, "default");
+        fixStringField("drawerSide", DRAWER_SIDES, "left");
+        fixStringField("defaultTheme", DAISY_THEMES, "light");
+
+        // Helper to check and fix an array field
+        const themeList = entry.fields.themeList?.["en-US"];
+        if (Array.isArray(themeList)) {
+          const validThemes = themeList
+            .map((t: string) => t.toLowerCase())
+            .filter((t: string) => DAISY_THEMES.includes(t));
+          if (
+            validThemes.length !== themeList.length ||
+            validThemes.some((t: string, i: number) => t !== themeList[i])
+          ) {
+            entry.fields.themeList["en-US"] = validThemes;
+            changed = true;
+          }
+        }
+
+        if (changed) {
+          const updated = await entry.update();
+          await updated.publish();
+          console.log(`✅ Sanitized Layout entry: ${entry.sys.id}`);
+        }
+      }
+    } catch (e) {
+      console.error("Error sanitizing Layout entries", e);
+    }
+  }
+
+  // Run the sanitization before applying schema updates
+  await sanitizeLayoutEntries();
+
   const richTextValidation = [
     {
       enabledMarks: ["bold", "italic", "underline", "code"],
@@ -216,6 +309,15 @@ async function main() {
         required: false,
         localized: false,
         validations: [],
+      },
+      {
+        id: "icon",
+        name: "icon",
+        type: "Link",
+        linkType: "Entry",
+        required: false,
+        localized: false,
+        validations: [{ linkContentType: ["icon"] }],
       },
     ],
   });
@@ -719,7 +821,7 @@ async function main() {
         type: "Symbol",
         required: false,
         localized: false,
-        validations: [],
+        validations: [{ in: DAISY_THEMES }],
       },
       {
         id: "themeList",
@@ -727,16 +829,19 @@ async function main() {
         type: "Array",
         required: false,
         localized: false,
-        items: { type: "Symbol" },
+        items: {
+          type: "Symbol",
+          validations: [{ in: DAISY_THEMES }],
+        },
       },
       {
-        id: "logo",
-        name: "logo",
+        id: "siteLogo",
+        name: "siteLogo",
         type: "Link",
-        linkType: "Asset",
+        linkType: "Entry",
         required: false,
         localized: false,
-        validations: [{ linkMimetypeGroup: ["image"] }],
+        validations: [{ linkContentType: ["image"] }],
       },
       {
         id: "email",
@@ -778,7 +883,7 @@ async function main() {
         type: "Symbol",
         required: false,
         localized: false,
-        validations: [],
+        validations: [{ in: DRAWER_VARIANTS }],
       },
       {
         id: "drawerSide",
@@ -786,19 +891,61 @@ async function main() {
         type: "Symbol",
         required: false,
         localized: false,
-        validations: [],
+        validations: [{ in: DRAWER_SIDES }],
       },
       {
-        id: "navigation",
-        name: "navigation",
-        type: "Link",
-        linkType: "Entry",
+        id: "navigationLinks",
+        name: "navigationLinks",
+        type: "Array",
         required: false,
         localized: false,
-        validations: [{ linkContentType: ["contentList"] }],
+        items: {
+          type: "Link",
+          linkType: "Entry",
+          validations: [{ linkContentType: ["link"] }],
+        },
       },
     ],
   });
+
+  // Update Editor Interfaces for dropdowns
+  try {
+    const editorInterface =
+      await environment.getEditorInterfaceForContentType("layout");
+    let changed = false;
+
+    const ensureDropdown = (fieldId: string, widgetId = "dropdown") => {
+      const control = editorInterface.controls?.find(
+        (c: any) => c.fieldId === fieldId
+      );
+      if (control) {
+        if (control.widgetId !== widgetId) {
+          control.widgetId = widgetId;
+          changed = true;
+        }
+      } else {
+        if (!editorInterface.controls) {
+          editorInterface.controls = [];
+        }
+        editorInterface.controls.push({ fieldId, widgetId });
+        changed = true;
+      }
+    };
+
+    ensureDropdown("defaultTheme", "dropdown");
+    ensureDropdown("drawerVariant", "dropdown");
+    ensureDropdown("drawerSide", "dropdown");
+    ensureDropdown("themeList", "tagEditor"); // array of strings usually uses tagEditor or checkbox
+
+    if (changed) {
+      await editorInterface.update();
+      console.log(
+        "✅ Updated editor interface for layout (dropdowns configured)"
+      );
+    }
+  } catch (e) {
+    console.warn("⚠️ Could not update editor interface for layout", e);
+  }
 
   console.log("🎉 All composable content types created/updated successfully!");
 }

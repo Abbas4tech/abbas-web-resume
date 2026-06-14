@@ -1463,8 +1463,6 @@ export type ContentListLinkingCollections = {
   __typename?: 'ContentListLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
   entryCursorCollection?: Maybe<EntryCursorCollection>;
-  layoutCollection?: Maybe<LayoutCollection>;
-  layoutCursorCollection?: Maybe<LayoutCursorCollection>;
   pageCollection?: Maybe<PageCollection>;
   pageCursorCollection?: Maybe<PageCursorCollection>;
 };
@@ -1482,27 +1480,6 @@ export type ContentListLinkingCollectionsentryCollectionArgs = {
 export type ContentListLinkingCollectionsentryCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
-  pageNext?: InputMaybe<Scalars['String']['input']>;
-  pagePrev?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type ContentListLinkingCollectionslayoutCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ContentListLinkingCollectionsLayoutCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type ContentListLinkingCollectionslayoutCursorCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ContentListLinkingCollectionsLayoutCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1529,60 +1506,6 @@ export type ContentListLinkingCollectionspageCursorCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
-
-export enum ContentListLinkingCollectionsLayoutCollectionOrder {
-  defaultTheme_ASC = 'defaultTheme_ASC',
-  defaultTheme_DESC = 'defaultTheme_DESC',
-  drawerSide_ASC = 'drawerSide_ASC',
-  drawerSide_DESC = 'drawerSide_DESC',
-  drawerVariant_ASC = 'drawerVariant_ASC',
-  drawerVariant_DESC = 'drawerVariant_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  footerText_ASC = 'footerText_ASC',
-  footerText_DESC = 'footerText_DESC',
-  internalName_ASC = 'internalName_ASC',
-  internalName_DESC = 'internalName_DESC',
-  role_ASC = 'role_ASC',
-  role_DESC = 'role_DESC',
-  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
-  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
-  sys_id_ASC = 'sys_id_ASC',
-  sys_id_DESC = 'sys_id_DESC',
-  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
-  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
-  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
-  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC'
-}
-
-export enum ContentListLinkingCollectionsLayoutCursorCollectionOrder {
-  defaultTheme_ASC = 'defaultTheme_ASC',
-  defaultTheme_DESC = 'defaultTheme_DESC',
-  drawerSide_ASC = 'drawerSide_ASC',
-  drawerSide_DESC = 'drawerSide_DESC',
-  drawerVariant_ASC = 'drawerVariant_ASC',
-  drawerVariant_DESC = 'drawerVariant_DESC',
-  email_ASC = 'email_ASC',
-  email_DESC = 'email_DESC',
-  footerText_ASC = 'footerText_ASC',
-  footerText_DESC = 'footerText_DESC',
-  internalName_ASC = 'internalName_ASC',
-  internalName_DESC = 'internalName_DESC',
-  role_ASC = 'role_ASC',
-  role_DESC = 'role_DESC',
-  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
-  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
-  sys_id_ASC = 'sys_id_ASC',
-  sys_id_DESC = 'sys_id_DESC',
-  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
-  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
-  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
-  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
-  title_ASC = 'title_ASC',
-  title_DESC = 'title_DESC'
-}
 
 export enum ContentListLinkingCollectionsPageCollectionOrder {
   internalName_ASC = 'internalName_ASC',
@@ -2045,6 +1968,8 @@ export type IconLinkingCollections = {
   entryCursorCollection?: Maybe<EntryCursorCollection>;
   layoutCollection?: Maybe<LayoutCollection>;
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
+  linkCollection?: Maybe<LinkCollection>;
+  linkCursorCollection?: Maybe<LinkCursorCollection>;
   statItemCollection?: Maybe<StatItemCollection>;
   statItemCursorCollection?: Maybe<StatItemCursorCollection>;
 };
@@ -2104,6 +2029,27 @@ export type IconLinkingCollectionslayoutCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLayoutCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionslinkCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLinkCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionslinkCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLinkCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2229,6 +2175,40 @@ export enum IconLinkingCollectionsLayoutCursorCollectionOrder {
   sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
   title_ASC = 'title_ASC',
   title_DESC = 'title_DESC'
+}
+
+export enum IconLinkingCollectionsLinkCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  text_ASC = 'text_ASC',
+  text_DESC = 'text_DESC',
+  url_ASC = 'url_ASC',
+  url_DESC = 'url_DESC'
+}
+
+export enum IconLinkingCollectionsLinkCursorCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  text_ASC = 'text_ASC',
+  text_DESC = 'text_DESC',
+  url_ASC = 'url_ASC',
+  url_DESC = 'url_DESC'
 }
 
 export enum IconLinkingCollectionsStatItemCollectionOrder {
@@ -2413,6 +2393,8 @@ export type ImageLinkingCollections = {
   contentItemCursorCollection?: Maybe<ContentItemCursorCollection>;
   entryCollection?: Maybe<EntryCollection>;
   entryCursorCollection?: Maybe<EntryCursorCollection>;
+  layoutCollection?: Maybe<LayoutCollection>;
+  layoutCursorCollection?: Maybe<LayoutCursorCollection>;
   seoMetadataCollection?: Maybe<SeoMetadataCollection>;
   seoMetadataCursorCollection?: Maybe<SeoMetadataCursorCollection>;
 };
@@ -2472,6 +2454,27 @@ export type ImageLinkingCollectionsentryCollectionArgs = {
 export type ImageLinkingCollectionsentryCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type ImageLinkingCollectionslayoutCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<ImageLinkingCollectionsLayoutCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type ImageLinkingCollectionslayoutCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<ImageLinkingCollectionsLayoutCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2571,6 +2574,60 @@ export enum ImageLinkingCollectionsContentItemCursorCollectionOrder {
   startDate_DESC = 'startDate_DESC',
   subtitle_ASC = 'subtitle_ASC',
   subtitle_DESC = 'subtitle_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum ImageLinkingCollectionsLayoutCollectionOrder {
+  defaultTheme_ASC = 'defaultTheme_ASC',
+  defaultTheme_DESC = 'defaultTheme_DESC',
+  drawerSide_ASC = 'drawerSide_ASC',
+  drawerSide_DESC = 'drawerSide_DESC',
+  drawerVariant_ASC = 'drawerVariant_ASC',
+  drawerVariant_DESC = 'drawerVariant_DESC',
+  email_ASC = 'email_ASC',
+  email_DESC = 'email_DESC',
+  footerText_ASC = 'footerText_ASC',
+  footerText_DESC = 'footerText_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  role_ASC = 'role_ASC',
+  role_DESC = 'role_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum ImageLinkingCollectionsLayoutCursorCollectionOrder {
+  defaultTheme_ASC = 'defaultTheme_ASC',
+  defaultTheme_DESC = 'defaultTheme_DESC',
+  drawerSide_ASC = 'drawerSide_ASC',
+  drawerSide_DESC = 'drawerSide_DESC',
+  drawerVariant_ASC = 'drawerVariant_ASC',
+  drawerVariant_DESC = 'drawerVariant_DESC',
+  email_ASC = 'email_ASC',
+  email_DESC = 'email_DESC',
+  footerText_ASC = 'footerText_ASC',
+  footerText_DESC = 'footerText_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  role_ASC = 'role_ASC',
+  role_DESC = 'role_DESC',
   sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
   sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
   sys_id_ASC = 'sys_id_ASC',
@@ -2728,11 +2785,12 @@ export type Layout = Entry & _Node & {
   globalSeo?: Maybe<SeoMetadata>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<LayoutLinkingCollections>;
-  logo?: Maybe<Asset>;
-  navigation?: Maybe<ContentList>;
+  navigationLinksCollection?: Maybe<LayoutNavigationLinksCollection>;
+  navigationLinksCursorCollection?: Maybe<LayoutNavigationLinksCursorCollection>;
   resume?: Maybe<Asset>;
   resumeIcon?: Maybe<Icon>;
   role?: Maybe<Scalars['String']['output']>;
+  siteLogo?: Maybe<Image>;
   sys: Sys;
   themeIcon?: Maybe<Icon>;
   themeList?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -2798,19 +2856,27 @@ export type LayoutlinkedFromArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/layout) */
-export type LayoutlogoArgs = {
+export type LayoutnavigationLinksCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<LayoutNavigationLinksCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<LinkFilter>;
 };
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/layout) */
-export type LayoutnavigationArgs = {
+export type LayoutnavigationLinksCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<LayoutNavigationLinksCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<ContentListFilter>;
+  where?: InputMaybe<LinkFilter>;
 };
 
 
@@ -2835,6 +2901,15 @@ export type LayoutresumeIconArgs = {
 export type LayoutroleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/layout) */
+export type LayoutsiteLogoArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<ImageFilter>;
 };
 
 
@@ -2923,9 +2998,8 @@ export type LayoutFilter = {
   internalName_not?: InputMaybe<Scalars['String']['input']>;
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  logo_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  navigation?: InputMaybe<cfContentListNestedFilter>;
-  navigation_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  navigationLinks?: InputMaybe<cfLinkNestedFilter>;
+  navigationLinksCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   resumeIcon?: InputMaybe<cfIconNestedFilter>;
   resumeIcon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   resume_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2936,6 +3010,8 @@ export type LayoutFilter = {
   role_not?: InputMaybe<Scalars['String']['input']>;
   role_not_contains?: InputMaybe<Scalars['String']['input']>;
   role_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteLogo?: InputMaybe<cfImageNestedFilter>;
+  siteLogo_exists?: InputMaybe<Scalars['Boolean']['input']>;
   sys?: InputMaybe<SysFilter>;
   themeIcon?: InputMaybe<cfIconNestedFilter>;
   themeIcon_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2977,6 +3053,55 @@ export type LayoutLinkingCollectionsentryCursorCollectionArgs = {
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type LayoutNavigationLinksCollection = {
+  __typename?: 'LayoutNavigationLinksCollection';
+  items: Array<Maybe<Link>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum LayoutNavigationLinksCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  text_ASC = 'text_ASC',
+  text_DESC = 'text_DESC',
+  url_ASC = 'url_ASC',
+  url_DESC = 'url_DESC'
+}
+
+export type LayoutNavigationLinksCursorCollection = {
+  __typename?: 'LayoutNavigationLinksCursorCollection';
+  items: Array<Maybe<Link>>;
+  limit: Scalars['Int']['output'];
+  pages: CursorPages;
+};
+
+export enum LayoutNavigationLinksCursorCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  text_ASC = 'text_ASC',
+  text_DESC = 'text_DESC',
+  url_ASC = 'url_ASC',
+  url_DESC = 'url_DESC'
+}
+
 export enum LayoutOrder {
   defaultTheme_ASC = 'defaultTheme_ASC',
   defaultTheme_DESC = 'defaultTheme_DESC',
@@ -3009,12 +3134,22 @@ export type Link = Entry & _Node & {
   __typename?: 'Link';
   _id: Scalars['ID']['output'];
   contentfulMetadata: ContentfulMetadata;
+  icon?: Maybe<Icon>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<LinkLinkingCollections>;
   page?: Maybe<Page>;
   sys: Sys;
   text?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/link) */
+export type LinkiconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
 };
 
 
@@ -3072,6 +3207,8 @@ export type LinkFilter = {
   AND?: InputMaybe<Array<InputMaybe<LinkFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<LinkFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  icon?: InputMaybe<cfIconNestedFilter>;
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3104,6 +3241,8 @@ export type LinkLinkingCollections = {
   contentItemCursorCollection?: Maybe<ContentItemCursorCollection>;
   entryCollection?: Maybe<EntryCollection>;
   entryCursorCollection?: Maybe<EntryCursorCollection>;
+  layoutCollection?: Maybe<LayoutCollection>;
+  layoutCursorCollection?: Maybe<LayoutCursorCollection>;
 };
 
 
@@ -3146,6 +3285,27 @@ export type LinkLinkingCollectionsentryCursorCollectionArgs = {
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
+export type LinkLinkingCollectionslayoutCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<LinkLinkingCollectionsLayoutCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type LinkLinkingCollectionslayoutCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<LinkLinkingCollectionsLayoutCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export enum LinkLinkingCollectionsContentItemCollectionOrder {
   endDate_ASC = 'endDate_ASC',
   endDate_DESC = 'endDate_DESC',
@@ -3180,6 +3340,60 @@ export enum LinkLinkingCollectionsContentItemCursorCollectionOrder {
   startDate_DESC = 'startDate_DESC',
   subtitle_ASC = 'subtitle_ASC',
   subtitle_DESC = 'subtitle_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum LinkLinkingCollectionsLayoutCollectionOrder {
+  defaultTheme_ASC = 'defaultTheme_ASC',
+  defaultTheme_DESC = 'defaultTheme_DESC',
+  drawerSide_ASC = 'drawerSide_ASC',
+  drawerSide_DESC = 'drawerSide_DESC',
+  drawerVariant_ASC = 'drawerVariant_ASC',
+  drawerVariant_DESC = 'drawerVariant_DESC',
+  email_ASC = 'email_ASC',
+  email_DESC = 'email_DESC',
+  footerText_ASC = 'footerText_ASC',
+  footerText_DESC = 'footerText_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  role_ASC = 'role_ASC',
+  role_DESC = 'role_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum LinkLinkingCollectionsLayoutCursorCollectionOrder {
+  defaultTheme_ASC = 'defaultTheme_ASC',
+  defaultTheme_DESC = 'defaultTheme_DESC',
+  drawerSide_ASC = 'drawerSide_ASC',
+  drawerSide_DESC = 'drawerSide_DESC',
+  drawerVariant_ASC = 'drawerVariant_ASC',
+  drawerVariant_DESC = 'drawerVariant_DESC',
+  email_ASC = 'email_ASC',
+  email_DESC = 'email_DESC',
+  footerText_ASC = 'footerText_ASC',
+  footerText_DESC = 'footerText_DESC',
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  role_ASC = 'role_ASC',
+  role_DESC = 'role_DESC',
   sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
   sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
   sys_id_ASC = 'sys_id_ASC',
@@ -4989,45 +5203,6 @@ export type cfContentItemNestedFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type cfContentListNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<cfContentListNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<cfContentListNestedFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  customEntriesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  description_contains?: InputMaybe<Scalars['String']['input']>;
-  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  entries?: InputMaybe<Scalars['String']['input']>;
-  entries_contains?: InputMaybe<Scalars['String']['input']>;
-  entries_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  entries_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  entries_not?: InputMaybe<Scalars['String']['input']>;
-  entries_not_contains?: InputMaybe<Scalars['String']['input']>;
-  entries_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  internalName?: InputMaybe<Scalars['String']['input']>;
-  internalName_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  internalName_not?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
-  title?: InputMaybe<Scalars['String']['input']>;
-  title_contains?: InputMaybe<Scalars['String']['input']>;
-  title_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  title_not?: InputMaybe<Scalars['String']['input']>;
-  title_not_contains?: InputMaybe<Scalars['String']['input']>;
-  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  ui?: InputMaybe<Scalars['String']['input']>;
-  ui_contains?: InputMaybe<Scalars['String']['input']>;
-  ui_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  ui_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  ui_not?: InputMaybe<Scalars['String']['input']>;
-  ui_not_contains?: InputMaybe<Scalars['String']['input']>;
-  ui_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
 export type cfIconNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<cfIconNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<cfIconNestedFilter>>>;
@@ -5113,6 +5288,7 @@ export type cfLinkNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<cfLinkNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<cfLinkNestedFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5288,21 +5464,7 @@ export type cftopContentAreaMultiTypeNestedFilter = {
   ui_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type LayoutFieldsFragment = { __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, logo: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigation: { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-                | { sys: { id: string } }
-               | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null } | null };
+export type LayoutFieldsFragment = { __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null };
 
 export type PageFieldsFragment = { __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
       | { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
@@ -5319,7 +5481,7 @@ export type PageFieldsFragment = { __typename: 'Page', internalName: string | nu
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
       | { internalName: string | null, ui: string | null, sys: { id: string }, entry:
           | { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
@@ -5335,7 +5497,7 @@ export type PageFieldsFragment = { __typename: 'Page', internalName: string | nu
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
           | { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null }
          | null }
      | null> } | null, bottomContentAreaCollection: { items: Array<
@@ -5353,7 +5515,7 @@ export type PageFieldsFragment = { __typename: 'Page', internalName: string | nu
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
       | { internalName: string | null, ui: string | null, sys: { id: string }, entry:
           | { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
@@ -5369,7 +5531,7 @@ export type PageFieldsFragment = { __typename: 'Page', internalName: string | nu
                     | { sys: { id: string } }
                     | { sys: { id: string } }
                     | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
+                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
           | { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null }
          | null }
      | null> } | null };
@@ -5388,7 +5550,7 @@ export type ContentItemFieldsFragment = { __typename: 'ContentItem', entryField:
           | { sys: { id: string } }
           | { sys: { id: string } }
           | { sys: { id: string } }
-         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
+         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
 
 export type StatItemFieldsFragment = { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null };
 
@@ -5396,7 +5558,7 @@ export type IconFieldsFragment = { __typename: 'Icon', internalName: string | nu
 
 export type ImageFieldsFragment = { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
 
-export type LinkFieldsFragment = { __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null };
+export type LinkFieldsFragment = { __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null };
 
 export type SeoMetadataFieldsFragment = { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null };
 
@@ -5414,7 +5576,7 @@ export type ContentListFieldsFragment = { internalName: string | null, ui: strin
               | { sys: { id: string } }
               | { sys: { id: string } }
               | { sys: { id: string } }
-             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null };
+             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null };
 
 export type ContentSectionFieldsFragment = { internalName: string | null, ui: string | null, sys: { id: string }, entry:
     | { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
@@ -5431,7 +5593,7 @@ export type ContentSectionFieldsFragment = { internalName: string | null, ui: st
               | { sys: { id: string } }
               | { sys: { id: string } }
               | { sys: { id: string } }
-             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
+             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
     | { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null }
    | null };
 
@@ -5440,21 +5602,7 @@ export type GetLayoutQueryVariables = Exact<{
 }>;
 
 
-export type GetLayoutQuery = { layoutCollection: { items: Array<{ __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, logo: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigation: { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                    | { sys: { id: string } }
-                   | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null } | null } | null> } | null };
+export type GetLayoutQuery = { layoutCollection: { items: Array<{ __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null };
 
 export type GetPageByPathQueryVariables = Exact<{
   path: string;
@@ -5477,7 +5625,7 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
-                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
           | { internalName: string | null, ui: string | null, sys: { id: string }, entry:
               | { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                         | { sys: { id: string } }
@@ -5493,7 +5641,7 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
-                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
+                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
               | { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null }
              | null }
          | null> } | null, bottomContentAreaCollection: { items: Array<
@@ -5511,7 +5659,7 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
-                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
+                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null } | null> } | null }
           | { internalName: string | null, ui: string | null, sys: { id: string }, entry:
               | { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                         | { sys: { id: string } }
@@ -5527,7 +5675,7 @@ export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 
                         | { sys: { id: string } }
                         | { sys: { id: string } }
                         | { sys: { id: string } }
-                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
+                       | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null }
               | { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null }
              | null }
          | null> } | null } | null> } | null };
@@ -5598,8 +5746,52 @@ export const LinkFieldsFragmentDoc = gql`
     }
     path
   }
+  icon {
+    ...IconFields
+  }
 }
-    `;
+    ${IconFieldsFragmentDoc}`;
+export const LayoutFieldsFragmentDoc = gql`
+    fragment LayoutFields on Layout {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  title
+  role
+  resume {
+    url
+    title
+  }
+  globalSeo {
+    ...SeoMetadataFields
+  }
+  defaultTheme
+  themeList
+  siteLogo {
+    ...ImageFields
+  }
+  email
+  footerText
+  resumeIcon {
+    ...IconFields
+  }
+  themeIcon {
+    ...IconFields
+  }
+  drawerVariant
+  drawerSide
+  navigationLinksCollection(limit: 10) {
+    items {
+      ...LinkFields
+    }
+  }
+}
+    ${SeoMetadataFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}
+${IconFieldsFragmentDoc}
+${LinkFieldsFragmentDoc}`;
 export const StatItemFieldsFragmentDoc = gql`
     fragment StatItemFields on StatItem {
   __typename
@@ -5696,48 +5888,6 @@ export const ContentListFieldsFragmentDoc = gql`
   }
 }
     ${ContentItemFieldsFragmentDoc}`;
-export const LayoutFieldsFragmentDoc = gql`
-    fragment LayoutFields on Layout {
-  __typename
-  sys {
-    id
-  }
-  internalName
-  title
-  role
-  resume {
-    url
-    title
-  }
-  globalSeo {
-    ...SeoMetadataFields
-  }
-  defaultTheme
-  themeList
-  logo {
-    url
-    title
-    description
-    width
-    height
-  }
-  email
-  footerText
-  resumeIcon {
-    ...IconFields
-  }
-  themeIcon {
-    ...IconFields
-  }
-  drawerVariant
-  drawerSide
-  navigation {
-    ...ContentListFields
-  }
-}
-    ${SeoMetadataFieldsFragmentDoc}
-${IconFieldsFragmentDoc}
-${ContentListFieldsFragmentDoc}`;
 export const ContentSectionFieldsFragmentDoc = gql`
     fragment ContentSectionFields on ContentSection {
   sys {

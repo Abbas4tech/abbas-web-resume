@@ -887,64 +887,8 @@ input ContentListFilter {
 type ContentListLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
-  layoutCollection(limit: Int = 100, locale: String, order: [ContentListLinkingCollectionsLayoutCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LayoutCollection
-  layoutCursorCollection(limit: Int = 100, locale: String, order: [ContentListLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
   pageCollection(limit: Int = 100, locale: String, order: [ContentListLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
   pageCursorCollection(limit: Int = 100, locale: String, order: [ContentListLinkingCollectionsPageCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): PageCursorCollection
-}
-
-enum ContentListLinkingCollectionsLayoutCollectionOrder {
-  defaultTheme_ASC
-  defaultTheme_DESC
-  drawerSide_ASC
-  drawerSide_DESC
-  drawerVariant_ASC
-  drawerVariant_DESC
-  email_ASC
-  email_DESC
-  footerText_ASC
-  footerText_DESC
-  internalName_ASC
-  internalName_DESC
-  role_ASC
-  role_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
-}
-
-enum ContentListLinkingCollectionsLayoutCursorCollectionOrder {
-  defaultTheme_ASC
-  defaultTheme_DESC
-  drawerSide_ASC
-  drawerSide_DESC
-  drawerVariant_ASC
-  drawerVariant_DESC
-  email_ASC
-  email_DESC
-  footerText_ASC
-  footerText_DESC
-  internalName_ASC
-  internalName_DESC
-  role_ASC
-  role_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-  title_ASC
-  title_DESC
 }
 
 enum ContentListLinkingCollectionsPageCollectionOrder {
@@ -1292,6 +1236,8 @@ type IconLinkingCollections {
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
   layoutCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLayoutCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LayoutCollection
   layoutCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
+  linkCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLinkCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
+  linkCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLinkCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LinkCursorCollection
   statItemCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): StatItemCollection
   statItemCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): StatItemCursorCollection
 }
@@ -1394,6 +1340,40 @@ enum IconLinkingCollectionsLayoutCursorCollectionOrder {
   sys_publishedVersion_DESC
   title_ASC
   title_DESC
+}
+
+enum IconLinkingCollectionsLinkCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  text_ASC
+  text_DESC
+  url_ASC
+  url_DESC
+}
+
+enum IconLinkingCollectionsLinkCursorCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  text_ASC
+  text_DESC
+  url_ASC
+  url_DESC
 }
 
 enum IconLinkingCollectionsStatItemCollectionOrder {
@@ -1546,6 +1526,8 @@ type ImageLinkingCollections {
   contentItemCursorCollection(limit: Int = 100, locale: String, order: [ImageLinkingCollectionsContentItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentItemCursorCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
+  layoutCollection(limit: Int = 100, locale: String, order: [ImageLinkingCollectionsLayoutCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LayoutCollection
+  layoutCursorCollection(limit: Int = 100, locale: String, order: [ImageLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
   seoMetadataCollection(limit: Int = 100, locale: String, order: [ImageLinkingCollectionsSeoMetadataCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SeoMetadataCollection
   seoMetadataCursorCollection(limit: Int = 100, locale: String, order: [ImageLinkingCollectionsSeoMetadataCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): SeoMetadataCursorCollection
 }
@@ -1622,6 +1604,60 @@ enum ImageLinkingCollectionsContentItemCursorCollectionOrder {
   startDate_DESC
   subtitle_ASC
   subtitle_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum ImageLinkingCollectionsLayoutCollectionOrder {
+  defaultTheme_ASC
+  defaultTheme_DESC
+  drawerSide_ASC
+  drawerSide_DESC
+  drawerVariant_ASC
+  drawerVariant_DESC
+  email_ASC
+  email_DESC
+  footerText_ASC
+  footerText_DESC
+  internalName_ASC
+  internalName_DESC
+  role_ASC
+  role_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum ImageLinkingCollectionsLayoutCursorCollectionOrder {
+  defaultTheme_ASC
+  defaultTheme_DESC
+  drawerSide_ASC
+  drawerSide_DESC
+  drawerVariant_ASC
+  drawerVariant_DESC
+  email_ASC
+  email_DESC
+  footerText_ASC
+  footerText_DESC
+  internalName_ASC
+  internalName_DESC
+  role_ASC
+  role_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1813,11 +1849,12 @@ type Layout implements Entry & _Node {
   globalSeo(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: SeoMetadataFilter): SeoMetadata
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): LayoutLinkingCollections
-  logo(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
-  navigation(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: ContentListFilter): ContentList
+  navigationLinksCollection(limit: Int = 100, locale: String, order: [LayoutNavigationLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): LayoutNavigationLinksCollection
+  navigationLinksCursorCollection(limit: Int = 100, locale: String, order: [LayoutNavigationLinksCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: LinkFilter): LayoutNavigationLinksCursorCollection
   resume(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   resumeIcon(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): Icon
   role(locale: String, useFallbackLocale: Boolean): String
+  siteLogo(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: ImageFilter): Image
   sys: Sys!
   themeIcon(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): Icon
   themeList(locale: String, useFallbackLocale: Boolean): [String]
@@ -1885,9 +1922,8 @@ input LayoutFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
-  logo_exists: Boolean
-  navigation: cfContentListNestedFilter
-  navigation_exists: Boolean
+  navigationLinks: cfLinkNestedFilter
+  navigationLinksCollection_exists: Boolean
   resumeIcon: cfIconNestedFilter
   resumeIcon_exists: Boolean
   resume_exists: Boolean
@@ -1898,6 +1934,8 @@ input LayoutFilter {
   role_not: String
   role_not_contains: String
   role_not_in: [String]
+  siteLogo: cfImageNestedFilter
+  siteLogo_exists: Boolean
   sys: SysFilter
   themeIcon: cfIconNestedFilter
   themeIcon_exists: Boolean
@@ -1917,6 +1955,53 @@ input LayoutFilter {
 type LayoutLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
+}
+
+type LayoutNavigationLinksCollection {
+  items: [Link]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum LayoutNavigationLinksCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  text_ASC
+  text_DESC
+  url_ASC
+  url_DESC
+}
+
+type LayoutNavigationLinksCursorCollection {
+  items: [Link]!
+  limit: Int!
+  pages: CursorPages!
+}
+
+enum LayoutNavigationLinksCursorCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  text_ASC
+  text_DESC
+  url_ASC
+  url_DESC
 }
 
 enum LayoutOrder {
@@ -1952,6 +2037,7 @@ enum LayoutOrder {
 type Link implements Entry & _Node {
   _id: ID!
   contentfulMetadata: ContentfulMetadata!
+  icon(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): Icon
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): LinkLinkingCollections
   page(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: PageFilter): Page
@@ -1977,6 +2063,8 @@ input LinkFilter {
   AND: [LinkFilter]
   OR: [LinkFilter]
   contentfulMetadata: ContentfulMetadataFilter
+  icon: cfIconNestedFilter
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2008,6 +2096,8 @@ type LinkLinkingCollections {
   contentItemCursorCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsContentItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentItemCursorCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
+  layoutCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsLayoutCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LayoutCollection
+  layoutCursorCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
 }
 
 enum LinkLinkingCollectionsContentItemCollectionOrder {
@@ -2044,6 +2134,60 @@ enum LinkLinkingCollectionsContentItemCursorCollectionOrder {
   startDate_DESC
   subtitle_ASC
   subtitle_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum LinkLinkingCollectionsLayoutCollectionOrder {
+  defaultTheme_ASC
+  defaultTheme_DESC
+  drawerSide_ASC
+  drawerSide_DESC
+  drawerVariant_ASC
+  drawerVariant_DESC
+  email_ASC
+  email_DESC
+  footerText_ASC
+  footerText_DESC
+  internalName_ASC
+  internalName_DESC
+  role_ASC
+  role_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum LinkLinkingCollectionsLayoutCursorCollectionOrder {
+  defaultTheme_ASC
+  defaultTheme_DESC
+  drawerSide_ASC
+  drawerSide_DESC
+  drawerVariant_ASC
+  drawerVariant_DESC
+  email_ASC
+  email_DESC
+  footerText_ASC
+  footerText_DESC
+  internalName_ASC
+  internalName_DESC
+  role_ASC
+  role_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2962,45 +3106,6 @@ input cfContentItemNestedFilter {
   title_not_in: [String]
 }
 
-input cfContentListNestedFilter {
-  AND: [cfContentListNestedFilter]
-  OR: [cfContentListNestedFilter]
-  contentfulMetadata: ContentfulMetadataFilter
-  customEntriesCollection_exists: Boolean
-  description_contains: String
-  description_exists: Boolean
-  description_not_contains: String
-  entries: String
-  entries_contains: String
-  entries_exists: Boolean
-  entries_in: [String]
-  entries_not: String
-  entries_not_contains: String
-  entries_not_in: [String]
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  sys: SysFilter
-  title: String
-  title_contains: String
-  title_exists: Boolean
-  title_in: [String]
-  title_not: String
-  title_not_contains: String
-  title_not_in: [String]
-  ui: String
-  ui_contains: String
-  ui_exists: Boolean
-  ui_in: [String]
-  ui_not: String
-  ui_not_contains: String
-  ui_not_in: [String]
-}
-
 input cfIconNestedFilter {
   AND: [cfIconNestedFilter]
   OR: [cfIconNestedFilter]
@@ -3086,6 +3191,7 @@ input cfLinkNestedFilter {
   AND: [cfLinkNestedFilter]
   OR: [cfLinkNestedFilter]
   contentfulMetadata: ContentfulMetadataFilter
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean

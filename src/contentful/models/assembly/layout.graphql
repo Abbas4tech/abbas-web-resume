@@ -15,12 +15,8 @@ fragment LayoutFields on Layout {
   }
   defaultTheme
   themeList
-  logo {
-    url
-    title
-    description
-    width
-    height
+  siteLogo {
+    ...ImageFields
   }
   email
   footerText
@@ -32,7 +28,9 @@ fragment LayoutFields on Layout {
   }
   drawerVariant
   drawerSide
-  navigation {
-    ...ContentListFields
+  navigationLinksCollection(limit: 10) {
+    items {
+      ...LinkFields
+    }
   }
 }

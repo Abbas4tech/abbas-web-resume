@@ -1,6 +1,7 @@
 import type { LayoutFieldsFragment } from "../generated/contentful-sdk.generated";
-import { adaptContentList } from "./content-list";
 import { adaptIcon } from "./icon";
+import { adaptImage } from "./image";
+import { adaptLink } from "./link";
 import { adaptSeoMetadata } from "./seo-metadata";
 
 export function adaptLayout(item: LayoutFieldsFragment | null | undefined) {
@@ -24,22 +25,18 @@ export function adaptLayout(item: LayoutFieldsFragment | null | undefined) {
     defaultTheme: item.defaultTheme || "",
     themeList:
       item.themeList?.filter((t): t is string => typeof t === "string") || [],
-    logo: item.logo
-      ? {
-          url: item.logo.url || "",
-          title: item.logo.title || "",
-          description: item.logo.description || "",
-          width: item.logo.width || 0,
-          height: item.logo.height || 0,
-        }
-      : null,
     email: item.email || "",
     footerText: item.footerText || "",
+    siteLogo: adaptImage(item.siteLogo),
     resumeIcon: adaptIcon(item.resumeIcon),
     themeIcon: adaptIcon(item.themeIcon),
     drawerVariant: item.drawerVariant || "",
     drawerSide: item.drawerSide || "",
-    navigation: adaptContentList(item.navigation),
+    navigationLinks:
+      item.navigationLinksCollection?.items
+        .map(adaptLink)
+        .filter((link): link is NonNullable<typeof link> => link !== null) ||
+      [],
   };
 }
 
