@@ -21,6 +21,7 @@ export function adaptStatGroup(input: {
       classes: input.icon.classes,
       showTooltip: input.icon.showTooltip,
       name: input.icon.name,
+      size: "36",
     },
   };
 }

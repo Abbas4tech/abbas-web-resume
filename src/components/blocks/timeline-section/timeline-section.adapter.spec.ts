@@ -9,8 +9,8 @@ describe("adaptTimelineSection", () => {
       customEntries: [
         {
           title: "Job Title",
-          startDate: "Jan 2020",
-          endDate: "Jan 2021",
+          startDate: new Date("2020-01-01T00:00:00Z"),
+          endDate: new Date("2021-01-01T00:00:00Z"),
           subtitle: "Company",
           icon: { iconCode: "fa/FaBriefcase" },
           body: {
@@ -36,7 +36,7 @@ describe("adaptTimelineSection", () => {
     expect(entry.metaRows).toHaveLength(2);
     expect(entry.metaRows[0]).toEqual({
       icon: { iconCode: "calendar" },
-      text: "Jan 2020 - Jan 2021",
+      text: "2020 - 2021",
     });
     expect(entry.metaRows[1]).toEqual({
       icon: { iconCode: "briefcase" },
@@ -49,7 +49,7 @@ describe("adaptTimelineSection", () => {
       customEntries: [
         {
           title: "Current Job",
-          startDate: "Jan 2022",
+          startDate: new Date("2022-01-01T00:00:00Z"),
         },
       ],
     } as unknown as AdaptedContentList;
@@ -58,6 +58,6 @@ describe("adaptTimelineSection", () => {
     const metaRows = result.entries[0].metaRows;
 
     expect(metaRows).toHaveLength(1);
-    expect(metaRows[0].text).toBe("Jan 2022 - Present");
+    expect(metaRows[0].text).toBe("2022 - Present");
   });
 });

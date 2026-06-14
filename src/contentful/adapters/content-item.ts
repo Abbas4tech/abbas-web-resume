@@ -1,14 +1,17 @@
 import type { Document } from "@contentful/rich-text-types";
-import type { ContentItemFieldsFragment } from "../generated/contentful-sdk.generated";
+import type {
+  ContentItemFieldsFragment,
+  StatItemFieldsFragment,
+} from "../generated/contentful-sdk.generated";
 import { adaptIcon } from "./icon";
 import { adaptImage } from "./image";
 import { adaptLink } from "./link";
-import { adaptStatItem } from "./stat-item";
+import { type AdaptedStatItem, adaptStatItem } from "./stat-item";
 
 export function adaptContentItem(
   item: ContentItemFieldsFragment | null | undefined
 ) {
-  if (!item) {
+  if (item?.__typename !== "ContentItem") {
     return null;
   }
 
@@ -43,6 +46,23 @@ export function adaptContentItem(
 export type AdaptedContentItem = NonNullable<
   ReturnType<typeof adaptContentItem>
 >;
+
+export type AdaptedEntry = AdaptedContentItem | AdaptedStatItem;
+
+export function adaptEntry(
+  item: ContentItemFieldsFragment | StatItemFieldsFragment | null | undefined
+): AdaptedEntry | null {
+  if (!item) {
+    return null;
+  }
+  if (item.__typename === "ContentItem") {
+    return adaptContentItem(item);
+  }
+  if (item.__typename === "StatItem") {
+    return adaptStatItem(item);
+  }
+  return null;
+}
 
 export function isAdaptedContentItem(
   item: unknown

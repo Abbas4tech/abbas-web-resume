@@ -5,6 +5,11 @@ fragment ContentSectionFields on ContentSection {
   internalName
   ui
   entry {
-    ...ContentItemFields
+    ... on ContentItem {
+      ...ContentItemFields
+    }
+    ... on StatItem {
+      ...StatItemFields
+    }
   }
 }

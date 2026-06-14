@@ -55,6 +55,7 @@ const PanelShowcase = memo(
                       {row.icons.map((iconProps) => (
                         <Icon
                           key={`${panel.title}-progress-${row.progress}-${iconProps.iconCode || iconProps.name}`}
+                          size="36"
                           {...iconProps}
                         />
                       ))}

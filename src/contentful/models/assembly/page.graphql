@@ -1,4 +1,5 @@
 fragment PageFields on Page {
+  __typename
   sys {
     id
   }

@@ -5,7 +5,7 @@ import type { HeroBannerProps } from "./hero-banner";
  * Maps generic AdaptedContentSection to the HeroBanner block props.
  */
 export function adaptHeroBanner(data: AdaptedContentSection): HeroBannerProps {
-  const item = data.entry;
+  const item = data.entry?.__typename === "ContentItem" ? data.entry : null;
   return {
     animation: undefined,
     bannerImageSrc: item?.image?.url || "",

@@ -1,19 +1,19 @@
-import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
+import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import type { SplitContentPanelProps } from "./split-content-panel";
 
 /**
  * Maps generic AdaptedContentSection to the SplitContentPanel block props.
  */
 export function adaptSplitContentPanel(
-  data: AdaptedContentSection
+  data: AdaptedContentList
 ): SplitContentPanelProps {
   return {
     animation: undefined,
-    description: data.entry?.body,
-    infoRows: (data.entry?.subItems || []).map((badge) => ({
-      label: badge.internalName,
-      value: badge.title || "",
-      icon: badge.icons?.[0] || { iconCode: "" },
+    description: data.description,
+    infoRows: (data.customEntries || []).map((item) => ({
+      label: item.title,
+      value: item.description || "",
+      icon: item.icon,
     })),
   };
 }

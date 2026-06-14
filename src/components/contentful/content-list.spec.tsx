@@ -25,7 +25,24 @@ describe("ContentList", () => {
       internalName: "List",
       ui: "Unknown",
       title: "Fallback Title",
-      description: "Fallback Description",
+      description: {
+        nodeType: "document",
+        data: {},
+        content: [
+          {
+            nodeType: "paragraph",
+            data: {},
+            content: [
+              {
+                nodeType: "text",
+                value: "Fallback Description",
+                marks: [],
+                data: {},
+              },
+            ],
+          },
+        ],
+      } as any,
       customEntries: [
         { __typename: "ContentItem", id: "ci1", title: "Item 1" },
       ],

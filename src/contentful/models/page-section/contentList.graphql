@@ -5,7 +5,9 @@ fragment ContentListFields on ContentList {
   internalName
   ui
   title
-  description
+  description {
+    json
+  }
   entries
   customEntriesCollection(limit: 10) {
     items {

@@ -1,4 +1,5 @@
 fragment ContentItemFields on ContentItem {
+  __typename
   sys {
     id
   }

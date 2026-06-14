@@ -1,33 +1,29 @@
 import { BLOCKS } from "@contentful/rich-text-types";
 import { describe, expect, it } from "vitest";
-import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
+import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import { adaptSplitContentPanel } from "./split-content-panel.adapter";
 
 describe("adaptSplitContentPanel", () => {
-  it("adapts generic ContentSection to SplitContentPanelProps", () => {
-    const input: AdaptedContentSection = {
+  it("adapts generic ContentList to SplitContentPanelProps", () => {
+    const input: AdaptedContentList = {
       internalName: "Bio Section",
-      sectionId: "bio",
-      entry: {
-        body: {
-          nodeType: BLOCKS.DOCUMENT,
-          data: {},
-          content: [],
-        },
-        subItems: [
-          {
-            id: "badge1",
-            internalName: "Experience",
-            title: "5 Years",
-            icons: [
-              {
-                iconCode: "fa/FaBriefcase",
-              },
-            ],
-          },
-        ],
+      id: "bio",
+      description: {
+        nodeType: BLOCKS.DOCUMENT,
+        data: {},
+        content: [],
       },
-    } as unknown as AdaptedContentSection;
+      customEntries: [
+        {
+          id: "badge1",
+          title: "Experience",
+          description: "5 Years",
+          icon: {
+            iconCode: "fa/FaBriefcase",
+          },
+        },
+      ],
+    } as unknown as AdaptedContentList;
 
     const result = adaptSplitContentPanel(input);
 
@@ -41,11 +37,11 @@ describe("adaptSplitContentPanel", () => {
     });
   });
 
-  it("handles missing entry or subItems", () => {
-    const input: AdaptedContentSection = {
+  it("handles missing description or customEntries", () => {
+    const input: AdaptedContentList = {
       internalName: "Empty Bio",
-      sectionId: "empty",
-    } as unknown as AdaptedContentSection;
+      id: "empty",
+    } as unknown as AdaptedContentList;
 
     const result = adaptSplitContentPanel(input);
 

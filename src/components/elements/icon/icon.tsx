@@ -100,7 +100,7 @@ const Icon = memo(
         classes,
         showTooltip = true,
         name,
-        size = "1.5rem",
+        size = "24",
       },
       ref
     ) => {

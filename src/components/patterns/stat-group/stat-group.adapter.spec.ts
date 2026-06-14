@@ -20,6 +20,7 @@ describe("adaptStatGroup", () => {
         classes: undefined,
         showTooltip: undefined,
         name: "Clock",
+        size: "36",
       },
     };
 

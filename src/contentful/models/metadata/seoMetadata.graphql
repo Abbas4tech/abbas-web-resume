@@ -1,4 +1,5 @@
 fragment SeoMetadataFields on SeoMetadata {
+  __typename
   sys {
     id
   }

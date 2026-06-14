@@ -6,6 +6,7 @@ describe("adaptHeroBanner", () => {
   it("adapts ContentSection to HeroBannerProps", () => {
     const input: AdaptedContentSection = {
       entry: {
+        __typename: "ContentItem",
         image: {
           url: "/hero.jpg",
           title: "Hero Image",

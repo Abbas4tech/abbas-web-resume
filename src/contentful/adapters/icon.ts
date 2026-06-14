@@ -1,8 +1,8 @@
 import type { IconFieldsFragment } from "../generated/contentful-sdk.generated";
 
-export function adaptIcon(item: IconFieldsFragment | null | undefined) {
+export function adaptIcon(item: IconFieldsFragment | undefined | null) {
   if (!item) {
-    return null;
+    return;
   }
 
   // Prefer iconCode, fallback to name.

@@ -1199,7 +1199,7 @@ export type ContentList = Entry & _Node & {
   contentfulMetadata: ContentfulMetadata;
   customEntriesCollection?: Maybe<ContentListCustomEntriesCollection>;
   customEntriesCursorCollection?: Maybe<ContentListCustomEntriesCursorCollection>;
-  description?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<ContentListDescription>;
   entries?: Maybe<Scalars['String']['output']>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<ContentListLinkingCollections>;
@@ -1348,19 +1348,63 @@ export type ContentListCustomEntriesCursorCollectionOrder =
   | 'title_ASC'
   | 'title_DESC';
 
+export type ContentListDescription = {
+  __typename?: 'ContentListDescription';
+  json: Scalars['JSON']['output'];
+  links: ContentListDescriptionLinks;
+};
+
+export type ContentListDescriptionAssets = {
+  __typename?: 'ContentListDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type ContentListDescriptionEntries = {
+  __typename?: 'ContentListDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type ContentListDescriptionLinks = {
+  __typename?: 'ContentListDescriptionLinks';
+  assets: ContentListDescriptionAssets;
+  entries: ContentListDescriptionEntries;
+  resources: ContentListDescriptionResources;
+};
+
+export type ContentListDescriptionResources = {
+  __typename?: 'ContentListDescriptionResources';
+  block: Array<ContentListDescriptionResourcesBlock>;
+  hyperlink: Array<ContentListDescriptionResourcesHyperlink>;
+  inline: Array<ContentListDescriptionResourcesInline>;
+};
+
+export type ContentListDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'ContentListDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type ContentListDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'ContentListDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type ContentListDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'ContentListDescriptionResourcesInline';
+  sys: ResourceSys;
+};
+
 export type ContentListFilter = {
   AND?: InputMaybe<Array<InputMaybe<ContentListFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ContentListFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   customEntries?: InputMaybe<CfContentItemNestedFilter>;
   customEntriesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   entries?: InputMaybe<Scalars['String']['input']>;
   entries_contains?: InputMaybe<Scalars['String']['input']>;
   entries_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1570,7 +1614,7 @@ export type ContentSection = Entry & _Node & {
   __typename?: 'ContentSection';
   _id: Scalars['ID']['output'];
   contentfulMetadata: ContentfulMetadata;
-  entry?: Maybe<ContentItem>;
+  entry?: Maybe<ContentSectionEntry>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<ContentSectionLinkingCollections>;
   sys: Sys;
@@ -1583,7 +1627,6 @@ export type ContentSectionEntryArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<ContentItemFilter>;
 };
 
 
@@ -1621,11 +1664,12 @@ export type ContentSectionCursorCollection = {
   pages: CursorPages;
 };
 
+export type ContentSectionEntry = ContentItem | StatItem;
+
 export type ContentSectionFilter = {
   AND?: InputMaybe<Array<InputMaybe<ContentSectionFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<ContentSectionFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  entry?: InputMaybe<CfContentItemNestedFilter>;
   entry_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
@@ -4463,6 +4507,8 @@ export type StatItemLinkingCollections = {
   __typename?: 'StatItemLinkingCollections';
   contentItemCollection?: Maybe<ContentItemCollection>;
   contentItemCursorCollection?: Maybe<ContentItemCursorCollection>;
+  contentSectionCollection?: Maybe<ContentSectionCollection>;
+  contentSectionCursorCollection?: Maybe<ContentSectionCursorCollection>;
   entryCollection?: Maybe<EntryCollection>;
   entryCursorCollection?: Maybe<EntryCursorCollection>;
 };
@@ -4482,6 +4528,27 @@ export type StatItemLinkingCollectionsContentItemCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   order?: InputMaybe<Array<InputMaybe<StatItemLinkingCollectionsContentItemCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type StatItemLinkingCollectionsContentSectionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemLinkingCollectionsContentSectionCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type StatItemLinkingCollectionsContentSectionCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<StatItemLinkingCollectionsContentSectionCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4550,6 +4617,34 @@ export type StatItemLinkingCollectionsContentItemCursorCollectionOrder =
   | 'sys_publishedVersion_DESC'
   | 'title_ASC'
   | 'title_DESC';
+
+export type StatItemLinkingCollectionsContentSectionCollectionOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'ui_ASC'
+  | 'ui_DESC';
+
+export type StatItemLinkingCollectionsContentSectionCursorCollectionOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'ui_ASC'
+  | 'ui_DESC';
 
 export type StatItemOrder =
   | 'internalName_ASC'
@@ -4830,13 +4925,9 @@ export type CfContentListNestedFilter = {
   OR?: InputMaybe<Array<InputMaybe<CfContentListNestedFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   customEntriesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  description_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
-  description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   entries?: InputMaybe<Scalars['String']['input']>;
   entries_contains?: InputMaybe<Scalars['String']['input']>;
   entries_exists?: InputMaybe<Scalars['Boolean']['input']>;

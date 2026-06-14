@@ -18,29 +18,6 @@ describe("ContentSection", () => {
     expect(container.querySelectorAll("img").length).toBeGreaterThan(0);
   });
 
-  it("renders SplitContentPanel block for SplitContentPanel ui type", () => {
-    const mockData: AdaptedContentSection = {
-      __typename: "ContentSection",
-      id: "1",
-      internalName: "Bio",
-      ui: "SplitContentPanel",
-      entry: {
-        body: { nodeType: "document", content: [] },
-        subItems: [],
-      } as any,
-    } as unknown as AdaptedContentSection;
-
-    render(<ContentSection data={mockData} />);
-    // SplitContentPanel wraps items in flex flex-col gap-4
-    const bioSec = screen
-      .getAllByRole("generic")
-      .find(
-        (el) =>
-          el.classList.contains("flex-col") && el.classList.contains("gap-4")
-      );
-    expect(bioSec).toBeDefined();
-  });
-
   it("renders default fallback when ui does not match", () => {
     const mockData: AdaptedContentSection = {
       __typename: "ContentSection",

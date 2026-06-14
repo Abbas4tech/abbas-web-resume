@@ -1,4 +1,5 @@
 fragment StatItemFields on StatItem {
+  __typename
   sys {
     id
   }

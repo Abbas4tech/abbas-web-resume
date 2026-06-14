@@ -723,7 +723,7 @@ type ContentList implements Entry & _Node {
   contentfulMetadata: ContentfulMetadata!
   customEntriesCollection(limit: Int = 100, locale: String, order: [ContentListCustomEntriesCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ContentItemFilter): ContentListCustomEntriesCollection
   customEntriesCursorCollection(limit: Int = 100, locale: String, order: [ContentListCustomEntriesCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: ContentItemFilter): ContentListCustomEntriesCursorCollection
-  description(locale: String, useFallbackLocale: Boolean): String
+  description(locale: String, useFallbackLocale: Boolean): ContentListDescription
   entries(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): ContentListLinkingCollections
@@ -804,19 +804,55 @@ enum ContentListCustomEntriesCursorCollectionOrder {
   title_DESC
 }
 
+type ContentListDescription {
+  json: JSON!
+  links: ContentListDescriptionLinks!
+}
+
+type ContentListDescriptionAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type ContentListDescriptionEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type ContentListDescriptionLinks {
+  assets: ContentListDescriptionAssets!
+  entries: ContentListDescriptionEntries!
+  resources: ContentListDescriptionResources!
+}
+
+type ContentListDescriptionResources {
+  block: [ContentListDescriptionResourcesBlock!]!
+  hyperlink: [ContentListDescriptionResourcesHyperlink!]!
+  inline: [ContentListDescriptionResourcesInline!]!
+}
+
+type ContentListDescriptionResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type ContentListDescriptionResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type ContentListDescriptionResourcesInline implements ResourceLink {
+  sys: ResourceSys!
+}
+
 input ContentListFilter {
   AND: [ContentListFilter]
   OR: [ContentListFilter]
   contentfulMetadata: ContentfulMetadataFilter
   customEntries: cfContentItemNestedFilter
   customEntriesCollection_exists: Boolean
-  description: String
   description_contains: String
   description_exists: Boolean
-  description_in: [String]
-  description_not: String
   description_not_contains: String
-  description_not_in: [String]
   entries: String
   entries_contains: String
   entries_exists: Boolean
@@ -970,7 +1006,7 @@ enum ContentListOrder {
 type ContentSection implements Entry & _Node {
   _id: ID!
   contentfulMetadata: ContentfulMetadata!
-  entry(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: ContentItemFilter): ContentItem
+  entry(locale: String, preview: Boolean, useFallbackLocale: Boolean): ContentSectionEntry
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): ContentSectionLinkingCollections
   sys: Sys!
@@ -990,11 +1026,12 @@ type ContentSectionCursorCollection {
   pages: CursorPages!
 }
 
+union ContentSectionEntry = ContentItem | StatItem
+
 input ContentSectionFilter {
   AND: [ContentSectionFilter]
   OR: [ContentSectionFilter]
   contentfulMetadata: ContentfulMetadataFilter
-  entry: cfContentItemNestedFilter
   entry_exists: Boolean
   internalName: String
   internalName_contains: String
@@ -2616,6 +2653,8 @@ enum StatItemIconsCursorCollectionOrder {
 type StatItemLinkingCollections {
   contentItemCollection(limit: Int = 100, locale: String, order: [StatItemLinkingCollectionsContentItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): ContentItemCollection
   contentItemCursorCollection(limit: Int = 100, locale: String, order: [StatItemLinkingCollectionsContentItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentItemCursorCollection
+  contentSectionCollection(limit: Int = 100, locale: String, order: [StatItemLinkingCollectionsContentSectionCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): ContentSectionCollection
+  contentSectionCursorCollection(limit: Int = 100, locale: String, order: [StatItemLinkingCollectionsContentSectionCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ContentSectionCursorCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   entryCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): EntryCursorCollection
 }
@@ -2664,6 +2703,36 @@ enum StatItemLinkingCollectionsContentItemCursorCollectionOrder {
   sys_publishedVersion_DESC
   title_ASC
   title_DESC
+}
+
+enum StatItemLinkingCollectionsContentSectionCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  ui_ASC
+  ui_DESC
+}
+
+enum StatItemLinkingCollectionsContentSectionCursorCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  ui_ASC
+  ui_DESC
 }
 
 enum StatItemOrder {
@@ -2898,13 +2967,9 @@ input cfContentListNestedFilter {
   OR: [cfContentListNestedFilter]
   contentfulMetadata: ContentfulMetadataFilter
   customEntriesCollection_exists: Boolean
-  description: String
   description_contains: String
   description_exists: Boolean
-  description_in: [String]
-  description_not: String
   description_not_contains: String
-  description_not_in: [String]
   entries: String
   entries_contains: String
   entries_exists: Boolean

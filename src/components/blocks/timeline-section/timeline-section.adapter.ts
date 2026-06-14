@@ -15,7 +15,7 @@ export function adaptTimelineSection(
       if (item.startDate || item.endDate) {
         metaRows.push({
           icon: { iconCode: "calendar" },
-          text: `${item.startDate || ""} - ${item.endDate || "Present"}`,
+          text: `${item.startDate?.getFullYear() || ""} - ${item.endDate?.getFullYear() || "Present"}`,
         });
       }
       if (item.subtitle) {

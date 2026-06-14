@@ -1,4 +1,5 @@
 fragment LinkFields on Link {
+  __typename
   sys {
     id
   }

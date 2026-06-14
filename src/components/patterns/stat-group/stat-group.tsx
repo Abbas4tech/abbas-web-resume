@@ -12,7 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export interface StatGroupProps extends HTMLAttributes<HTMLDivElement> {
-  icon: IconProps;
+  icon?: IconProps;
   label: string;
   value: string;
 }
@@ -23,9 +23,11 @@ const StatGroup = memo(
     ({ label, value, icon, className, ...props }, ref) => (
       <Stats className={cn("", className)} ref={ref} {...props}>
         <Stat>
-          <StatFigure>
-            <Icon {...icon} />
-          </StatFigure>
+          {icon && (
+            <StatFigure>
+              <Icon {...icon} />
+            </StatFigure>
+          )}
           <StatTitle>{label}</StatTitle>
           <StatDescription>{value}</StatDescription>
         </Stat>
