@@ -1,7 +1,13 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import type { AdaptedPage } from "@/contentful/adapters/page";
 import { render, screen } from "@/test/utils";
 import { ContentfulPage } from "./contentful-page";
+
+vi.mock("./content-section", () => ({
+  ContentSection: ({ data }: any) => (
+    <div>{data.entry?.title || "Content Section Mock"}</div>
+  ),
+}));
 
 describe("ContentfulPage", () => {
   it("renders ContentList and ContentSection in top and bottom areas", () => {

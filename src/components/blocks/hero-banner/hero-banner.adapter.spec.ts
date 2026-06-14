@@ -1,18 +1,40 @@
 import { describe, expect, it } from "vitest";
 import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
+import type { AdaptedImage } from "@/contentful/adapters/image";
 import { adaptHeroBanner } from "./hero-banner.adapter";
 
 describe("adaptHeroBanner", () => {
   it("adapts ContentSection to HeroBannerProps", () => {
+    const mockImage: AdaptedImage = {
+      __typename: "Image",
+      id: "img-1",
+      internalName: "Hero Image",
+      url: "/hero.jpg",
+      title: "Hero Image",
+      alternativeText: "Hero Alt",
+      caption: "",
+      description: "",
+      width: 1920,
+      height: 1080,
+    };
+
+    const mockSiteLogo: AdaptedImage = {
+      __typename: "Image",
+      id: "logo-1",
+      internalName: "Logo",
+      url: "/logo.png",
+      title: "Site Logo",
+      alternativeText: "Logo Alt",
+      caption: "",
+      description: "",
+      width: 100,
+      height: 100,
+    };
+
     const input: AdaptedContentSection = {
       entry: {
         __typename: "ContentItem",
-        image: {
-          url: "/hero.jpg",
-          title: "Hero Image",
-          width: 1920,
-          height: 1080,
-        },
+        image: mockImage,
         links: [
           { text: "LinkedIn", href: "https://linkedin.com" },
           { text: "GitHub", href: "https://github.com" },
@@ -20,11 +42,10 @@ describe("adaptHeroBanner", () => {
       },
     } as unknown as AdaptedContentSection;
 
-    const result = adaptHeroBanner(input);
+    const result = adaptHeroBanner(input, mockSiteLogo);
 
-    expect(result.bannerImageSrc).toBe("/hero.jpg");
-    expect(result.bannerImageAlt).toBe("Hero Image");
-    expect(result.avatarSrc).toBe("/hero.jpg"); // Falls back to same image based on current logic
+    expect(result.bannerImage).toEqual(mockImage);
+    expect(result.avatarImage).toEqual(mockSiteLogo);
 
     expect(result.iconLinks).toHaveLength(2);
     expect(result.iconLinks[0].label).toBe("LinkedIn");
@@ -32,8 +53,9 @@ describe("adaptHeroBanner", () => {
   });
 
   it("handles missing data gracefully", () => {
-    const result = adaptHeroBanner({ entry: null } as any);
-    expect(result.bannerImageSrc).toBe("");
+    const result = adaptHeroBanner({ entry: null } as any, null);
+    expect(result.bannerImage).toBeNull();
+    expect(result.avatarImage).toBeNull();
     expect(result.iconLinks).toEqual([]);
   });
 });

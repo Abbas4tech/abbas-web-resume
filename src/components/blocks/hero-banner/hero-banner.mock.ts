@@ -2,14 +2,30 @@ import type { HeroBannerProps } from "./hero-banner";
 
 export const baseMock: HeroBannerProps = {
   animation: "fade-down",
-  avatarAlt: "Abbas Avatar",
-  avatarHeight: 150,
-  avatarWidth: 150,
-  avatarSrc: "https://placehold.co/150x150/png",
-  bannerImageAlt: "Coding setup",
-  bannerImageHeight: 400,
-  bannerImageWidth: 1200,
-  bannerImageSrc: "https://placehold.co/1200x400/png",
+  bannerImage: {
+    __typename: "Image",
+    id: "banner-1",
+    internalName: "Coding setup",
+    alternativeText: "Coding setup",
+    url: "https://placehold.co/1200x400/png",
+    title: "",
+    description: "",
+    width: 1200,
+    height: 400,
+    caption: "",
+  },
+  avatarImage: {
+    __typename: "Image",
+    id: "avatar-1",
+    internalName: "Abbas Avatar",
+    alternativeText: "Abbas Avatar",
+    url: "https://placehold.co/150x150/png",
+    title: "",
+    description: "",
+    width: 150,
+    height: 150,
+    caption: "",
+  },
   iconLinks: [
     {
       label: "GitHub",

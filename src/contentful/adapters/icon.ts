@@ -5,10 +5,8 @@ export function adaptIcon(item: IconFieldsFragment | undefined | null) {
     return;
   }
 
-  // Prefer iconCode, fallback to name.
   const rawCode = item.iconCode || item.name || "";
 
-  // Only prefix if we have a library and the code isn't already prefixed
   const iconCode =
     item.library && rawCode && !rawCode.includes("/")
       ? `${item.library}/${rawCode}`

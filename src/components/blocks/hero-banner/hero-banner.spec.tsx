@@ -1,18 +1,39 @@
 import { describe, expect, it } from "vitest";
+import type { AdaptedImage } from "@/contentful/adapters/image";
 import { render, screen } from "@/test/utils";
 import { HeroBanner } from "./hero-banner";
 
 describe("HeroBanner", () => {
+  const mockBanner: AdaptedImage = {
+    __typename: "Image",
+    id: "banner",
+    internalName: "banner",
+    alternativeText: "Banner",
+    caption: "",
+    url: "/banner.jpg",
+    title: "",
+    description: "",
+    width: 1200,
+    height: 400,
+  };
+
+  const mockAvatar: AdaptedImage = {
+    __typename: "Image",
+    id: "avatar",
+    internalName: "avatar",
+    alternativeText: "Avatar",
+    caption: "",
+    url: "/avatar.jpg",
+    title: "",
+    description: "",
+    width: 200,
+    height: 200,
+  };
+
   const mockProps = {
     animation: "fade-in",
-    bannerImageAlt: "Banner",
-    bannerImageHeight: 400,
-    bannerImageSrc: "/banner.jpg",
-    bannerImageWidth: 1200,
-    avatarAlt: "Avatar",
-    avatarHeight: 200,
-    avatarSrc: "/avatar.jpg",
-    avatarWidth: 200,
+    bannerImage: mockBanner,
+    avatarImage: mockAvatar,
     iconLinks: [
       {
         href: "/social1",

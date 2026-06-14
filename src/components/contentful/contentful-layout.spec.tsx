@@ -27,6 +27,17 @@ describe("ContentfulLayout", () => {
           },
         ],
       },
+      navigationLinks: [
+        {
+          __typename: "Link",
+          id: "link-1",
+          internalName: "Next",
+          text: "Next Page",
+          href: "/next",
+          url: "/next",
+          icon: null,
+        },
+      ],
     };
 
     render(
