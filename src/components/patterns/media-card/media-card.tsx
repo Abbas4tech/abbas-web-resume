@@ -8,13 +8,12 @@ import {
   CardImage,
   CardTitle,
 } from "@/components/elements/card/card";
-import type { IconProps } from "@/components/elements/icon/icon";
 import { Icon } from "@/components/elements/icon/icon";
+import type { AdaptedLink } from "@/contentful/adapters/link";
 
 export interface MediaCardProps {
   description: string;
-  href: string;
-  linkIcon: IconProps;
+  links?: AdaptedLink[];
   thumbnailAlt: string;
   thumbnailHeight: number;
   thumbnailSrc: string;
@@ -30,8 +29,7 @@ const MediaCard = memo(
     thumbnailAlt,
     thumbnailWidth,
     thumbnailHeight,
-    href,
-    linkIcon,
+    links,
   }: MediaCardProps) => (
     <Card>
       <CardImage
@@ -47,10 +45,12 @@ const MediaCard = memo(
         <CardDescription className="text-xs md:text-base">
           {description}
         </CardDescription>
-        <CardFooter className="justify-end">
-          <Link href={href} target="_blank">
-            <Icon {...linkIcon} />
-          </Link>
+        <CardFooter className="justify-end gap-2">
+          {links?.map(({ id, href, icon }) => (
+            <Link href={href} key={id || href} target="_blank">
+              {icon && <Icon {...icon} />}
+            </Link>
+          ))}
         </CardFooter>
       </CardContent>
     </Card>

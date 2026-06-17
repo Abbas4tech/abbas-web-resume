@@ -19,6 +19,12 @@
       "skillPath": "skills/engineering/diagnose/SKILL.md",
       "computedHash": "1c3c85517ac42116fe5f2bfb5150f7b3e38ad23808e40b33fbb01f1afb611983"
     },
+    "github-workflow-automation": {
+      "source": "ruvnet/ruflo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/github-workflow-automation/SKILL.md",
+      "computedHash": "e9113da7dcdb75a61c146aba2cefa242492b793e01f5cc2c08b479979d43009f"
+    },
     "grill-me": {
       "source": "mattpocock/skills",
       "sourceType": "github",
