@@ -44,34 +44,31 @@ export const mockLayoutData = {
             iconCode: "fa/FaPalette",
             name: "Theme",
           },
-          navigation: {
-            sys: { id: "navlist1" },
-            customEntriesCollection: {
-              items: [
-                {
-                  sys: { id: "navitem1" },
-                  __typename: "Page",
-                  title: "Home",
-                  pageUrl: "/",
-                  pageIcon: {
-                    sys: { id: "pi1" },
-                    iconCode: "fa/FaHome",
-                    name: "Home",
-                  },
+          navigationLinksCollection: {
+            items: [
+              {
+                sys: { id: "navitem1" },
+                __typename: "Link",
+                text: "Home",
+                url: "/",
+                icon: {
+                  sys: { id: "pi1" },
+                  iconCode: "fa/FaHome",
+                  name: "Home",
                 },
-                {
-                  sys: { id: "navitem2" },
-                  __typename: "Page",
-                  title: "About",
-                  pageUrl: "/about",
-                  pageIcon: {
-                    sys: { id: "pi2" },
-                    iconCode: "fa/FaUser",
-                    name: "About",
-                  },
+              },
+              {
+                sys: { id: "navitem2" },
+                __typename: "Link",
+                text: "About",
+                url: "/about",
+                icon: {
+                  sys: { id: "pi2" },
+                  iconCode: "fa/FaUser",
+                  name: "About",
                 },
-              ],
-            },
+              },
+            ],
           },
         },
       ],

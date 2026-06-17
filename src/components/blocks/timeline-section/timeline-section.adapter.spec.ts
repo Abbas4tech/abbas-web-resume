@@ -35,11 +35,11 @@ describe("adaptTimelineSection", () => {
     // Meta rows: one for dates, one for subtitle
     expect(entry.metaRows).toHaveLength(2);
     expect(entry.metaRows[0]).toEqual({
-      icon: { iconCode: "calendar" },
-      text: "2020 - 2021",
+      icon: { iconCode: "md/MdDateRange", name: "Duration", size: "18" },
+      text: "January 2020 - January 2021",
     });
     expect(entry.metaRows[1]).toEqual({
-      icon: { iconCode: "briefcase" },
+      icon: { iconCode: "io5/IoPerson", name: "Role", size: "18" },
       text: "Company",
     });
   });
@@ -58,6 +58,6 @@ describe("adaptTimelineSection", () => {
     const metaRows = result.entries[0].metaRows;
 
     expect(metaRows).toHaveLength(1);
-    expect(metaRows[0].text).toBe("2022 - Present");
+    expect(metaRows[0].text).toBe("January 2022 - Present");
   });
 });

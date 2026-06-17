@@ -26,11 +26,26 @@ describe("adaptMediaCard", () => {
       thumbnailAlt: "image.png",
       thumbnailWidth: 800,
       thumbnailHeight: 600,
-      href: "https://my-awesome-project.com",
-      linkIcon: {
-        iconCode: "fa/FaExternalLinkAlt",
-        name: "Visit Project",
-      },
+      links: [
+        {
+          __typename: "Link",
+          id: "deployed-link",
+          internalName: "Deployed Link",
+          text: "Visit Project",
+          href: "https://my-awesome-project.com",
+          icon: {
+            __typename: "Icon",
+            id: "icon-deployed-link",
+            internalName: "Deployed Link Icon",
+            name: "Visit Project",
+            library: "md",
+            title: "Visit Project",
+            color: "currentColor",
+            iconCode: "fa/FaExternalLinkAlt",
+            showTooltip: false,
+          },
+        },
+      ],
     };
 
     const result = adaptMediaCard(rawData);

@@ -10,7 +10,7 @@ describe("adaptCardGrid", () => {
       customEntries: [
         {
           title: "My Project",
-          subtitle: "A subtitle",
+          description: "A subtitle",
           links: [{ href: "https://example.com/project" }],
           icon: { iconCode: "fa/FaCode" },
           image: {
@@ -30,8 +30,7 @@ describe("adaptCardGrid", () => {
     expect(result.cards[0]).toEqual({
       title: "My Project",
       description: "A subtitle",
-      href: "https://example.com/project",
-      linkIcon: { iconCode: "fa/FaCode" },
+      links: [{ href: "https://example.com/project" }],
       thumbnailAlt: "Project Thumbnail",
       thumbnailSrc: "/project.jpg",
       thumbnailWidth: 800,
@@ -49,7 +48,7 @@ describe("adaptCardGrid", () => {
     } as AdaptedContentList;
 
     const result = adaptCardGrid(input);
-    expect(result.cards[0].href).toBe("#");
+    expect(result.cards[0].links).toBeUndefined();
     expect(result.cards[0].thumbnailSrc).toBe("");
   });
 });

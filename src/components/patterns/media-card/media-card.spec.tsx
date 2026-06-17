@@ -10,8 +10,26 @@ describe("MediaCard", () => {
     thumbnailAlt: "Test Thumbnail",
     thumbnailWidth: 400,
     thumbnailHeight: 300,
-    href: "https://example.com",
-    linkIcon: { iconCode: "fa/FaGithub", name: "GitHub Link" },
+    links: [
+      {
+        __typename: "Link" as const,
+        id: "link-1",
+        internalName: "Link 1",
+        text: "GitHub Link",
+        href: "https://example.com",
+        icon: {
+          __typename: "Icon" as const,
+          id: "icon-1",
+          internalName: "Icon 1",
+          name: "GitHub Link",
+          library: "fa",
+          title: "GitHub Link",
+          color: "currentColor",
+          iconCode: "fa/FaGithub",
+          showTooltip: false,
+        },
+      },
+    ],
   };
 
   it("renders card content correctly", () => {

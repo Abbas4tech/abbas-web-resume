@@ -22,7 +22,25 @@ export function adaptMediaCard(input: {
     thumbnailAlt: input.thumbnail.fileName,
     thumbnailWidth: input.thumbnail.width,
     thumbnailHeight: input.thumbnail.height,
-    href: input.deployedLink,
-    linkIcon: input.deployedLinkIcon,
+    links: [
+      {
+        __typename: "Link",
+        id: "deployed-link",
+        internalName: "Deployed Link",
+        text: input.deployedLinkIcon.name || "Link",
+        href: input.deployedLink,
+        icon: {
+          __typename: "Icon",
+          id: "icon-deployed-link",
+          internalName: "Deployed Link Icon",
+          name: input.deployedLinkIcon.name || "Link",
+          library: "md",
+          title: input.deployedLinkIcon.name || "Link",
+          color: "currentColor",
+          iconCode: input.deployedLinkIcon.iconCode || "md/MdLink",
+          showTooltip: !!input.deployedLinkIcon.showTooltip,
+        },
+      },
+    ],
   };
 }

@@ -8,7 +8,7 @@ export class SidebarNavModel {
   constructor(page: Page) {
     this.page = page;
     // Scoped to the drawer side menu
-    this.root = page.locator(".drawer-side .menu");
+    this.root = page.locator(".drawer-side ul");
     this.menuItems = this.root.locator("li");
   }
 

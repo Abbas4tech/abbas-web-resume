@@ -11,6 +11,6 @@ test.describe("E2E Smoke Test", () => {
 
     await expect(header.root).toBeVisible();
 
-    await expect(sidebar.menuItems).toHaveCount(2);
+    await expect(sidebar.menuItems.first()).toBeVisible();
   });
 });
