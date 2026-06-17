@@ -1,9 +1,13 @@
 name: CI Pipeline
 
 on:
+  push:
+    branches:
+      - '**develop-draft**'
   pull_request:
     branches:
       - main
+      - '**develop-draft**'
 
 jobs:
   validate-changeset:

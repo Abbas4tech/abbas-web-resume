@@ -3,7 +3,7 @@ import subprocess
 import sys
 
 def main():
-    base_ref = os.environ.get("GITHUB_BASE_REF", "main")
+    base_ref = os.environ.get("GITHUB_BASE_REF") or "main"
     
     print(f"Checking for changesets against origin/{base_ref}...")
     
