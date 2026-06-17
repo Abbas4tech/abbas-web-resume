@@ -30,6 +30,11 @@ jobs:
   ci-checks:
     needs: validate-changeset
     runs-on: ubuntu-latest
+    env:
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENTFUL_CDA_TOKEN: ${{ secrets.CONTENTFUL_CDA_TOKEN }}
+      CONTENTFUL_API_BASE_URL: ${{ secrets.CONTENTFUL_API_BASE_URL }}
+      CONTENTFUL_ENVIRONMENT: ${{ github.base_ref == 'master' && 'production' || 'development' }}
     steps:
       - uses: actions/checkout@v4
       - name: Install pnpm
@@ -74,6 +79,9 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 14
+
+      - name: Build Next.js App
+        run: pnpm build
 
       - name: Build Storybook
         run: pnpm build-storybook
