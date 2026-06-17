@@ -43,7 +43,7 @@ export function adaptTimelineSection(
 
       return {
         title: item.title,
-        indicatorIcon: item.icon || { iconCode: "" },
+        indicatorIcon: item.icon,
         metaRows,
         description: {
           document: item.body || {

@@ -18,7 +18,7 @@ export interface TimelineEntryMetaRow {
 
 export interface TimelineEntryProps {
   body: ReactNode;
-  indicatorIcon: IconProps;
+  indicatorIcon?: IconProps;
   metaRows: TimelineEntryMetaRow[];
   title: string;
 }

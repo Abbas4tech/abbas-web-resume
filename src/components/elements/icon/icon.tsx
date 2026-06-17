@@ -89,7 +89,10 @@ const isIconLibrary = (library: string): library is IconLibrary =>
   library in DYNAMIC_ICON_COMPONENTS;
 
 const Icon = memo(
-  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconProps>(
+  forwardRef<
+    HTMLDivElement,
+    HTMLAttributes<HTMLDivElement> & Partial<IconProps>
+  >(
     (
       {
         className,
