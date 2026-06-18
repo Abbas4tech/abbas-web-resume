@@ -38,6 +38,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@vitejs/plugin-react": "^6.0.2",
+    "@vitest/coverage-v8": "^4.1.9",
     "axe-playwright": "^2.2.2",
     "clsx": "^2.1.1",
     "contentful-management": "^12.5.1",

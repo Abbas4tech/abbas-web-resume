@@ -1,4 +1,4 @@
-name: CI Pipeline
+name: CI
 
 on:
   push:
@@ -14,21 +14,24 @@ on:
       - 'feat/develop-draft/**'
 
 jobs:
-  validate-changeset:
+  check-changeset:
+    name: Check Changeset
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for git diff to compare against origin/main
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Check Changeset
         run: python scripts/ci/check-changeset.py
 
-  ci-checks:
-    needs: validate-changeset
+  verify-and-build:
+    name: Lint, Test, and Build
+    needs: check-changeset
     runs-on: ubuntu-latest
     env:
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
@@ -36,26 +39,27 @@ jobs:
       CONTENTFUL_API_BASE_URL: ${{ secrets.CONTENTFUL_API_BASE_URL }}
       CONTENTFUL_ENVIRONMENT: ${{ github.base_ref == 'master' && 'production' || 'development' }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 10.29.1
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "pnpm"
-      - name: Install dependencies
+      - name: Install dependencies (Uses Cache)
         run: pnpm install
 
-      - name: Lint and Format
+      - name: Check Linting & Formatting
         run: pnpm check
 
       - name: Typecheck
         run: pnpm tsc --noEmit
 
-      - name: Unit Tests with Coverage
+      - name: Unit & Component Tests
         run: pnpm test:coverage
 
       - name: Upload Unit Test Coverage
@@ -69,7 +73,7 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: E2E Tests
+      - name: Run E2E Tests
         run: pnpm test:e2e
 
       - name: Upload Playwright Report
@@ -80,7 +84,7 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
-      - name: Build Next.js App
+      - name: Build Project
         run: pnpm build
 
       - name: Build Storybook
