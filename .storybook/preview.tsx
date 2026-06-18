@@ -1,7 +1,7 @@
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
 
-import { DrawerProvider } from "../src/components/elements/drawer";
+import { DrawerProvider } from "../src/components/elements/drawer/drawer";
 import "../src/app/globals.css";
 
 const preview: Preview = {
