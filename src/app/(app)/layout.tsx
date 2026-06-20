@@ -9,7 +9,7 @@ const layout: FC<PropsWithChildren> = async ({ children }) => {
   const layoutData = adaptLayout(rawLayout);
 
   if (!layoutData) {
-    return <div>Layout data missing</div>;
+    throw new Error("Layout data missing");
   }
 
   return <ContentfulLayout data={layoutData}>{children}</ContentfulLayout>;

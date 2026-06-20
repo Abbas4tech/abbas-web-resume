@@ -26,10 +26,3 @@ export const SinglePanel: Story = {
     panels: [baseMock.panels[0]],
   },
 };
-
-export const NoAnimation: Story = {
-  args: {
-    ...baseMock,
-    animation: undefined,
-  },
-};

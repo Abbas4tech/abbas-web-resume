@@ -20,13 +20,6 @@ export const Default: Story = {
   },
 };
 
-export const NoAnimation: Story = {
-  args: {
-    ...baseMock,
-    animation: undefined,
-  },
-};
-
 export const NoIconLinks: Story = {
   args: {
     ...baseMock,
