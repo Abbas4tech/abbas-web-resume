@@ -1,17 +1,16 @@
 import type { AdaptedLayout } from "@/contentful/adapters/layout";
 
 export function extractNavPages(layout: AdaptedLayout) {
-  return (layout.navigation?.customEntries || []).map((item) => ({
-    pageUrl:
-      item.links?.[0]?.href ||
-      `/${item.entryField?.toLowerCase() || ""}` ||
-      "/",
-    title: item.title || "",
-    pageIcon: item.icon
+  const links = layout.navigationLinks;
+
+  return links.map((link) => ({
+    pageUrl: link.href || "/",
+    title: link.text || "",
+    pageIcon: link.icon
       ? {
-          iconCode: item.icon.iconCode,
-          name: item.icon.name,
-          showTooltip: item.icon.showTooltip,
+          iconCode: link.icon.iconCode || "",
+          name: link.icon.name || "",
+          showTooltip: link.icon.showTooltip,
         }
       : { iconCode: "" },
   }));

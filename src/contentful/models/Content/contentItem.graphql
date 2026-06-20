@@ -1,4 +1,5 @@
 fragment ContentItemFields on ContentItem {
+  __typename
   sys {
     id
   }
@@ -46,11 +47,10 @@ fragment ContentItemFields on ContentItem {
       ...LinkFields
     }
   }
-  subItemsCollection(limit: 20) {
+  subItemsCollection(limit: 10) {
     items {
-      ...BadgeFields
+      ...StatItemFields
     }
   }
   tags
-  progress
 }

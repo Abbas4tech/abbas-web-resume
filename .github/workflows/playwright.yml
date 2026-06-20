@@ -1,0 +1,45 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Install dependencies
+      run: pnpm install
+      # Using npx since we need to ensure pnpm is available if it's the package manager
+      # Or just use corepack/npm. Since package.json has pnpm@10.29.1, let's setup pnpm
+      env:
+        COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v3
+      with:
+        version: 10
+    - name: Install dependencies with pnpm
+      run: pnpm install
+    - name: Cache Playwright Browsers
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-playwright-
+
+    - name: Install Playwright Browsers
+      run: pnpm exec playwright install --with-deps
+    - name: Run Playwright tests
+      run: pnpm run test:e2e
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30

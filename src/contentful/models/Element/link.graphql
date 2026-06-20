@@ -1,4 +1,5 @@
 fragment LinkFields on Link {
+  __typename
   sys {
     id
   }
@@ -12,5 +13,8 @@ fragment LinkFields on Link {
     # Don't expand the full page to avoid recursion/heavy queries
     # Just enough to build a URL path
     path
+  }
+  icon {
+    ...IconFields
   }
 }

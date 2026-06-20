@@ -27,13 +27,13 @@ const SidebarNav = ({
   pages,
   ...props
 }: SidebarNavProps): React.JSX.Element => {
-  const { currentPageData, defaultPage } = usePage({ pages });
+  const { currentPageData } = usePage({ pages });
   return (
     <DrawerSideMenu {...props}>
       {pages.map((page) => {
         const navItemProps = adaptNavItem(
           {
-            pageUrl: page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl,
+            pageUrl: page.pageUrl,
             title: page.title,
             pageIcon: page.pageIcon,
           },
@@ -41,10 +41,7 @@ const SidebarNav = ({
         );
         return (
           <DrawerSideItem id={page.title} key={page.title}>
-            <NavItem
-              {...navItemProps}
-              href={page.pageUrl === defaultPage.pageUrl ? "/" : page.pageUrl}
-            />
+            <NavItem {...navItemProps} href={page.pageUrl} />
           </DrawerSideItem>
         );
       })}

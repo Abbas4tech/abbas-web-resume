@@ -1,4 +1,5 @@
 fragment ImageFields on Image {
+  __typename
   sys {
     id
   }

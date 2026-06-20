@@ -14,8 +14,7 @@ export function adaptPanelShowcase(
       headingIcon: panel.icon || { iconCode: "" },
       rows: (panel.subItems || []).map((row) => ({
         progress: row.progress || 0,
-        // Since badge currently only supports one icon, we pass it as an array of one
-        icons: row.icon ? [row.icon] : [],
+        icons: row.icons || [],
       })),
     })),
   };

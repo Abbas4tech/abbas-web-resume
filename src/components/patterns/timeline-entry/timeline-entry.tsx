@@ -18,7 +18,7 @@ export interface TimelineEntryMetaRow {
 
 export interface TimelineEntryProps {
   body: ReactNode;
-  indicatorIcon: IconProps;
+  indicatorIcon?: IconProps;
   metaRows: TimelineEntryMetaRow[];
   title: string;
 }
@@ -36,10 +36,10 @@ const TimelineEntry = memo(
         </StepIndicator>
       </StepSeparator>
       <StepBody>
-        <StepTitle>{title}</StepTitle>
-        <StepContent>
+        <StepTitle className="mb-3">{title}</StepTitle>
+        <StepContent className="flex flex-col">
           {metaRows.map((row) => (
-            <div className="mb-1 flex items-center gap-2" key={row.text}>
+            <div className="flex items-center gap-2" key={row.text}>
               <Icon {...row.icon} />
               {row.text}
             </div>

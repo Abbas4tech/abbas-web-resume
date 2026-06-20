@@ -1,3 +1,4 @@
+import type { Document } from "@contentful/rich-text-types";
 import type { ContentListFieldsFragment } from "../generated/contentful-sdk.generated";
 import { adaptContentItem } from "./content-item";
 
@@ -14,7 +15,7 @@ export function adaptContentList(
     internalName: item.internalName || "",
     ui: item.ui || "Grid",
     title: item.title || "",
-    description: item.description || "",
+    description: item.description?.json as Document,
     category: item.entries || "Custom",
     customEntries: (item.customEntriesCollection?.items || [])
       .map((entry) => adaptContentItem(entry))

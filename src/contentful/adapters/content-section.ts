@@ -1,5 +1,5 @@
 import type { ContentSectionFieldsFragment } from "../generated/contentful-sdk.generated";
-import { adaptContentItem } from "./content-item";
+import { adaptEntry } from "./content-item";
 
 export function adaptContentSection(
   item: ContentSectionFieldsFragment | null | undefined
@@ -13,7 +13,7 @@ export function adaptContentSection(
     id: item.sys.id || "",
     internalName: item.internalName || "",
     ui: item.ui || "Standard",
-    entry: adaptContentItem(item.entry),
+    entry: adaptEntry(item.entry),
   };
 }
 

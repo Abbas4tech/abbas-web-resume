@@ -58,7 +58,7 @@ const ThemeToggle = ({
       <DropdownMenu>
         {themes.map((theme) => (
           <DropdownMenuItem
-            className="gap-4 text-sm md:gap-6"
+            className="gap-4 text-sm capitalize md:gap-6"
             isActive={theme.toLowerCase() === currentTheme}
             key={theme}
             onClick={() => handleThemeChange(theme.toLowerCase())}

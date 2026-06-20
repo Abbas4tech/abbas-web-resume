@@ -40,3 +40,5 @@ next-env.d.ts
 .env*.local
 package-lock.json
 storybook-static
+test-results
+playwright-report

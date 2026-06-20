@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { IconProps } from "@/components/elements/icon/icon";
 import type {
   TimelineEntryMetaRow,
@@ -41,7 +42,7 @@ export function adaptTimelineEntry(input: {
   roleIcon: IconProps;
   techStackIcon: IconProps;
   techStack: { skillIconsCollection: { items: Array<{ name?: string }> } };
-  body: import("react").ReactNode;
+  body: ReactNode;
 }): TimelineEntryProps {
   const remoteLabel = input.workedRemotely ? " - Remote" : "";
   const duration = `${formatDate(input.startDate)} - ${

@@ -1,0 +1,32 @@
+fragment PageFields on Page {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  path
+  title
+  seo {
+    ...SeoMetadataFields
+  }
+  topContentAreaCollection(limit: 5) {
+    items {
+      ... on ContentList {
+        ...ContentListFields
+      }
+      ... on ContentSection {
+        ...ContentSectionFields
+      }
+    }
+  }
+  bottomContentAreaCollection(limit: 5) {
+    items {
+      ... on ContentList {
+        ...ContentListFields
+      }
+      ... on ContentSection {
+        ...ContentSectionFields
+      }
+    }
+  }
+}

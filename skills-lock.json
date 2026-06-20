@@ -19,6 +19,12 @@
       "skillPath": "skills/engineering/diagnose/SKILL.md",
       "computedHash": "1c3c85517ac42116fe5f2bfb5150f7b3e38ad23808e40b33fbb01f1afb611983"
     },
+    "github-workflow-automation": {
+      "source": "ruvnet/ruflo",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/github-workflow-automation/SKILL.md",
+      "computedHash": "e9113da7dcdb75a61c146aba2cefa242492b793e01f5cc2c08b479979d43009f"
+    },
     "grill-me": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -42,6 +48,18 @@
       "sourceType": "github",
       "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
       "computedHash": "5d9444ffe5c240f2d20081c42c547112e1b8c372375a14e4c98df4d94bde11e1"
+    },
+    "playwright-best-practices": {
+      "source": "currents-dev/playwright-best-practices-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "6db654e753257e642d6507d59b4fc633a2382e93429748ba0fb6817c23ef5216"
+    },
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
+      "sourceType": "github",
+      "skillPath": "skills/playwright-cli/SKILL.md",
+      "computedHash": "fcba6ff28cfd109d224f0d8b55bfc0f81e514bdf2941c65662fd17ff6368cb1c"
     },
     "prototype": {
       "source": "mattpocock/skills",
@@ -90,6 +108,12 @@
       "sourceType": "github",
       "skillPath": "skills/engineering/triage/SKILL.md",
       "computedHash": "56ff15b41bbebfa4cb329d96150d9b297c1d919ce30784d883b8755b4bfd8e7e"
+    },
+    "vitest": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "skillPath": "skills/vitest/SKILL.md",
+      "computedHash": "0efd9cf8c56aada060d418d009cfe621a7915d0c73a958fe611985bc0c2fa4b8"
     },
     "write-a-skill": {
       "source": "mattpocock/skills",

@@ -1,0 +1,14 @@
+fragment StatItemFields on StatItem {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  title
+  progress
+  iconsCollection(limit: 5) {
+    items {
+      ...IconFields
+    }
+  }
+}

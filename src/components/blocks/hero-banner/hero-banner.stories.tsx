@@ -27,9 +27,9 @@ export const NoAnimation: Story = {
   },
 };
 
-export const NoSocialLinks: Story = {
+export const NoIconLinks: Story = {
   args: {
     ...baseMock,
-    socialLinks: [],
+    iconLinks: [],
   },
 };

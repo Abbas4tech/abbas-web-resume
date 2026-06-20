@@ -89,7 +89,10 @@ const isIconLibrary = (library: string): library is IconLibrary =>
   library in DYNAMIC_ICON_COMPONENTS;
 
 const Icon = memo(
-  forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconProps>(
+  forwardRef<
+    HTMLDivElement,
+    HTMLAttributes<HTMLDivElement> & Partial<IconProps>
+  >(
     (
       {
         className,
@@ -100,7 +103,7 @@ const Icon = memo(
         classes,
         showTooltip = true,
         name,
-        size = "1.5rem",
+        size = "24",
       },
       ref
     ) => {

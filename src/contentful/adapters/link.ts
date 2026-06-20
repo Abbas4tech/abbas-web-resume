@@ -1,4 +1,5 @@
 import type { LinkFieldsFragment } from "../generated/contentful-sdk.generated";
+import { adaptIcon } from "./icon";
 
 export function adaptLink(item: LinkFieldsFragment | null | undefined) {
   if (!item) {
@@ -13,6 +14,7 @@ export function adaptLink(item: LinkFieldsFragment | null | undefined) {
     internalName: item.internalName || "",
     text: item.text || "",
     href,
+    icon: adaptIcon(item.icon),
   };
 }
 

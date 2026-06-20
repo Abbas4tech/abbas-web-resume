@@ -1,4 +1,5 @@
 fragment IconFields on Icon {
+  __typename
   sys {
     id
   }

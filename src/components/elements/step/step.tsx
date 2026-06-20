@@ -99,7 +99,12 @@ StepDescription.displayName = "StepDescription";
 const StepContent = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
-      <div className={cn("", className)} ref={ref} {...props} />
+      <div
+        className={cn("", className)}
+        id="step-content"
+        ref={ref}
+        {...props}
+      />
     )
   )
 );
