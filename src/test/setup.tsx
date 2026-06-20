@@ -18,6 +18,18 @@ Object.defineProperty(window, "matchMedia", {
 
 Element.prototype.scrollTo = vi.fn();
 
+class IntersectionObserverMock {
+  disconnect = vi.fn();
+  observe = vi.fn();
+  takeRecords = vi.fn();
+  unobserve = vi.fn();
+}
+vi.stubGlobal("IntersectionObserver", IntersectionObserverMock);
+Object.defineProperty(window, "IntersectionObserver", {
+  writable: true,
+  value: IntersectionObserverMock,
+});
+
 // Global mocks for Next.js App Router features
 vi.mock("next/navigation", () => ({
   useRouter: () => ({

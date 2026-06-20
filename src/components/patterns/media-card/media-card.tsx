@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/elements/card/card";
 import { Icon } from "@/components/elements/icon/icon";
+import { MotionTiltCard } from "@/components/elements/motion-tilt-card/motion-tilt-card";
 import type { AdaptedLink } from "@/contentful/adapters/link";
 
 export interface MediaCardProps {
@@ -31,29 +32,31 @@ const MediaCard = memo(
     thumbnailHeight,
     links,
   }: MediaCardProps) => (
-    <Card>
-      <CardImage
-        alt={thumbnailAlt}
-        className="hidden md:block"
-        height={thumbnailHeight}
-        loading="lazy"
-        src={thumbnailSrc}
-        width={thumbnailWidth}
-      />
-      <CardContent className="p-4 md:p-6">
-        <CardTitle className="text-base md:text-lg">{title}</CardTitle>
-        <CardDescription className="text-xs md:text-base">
-          {description}
-        </CardDescription>
-        <CardFooter className="justify-end gap-2">
-          {links?.map(({ id, href, icon }) => (
-            <Link href={href} key={id || href} target="_blank">
-              {icon && <Icon {...icon} />}
-            </Link>
-          ))}
-        </CardFooter>
-      </CardContent>
-    </Card>
+    <MotionTiltCard>
+      <Card className="h-full">
+        <CardImage
+          alt={thumbnailAlt}
+          className="hidden md:block"
+          height={thumbnailHeight}
+          loading="lazy"
+          src={thumbnailSrc}
+          width={thumbnailWidth}
+        />
+        <CardContent className="p-4 md:p-6">
+          <CardTitle className="text-base md:text-lg">{title}</CardTitle>
+          <CardDescription className="text-xs md:text-base">
+            {description}
+          </CardDescription>
+          <CardFooter className="justify-end gap-2">
+            {links?.map(({ id, href, icon }) => (
+              <Link href={href} key={id || href} target="_blank">
+                {icon && <Icon {...icon} />}
+              </Link>
+            ))}
+          </CardFooter>
+        </CardContent>
+      </Card>
+    </MotionTiltCard>
   )
 );
 MediaCard.displayName = "MediaCard";

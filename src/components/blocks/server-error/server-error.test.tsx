@@ -1,13 +1,11 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { ServerErrorBlock } from "./server-error";
 import { baseMock } from "./server-error.mock";
 
 describe("ServerErrorBlock", () => {
-  it("renders with default props and handles retry", async () => {
+  it("renders with default props and handles retry", () => {
     const handleRetry = vi.fn();
-    const user = userEvent.setup();
 
     render(<ServerErrorBlock {...baseMock} onRetry={handleRetry} />);
 
@@ -21,7 +19,7 @@ describe("ServerErrorBlock", () => {
     const retryButton = screen.getByRole("button", { name: "Try again" });
     expect(retryButton).toBeInTheDocument();
 
-    await user.click(retryButton);
+    fireEvent.click(retryButton);
     expect(handleRetry).toHaveBeenCalledTimes(1);
   });
 

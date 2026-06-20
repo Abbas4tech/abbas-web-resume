@@ -1,6 +1,8 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo, useMemo } from "react";
 import { Image as ContentfulImage } from "@/components/contentful/image";
+import { MotionParallax } from "@/components/elements/motion-parallax/motion-parallax";
+import { MotionWrapper } from "@/components/elements/motion-wrapper/motion-wrapper";
 import type { IconLinkProps } from "@/components/patterns/icon-link/icon-link";
 import { IconLink } from "@/components/patterns/icon-link/icon-link";
 import type { AdaptedImage } from "@/contentful/adapters/image";
@@ -30,17 +32,24 @@ const HeroBanner = memo(
           {...props}
         >
           {bannerImage && (
-            <div className="w-full">
+            <MotionParallax
+              className="relative h-[25vh] max-h-[360px] min-h-[200px] w-full overflow-hidden md:h-[35vh]"
+              speed={0.3}
+            >
               <ContentfulImage
-                className="h-auto w-full"
+                className="pointer-events-none -mt-[15%] h-[130%] w-full select-none object-cover"
                 data={bannerImage}
                 priority
               />
-            </div>
+            </MotionParallax>
           )}
 
           {avatarImage && (
-            <div className="avatar mt-[-2rem] md:mt-[-6rem]">
+            <MotionWrapper
+              animation="zoom-in"
+              className="avatar mt-[-2rem] md:mt-[-6rem]"
+              delay={0.2}
+            >
               <div className="w-24 rounded-full ring ring-base-100 ring-offset-2 ring-offset-base-100 md:w-48">
                 <ContentfulImage
                   className="rounded-full"
@@ -48,11 +57,15 @@ const HeroBanner = memo(
                   priority
                 />
               </div>
-            </div>
+            </MotionWrapper>
           )}
 
           {iconLinks.length && (
-            <div className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12">
+            <MotionWrapper
+              animation="fade-up"
+              className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12"
+              delay={0.4}
+            >
               <div className="flex gap-4">
                 {firstChunk.map((link) => (
                   <IconLink key={link.label} {...link} />
@@ -63,7 +76,7 @@ const HeroBanner = memo(
                   <IconLink key={link.label} {...link} />
                 ))}
               </div>
-            </div>
+            </MotionWrapper>
           )}
         </div>
       );

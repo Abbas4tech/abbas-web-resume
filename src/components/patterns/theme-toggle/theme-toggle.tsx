@@ -1,4 +1,7 @@
 "use client";
+import { AnimatePresence } from "motion/react";
+// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
+import * as motion from "motion/react-client";
 import type React from "react";
 import { type ComponentProps, useState } from "react";
 import {
@@ -47,7 +50,18 @@ const ThemeToggle = ({
   return (
     <Dropdown {...props}>
       <DropdownToggle className="btn-ghost">
-        {themeIcon ? <Icon {...themeIcon} /> : Palette(currentTheme)}
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.div
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.6, rotate: 15 }}
+            initial={{ opacity: 0, scale: 0.6, rotate: -15 }}
+            key={currentTheme}
+            style={{ display: "flex" }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            {themeIcon ? <Icon {...themeIcon} /> : Palette(currentTheme)}
+          </motion.div>
+        </AnimatePresence>
         <Icon
           classes={[]}
           iconCode="io5/IoChevronDown"

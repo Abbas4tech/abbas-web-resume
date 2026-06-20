@@ -6,6 +6,7 @@ import {
   MockupWindow,
   MockupWindowBody,
 } from "@/components/elements/mockup-window/mockup-window";
+import { MotionWrapper } from "@/components/elements/motion-wrapper/motion-wrapper";
 import { PageContent } from "@/components/elements/page/page";
 import { IconCluster } from "@/components/patterns/icon-cluster/icon-cluster";
 import type { IconProgressRowProps } from "@/components/patterns/icon-progress-row/icon-progress-row";
@@ -37,32 +38,38 @@ const PanelShowcase = memo(
         ref={ref}
         {...props}
       >
-        {panels.map((panel) => (
-          <MockupWindow key={panel.title}>
-            <MockupWindowBody>
-              <SectionHeading icon={<Icon {...panel.headingIcon} />}>
-                {panel.title}
-              </SectionHeading>
-              <div className="grid grid-cols-1 gap-8 p-2 md:grid-cols-2 md:p-4">
-                {panel.rows.map((row) => (
-                  <IconProgressRow
-                    key={`${panel.title}-progress-${row.progress}`}
-                    progress={row.progress}
-                  >
-                    <IconCluster>
-                      {row.icons.map((iconProps) => (
-                        <Icon
-                          key={`${panel.title}-progress-${row.progress}-${iconProps.iconCode || iconProps.name}`}
-                          size="36"
-                          {...iconProps}
-                        />
-                      ))}
-                    </IconCluster>
-                  </IconProgressRow>
-                ))}
-              </div>
-            </MockupWindowBody>
-          </MockupWindow>
+        {panels.map((panel, index) => (
+          <MotionWrapper
+            animation="fade-up"
+            delay={index * 0.2}
+            key={panel.title}
+          >
+            <MockupWindow>
+              <MockupWindowBody>
+                <SectionHeading icon={<Icon {...panel.headingIcon} />}>
+                  {panel.title}
+                </SectionHeading>
+                <div className="grid grid-cols-1 gap-8 p-2 md:grid-cols-2 md:p-4">
+                  {panel.rows.map((row) => (
+                    <IconProgressRow
+                      key={`${panel.title}-progress-${row.progress}`}
+                      progress={row.progress}
+                    >
+                      <IconCluster>
+                        {row.icons.map((iconProps) => (
+                          <Icon
+                            key={`${panel.title}-progress-${row.progress}-${iconProps.iconCode || iconProps.name}`}
+                            size="36"
+                            {...iconProps}
+                          />
+                        ))}
+                      </IconCluster>
+                    </IconProgressRow>
+                  ))}
+                </div>
+              </MockupWindowBody>
+            </MockupWindow>
+          </MotionWrapper>
         ))}
       </PageContent>
     )
