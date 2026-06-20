@@ -31,7 +31,6 @@ describe("HeroBanner", () => {
   };
 
   const mockProps = {
-    animation: "fade-in",
     bannerImage: mockBanner,
     avatarImage: mockAvatar,
     iconLinks: [
@@ -61,9 +60,6 @@ describe("HeroBanner", () => {
 
   it("renders the hero banner with images and chunked social links", () => {
     render(<HeroBanner data-testid="hero" {...mockProps} />);
-
-    const hero = screen.getByTestId("hero");
-    expect(hero).toHaveAttribute("data-aos", "fade-in");
 
     // Images
     const images = screen.getAllByRole("img");

@@ -2,7 +2,6 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import type { TimelineSectionProps } from "./timeline-section";
 
 export const baseMock: TimelineSectionProps = {
-  animation: undefined,
   entries: [
     {
       title: "Senior Full Stack Engineer",

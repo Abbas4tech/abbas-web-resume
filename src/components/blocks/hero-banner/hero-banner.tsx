@@ -7,7 +7,6 @@ import type { AdaptedImage } from "@/contentful/adapters/image";
 import { cn } from "@/lib/utils";
 
 export interface HeroBannerProps extends HTMLAttributes<HTMLDivElement> {
-  animation?: string;
   avatarImage: AdaptedImage | null;
   bannerImage: AdaptedImage | null;
   iconLinks: IconLinkProps[];
@@ -15,10 +14,7 @@ export interface HeroBannerProps extends HTMLAttributes<HTMLDivElement> {
 
 const HeroBanner = memo(
   forwardRef<HTMLDivElement, HeroBannerProps>(
-    (
-      { className, bannerImage, avatarImage, animation, iconLinks, ...props },
-      ref
-    ) => {
+    ({ className, bannerImage, avatarImage, iconLinks, ...props }, ref) => {
       const [firstChunk, secondChunk] = useMemo(() => {
         const mid = Math.ceil(iconLinks.length / 2);
         return [iconLinks.slice(0, mid), iconLinks.slice(mid)];
@@ -30,7 +26,6 @@ const HeroBanner = memo(
             "relative flex flex-col items-center justify-center",
             className
           )}
-          data-aos={animation}
           ref={ref}
           {...props}
         >
@@ -58,12 +53,12 @@ const HeroBanner = memo(
 
           {iconLinks.length && (
             <div className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12">
-              <div className="flex gap-4" data-aos="fade-right">
+              <div className="flex gap-4">
                 {firstChunk.map((link) => (
                   <IconLink key={link.label} {...link} />
                 ))}
               </div>
-              <div className="flex gap-4" data-aos="fade-left">
+              <div className="flex gap-4">
                 {secondChunk.map((link) => (
                   <IconLink key={link.label} {...link} />
                 ))}

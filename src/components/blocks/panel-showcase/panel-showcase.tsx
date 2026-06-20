@@ -26,16 +26,14 @@ export interface PanelShowcasePanel {
 }
 
 export interface PanelShowcaseProps extends HTMLAttributes<HTMLDivElement> {
-  animation?: string;
   panels: PanelShowcasePanel[];
 }
 
 const PanelShowcase = memo(
   forwardRef<HTMLDivElement, PanelShowcaseProps>(
-    ({ className, animation, panels, ...props }, ref) => (
+    ({ className, panels, ...props }, ref) => (
       <PageContent
         className={cn("flex flex-col gap-4", className)}
-        data-aos={animation}
         ref={ref}
         {...props}
       >

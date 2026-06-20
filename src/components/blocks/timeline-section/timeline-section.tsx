@@ -12,16 +12,14 @@ export interface TimelineSectionEntry extends Omit<TimelineEntryProps, "body"> {
 }
 
 export interface TimelineSectionProps extends HTMLAttributes<HTMLDivElement> {
-  animation?: string;
   entries: TimelineSectionEntry[];
 }
 
 const TimelineSection = memo(
   forwardRef<HTMLDivElement, TimelineSectionProps>(
-    ({ className, entries, animation, ...props }, ref) => (
+    ({ className, entries, ...props }, ref) => (
       <PageContent
         className={cn("mt-2 px-2 pl-4 md:mt-4 md:px-12", className)}
-        data-aos={animation}
         ref={ref}
         {...props}
       >

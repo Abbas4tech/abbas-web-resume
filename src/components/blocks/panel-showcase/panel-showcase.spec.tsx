@@ -4,7 +4,6 @@ import { PanelShowcase } from "./panel-showcase";
 
 describe("PanelShowcase", () => {
   const mockProps = {
-    animation: "fade-up",
     panels: [
       {
         title: "My Skills",
@@ -21,9 +20,6 @@ describe("PanelShowcase", () => {
 
   it("renders a showcase panel with heading and progress rows", async () => {
     render(<PanelShowcase data-testid="showcase" {...mockProps} />);
-
-    const showcase = screen.getByTestId("showcase");
-    expect(showcase).toHaveAttribute("data-aos", "fade-up");
 
     // SectionHeading
     expect(screen.getByText("My Skills")).toBeInTheDocument();

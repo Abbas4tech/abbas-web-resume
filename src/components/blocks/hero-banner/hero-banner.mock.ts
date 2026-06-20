@@ -1,7 +1,6 @@
 import type { HeroBannerProps } from "./hero-banner";
 
 export const baseMock: HeroBannerProps = {
-  animation: undefined,
   bannerImage: {
     __typename: "Image",
     id: "banner-1",

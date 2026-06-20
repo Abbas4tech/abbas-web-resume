@@ -262,7 +262,6 @@ const DrawerSideItem = memo(
             side === "right" && "pr-0 pl-2 *:flex-row-reverse",
             className
           )}
-          data-aos={side === "left" ? "fade-right" : "fade-left"}
           ref={ref}
           {...props}
         >

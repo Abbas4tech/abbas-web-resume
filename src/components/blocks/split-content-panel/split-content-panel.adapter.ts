@@ -8,7 +8,6 @@ export function adaptSplitContentPanel(
   data: AdaptedContentList
 ): SplitContentPanelProps {
   return {
-    animation: undefined,
     description: data.description,
     infoRows: (data.customEntries || []).map((item) => ({
       label: item.title,

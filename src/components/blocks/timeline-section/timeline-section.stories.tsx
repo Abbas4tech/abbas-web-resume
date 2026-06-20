@@ -26,10 +26,3 @@ export const SingleEntry: Story = {
     entries: [baseMock.entries[0]],
   },
 };
-
-export const NoAnimation: Story = {
-  args: {
-    ...baseMock,
-    animation: undefined,
-  },
-};

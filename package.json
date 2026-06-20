@@ -2,7 +2,6 @@
   "dependencies": {
     "@changesets/cli": "^2.31.0",
     "@contentful/rich-text-react-renderer": "^15.22.11",
-    "aos": "^2.3.4",
     "graphql": "^16.11.0",
     "graphql-request": "^7.4.0",
     "graphql-tag": "^2.12.6",
@@ -33,7 +32,6 @@
     "@tailwindcss/postcss": "^4.1.13",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
-    "@types/aos": "^3.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

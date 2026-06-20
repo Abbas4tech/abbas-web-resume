@@ -7,17 +7,15 @@ import { StatGroup } from "@/components/patterns/stat-group/stat-group";
 import { cn } from "@/lib/utils";
 
 export interface SplitContentPanelProps extends HTMLAttributes<HTMLDivElement> {
-  animation?: string;
   description?: Document;
   infoRows: StatGroupProps[];
 }
 
 const SplitContentPanel = memo(
   forwardRef<HTMLDivElement, SplitContentPanelProps>(
-    ({ className, description, infoRows, animation, ...props }, ref) => (
+    ({ className, description, infoRows, ...props }, ref) => (
       <div
         className={cn("flex flex-col gap-4", className)}
-        data-aos={animation}
         ref={ref}
         {...props}
       >

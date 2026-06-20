@@ -27,7 +27,6 @@ describe("adaptSplitContentPanel", () => {
 
     const result = adaptSplitContentPanel(input);
 
-    expect(result.animation).toBeUndefined();
     expect(result.description?.nodeType).toBe(BLOCKS.DOCUMENT);
     expect(result.infoRows).toHaveLength(1);
     expect(result.infoRows[0]).toEqual({
