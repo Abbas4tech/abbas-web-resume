@@ -44,7 +44,18 @@ const ThemeToggle = ({
     theme: string = defaultTheme.toLowerCase()
   ): void => {
     setCurrentTheme(theme);
-    document.documentElement.setAttribute("data-theme", theme);
+    if (typeof document !== "undefined") {
+      const doc = document as unknown as {
+        startViewTransition?: (callback: () => void) => void;
+      };
+      if (typeof doc.startViewTransition === "function") {
+        doc.startViewTransition(() => {
+          document.documentElement.setAttribute("data-theme", theme);
+        });
+      } else {
+        document.documentElement.setAttribute("data-theme", theme);
+      }
+    }
   };
 
   return (

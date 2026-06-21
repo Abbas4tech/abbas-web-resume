@@ -3,7 +3,7 @@
 import { useScroll, useSpring, useTransform } from "motion/react";
 // biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
 import * as motion from "motion/react-client";
-import { memo, type ReactNode, useRef } from "react";
+import { memo, type ReactNode, useEffect, useRef, useState } from "react";
 
 export interface MotionParallaxProps {
   children: ReactNode;
@@ -12,32 +12,76 @@ export interface MotionParallaxProps {
   speed?: number;
 }
 
-/**
- * Wraps children in a parallax container.
- * The inner content moves at a fraction of the scroll speed, creating depth.
- */
-const MotionParallax = memo(
-  ({ children, speed = 0.3, className }: MotionParallaxProps) => {
-    const ref = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({
-      target: ref,
-      offset: ["start start", "end start"],
+interface MotionParallaxInnerProps {
+  children: ReactNode;
+  className?: string;
+  container: HTMLElement;
+  speed: number;
+}
+
+const MotionParallaxInner = memo(
+  ({ children, className, speed, container }: MotionParallaxInnerProps) => {
+    const containerRef = useRef<HTMLElement>(container);
+    containerRef.current = container;
+
+    const { scrollY } = useScroll({
+      container: containerRef,
     });
 
-    // Transform scroll progress [0,1] into a vertical translate
-    const rawY = useTransform(
-      scrollYProgress,
-      [0, 1],
-      ["0%", `${speed * 60}%`]
-    );
+    // Translate the image vertically as the container scrolls.
+    // For 400px of scroll, translate the image down by speed * 200px.
+    const rawY = useTransform(scrollY, [0, 400], ["0px", `${speed * 200}px`]);
     const y = useSpring(rawY, { stiffness: 80, damping: 20 });
 
     return (
-      <div className={className} ref={ref} style={{ overflow: "hidden" }}>
+      <div className={className} style={{ overflow: "hidden" }}>
         <motion.div className="will-change-transform" style={{ y }}>
           {children}
         </motion.div>
       </div>
+    );
+  }
+);
+MotionParallaxInner.displayName = "MotionParallaxInner";
+
+const MotionParallax = memo(
+  ({ children, speed = 0.3, className }: MotionParallaxProps) => {
+    const [container, setContainer] = useState<HTMLElement | null>(null);
+    const placeholderRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (placeholderRef.current) {
+        const found =
+          (document.querySelector(
+            ".drawer-content > .overflow-auto"
+          ) as HTMLElement) ||
+          (placeholderRef.current.closest(".overflow-auto") as HTMLElement) ||
+          (placeholderRef.current.closest(".drawer-content") as HTMLElement) ||
+          document.body;
+        setContainer(found);
+      }
+    }, []);
+
+    if (!container) {
+      return (
+        <div
+          className={className}
+          ref={placeholderRef}
+          style={{ overflow: "hidden" }}
+        >
+          <div>{children}</div>
+        </div>
+      );
+    }
+
+    return (
+      <MotionParallaxInner
+        className={className}
+        container={container}
+        speed={speed}
+      >
+        {children}
+      </MotionParallaxInner>
     );
   }
 );

@@ -3,7 +3,7 @@
 import { useScroll, useSpring, useTransform } from "motion/react";
 // biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
 import * as motion from "motion/react-client";
-import { memo, useRef } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 export interface MotionScrollProgressProps {
   /** DaisyUI bg color class, default bg-primary */
@@ -12,18 +12,21 @@ export interface MotionScrollProgressProps {
   lineHeight?: number;
 }
 
-/**
- * A vertical scroll-progress indicator that fills downward as the user
- * scrolls the container into view.
- */
-const MotionScrollProgress = memo(
-  ({
-    lineHeight = 2,
-    colorClass = "bg-primary",
-  }: MotionScrollProgressProps) => {
-    const ref = useRef<HTMLDivElement>(null);
+interface MotionScrollProgressInnerProps {
+  colorClass: string;
+  container: HTMLElement;
+  lineHeight: number;
+}
+
+const MotionScrollProgressInner = memo(
+  ({ colorClass, container, lineHeight }: MotionScrollProgressInnerProps) => {
+    const targetRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLElement>(container);
+    containerRef.current = container;
+
     const { scrollYProgress } = useScroll({
-      target: ref,
+      target: targetRef,
+      container: containerRef,
       offset: ["start center", "end center"],
     });
 
@@ -31,7 +34,7 @@ const MotionScrollProgress = memo(
     const opacity = useTransform(scaleY, [0, 0.05], [0.3, 1]);
 
     return (
-      <div className="relative" ref={ref}>
+      <div className="relative" ref={targetRef}>
         {/* track */}
         <div
           className={`absolute top-0 left-0 w-[${lineHeight}px] h-full rounded-full ${colorClass} opacity-10`}
@@ -42,6 +45,49 @@ const MotionScrollProgress = memo(
           style={{ scaleY, opacity, height: "100%" }}
         />
       </div>
+    );
+  }
+);
+MotionScrollProgressInner.displayName = "MotionScrollProgressInner";
+
+const MotionScrollProgress = memo(
+  ({
+    lineHeight = 2,
+    colorClass = "bg-primary",
+  }: MotionScrollProgressProps) => {
+    const [container, setContainer] = useState<HTMLElement | null>(null);
+    const placeholderRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (placeholderRef.current) {
+        const found =
+          (document.querySelector(
+            ".drawer-content > .overflow-auto"
+          ) as HTMLElement) ||
+          (placeholderRef.current.closest(".overflow-auto") as HTMLElement) ||
+          (placeholderRef.current.closest(".drawer-content") as HTMLElement) ||
+          document.body;
+        setContainer(found);
+      }
+    }, []);
+
+    if (!container) {
+      return (
+        <div className="relative" ref={placeholderRef}>
+          {/* track */}
+          <div
+            className={`absolute top-0 left-0 w-[${lineHeight}px] h-full rounded-full ${colorClass} opacity-10`}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <MotionScrollProgressInner
+        colorClass={colorClass}
+        container={container}
+        lineHeight={lineHeight}
+      />
     );
   }
 );

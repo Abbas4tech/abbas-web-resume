@@ -37,7 +37,7 @@ const HeroBanner = memo(
               speed={0.3}
             >
               <ContentfulImage
-                className="pointer-events-none -mt-[15%] h-[130%] w-full select-none object-cover"
+                className="pointer-events-none mt-[-15%] h-[130%] w-full select-none object-cover"
                 data={bannerImage}
                 priority
               />
@@ -47,7 +47,7 @@ const HeroBanner = memo(
           {avatarImage && (
             <MotionWrapper
               animation="zoom-in"
-              className="avatar mt-[-2rem] md:mt-[-6rem]"
+              className="avatar -mt-8 md:-mt-24"
               delay={0.2}
             >
               <div className="w-24 rounded-full ring ring-base-100 ring-offset-2 ring-offset-base-100 md:w-48">
@@ -63,7 +63,7 @@ const HeroBanner = memo(
           {iconLinks.length && (
             <MotionWrapper
               animation="fade-up"
-              className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12"
+              className="-mt-12 flex w-full items-center justify-between pb-4 md:-mt-20 md:pb-12"
               delay={0.4}
             >
               <div className="flex gap-4">

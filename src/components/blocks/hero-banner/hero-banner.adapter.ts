@@ -13,7 +13,7 @@ export function adaptHeroBanner(
     iconLinks: (item?.links || []).map((link) => ({
       label: link.text,
       href: link.href || "#",
-      iconSrc: "",
+      iconSrc: link.icon?.iconCode || "",
       iconWidth: 0,
       iconHeight: 0,
     })),

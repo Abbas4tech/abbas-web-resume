@@ -11,7 +11,7 @@ export const ContentfulPage: FC<ContentfulPageProps> = ({
   data,
   children,
 }: ContentfulPageProps) => (
-  <div className="flex flex-col gap-8 py-8">
+  <div className="flex flex-col gap-8 pb-8">
     {data.topContentArea.map((block) => {
       if (block.__typename === "ContentSection") {
         return <ContentSection data={block} key={block.id} />;

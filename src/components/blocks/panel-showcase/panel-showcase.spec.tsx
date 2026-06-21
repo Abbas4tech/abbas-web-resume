@@ -26,7 +26,7 @@ describe("PanelShowcase", () => {
 
     // Icons
     expect(
-      await screen.findByRole("img", { name: "Code Icon" })
+      await screen.findByRole("img", { name: "Code Icon", hidden: true })
     ).toBeInTheDocument();
     expect(
       await screen.findByRole("img", { name: "React Icon" })
