@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: accepted
 ---
 # 0012 Motion Animation Strategy & Wrapper
 

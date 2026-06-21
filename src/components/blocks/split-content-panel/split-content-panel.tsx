@@ -1,7 +1,7 @@
 import type { Document } from "@contentful/rich-text-types";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
-import { MotionWrapper } from "@/components/elements/motion-wrapper/motion-wrapper";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import { RichText } from "@/components/patterns/rich-text/rich-text";
 import type { StatGroupProps } from "@/components/patterns/stat-group/stat-group";
 import { StatGroup } from "@/components/patterns/stat-group/stat-group";

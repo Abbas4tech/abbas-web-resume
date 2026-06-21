@@ -20,7 +20,7 @@ We will systematically upgrade our animation primitives while preserving the RSC
 
 1. **Client-Boundary Isolation**: 
    - We will not add `"use client"` to high-level blocks (`hero-banner.tsx`, `card-grid.tsx`) just to add parallax or scroll effects. 
-   - Instead, we will create focused client-side animation wrappers (e.g., `MotionParallax`, `MotionStaggerContainer`, `MotionHoverCard`) in the `src/components/elements` directory. These will accept `children` (which can be Server Components).
+   - Instead, we will create focused client-side animation wrappers (e.g., `MotionParallax`, `MotionStagger`, `MotionHover`) in the `src/components/elements/behavior/` directory. These will accept `children` (which can be Server Components).
 
 2. **Advanced Feature Mapping**:
    - **Spring Physics**: We will adopt a global spring configuration (`stiffness: 120, damping: 14`) as our default transition to ensure physical consistency.

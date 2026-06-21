@@ -1,6 +1,6 @@
 # Remove AOS Animation Library
 
-* Status: proposed
+* Status: accepted
 * Deciders: Abbas, Agent
 * Date: 2026-06-20
 

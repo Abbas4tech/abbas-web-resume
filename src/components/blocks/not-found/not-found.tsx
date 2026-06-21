@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { MdHome, MdSearchOff } from "react-icons/md";
-import { MotionWrapper } from "@/components/elements/motion-wrapper/motion-wrapper";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 
 export interface NotFoundBlockProps {
   actionHref?: string;

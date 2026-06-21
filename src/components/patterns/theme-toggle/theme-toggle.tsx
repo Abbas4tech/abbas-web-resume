@@ -7,9 +7,9 @@ import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownToggle,
-} from "@/components/elements/dropdown/dropdown";
-import type { IconProps } from "@/components/elements/icon/icon";
-import { Icon } from "@/components/elements/icon/icon";
+} from "@/components/elements/ui/dropdown/dropdown";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 
 export interface ThemeToggleProps {
   defaultTheme: string;

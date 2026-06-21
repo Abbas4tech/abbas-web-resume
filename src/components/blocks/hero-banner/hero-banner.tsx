@@ -1,8 +1,8 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo, useMemo } from "react";
 import { Image as ContentfulImage } from "@/components/contentful/image";
-import { MotionParallax } from "@/components/elements/motion-parallax/motion-parallax";
-import { MotionWrapper } from "@/components/elements/motion-wrapper/motion-wrapper";
+import { MotionParallax } from "@/components/elements/behavior/motion-parallax/motion-parallax";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import type { IconLinkProps } from "@/components/patterns/icon-link/icon-link";
 import { IconLink } from "@/components/patterns/icon-link/icon-link";
 import type { AdaptedImage } from "@/contentful/adapters/image";

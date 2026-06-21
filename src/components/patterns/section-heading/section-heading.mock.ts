@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "@/components/elements/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import type { SectionHeadingProps } from "./section-heading";
 
 export const baseMock: SectionHeadingProps = {

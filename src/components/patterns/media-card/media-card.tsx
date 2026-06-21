@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { memo } from "react";
+import { MotionTiltCard } from "@/components/elements/behavior/motion-tilt-card/motion-tilt-card";
 import {
   Card,
   CardContent,
@@ -7,9 +8,8 @@ import {
   CardFooter,
   CardImage,
   CardTitle,
-} from "@/components/elements/card/card";
-import { Icon } from "@/components/elements/icon/icon";
-import { MotionTiltCard } from "@/components/elements/motion-tilt-card/motion-tilt-card";
+} from "@/components/elements/ui/card/card";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import type { AdaptedLink } from "@/contentful/adapters/link";
 
 export interface MediaCardProps {

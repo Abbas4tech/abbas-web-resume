@@ -5,7 +5,7 @@ import type { ComponentProps } from "react";
 import {
   DrawerSideItem,
   DrawerSideMenu,
-} from "@/components/elements/drawer/drawer";
+} from "@/components/elements/ui/drawer/drawer";
 import { NavItem } from "@/components/patterns/nav-item/nav-item";
 import { adaptNavItem } from "@/components/patterns/nav-item/nav-item.adapter";
 import type { PageLike, usePageProps } from "@/hooks/use-page";

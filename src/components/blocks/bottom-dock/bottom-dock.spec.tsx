@@ -3,10 +3,10 @@ import { render, screen } from "@/test/utils";
 import { BottomDock } from "./bottom-dock";
 
 // Mock the drawer hook to force the dock to render
-vi.mock("@/components/elements/drawer/drawer", async (importOriginal) => {
+vi.mock("@/components/elements/ui/drawer/drawer", async (importOriginal) => {
   const actual =
     await importOriginal<
-      typeof import("@/components/elements/drawer/drawer")
+      typeof import("@/components/elements/ui/drawer/drawer")
     >();
   return {
     ...actual,

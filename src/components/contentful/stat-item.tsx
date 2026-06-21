@@ -1,5 +1,5 @@
 import type { AdaptedStatItem } from "@/contentful/adapters/stat-item";
-import { Badge } from "../elements/badge/badge";
+import { Badge } from "../elements/ui/badge/badge";
 import { Icon } from "./icon";
 
 interface Props {

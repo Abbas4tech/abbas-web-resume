@@ -3,8 +3,8 @@
 import { m } from "motion/react";
 import type { ReactNode } from "react";
 import { memo } from "react";
-import type { IconProps } from "@/components/elements/icon/icon";
-import { Icon } from "@/components/elements/icon/icon";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import {
   Step,
   StepBody,
@@ -12,7 +12,7 @@ import {
   StepIndicator,
   StepSeparator,
   StepTitle,
-} from "@/components/elements/step/step";
+} from "@/components/elements/ui/step/step";
 
 export interface TimelineEntryMetaRow {
   icon: IconProps;

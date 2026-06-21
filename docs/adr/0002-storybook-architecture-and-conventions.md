@@ -13,7 +13,7 @@ We are introducing Storybook to document and develop our three-layer component a
 3. **Context Dependencies:** We inject a global `DrawerProvider` decorator in `.storybook/preview.tsx`. Core elements (like `Dropdown`) call `useDrawer()` internally and throw if the context is missing. Providing this globally treats it as required infrastructure rather than story-specific behavior, removing boilerplate from individual stories.
 4. **Data Fixtures:** Every component must have an accompanying `component-name.mock.ts` file alongside its implementation. These files provide strongly-typed mock data representing different variants, behaviors, and states to satisfy Next.js compiler strictness during `pnpm build`. Story files import from these local `.mock.ts` files to populate their `args`, keeping the story files clean and focused purely on rendering scenarios.
 5. **File Naming:** Story files are named `component-name.stories.tsx` (e.g., `button.stories.tsx`) despite sitting alongside `index.tsx`. This aligns with our strict kebab-case file naming linter convention (`ultracite`) while avoiding the ambiguity of searching for `index.stories.tsx` in an IDE, making fuzzy finding significantly faster.
-6. **Sidebar Hierarchy:** The Storybook sidebar explicitly mirrors the repository's domain language (`Elements`, `Patterns`, `Blocks`). We do not use functional groupings (like "Navigation"). This reinforces the strict layer dependency rules outlined in `CONTEXT.md`.
+6. **Sidebar Hierarchy:** The Storybook sidebar explicitly mirrors the repository's domain language, categorized into `Elements/UI`, `Elements/Behavior`, `Patterns`, and `Blocks`. We do not use functional groupings (like "Navigation"). This reinforces the strict layer dependency rules outlined in `CONTEXT.md`.
 
 ## Development Plan
 
@@ -30,7 +30,7 @@ The comprehensive development plan for establishing Storybook mock views is stru
 - Generated `.stories.tsx` iterating over all `mock.*` export permutations.
 
 ### Phase 3: Elements (Core Level)
-- Processed 26+ foundational elements (e.g., Alert, Avatar, Drawer, Tooltip).
+- Processed 26+ foundational elements divided into UI Elements (e.g., Alert, Avatar, Drawer, Tooltip) and Behavioral Elements (e.g., MotionWrapper, MotionParallax, FrozenRouter).
 - Verified prop strictness (e.g., buttons must specify `type="button"`).
 - Addressed shadowing variables (e.g., avoiding globally shadowing `Error`).
 - Configured component variations to cleanly map via `.mock.ts`.

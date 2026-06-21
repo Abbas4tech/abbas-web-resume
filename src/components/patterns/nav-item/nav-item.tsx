@@ -1,8 +1,8 @@
 "use client";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
-import { Button } from "@/components/elements/button/button";
-import { Icon } from "@/components/elements/icon/icon";
+import { Button } from "@/components/elements/ui/button/button";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import { cn } from "@/lib/utils";
 
 export interface NavItemProps extends HTMLAttributes<HTMLDivElement> {

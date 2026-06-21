@@ -3,7 +3,7 @@ import { forwardRef, memo } from "react";
 import {
   MotionStaggerContainer,
   MotionStaggerItem,
-} from "@/components/elements/motion-stagger/motion-stagger";
+} from "@/components/elements/behavior/motion-stagger/motion-stagger";
 import type { MediaCardProps } from "@/components/patterns/media-card/media-card";
 import { MediaCard } from "@/components/patterns/media-card/media-card";
 import { cn } from "@/lib/utils";

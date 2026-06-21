@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Icon } from "@/components/elements/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import { render, screen } from "@/test/utils";
 import { SectionHeading } from "./section-heading";
 

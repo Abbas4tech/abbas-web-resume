@@ -1,7 +1,7 @@
 import { Poppins } from "next/font/google";
 import type React from "react";
 import type { JSX } from "react";
-import { MotionProvider } from "@/components/elements/motion-provider/motion-provider";
+import { MotionProvider } from "@/components/elements/behavior/motion-provider/motion-provider";
 
 import "./globals.css";
 

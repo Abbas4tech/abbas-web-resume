@@ -3,7 +3,7 @@
 import { AnimatePresence, m } from "motion/react";
 import { usePathname } from "next/navigation";
 import type React from "react";
-import { FrozenRouter } from "@/components/elements/frozen-router/frozen-router";
+import { FrozenRouter } from "@/components/elements/behavior/frozen-router/frozen-router";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

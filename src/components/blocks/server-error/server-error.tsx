@@ -1,12 +1,11 @@
 "use client";
 
 import { MdErrorOutline, MdRefresh } from "react-icons/md";
+import { MotionDraggable } from "@/components/elements/behavior/motion-draggable/motion-draggable";
 import {
   MockupWindow,
   MockupWindowBody,
-} from "@/components/elements/mockup-window/mockup-window";
-
-import { MotionDraggable } from "@/components/elements/motion-draggable/motion-draggable";
+} from "@/components/elements/ui/mockup-window/mockup-window";
 
 export interface ServerErrorBlockProps {
   actionLabel?: string;

@@ -7,7 +7,9 @@ A personal resume/portfolio web application built with Next.js, Tailwind CSS v4,
 ### Component Architecture
 
 **Element**:
-A DaisyUI-class wrapper that carries no domain meaning. Mirrors one DaisyUI component category (e.g. `btn`, `mockup-window`, `badge`). May have named sub-parts (e.g. `MockupWindowBody`) but the whole file stays within the Element layer. No domain data, no business logic.
+Carries no domain meaning and no business logic. Elements are physically grouped into two distinct categories:
+1. **UI Elements** (`src/components/elements/ui/`): Wrappers around visual style framework components (e.g., `button` wrapping `.btn`, `badge` wrapping `.badge`, `modal` wrapping `.modal`).
+2. **Behavioral Elements** (`src/components/elements/behavior/`): Styling-agnostic helpers that provide structural, animation, layout, or browser-event capabilities (e.g., `motion-parallax`, `motion-hover`, `frozen-router`).
 _Avoid_: primitive, atom, base component
 
 **Pattern**:
@@ -27,12 +29,14 @@ A function or lookup table that reads a layout identifier from the input source 
 _Avoid_: factory, dynamic component
 
 **Layer contract**:
-The TypeScript props type that defines what a Pattern or Block accepts. The contract is stable; the implementation behind it changes. Elements expose HTML-native props and `className` only.
+The TypeScript props type that defines what a Pattern or Block accepts. The contract is stable; the implementation behind it changes. UI Elements expose HTML-native props and `className` only, while Behavioral Elements expose specific structural, animation, or browser-event configuration props.
 _Avoid_: interface, API
 
 ### Naming Rules
 
-- **Element names** mirror the DaisyUI component class they wrap (e.g. `MockupWindow` ← `mockup-window`, `Badge` ← `badge`).
+- **Element names** follow their category:
+  - **UI Elements** mirror the DaisyUI component class they wrap (e.g. `MockupWindow` ← `mockup-window`, `Badge` ← `badge`).
+  - **Behavioral Elements** describe their structural or utility behavior wrapper (e.g. `MotionParallax` ← `motion-parallax`, `FrozenRouter` ← `frozen-router`).
 - **Pattern names** describe the visual structure they encode (e.g. `IconProgressRow`, `NavItem`). No domain words.
 - **Block names** describe the visual slot they occupy in the layout (e.g. `HeroBanner`, `AppHeader`, `SidebarNav`). No domain words (e.g. not `ProfileBanner`, not `ExperienceCard`).
 - **Component files**: Do not use `index.tsx` or generic file names inside component folders. Files must own their component namespace explicitly to avoid editor tab confusion (e.g., `button.tsx`, `button.mock.ts`, `button.stories.tsx`, `button.adapter.ts`). Types should live in the main component `.tsx` file.

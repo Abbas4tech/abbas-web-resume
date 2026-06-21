@@ -3,7 +3,7 @@ import {
   render as rtlRender,
 } from "@testing-library/react";
 import type { ReactElement } from "react";
-import { DrawerProvider } from "@/components/elements/drawer/drawer";
+import { DrawerProvider } from "@/components/elements/ui/drawer/drawer";
 
 function AllTheProviders({ children }: { children: React.ReactNode }) {
   return <DrawerProvider>{children}</DrawerProvider>;

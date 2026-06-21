@@ -1,14 +1,14 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
-import type { IconProps } from "@/components/elements/icon/icon";
-import { Icon } from "@/components/elements/icon/icon";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import {
   Stat,
   StatDescription,
   StatFigure,
   Stats,
   StatTitle,
-} from "@/components/elements/stat/stat";
+} from "@/components/elements/ui/stat/stat";
 import { cn } from "@/lib/utils";
 
 export interface StatGroupProps extends HTMLAttributes<HTMLDivElement> {

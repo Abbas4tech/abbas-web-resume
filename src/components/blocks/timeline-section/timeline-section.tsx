@@ -1,7 +1,7 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
-import { MotionScrollProgress } from "@/components/elements/motion-scroll-progress/motion-scroll-progress";
-import { PageContent } from "@/components/elements/page/page";
+import { MotionScrollProgress } from "@/components/elements/behavior/motion-scroll-progress/motion-scroll-progress";
+import { PageContent } from "@/components/elements/ui/page/page";
 import type { RichTextProps } from "@/components/patterns/rich-text/rich-text";
 import { RichText } from "@/components/patterns/rich-text/rich-text";
 import type { TimelineEntryProps } from "@/components/patterns/timeline-entry/timeline-entry";

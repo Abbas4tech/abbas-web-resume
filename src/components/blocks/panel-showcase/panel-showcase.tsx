@@ -1,13 +1,13 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
-import type { IconProps } from "@/components/elements/icon/icon";
-import { Icon } from "@/components/elements/icon/icon";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import {
   MockupWindow,
   MockupWindowBody,
-} from "@/components/elements/mockup-window/mockup-window";
-import { MotionWrapper } from "@/components/elements/motion-wrapper/motion-wrapper";
-import { PageContent } from "@/components/elements/page/page";
+} from "@/components/elements/ui/mockup-window/mockup-window";
+import { PageContent } from "@/components/elements/ui/page/page";
 import { IconCluster } from "@/components/patterns/icon-cluster/icon-cluster";
 import type { IconProgressRowProps } from "@/components/patterns/icon-progress-row/icon-progress-row";
 import { IconProgressRow } from "@/components/patterns/icon-progress-row/icon-progress-row";

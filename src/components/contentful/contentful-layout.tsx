@@ -14,7 +14,7 @@ import {
   DrawerSide,
   type DrawerSides,
   type DrawerVariants,
-} from "@/components/elements/drawer/drawer";
+} from "@/components/elements/ui/drawer/drawer";
 
 import type { AdaptedLayout } from "@/contentful/adapters/layout";
 
