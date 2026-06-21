@@ -1,5 +1,6 @@
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+"use client";
+
+import { m } from "motion/react";
 import type { HTMLAttributes, ReactNode } from "react";
 import { forwardRef, memo } from "react";
 import { cn } from "@/lib/utils";
@@ -45,7 +46,12 @@ const SectionHeading = memo(
   forwardRef<HTMLHeadingElement, SectionHeadingProps>(
     ({ className, icon, children, ...props }, ref) => {
       const isString = typeof children === "string";
-      const chars = isString ? Array.from(children as string) : [];
+      const chars = isString
+        ? Array.from(children as string).map((char, index) => ({
+            id: `heading-char-${index}`,
+            char,
+          }))
+        : [];
 
       return (
         <h2
@@ -57,7 +63,7 @@ const SectionHeading = memo(
           {...props}
         >
           <span className="sr-only">{children}</span>
-          <motion.span
+          <m.span
             aria-hidden="true"
             className="flex flex-wrap items-center"
             initial="hidden"
@@ -66,30 +72,29 @@ const SectionHeading = memo(
             whileInView="visible"
           >
             {icon && (
-              <motion.span
+              <m.span
                 className="flex items-center"
                 style={{ display: "inline-flex", marginRight: "1rem" }}
                 variants={itemVariants}
               >
                 {icon}
-              </motion.span>
+              </m.span>
             )}
 
             {isString ? (
-              chars.map((char, index) => (
-                <motion.span
-                  // biome-ignore lint/suspicious/noArrayIndexKey: characters repeat, index is unique
-                  key={index}
+              chars.map(({ id, char }) => (
+                <m.span
+                  key={id}
                   style={{ display: "inline-block", whiteSpace: "pre" }}
                   variants={itemVariants}
                 >
                   {char}
-                </motion.span>
+                </m.span>
               ))
             ) : (
-              <motion.span variants={itemVariants}>{children}</motion.span>
+              <m.span variants={itemVariants}>{children}</m.span>
             )}
-          </motion.span>
+          </m.span>
         </h2>
       );
     }

@@ -1,7 +1,6 @@
 "use client";
 
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m, type Variants } from "motion/react";
 import { memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -21,8 +20,7 @@ export interface MotionWrapperProps {
   once?: boolean;
 }
 
-// biome-ignore lint/suspicious/noExplicitAny: variants are complex objects
-const variants: Record<AnimationType, any> = {
+const variants: Record<AnimationType, Variants> = {
   "fade-up": {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0 },
@@ -54,8 +52,7 @@ const MotionWrapper = memo(
     as = "div",
     once = true,
   }: MotionWrapperProps) => {
-    // biome-ignore lint/suspicious/noExplicitAny: required for dynamic component assignment
-    const Component = (motion as any)[as];
+    const Component = m[as];
 
     return (
       <Component

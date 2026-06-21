@@ -1,7 +1,6 @@
 "use client";
 
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m } from "motion/react";
 import { memo } from "react";
 
 export interface MotionTextWriterProps {
@@ -43,7 +42,10 @@ const charVariants = {
  * characters and animates them sequentially with spring physics.
  */
 const MotionTextWriter = memo(({ text, className }: MotionTextWriterProps) => {
-  const characters = Array.from(text);
+  const characters = Array.from(text).map((char, index) => ({
+    id: `writer-char-${index}`,
+    char,
+  }));
 
   return (
     <span
@@ -51,17 +53,16 @@ const MotionTextWriter = memo(({ text, className }: MotionTextWriterProps) => {
       style={{ display: "inline-flex", flexWrap: "wrap" }}
     >
       <span className="sr-only">{text}</span>
-      <motion.span
+      <m.span
         aria-hidden="true"
         initial="hidden"
         style={{ display: "inline-flex", flexWrap: "wrap" }}
         variants={containerVariants}
         whileInView="visible"
       >
-        {characters.map((char, index) => (
-          <motion.span
-            // biome-ignore lint/suspicious/noArrayIndexKey: characters can repeat, index is the only unique key
-            key={index}
+        {characters.map(({ id, char }) => (
+          <m.span
+            key={id}
             style={{
               display: "inline-block",
               whiteSpace: "pre",
@@ -69,9 +70,9 @@ const MotionTextWriter = memo(({ text, className }: MotionTextWriterProps) => {
             variants={charVariants}
           >
             {char}
-          </motion.span>
+          </m.span>
         ))}
-      </motion.span>
+      </m.span>
     </span>
   );
 });

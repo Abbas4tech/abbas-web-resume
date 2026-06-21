@@ -1,7 +1,6 @@
 "use client";
 
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m } from "motion/react";
 import { memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -13,8 +12,7 @@ export interface MotionDraggableProps {
 
 const MotionDraggable = memo(
   ({ children, className, as = "div" }: MotionDraggableProps) => {
-    // biome-ignore lint/suspicious/noExplicitAny: dynamic assignment
-    const Component = (motion as any)[as];
+    const Component = m[as];
 
     return (
       <Component

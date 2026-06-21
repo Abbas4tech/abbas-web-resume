@@ -1,7 +1,6 @@
 "use client";
 
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m } from "motion/react";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import type { IconProps } from "@/components/elements/icon/icon";
@@ -117,10 +116,13 @@ const bodyVariants = {
  */
 const TimelineEntry = memo(
   ({ title, indicatorIcon, metaRows, body }: TimelineEntryProps) => {
-    const titleChars = Array.from(title);
+    const titleChars = Array.from(title).map((char, index) => ({
+      id: `title-char-${index}`,
+      char,
+    }));
 
     return (
-      <motion.div
+      <m.div
         className="w-full"
         initial="hidden"
         variants={entryVariants}
@@ -136,46 +138,45 @@ const TimelineEntry = memo(
           <StepBody>
             <StepTitle className="mb-3">
               <span className="sr-only">{title}</span>
-              <motion.span
+              <m.span
                 aria-hidden="true"
                 style={{ display: "inline-flex", flexWrap: "wrap" }}
                 variants={titleVariants}
               >
-                {titleChars.map((char, index) => (
-                  <motion.span
-                    // biome-ignore lint/suspicious/noArrayIndexKey: characters repeat, index is unique
-                    key={index}
+                {titleChars.map(({ id, char }) => (
+                  <m.span
+                    key={id}
                     style={{ display: "inline-block", whiteSpace: "pre" }}
                     variants={charVariants}
                   >
                     {char}
-                  </motion.span>
+                  </m.span>
                 ))}
-              </motion.span>
+              </m.span>
             </StepTitle>
             <StepContent className="flex flex-col">
-              <motion.div
+              <m.div
                 className="flex flex-col gap-2"
                 variants={metaContainerVariants}
               >
                 {metaRows.map((row) => (
-                  <motion.div
+                  <m.div
                     className="flex items-center gap-2 text-base-content/80 text-sm"
                     key={row.text}
                     variants={metaRowVariants}
                   >
                     <Icon {...row.icon} />
                     <span>{row.text}</span>
-                  </motion.div>
+                  </m.div>
                 ))}
-              </motion.div>
+              </m.div>
             </StepContent>
-            <motion.div className="mt-4 w-full" variants={bodyVariants}>
+            <m.div className="mt-4 w-full" variants={bodyVariants}>
               {body}
-            </motion.div>
+            </m.div>
           </StepBody>
         </Step>
-      </motion.div>
+      </m.div>
     );
   }
 );

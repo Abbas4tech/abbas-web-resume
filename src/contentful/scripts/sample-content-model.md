@@ -3,8 +3,6 @@
 This file serves as a reference documentation for the Contentful Content Model. It provides the full TypeScript schema definition for the models.
 
 ```typescript
-/** biome-ignore-all lint/suspicious/noExplicitAny: false */
-
 import "dotenv/config";
 
 // Using require to import CommonJS module

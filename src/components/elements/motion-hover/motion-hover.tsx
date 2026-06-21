@@ -1,7 +1,6 @@
 "use client";
 
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m } from "motion/react";
 import { memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -23,8 +22,7 @@ const MotionHover = memo(
     rotate = 0,
     tapScale = 0.95,
   }: MotionHoverProps) => {
-    // biome-ignore lint/suspicious/noExplicitAny: dynamic assignment
-    const Component = (motion as any)[as];
+    const Component = m[as];
 
     return (
       <Component

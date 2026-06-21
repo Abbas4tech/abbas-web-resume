@@ -1,8 +1,13 @@
 "use client";
 
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
-import { forwardRef, type HTMLAttributes, memo, type ReactNode } from "react";
+import { type MotionProps, m } from "motion/react";
+import {
+  type ComponentType,
+  forwardRef,
+  type HTMLAttributes,
+  memo,
+  type ReactNode,
+} from "react";
 import { cn } from "@/lib/utils";
 
 const containerVariants = {
@@ -29,8 +34,12 @@ const childVariants = {
   },
 };
 
-export interface MotionStaggerContainerProps
-  extends HTMLAttributes<HTMLElement> {
+type CleanHTMLAttributes = Omit<
+  HTMLAttributes<HTMLElement>,
+  "ref" | "onAnimationStart" | "onDrag" | "onDragStart" | "onDragEnd"
+>;
+
+export interface MotionStaggerContainerProps extends CleanHTMLAttributes {
   as?: "div" | "ul" | "ol" | "section";
   children: ReactNode;
   className?: string;
@@ -41,8 +50,9 @@ export interface MotionStaggerContainerProps
 const MotionStaggerContainer = memo(
   forwardRef<HTMLElement, MotionStaggerContainerProps>(
     ({ children, className, as = "div", once = true, ...rest }, ref) => {
-      // biome-ignore lint/suspicious/noExplicitAny: dynamic assignment
-      const Component = (motion as any)[as];
+      const Component = m[as] as ComponentType<
+        { ref?: React.Ref<HTMLElement> } & CleanHTMLAttributes & MotionProps
+      >;
 
       return (
         <Component
@@ -62,7 +72,7 @@ const MotionStaggerContainer = memo(
 );
 MotionStaggerContainer.displayName = "MotionStaggerContainer";
 
-export interface MotionStaggerItemProps {
+export interface MotionStaggerItemProps extends CleanHTMLAttributes {
   as?: "div" | "li" | "span" | "article";
   children: ReactNode;
   className?: string;
@@ -70,11 +80,10 @@ export interface MotionStaggerItemProps {
 
 /** Each child inside a MotionStaggerContainer. Animates in orchestrated sequence. */
 const MotionStaggerItem = memo(
-  ({ children, className, as = "div" }: MotionStaggerItemProps) => {
-    // biome-ignore lint/suspicious/noExplicitAny: dynamic assignment
-    const Component = (motion as any)[as];
+  ({ children, className, as = "div", ...rest }: MotionStaggerItemProps) => {
+    const Component = m[as] as ComponentType<CleanHTMLAttributes & MotionProps>;
     return (
-      <Component className={cn(className)} variants={childVariants}>
+      <Component className={cn(className)} variants={childVariants} {...rest}>
         {children}
       </Component>
     );

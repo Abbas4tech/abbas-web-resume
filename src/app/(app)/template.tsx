@@ -1,8 +1,6 @@
 "use client";
 
-import { AnimatePresence } from "motion/react";
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { AnimatePresence, m } from "motion/react";
 import { usePathname } from "next/navigation";
 import type React from "react";
 import { FrozenRouter } from "@/components/elements/frozen-router/frozen-router";
@@ -12,7 +10,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
   return (
     <AnimatePresence mode="wait">
-      <motion.div
+      <m.div
         animate={{ opacity: 1, y: 0 }}
         className="w-full"
         exit={{ opacity: 0, y: -30 }}
@@ -21,7 +19,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
         transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
       >
         <FrozenRouter>{children}</FrozenRouter>
-      </motion.div>
+      </m.div>
     </AnimatePresence>
   );
 }

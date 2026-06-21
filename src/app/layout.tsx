@@ -1,6 +1,7 @@
 import { Poppins } from "next/font/google";
 import type React from "react";
 import type { JSX } from "react";
+import { MotionProvider } from "@/components/elements/motion-provider/motion-provider";
 
 import "./globals.css";
 
@@ -13,7 +14,9 @@ export default async function RootLayout({
 }>): Promise<JSX.Element> {
   return (
     <html className="scrollbar-hide" lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

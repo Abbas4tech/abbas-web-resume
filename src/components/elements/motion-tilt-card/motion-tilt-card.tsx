@@ -1,13 +1,12 @@
 "use client";
 
 import {
+  m,
   useMotionTemplate,
   useMotionValue,
   useSpring,
   useTransform,
 } from "motion/react";
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
 import { type MouseEvent, memo, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -46,7 +45,7 @@ const MotionTiltCard = memo(({ children, className }: MotionTiltCardProps) => {
   };
 
   return (
-    <motion.div
+    <m.div
       className={cn("group perspective-1000 relative", className)}
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
@@ -60,12 +59,12 @@ const MotionTiltCard = memo(({ children, className }: MotionTiltCardProps) => {
       whileTap={{ scale: 0.98 }}
     >
       {/* Glare effect overlay */}
-      <motion.div
+      <m.div
         className="pointer-events-none absolute inset-0 z-10 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{ background: glareBackground }}
       />
       <div style={{ transform: "translateZ(30px)" }}>{children}</div>
-    </motion.div>
+    </m.div>
   );
 });
 MotionTiltCard.displayName = "MotionTiltCard";

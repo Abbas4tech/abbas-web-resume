@@ -43,20 +43,25 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
+import React from "react";
+
 vi.mock("next/image", () => ({
-  // biome-ignore lint/suspicious/noExplicitAny: global mock
-  default: (props: any) => {
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    // biome-ignore lint/a11y/useAltText: global mock
-    // biome-ignore lint/performance/noImgElement: global mock
-    // biome-ignore lint/correctness/useImageSize: global mock
-    return <img {...props} />;
-  },
+  default: ({
+    priority,
+    fetchPriority,
+    ...props
+  }: React.ImgHTMLAttributes<HTMLImageElement> & {
+    priority?: boolean;
+    fetchPriority?: string;
+  }) => React.createElement("img", { alt: "", ...props }),
 }));
 
 vi.mock("next/link", () => ({
-  // biome-ignore lint/suspicious/noExplicitAny: global mock
-  default: ({ children, href, ...props }: any) => (
+  default: ({
+    children,
+    href,
+    ...props
+  }: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a href={href} {...props}>
       {children}
     </a>

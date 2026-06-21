@@ -1,8 +1,6 @@
 "use client";
 
-import { useScroll, useSpring, useTransform } from "motion/react";
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m, useScroll, useSpring, useTransform } from "motion/react";
 import { memo, useEffect, useRef, useState } from "react";
 
 export interface MotionScrollProgressProps {
@@ -40,7 +38,7 @@ const MotionScrollProgressInner = memo(
           className={`absolute top-0 left-0 w-[${lineHeight}px] h-full rounded-full ${colorClass} opacity-10`}
         />
         {/* fill */}
-        <motion.div
+        <m.div
           className={`absolute top-0 left-0 w-[${lineHeight}px] origin-top rounded-full ${colorClass}`}
           style={{ scaleY, opacity, height: "100%" }}
         />

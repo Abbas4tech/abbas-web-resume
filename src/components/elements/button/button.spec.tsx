@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@/test/utils";
 import { Button } from "./button";
 
+const clickMeRegex = /click me/i;
+const goToTestRegex = /go to test/i;
+
 describe("Button", () => {
   it("renders native button by default", () => {
     render(<Button>Click me</Button>);
-    // biome-ignore lint/performance/useTopLevelRegex: test string matching
-    const button = screen.getByRole("button", { name: /click me/i });
+    const button = screen.getByRole("button", { name: clickMeRegex });
     expect(button).toBeInTheDocument();
     expect(button.tagName).toBe("BUTTON");
   });
@@ -17,8 +19,7 @@ describe("Button", () => {
         Go to test
       </Button>
     );
-    // biome-ignore lint/performance/useTopLevelRegex: test string matching
-    const link = screen.getByRole("link", { name: /go to test/i });
+    const link = screen.getByRole("link", { name: goToTestRegex });
     expect(link).toBeInTheDocument();
     expect(link.tagName).toBe("A");
     expect(link).toHaveAttribute("href", "/test");

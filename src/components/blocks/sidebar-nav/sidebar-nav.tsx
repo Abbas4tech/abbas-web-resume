@@ -1,6 +1,5 @@
 "use client";
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m } from "motion/react";
 import type React from "react";
 import type { ComponentProps } from "react";
 import {
@@ -45,7 +44,7 @@ const SidebarNav = ({
         return (
           <DrawerSideItem className="relative" id={page.title} key={page.title}>
             {isActive && (
-              <motion.div
+              <m.div
                 className="absolute inset-0 border-primary border-l-4 bg-primary/10"
                 layoutId="activeSidebarNav"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}

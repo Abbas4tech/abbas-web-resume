@@ -1,8 +1,6 @@
 "use client";
 
-import { useScroll, useSpring, useTransform } from "motion/react";
-// biome-ignore lint/performance/noNamespaceImport: required for motion dynamic components
-import * as motion from "motion/react-client";
+import { m, useScroll, useSpring, useTransform } from "motion/react";
 import { memo, type ReactNode, useEffect, useRef, useState } from "react";
 
 export interface MotionParallaxProps {
@@ -35,9 +33,9 @@ const MotionParallaxInner = memo(
 
     return (
       <div className={className} style={{ overflow: "hidden" }}>
-        <motion.div className="will-change-transform" style={{ y }}>
+        <m.div className="will-change-transform" style={{ y }}>
           {children}
-        </motion.div>
+        </m.div>
       </div>
     );
   }
