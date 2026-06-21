@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { memo } from "react";
-import { MotionTiltCard } from "@/components/elements/behavior/motion-tilt-card/motion-tilt-card";
 import {
   Card,
   CardContent,
@@ -32,8 +31,8 @@ const MediaCard = memo(
     thumbnailHeight,
     links,
   }: MediaCardProps) => (
-    <MotionTiltCard>
-      <Card className="h-full">
+    <Card className="h-full">
+      {thumbnailSrc && (
         <CardImage
           alt={thumbnailAlt}
           className="hidden md:block"
@@ -42,21 +41,21 @@ const MediaCard = memo(
           src={thumbnailSrc}
           width={thumbnailWidth}
         />
-        <CardContent className="p-4 md:p-6">
-          <CardTitle className="text-base md:text-lg">{title}</CardTitle>
-          <CardDescription className="text-xs md:text-base">
-            {description}
-          </CardDescription>
-          <CardFooter className="justify-end gap-2">
-            {links?.map(({ id, href, icon }) => (
-              <Link href={href} key={id || href} target="_blank">
-                {icon && <Icon {...icon} />}
-              </Link>
-            ))}
-          </CardFooter>
-        </CardContent>
-      </Card>
-    </MotionTiltCard>
+      )}
+      <CardContent className="p-4 md:p-6">
+        <CardTitle className="text-base md:text-lg">{title}</CardTitle>
+        <CardDescription className="text-xs md:text-base">
+          {description}
+        </CardDescription>
+        <CardFooter className="justify-end gap-2">
+          {links?.map(({ id, href, icon }) => (
+            <Link href={href} key={id || href} target="_blank">
+              {icon && <Icon {...icon} />}
+            </Link>
+          ))}
+        </CardFooter>
+      </CardContent>
+    </Card>
   )
 );
 MediaCard.displayName = "MediaCard";

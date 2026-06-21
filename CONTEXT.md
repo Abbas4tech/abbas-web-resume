@@ -93,3 +93,23 @@ A Playwright-driven browser test that verifies full page routes, navigation, and
 **Block Object Model**:
 A variation of the Page Object Model (POM) specific to our three-layer architecture. Since UI layout is dynamic and driven by CMS data, Playwright locators and actions are encapsulated within Block Object Models (e.g. `AppHeaderModel`, `SidebarNavModel`) rather than rigid Page Object Models. Tests dynamically compose Block Object Models based on the mock data injected.
 _Avoid_: Page Object Model (POM) for full pages, since pages are dynamic.
+
+### Optimization & Animation Vocabulary
+
+**Curated Static Icon Registry**:
+A static lookup dictionary that maps string identifiers to statically imported icon components, allowing complete tree-shaking of heavy icon libraries and eliminating dynamic component recreation lag at runtime.
+_Avoid_: dynamically importing full icon submodules at render time.
+
+**Tactile Spring Physics**:
+Physics-based layout animations that coordinate scale, opacity, and positioning transitions using specific mass, damping, and stiffness properties, creating a heavy and premium settling motion.
+_Avoid_: mousemove-linked spring calculations on grid cards that cause layout thrashing.
+
+### Contentful Environment Architecture & Synchronisation
+
+**Contentful Space & Environments**:
+The application connects to a primary Contentful Space hosting both `development` and `master` environments. Schema definitions, fields, and icon entries are synchronised across both environments to ensure parity between dev/staging runs and production.
+_Avoid_: referencing static credentials or using inconsistent environments across development branches.
+
+**Icon Synchronisation Tooling**:
+A utility process is used to harvest existing icon identifiers (e.g. from the legacy Contentful Space) and push them safely as unique, deterministic `icon` content entries (e.g. ID `icon-vsc-vscazuredevops`) into the target space's environments, avoiding duplicate content.
+

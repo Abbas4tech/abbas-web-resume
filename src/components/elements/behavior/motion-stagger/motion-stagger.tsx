@@ -21,15 +21,16 @@ const containerVariants = {
 };
 
 const childVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, scale: 0.85, y: 15 },
   visible: {
     opacity: 1,
+    scale: 1,
     y: 0,
     transition: {
       type: "spring" as const,
-      stiffness: 200,
-      damping: 20,
-      mass: 0.8,
+      stiffness: 120,
+      damping: 18,
+      mass: 1.1,
     },
   },
 };

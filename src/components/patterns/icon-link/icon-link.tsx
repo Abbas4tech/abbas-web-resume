@@ -34,13 +34,19 @@ const IconLink = memo(
             rel="noopener noreferrer"
             target="_blank"
           >
-            <Image
-              alt={`${label} icon`}
-              className="h-6 w-6 md:h-8 md:w-8"
-              height={iconHeight}
-              src={iconSrc}
-              width={iconWidth}
-            />
+            {iconSrc ? (
+              <Image
+                alt={`${label} icon`}
+                className="h-6 w-6 md:h-8 md:w-8"
+                height={iconHeight}
+                src={iconSrc}
+                width={iconWidth}
+              />
+            ) : (
+              <span className="font-semibold text-primary text-sm hover:underline">
+                {label}
+              </span>
+            )}
           </Link>
         </MotionHover>
       </div>
