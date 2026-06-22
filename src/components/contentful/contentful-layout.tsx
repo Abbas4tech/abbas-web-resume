@@ -14,8 +14,8 @@ import {
   DrawerSide,
   type DrawerSides,
   type DrawerVariants,
-} from "@/components/elements/drawer/drawer";
-import { NavigationAnimation } from "@/components/elements/navigation/navigation";
+} from "@/components/elements/ui/drawer/drawer";
+
 import type { AdaptedLayout } from "@/contentful/adapters/layout";
 
 export interface ContentfulLayoutProps {
@@ -42,12 +42,9 @@ export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
       <AppHeader {...adaptAppHeader(data, defaultRoute)} />
       <Drawer className="scrollbar-hide h-[calc(100vh-5rem)] overflow-hidden text-sm md:text-lg">
         <DrawerPageContent>
-          <NavigationAnimation
-            className="scrollbar-hide h-[calc(100vh-5rem)] overflow-auto p-4"
-            options={{ easing: "ease-in-cubic" }}
-          >
+          <div className="scrollbar-hide relative h-[calc(100vh-5rem)] overflow-auto p-4">
             <PageWrapper {...adaptPageWrapper(data, children)} />
-          </NavigationAnimation>
+          </div>
         </DrawerPageContent>
         <DrawerSide>
           <SidebarNav {...adaptSidebarNav(data)} />

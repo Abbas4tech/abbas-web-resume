@@ -1,13 +1,14 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo, useMemo } from "react";
 import { Image as ContentfulImage } from "@/components/contentful/image";
+import { MotionParallax } from "@/components/elements/behavior/motion-parallax/motion-parallax";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import type { IconLinkProps } from "@/components/patterns/icon-link/icon-link";
 import { IconLink } from "@/components/patterns/icon-link/icon-link";
 import type { AdaptedImage } from "@/contentful/adapters/image";
 import { cn } from "@/lib/utils";
 
 export interface HeroBannerProps extends HTMLAttributes<HTMLDivElement> {
-  animation?: string;
   avatarImage: AdaptedImage | null;
   bannerImage: AdaptedImage | null;
   iconLinks: IconLinkProps[];
@@ -15,10 +16,7 @@ export interface HeroBannerProps extends HTMLAttributes<HTMLDivElement> {
 
 const HeroBanner = memo(
   forwardRef<HTMLDivElement, HeroBannerProps>(
-    (
-      { className, bannerImage, avatarImage, animation, iconLinks, ...props },
-      ref
-    ) => {
+    ({ className, bannerImage, avatarImage, iconLinks, ...props }, ref) => {
       const [firstChunk, secondChunk] = useMemo(() => {
         const mid = Math.ceil(iconLinks.length / 2);
         return [iconLinks.slice(0, mid), iconLinks.slice(mid)];
@@ -30,22 +28,28 @@ const HeroBanner = memo(
             "relative flex flex-col items-center justify-center",
             className
           )}
-          data-aos={animation}
           ref={ref}
           {...props}
         >
           {bannerImage && (
-            <div className="w-full">
+            <MotionParallax
+              className="relative h-[25vh] max-h-[360px] min-h-[200px] w-full overflow-hidden md:h-[35vh]"
+              speed={0.3}
+            >
               <ContentfulImage
-                className="h-auto w-full"
+                className="pointer-events-none mt-[-15%] h-[130%] w-full select-none object-cover"
                 data={bannerImage}
                 priority
               />
-            </div>
+            </MotionParallax>
           )}
 
           {avatarImage && (
-            <div className="avatar mt-[-2rem] md:mt-[-6rem]">
+            <MotionWrapper
+              animation="zoom-in"
+              className="avatar -mt-8 md:-mt-24"
+              delay={0.2}
+            >
               <div className="w-24 rounded-full ring ring-base-100 ring-offset-2 ring-offset-base-100 md:w-48">
                 <ContentfulImage
                   className="rounded-full"
@@ -53,22 +57,26 @@ const HeroBanner = memo(
                   priority
                 />
               </div>
-            </div>
+            </MotionWrapper>
           )}
 
           {iconLinks.length && (
-            <div className="mt-[-3rem] flex w-full items-center justify-between pb-4 md:mt-[-5rem] md:pb-12">
-              <div className="flex gap-4" data-aos="fade-right">
+            <MotionWrapper
+              animation="fade-up"
+              className="-mt-12 flex w-full items-center justify-between pb-4 md:-mt-20 md:pb-12"
+              delay={0.4}
+            >
+              <div className="flex gap-4">
                 {firstChunk.map((link) => (
                   <IconLink key={link.label} {...link} />
                 ))}
               </div>
-              <div className="flex gap-4" data-aos="fade-left">
+              <div className="flex gap-4">
                 {secondChunk.map((link) => (
                   <IconLink key={link.label} {...link} />
                 ))}
               </div>
-            </div>
+            </MotionWrapper>
           )}
         </div>
       );

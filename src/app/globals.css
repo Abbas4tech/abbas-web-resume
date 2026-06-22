@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "aos/dist/aos.css";
+
 @plugin "daisyui" {
   themes:
     light --default,
@@ -60,4 +60,24 @@
       background-position: 100% 50%;
     }
   }
+}
+
+/* Custom View Transition for left-to-right swipe theme changes */
+@keyframes swipe-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+::view-transition-old(root) {
+  mix-blend-mode: normal;
+  animation: none;
+}
+
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: 1s cubic-bezier(0.16, 1, 0.3, 1) both swipe-reveal;
 }

@@ -7,7 +7,6 @@ import type { CardGridProps } from "./card-grid";
 export function adaptCardGrid(data: AdaptedContentList): CardGridProps {
   console.log(data.customEntries.map(({ icon }) => icon));
   return {
-    animation: undefined,
     cards: data.customEntries.map((item) => ({
       title: item.title,
       description: item.description || "",

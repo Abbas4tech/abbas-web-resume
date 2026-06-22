@@ -1,10 +1,11 @@
 "use client";
+import { m } from "motion/react";
 import type React from "react";
 import type { ComponentProps } from "react";
 import {
   DrawerSideItem,
   DrawerSideMenu,
-} from "@/components/elements/drawer/drawer";
+} from "@/components/elements/ui/drawer/drawer";
 import { NavItem } from "@/components/patterns/nav-item/nav-item";
 import { adaptNavItem } from "@/components/patterns/nav-item/nav-item.adapter";
 import type { PageLike, usePageProps } from "@/hooks/use-page";
@@ -39,8 +40,16 @@ const SidebarNav = ({
           },
           currentPageData.pageUrl
         );
+        const isActive = navItemProps.isActive;
         return (
-          <DrawerSideItem id={page.title} key={page.title}>
+          <DrawerSideItem className="relative" id={page.title} key={page.title}>
+            {isActive && (
+              <m.div
+                className="absolute inset-0 border-primary border-l-4 bg-primary/10"
+                layoutId="activeSidebarNav"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
             <NavItem {...navItemProps} href={page.pageUrl} />
           </DrawerSideItem>
         );

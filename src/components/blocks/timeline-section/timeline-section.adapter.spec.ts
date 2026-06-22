@@ -24,7 +24,6 @@ describe("adaptTimelineSection", () => {
 
     const result = adaptTimelineSection(input);
 
-    expect(result.animation).toBeUndefined();
     expect(result.entries).toHaveLength(1);
 
     const entry = result.entries[0];

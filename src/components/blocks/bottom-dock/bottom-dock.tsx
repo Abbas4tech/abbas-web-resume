@@ -1,9 +1,9 @@
 "use client";
 import type React from "react";
 import type { ComponentProps } from "react";
-import { Dock, DockItem } from "@/components/elements/dock/dock";
-import { useDrawer } from "@/components/elements/drawer/drawer";
-import { Icon } from "@/components/elements/icon/icon";
+import { Dock, DockItem } from "@/components/elements/ui/dock/dock";
+import { useDrawer } from "@/components/elements/ui/drawer/drawer";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import usePage from "@/hooks/use-page";
 import { cn } from "@/lib/utils";
 

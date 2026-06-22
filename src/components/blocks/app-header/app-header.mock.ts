@@ -1,4 +1,4 @@
-import type { IconProps } from "@/components/elements/icon/icon";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
 import type { AppHeaderProps } from "./app-header";
 
 const mockResumeIcon: IconProps = {

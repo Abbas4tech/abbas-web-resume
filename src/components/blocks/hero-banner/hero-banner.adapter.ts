@@ -8,13 +8,12 @@ export function adaptHeroBanner(
 ): HeroBannerProps {
   const item = data.entry?.__typename === "ContentItem" ? data.entry : null;
   return {
-    animation: "fade-down",
     bannerImage: item?.image || null,
     avatarImage: siteLogo,
     iconLinks: (item?.links || []).map((link) => ({
       label: link.text,
       href: link.href || "#",
-      iconSrc: "",
+      iconSrc: link.icon?.iconCode || "",
       iconWidth: 0,
       iconHeight: 0,
     })),

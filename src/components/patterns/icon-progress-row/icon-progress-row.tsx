@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
-import { Progress } from "@/components/elements/progress/progress";
+import { Progress } from "@/components/elements/ui/progress/progress";
 import { cn } from "@/lib/utils";
 
 export interface IconProgressRowProps extends HTMLAttributes<HTMLDivElement> {

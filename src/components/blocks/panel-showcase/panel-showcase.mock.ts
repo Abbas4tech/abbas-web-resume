@@ -1,7 +1,6 @@
 import type { PanelShowcaseProps } from "./panel-showcase";
 
 export const baseMock: PanelShowcaseProps = {
-  animation: "fade-right",
   panels: [
     {
       title: "Frontend Skills",

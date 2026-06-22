@@ -1,7 +1,6 @@
 import type { CardGridProps } from "./card-grid";
 
 export const baseMock: CardGridProps = {
-  animation: "fade-up",
   cards: [
     {
       title: "Project Alpha",

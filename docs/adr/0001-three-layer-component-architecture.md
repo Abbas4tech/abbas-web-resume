@@ -32,27 +32,35 @@ The goal is a composable, independently swappable component system where visual 
 
 ### Layer 1 — Elements
 
-**What:** DaisyUI class wrappers. One file (folder) per DaisyUI component category.
+**What:** Generic, low-level component primitives categorized into UI Elements and Behavioral Elements.
+
+- **UI Elements** (`src/components/elements/ui/`): Wrappers around visual style framework (DaisyUI) components.
+- **Behavioral Elements** (`src/components/elements/behavior/`): Styling-agnostic helpers that provide structural, animation, layout, or browser-event capabilities.
 
 **Rules:**
-- Mirrors the DaisyUI component name (e.g. `MockupWindow` ← `mockup-window`)
-- Props are HTML-native attributes + `className` only
-- No business logic, no domain data, no imports from `@/types/`
-- Named sub-parts live in the same folder (e.g. `MockupWindowBody`)
-- No adapter needed — Elements have no input transformation concern
+- **UI Elements** mirror the DaisyUI component name (e.g. `MockupWindow` ← `mockup-window`). Props are HTML-native attributes + `className` only.
+- **Behavioral Elements** describe their structural or utility behavior wrapper (e.g. `MotionParallax` ← `motion-parallax`). Props are behavior-specific configurations + standard React children/props.
+- No business logic, no domain data, no imports from `@/types/`.
+- Named sub-parts live in the same folder (e.g. `MockupWindowBody`).
+- No adapter needed — Elements have no input transformation concern.
 
 **Structure:**
 ```
 elements/
-  button/
-    index.tsx   ← implementation
-    types.ts    ← exported props type (HTML attrs + className)
-  mockup-window/
-    index.tsx
-    types.ts
-  badge/        ← NEW (missing from current codebase)
-  avatar/       ← NEW
-  ...
+  ui/
+    button/
+      index.tsx   ← implementation
+      types.ts    ← exported props type
+    mockup-window/
+      index.tsx
+      types.ts
+  behavior/
+    motion-parallax/
+      index.tsx
+      types.ts
+    frozen-router/
+      index.tsx
+      types.ts
 ```
 
 ---
@@ -165,7 +173,8 @@ Elements  ←  Patterns  ←  Blocks  ←  Pages
 
 | Layer | Rule | Example |
 |-------|------|---------|
-| Element | Mirrors the DaisyUI CSS class | `MockupWindow` ← `mockup-window` |
+| Element (UI) | Mirrors the DaisyUI CSS class | `MockupWindow` ← `mockup-window` |
+| Element (Behavioral) | Describes the utility or behavior | `MotionParallax` ← `motion-parallax` |
 | Pattern | Describes the visual structure | `IconProgressRow`, `SocialLink`, `NavItem` |
 | Block | Describes the visual slot in the layout | `HeroBanner`, `AppHeader`, `SidebarNav`, `BottomDock` |
 
@@ -175,39 +184,41 @@ Domain words are prohibited in Element, Pattern, and Block names. A component na
 
 ### Folder Structure (Option B — folder-per-component)
 
-Each component lives in its own folder. This co-locates the implementation, the contract (`types.ts`), and the adapter — making each independently replaceable without touching sibling components.
+Each component lives in its own folder. This co-locates the implementation, the contract (`types.ts`), and any stories/mocks/adapters — making each independently replaceable. Note that files must own their namespace explicitly rather than using generic `index.tsx` names.
 
 ```
 src/components/
   elements/
-    button/          → index.tsx, types.ts
-    card/            → index.tsx, types.ts
-    mockup-window/   → index.tsx, types.ts
-    badge/           → index.tsx, types.ts  [NEW]
-    avatar/          → index.tsx, types.ts  [NEW]
-    ...
+    ui/
+      button/            → button.tsx, button.stories.tsx
+      card/              → card.tsx, card.stories.tsx
+      mockup-window/     → mockup-window.tsx, mockup-window.stories.tsx
+      badge/             → badge.tsx, badge.stories.tsx
+      avatar/            → avatar.tsx, avatar.stories.tsx
+      ...
+    behavior/
+      motion-parallax/   → motion-parallax.tsx, motion-parallax.stories.tsx
+      frozen-router/     → frozen-router.tsx, frozen-router.stories.tsx
+      ...
   patterns/
-    theme-toggle/    → index.tsx, types.ts, adapter.ts
-    social-link/     → index.tsx, types.ts, adapter.ts
-    nav-item/        → index.tsx, types.ts, adapter.ts
-    icon-progress-row/   → index.tsx, types.ts, adapter.ts
-    icon-progress-group/ → index.tsx, types.ts, adapter.ts
-    icon-cluster/    → index.tsx, types.ts, adapter.ts
-    section-heading/ → index.tsx, types.ts, adapter.ts
-    info-stat-row/   → index.tsx, types.ts, adapter.ts
-    timeline-entry/  → index.tsx, types.ts, adapter.ts
-    project-preview-card/ → index.tsx, types.ts, adapter.ts
-    rich-text/       → index.tsx, types.ts, adapter.ts
-    page-nav-button/ → index.tsx, types.ts, adapter.ts
+    theme-toggle/        → theme-toggle.tsx, theme-toggle.stories.tsx
+    social-link/         → social-link.tsx, social-link.stories.tsx
+    nav-item/            → nav-item.tsx, nav-item.stories.tsx
+    icon-progress-row/   → icon-progress-row.tsx, icon-progress-row.stories.tsx, icon-progress-row.adapter.ts
+    icon-cluster/        → icon-cluster.tsx, icon-cluster.stories.tsx, icon-cluster.adapter.ts
+    section-heading/     → section-heading.tsx, section-heading.stories.tsx, section-heading.adapter.ts
+    timeline-entry/      → timeline-entry.tsx, timeline-entry.stories.tsx, timeline-entry.adapter.ts
+    media-card/          → media-card.tsx, media-card.stories.tsx, media-card.adapter.ts
+    rich-text/           → rich-text.tsx, rich-text.stories.tsx, rich-text.adapter.ts
   blocks/
-    app-header/      → index.tsx, types.ts, adapter.ts
-    sidebar-nav/     → index.tsx, types.ts, adapter.ts
-    hero-banner/     → index.tsx, types.ts, adapter.ts
-    bottom-dock/     → index.tsx, types.ts, adapter.ts
-    bio-section/     → index.tsx, types.ts, adapter.ts  [NEW]
-    timeline-section/ → index.tsx, types.ts, adapter.ts [NEW]
-    panel-showcase/  → index.tsx, types.ts, adapter.ts  [NEW]
-    card-gallery/    → index.tsx, types.ts, adapter.ts  [NEW]
+    app-header/          → app-header.tsx, app-header.stories.tsx, app-header.adapter.ts
+    sidebar-nav/         → sidebar-nav.tsx, sidebar-nav.stories.tsx, sidebar-nav.adapter.ts
+    hero-banner/         → hero-banner.tsx, hero-banner.stories.tsx, hero-banner.adapter.ts
+    bottom-dock/         → bottom-dock.tsx, bottom-dock.stories.tsx, bottom-dock.adapter.ts
+    split-content-panel/ → split-content-panel.tsx, split-content-panel.stories.tsx, split-content-panel.adapter.ts
+    timeline-section/    → timeline-section.tsx, timeline-section.stories.tsx, timeline-section.adapter.ts
+    panel-showcase/      → panel-showcase.tsx, panel-showcase.stories.tsx, panel-showcase.adapter.ts
+    card-grid/           → card-grid.tsx, card-grid.stories.tsx, card-grid.adapter.ts
 ```
 
 ---

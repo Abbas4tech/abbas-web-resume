@@ -1,7 +1,7 @@
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
-
-import { DrawerProvider } from "../src/components/elements/drawer/drawer";
+import { MotionProvider } from "../src/components/elements/behavior/motion-provider/motion-provider";
+import { DrawerProvider } from "../src/components/elements/ui/drawer/drawer";
 import "../src/app/globals.css";
 
 const preview: Preview = {
@@ -15,9 +15,11 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <DrawerProvider side="left" variant="default">
-        <Story />
-      </DrawerProvider>
+      <MotionProvider>
+        <DrawerProvider side="left" variant="default">
+          <Story />
+        </DrawerProvider>
+      </MotionProvider>
     ),
     withThemeByDataAttribute({
       themes: {

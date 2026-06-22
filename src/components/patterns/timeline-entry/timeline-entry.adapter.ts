@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { IconProps } from "@/components/elements/icon/icon";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
 import type {
   TimelineEntryMetaRow,
   TimelineEntryProps,

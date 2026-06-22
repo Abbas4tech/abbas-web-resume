@@ -2,7 +2,6 @@ import { BLOCKS } from "@contentful/rich-text-types";
 import type { SplitContentPanelProps } from "./split-content-panel";
 
 export const baseMock: SplitContentPanelProps = {
-  animation: "fade-up",
   description: {
     nodeType: BLOCKS.DOCUMENT,
     data: {},

@@ -1,7 +1,7 @@
 "use client";
 import { forwardRef, memo } from "react";
-import { Button } from "@/components/elements/button/button";
-import { Icon } from "@/components/elements/icon/icon";
+import { Button } from "@/components/elements/ui/button/button";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import type { PageLike, usePageProps } from "@/hooks/use-page";
 import usePage from "@/hooks/use-page";
 import { cn } from "@/lib/utils";

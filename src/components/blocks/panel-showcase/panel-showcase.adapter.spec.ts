@@ -29,7 +29,6 @@ describe("adaptPanelShowcase", () => {
 
     const result = adaptPanelShowcase(input);
 
-    expect(result.animation).toBeUndefined();
     expect(result.panels).toHaveLength(1);
     expect(result.panels[0].title).toBe("Frontend Skills");
     expect(result.panels[0].headingIcon).toEqual({ iconCode: "fa/FaReact" });

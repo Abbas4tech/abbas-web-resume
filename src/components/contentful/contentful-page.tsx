@@ -1,14 +1,17 @@
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { ContentList } from "@/components/contentful/content-list";
 import { ContentSection } from "@/components/contentful/content-section";
 import type { AdaptedPage } from "@/contentful/adapters/page";
 
-export interface ContentfulPageProps {
+export interface ContentfulPageProps extends PropsWithChildren {
   data: AdaptedPage;
 }
 
-export const ContentfulPage: FC<ContentfulPageProps> = ({ data }) => (
-  <div className="flex flex-col gap-8 py-8">
+export const ContentfulPage: FC<ContentfulPageProps> = ({
+  data,
+  children,
+}: ContentfulPageProps) => (
+  <div className="flex flex-col gap-8 pb-8">
     {data.topContentArea.map((block) => {
       if (block.__typename === "ContentSection") {
         return <ContentSection data={block} key={block.id} />;
@@ -18,7 +21,7 @@ export const ContentfulPage: FC<ContentfulPageProps> = ({ data }) => (
       }
       return null;
     })}
-
+    {children}
     {data.bottomContentArea.map((block) => {
       if (block.__typename === "ContentSection") {
         return <ContentSection data={block} key={block.id} />;

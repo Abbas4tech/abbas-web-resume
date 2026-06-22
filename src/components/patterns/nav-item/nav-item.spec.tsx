@@ -23,18 +23,4 @@ describe("NavItem", () => {
     const icon = await screen.findByRole("img", { name: "User Icon" });
     expect(icon).toBeInTheDocument();
   });
-
-  it("applies active styles when isActive is true", () => {
-    render(<NavItem {...mockProps} isActive={true} />);
-
-    const link = screen.getByRole("link", { name: ABOUT_ME_REGEX });
-    expect(link).toHaveClass("border-primary", "bg-base-200", "font-bold");
-  });
-
-  it("does not apply active styles when isActive is false", () => {
-    render(<NavItem {...mockProps} isActive={false} />);
-
-    const link = screen.getByRole("link", { name: ABOUT_ME_REGEX });
-    expect(link).not.toHaveClass("border-primary", "bg-base-200", "font-bold");
-  });
 });

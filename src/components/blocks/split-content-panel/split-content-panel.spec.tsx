@@ -5,7 +5,6 @@ import { SplitContentPanel } from "./split-content-panel";
 
 describe("SplitContentPanel", () => {
   const mockProps = {
-    animation: "fade-up",
     description: {
       nodeType: BLOCKS.DOCUMENT,
       data: {},
@@ -32,7 +31,6 @@ describe("SplitContentPanel", () => {
     render(<SplitContentPanel data-testid="bio-sec" {...mockProps} />);
 
     const wrapper = screen.getByTestId("bio-sec");
-    expect(wrapper).toHaveAttribute("data-aos", "fade-up");
     expect(wrapper).toHaveClass("flex", "flex-col", "gap-4");
 
     // Rich text rendering

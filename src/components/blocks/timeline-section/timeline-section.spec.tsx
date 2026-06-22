@@ -5,7 +5,6 @@ import { TimelineSection } from "./timeline-section";
 
 describe("TimelineSection", () => {
   const mockProps = {
-    animation: "fade-up",
     entries: [
       {
         title: "Senior Developer",
@@ -42,9 +41,6 @@ describe("TimelineSection", () => {
 
   it("renders timeline section with entries", async () => {
     render(<TimelineSection data-testid="timeline" {...mockProps} />);
-
-    const timeline = screen.getByTestId("timeline");
-    expect(timeline).toHaveAttribute("data-aos", "fade-up");
 
     // Title from TimelineEntry
     expect(screen.getByText("Senior Developer")).toBeInTheDocument();

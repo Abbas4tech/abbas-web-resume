@@ -8,7 +8,6 @@ export function adaptPanelShowcase(
   data: AdaptedContentList
 ): PanelShowcaseProps {
   return {
-    animation: undefined,
     panels: data.customEntries.map((panel) => ({
       title: panel.title,
       headingIcon: panel.icon || { iconCode: "" },

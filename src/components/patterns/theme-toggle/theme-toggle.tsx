@@ -1,4 +1,5 @@
 "use client";
+import { AnimatePresence, m } from "motion/react";
 import type React from "react";
 import { type ComponentProps, useState } from "react";
 import {
@@ -6,9 +7,9 @@ import {
   DropdownMenu,
   DropdownMenuItem,
   DropdownToggle,
-} from "@/components/elements/dropdown/dropdown";
-import type { IconProps } from "@/components/elements/icon/icon";
-import { Icon } from "@/components/elements/icon/icon";
+} from "@/components/elements/ui/dropdown/dropdown";
+import type { IconProps } from "@/components/elements/ui/icon/icon";
+import { Icon } from "@/components/elements/ui/icon/icon";
 
 export interface ThemeToggleProps {
   defaultTheme: string;
@@ -41,13 +42,35 @@ const ThemeToggle = ({
     theme: string = defaultTheme.toLowerCase()
   ): void => {
     setCurrentTheme(theme);
-    document.documentElement.setAttribute("data-theme", theme);
+    if (typeof document !== "undefined") {
+      const doc = document as unknown as {
+        startViewTransition?: (callback: () => void) => void;
+      };
+      if (typeof doc.startViewTransition === "function") {
+        doc.startViewTransition(() => {
+          document.documentElement.setAttribute("data-theme", theme);
+        });
+      } else {
+        document.documentElement.setAttribute("data-theme", theme);
+      }
+    }
   };
 
   return (
     <Dropdown {...props}>
       <DropdownToggle className="btn-ghost">
-        {themeIcon ? <Icon {...themeIcon} /> : Palette(currentTheme)}
+        <AnimatePresence initial={false} mode="popLayout">
+          <m.div
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.6, rotate: 15 }}
+            initial={{ opacity: 0, scale: 0.6, rotate: -15 }}
+            key={currentTheme}
+            style={{ display: "flex" }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            {themeIcon ? <Icon {...themeIcon} /> : Palette(currentTheme)}
+          </m.div>
+        </AnimatePresence>
         <Icon
           classes={[]}
           iconCode="io5/IoChevronDown"

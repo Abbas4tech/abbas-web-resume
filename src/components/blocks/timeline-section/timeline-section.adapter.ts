@@ -9,7 +9,6 @@ export function adaptTimelineSection(
   data: AdaptedContentList
 ): TimelineSectionProps {
   return {
-    animation: undefined,
     entries: data.customEntries.map((item) => {
       const metaRows: TimelineSectionProps["entries"][number]["metaRows"] = [];
       if (item.startDate || item.endDate) {

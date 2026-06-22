@@ -3,10 +3,10 @@ import { render, screen } from "@/test/utils";
 import { BottomDock } from "./bottom-dock";
 
 // Mock the drawer hook to force the dock to render
-vi.mock("@/components/elements/drawer/drawer", async (importOriginal) => {
+vi.mock("@/components/elements/ui/drawer/drawer", async (importOriginal) => {
   const actual =
     await importOriginal<
-      typeof import("@/components/elements/drawer/drawer")
+      typeof import("@/components/elements/ui/drawer/drawer")
     >();
   return {
     ...actual,
@@ -18,6 +18,9 @@ vi.mock("@/components/elements/drawer/drawer", async (importOriginal) => {
     }),
   };
 });
+
+const homeLinkRegex = /Home/;
+const aboutLinkRegex = /About/;
 
 describe("BottomDock", () => {
   const mockItems = [
@@ -42,11 +45,11 @@ describe("BottomDock", () => {
     expect(dock).toHaveClass("bg-base-300");
 
     // Check items
-    const homeLink = screen.getByRole("link", { name: "Home" });
+    const homeLink = screen.getByRole("link", { name: homeLinkRegex });
     expect(homeLink).toBeInTheDocument();
     expect(homeLink).toHaveAttribute("href", "/");
 
-    const aboutLink = screen.getByRole("link", { name: "About" });
+    const aboutLink = screen.getByRole("link", { name: aboutLinkRegex });
     expect(aboutLink).toBeInTheDocument();
     expect(aboutLink).toHaveAttribute("href", "/about");
 

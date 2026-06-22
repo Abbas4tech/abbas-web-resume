@@ -4,7 +4,6 @@ import { CardGrid } from "./card-grid";
 
 describe("CardGrid", () => {
   const mockProps = {
-    animation: "fade-up",
     cards: [
       {
         title: "Project 1",
@@ -33,7 +32,6 @@ describe("CardGrid", () => {
     render(<CardGrid data-testid="gallery" {...mockProps} />);
 
     const gallery = screen.getByTestId("gallery");
-    expect(gallery).toHaveAttribute("data-aos", "fade-up");
     expect(gallery).toHaveClass("grid", "grid-cols-1", "md:grid-cols-2");
 
     expect(screen.getByText("Project 1")).toBeInTheDocument();

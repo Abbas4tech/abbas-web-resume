@@ -25,7 +25,6 @@ describe("adaptCardGrid", () => {
 
     const result = adaptCardGrid(input);
 
-    expect(result.animation).toBeUndefined();
     expect(result.cards).toHaveLength(1);
     expect(result.cards[0]).toEqual({
       title: "My Project",

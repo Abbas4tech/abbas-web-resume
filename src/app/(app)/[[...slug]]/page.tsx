@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContentfulPage } from "@/components/contentful/contentful-page";
+import { SectionHeading } from "@/components/patterns/section-heading/section-heading";
 import { adaptPage } from "@/contentful/adapters/page";
 import { contentfulSdk } from "@/contentful/lib/client";
 
 interface PageProps {
   params: { slug?: string[] };
 }
-
-export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -40,5 +39,11 @@ export default async function ComposablePage({ params }: PageProps) {
     notFound();
   }
 
-  return <ContentfulPage data={pageData} />;
+  return (
+    <ContentfulPage data={pageData}>
+      <SectionHeading className="justify-center">
+        {pageData.title}
+      </SectionHeading>
+    </ContentfulPage>
+  );
 }

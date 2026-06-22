@@ -1,30 +1,35 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
+import {
+  MotionStaggerContainer,
+  MotionStaggerItem,
+} from "@/components/elements/behavior/motion-stagger/motion-stagger";
 import type { MediaCardProps } from "@/components/patterns/media-card/media-card";
 import { MediaCard } from "@/components/patterns/media-card/media-card";
 import { cn } from "@/lib/utils";
 
 export interface CardGridProps extends HTMLAttributes<HTMLDivElement> {
-  animation?: string;
   cards: MediaCardProps[];
 }
 
 const CardGrid = memo(
   forwardRef<HTMLDivElement, CardGridProps>(
-    ({ className, animation, cards, ...props }, ref) => (
-      <div
+    ({ className, cards, ...props }, ref) => (
+      <MotionStaggerContainer
+        as="div"
         className={cn(
           "my-2 grid grid-cols-1 gap-4 rounded-xl md:grid-cols-2",
           className
         )}
-        data-aos={animation}
-        ref={ref}
+        ref={ref as React.Ref<HTMLDivElement>}
         {...props}
       >
         {cards.map((card) => (
-          <MediaCard key={card.title} {...card} />
+          <MotionStaggerItem key={card.title}>
+            <MediaCard {...card} />
+          </MotionStaggerItem>
         ))}
-      </div>
+      </MotionStaggerContainer>
     )
   )
 );
