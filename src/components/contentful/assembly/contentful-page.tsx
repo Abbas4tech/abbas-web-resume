@@ -1,8 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
-import { ContentList } from "@/components/contentful/content-list";
-import { ContentSection } from "@/components/contentful/content-section";
 import type { AdaptedPage } from "@/contentful/adapters/page";
-
+import { ContentList } from "../page-section/content-list";
+import { ContentSection } from "../page-section/content-section";
 export interface ContentfulPageProps extends PropsWithChildren {
   data: AdaptedPage;
 }

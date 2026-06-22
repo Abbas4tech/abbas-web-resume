@@ -39,6 +39,9 @@ fragment ContentItemFields on ContentItem {
   image {
     ...ImageFields
   }
+  coverImage {
+    ...ImageFields
+  }
   icon {
     ...IconFields
   }

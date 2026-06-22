@@ -373,6 +373,7 @@ type ContentItem implements Entry & _Node {
   _id: ID!
   body(locale: String, useFallbackLocale: Boolean): ContentItemBody
   contentfulMetadata: ContentfulMetadata!
+  coverImage(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: ImageFilter): Image
   description(locale: String, useFallbackLocale: Boolean): String
   endDate(locale: String, useFallbackLocale: Boolean): DateTime
   entryField(locale: String, useFallbackLocale: Boolean): String
@@ -451,6 +452,8 @@ input ContentItemFilter {
   body_exists: Boolean
   body_not_contains: String
   contentfulMetadata: ContentfulMetadataFilter
+  coverImage: cfImageNestedFilter
+  coverImage_exists: Boolean
   description: String
   description_contains: String
   description_exists: Boolean
@@ -3040,6 +3043,7 @@ input cfContentItemNestedFilter {
   body_exists: Boolean
   body_not_contains: String
   contentfulMetadata: ContentfulMetadataFilter
+  coverImage_exists: Boolean
   description: String
   description_contains: String
   description_exists: Boolean

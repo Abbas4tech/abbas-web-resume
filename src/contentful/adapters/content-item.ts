@@ -27,6 +27,7 @@ export function adaptContentItem(
     tags: (item.tags || []).filter((tag): tag is string => tag !== null),
     body: (item.body?.json as Document) || null,
     image: adaptImage(item.image),
+    coverImage: adaptImage(item.coverImage),
     icon: adaptIcon(item.icon),
     links: (item.linksCollection?.items || [])
       .map((link) => adaptLink(link))
