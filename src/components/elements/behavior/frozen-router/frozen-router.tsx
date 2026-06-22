@@ -8,6 +8,10 @@ export function FrozenRouter({ children }: { children: React.ReactNode }) {
   const context = useContext(LayoutRouterContext ?? {});
   const frozen = useRef(context).current;
 
+  if (typeof window === "undefined") {
+    return <>{children}</>;
+  }
+
   return (
     <LayoutRouterContext.Provider value={frozen}>
       {children}

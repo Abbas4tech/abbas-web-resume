@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import { Progress } from "./progress";
 import { baseMock } from "./progress.mock";
 
@@ -9,6 +10,13 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <MotionWrapper animation="fade-in">
+        <Story />
+      </MotionWrapper>
+    ),
+  ],
 } satisfies Meta<typeof Progress>;
 
 export default meta;
