@@ -1,6 +1,6 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo, useMemo } from "react";
-import { Image as ContentfulImage } from "@/components/contentful/image";
+import { Image as ContentfulImage } from "@/components/contentful/element/image";
 import { MotionParallax } from "@/components/elements/behavior/motion-parallax/motion-parallax";
 import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import type { IconLinkProps } from "@/components/patterns/icon-link/icon-link";

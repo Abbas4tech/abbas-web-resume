@@ -4,7 +4,12 @@ import { adaptEntry } from "./content-item";
 export function adaptContentSection(
   item: ContentSectionFieldsFragment | null | undefined
 ) {
-  if (!item) {
+  if (!item?.entry) {
+    return null;
+  }
+
+  const entry = adaptEntry(item.entry);
+  if (!entry) {
     return null;
   }
 
@@ -13,7 +18,7 @@ export function adaptContentSection(
     id: item.sys.id || "",
     internalName: item.internalName || "",
     ui: item.ui || "Standard",
-    entry: adaptEntry(item.entry),
+    entry,
   };
 }
 

@@ -445,6 +445,15 @@ async function main() {
         validations: [{ linkContentType: ["image"] }],
       },
       {
+        id: "coverImage",
+        name: "coverImage",
+        type: "Link",
+        linkType: "Entry",
+        required: false,
+        localized: false,
+        validations: [{ linkContentType: ["image"] }],
+      },
+      {
         id: "icon",
         name: "icon",
         type: "Link",

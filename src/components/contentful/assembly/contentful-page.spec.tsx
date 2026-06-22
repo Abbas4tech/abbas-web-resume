@@ -3,9 +3,15 @@ import type { AdaptedPage } from "@/contentful/adapters/page";
 import { render, screen } from "@/test/utils";
 import { ContentfulPage } from "./contentful-page";
 
-vi.mock("./content-section", () => ({
+vi.mock("../page-section/content-section", () => ({
   ContentSection: ({ data }: any) => (
     <div>{data.entry?.title || "Content Section Mock"}</div>
+  ),
+}));
+
+vi.mock("../page-section/content-list", () => ({
+  ContentList: ({ data }: any) => (
+    <div>{data.customEntries?.[0]?.title || "Content List Mock"}</div>
   ),
 }));
 
