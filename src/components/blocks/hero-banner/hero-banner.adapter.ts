@@ -1,15 +1,11 @@
 import type { AdaptedContentSection } from "@/contentful/adapters/content-section";
-import type { AdaptedImage } from "@/contentful/adapters/image";
 import type { HeroBannerProps } from "./hero-banner";
 
-export function adaptHeroBanner(
-  data: AdaptedContentSection,
-  siteLogo: AdaptedImage | null
-): HeroBannerProps {
+export function adaptHeroBanner(data: AdaptedContentSection): HeroBannerProps {
   const item = data.entry?.__typename === "ContentItem" ? data.entry : null;
   return {
     bannerImage: item?.image || null,
-    avatarImage: siteLogo,
+    avatarImage: item?.coverImage || null,
     iconLinks: (item?.links || []).map((link) => ({
       label: link.text,
       href: link.href || "#",

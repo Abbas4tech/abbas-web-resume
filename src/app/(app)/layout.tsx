@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
-import { ContentfulLayout } from "@/components/contentful/contentful-layout";
+import { ContentfulLayout } from "@/components/contentful/assembly/contentful-layout";
 import { adaptLayout } from "@/contentful/adapters/layout";
 import { contentfulSdk } from "@/contentful/lib/client";
 

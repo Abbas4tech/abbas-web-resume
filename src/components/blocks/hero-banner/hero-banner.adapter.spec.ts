@@ -35,6 +35,7 @@ describe("adaptHeroBanner", () => {
       entry: {
         __typename: "ContentItem",
         image: mockImage,
+        coverImage: mockSiteLogo,
         links: [
           { text: "LinkedIn", href: "https://linkedin.com" },
           { text: "GitHub", href: "https://github.com" },
@@ -42,7 +43,7 @@ describe("adaptHeroBanner", () => {
       },
     } as unknown as AdaptedContentSection;
 
-    const result = adaptHeroBanner(input, mockSiteLogo);
+    const result = adaptHeroBanner(input);
 
     expect(result.bannerImage).toEqual(mockImage);
     expect(result.avatarImage).toEqual(mockSiteLogo);
@@ -53,7 +54,7 @@ describe("adaptHeroBanner", () => {
   });
 
   it("handles missing data gracefully", () => {
-    const result = adaptHeroBanner({ entry: null } as any, null);
+    const result = adaptHeroBanner({ entry: null } as any);
     expect(result.bannerImage).toBeNull();
     expect(result.avatarImage).toBeNull();
     expect(result.iconLinks).toEqual([]);

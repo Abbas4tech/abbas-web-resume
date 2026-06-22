@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ContentfulPage } from "@/components/contentful/contentful-page";
+import { ContentfulPage } from "@/components/contentful/assembly/contentful-page";
 import { SectionHeading } from "@/components/patterns/section-heading/section-heading";
 import { adaptPage } from "@/contentful/adapters/page";
 import { contentfulSdk } from "@/contentful/lib/client";
@@ -30,9 +30,9 @@ export async function generateMetadata({
 
 export default async function ComposablePage({ params }: PageProps) {
   const path = params.slug ? `/${params.slug.join("/")}` : "/";
-  const pageResponse = await contentfulSdk.GetPageByPath({ path });
 
-  const rawPage = pageResponse.data?.pageCollection?.items?.[0];
+  const response = await contentfulSdk.GetPageByPath({ path });
+  const rawPage = response.data?.pageCollection?.items?.[0];
   const pageData = adaptPage(rawPage);
 
   if (!pageData) {
