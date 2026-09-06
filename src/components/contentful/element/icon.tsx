@@ -15,7 +15,6 @@ export function Icon({ data, className }: Props) {
     <UIIcon
       className={className}
       name={data.name}
-      // If we need dynamic colors, we could pass it down
       style={data.color ? { color: data.color } : undefined}
       title={data.showTooltip ? data.title || data.name : undefined}
     />

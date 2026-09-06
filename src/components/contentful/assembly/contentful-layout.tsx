@@ -27,7 +27,7 @@ export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
   data,
   children,
 }) => {
-  const variant = (data.drawerVariant || "")
+  const variant = data.drawerVariant
     .split(" ")
     .map((i) => i.toLowerCase())
     .join("-") as DrawerVariants;
@@ -36,7 +36,7 @@ export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
 
   return (
     <DrawerProvider
-      side={(data.drawerSide?.toLowerCase() || "left") as DrawerSides}
+      side={data.drawerSide.toLowerCase() as DrawerSides}
       variant={variant}
     >
       <AppHeader {...adaptAppHeader(data, defaultRoute)} />
