@@ -50,8 +50,8 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0005]** — Vitest with jsdom, centralized mock factories, and colocated spec files
 - **[0006]** — Playwright with MSW-mocked Contentful API and Block Object Models
 - **[0007]** — Production Playwright configuration with browser caching
-- **[0021]** — Coverage audit (21.6% statements, core CMS adapters mostly untested) and a prioritized remediation plan
-- **[0022]** — Synthetic multi-page E2E fixture plan and full journey/device-matrix expansion
+- **[0021]** — Coverage audit and remediation, implemented: adapters 4%→97% statements, app-code coverage floor enforced in CI at 75%/65% (currently ~92%/82%)
+- **[0022]** — Synthetic multi-page E2E fixture plan and full journey/device-matrix expansion (planned, not yet implemented)
 
 ### Animation
 - **[0011]** — Removed AOS (CSS-class-based, incompatible with RSC)

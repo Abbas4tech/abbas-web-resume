@@ -35,11 +35,23 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "json", "html"],
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/**/*.mock.ts", "src/**/*.stories.tsx"],
+      exclude: [
+        "src/**/*.mock.ts",
+        "src/**/*.stories.tsx",
+        "src/contentful/generated/**", // auto-generated GraphQL SDK
+        "src/contentful/scripts/**", // one-off Contentful migration/setup CLI tools
+      ],
+      thresholds: {
+        statements: 75,
+        lines: 75,
+        branches: 65,
+      },
     },
   },
 });
 ```
+
+The coverage floor above is a regression guard, not an aspirational target — application code (after the generated SDK and migration scripts are excluded) already measures at ~92% statements / ~82% branches. It's expected to be ratcheted up over time as new code lands with tests already attached, per [ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md) §3.
 
 ### What Is Tested
 
@@ -67,18 +79,25 @@ The setup file stubs Next.js App Router APIs globally so individual tests don't 
 - `next/image` — renders as a plain `<img>` in tests
 - `next/link` — renders as a plain `<a>` in tests
 
-### Mock Factories (`tests/mocks/`)
+### Contentful Fixtures in Adapter/Component Specs
 
-Centralized factory functions generate type-safe mock objects for complex Contentful types. This isolates tests from verbose auto-generated GraphQL schema shapes.
+In practice, Vitest specs for Contentful adapters and renderers build their mock data **inline, colocated with the test**, typed against the generated GraphQL fragment types (`*FieldsFragment` from `src/contentful/generated/`) rather than a separate factory module. This keeps each spec self-contained and lets TypeScript catch a schema drift immediately (a renamed or removed field fails to typecheck).
 
 ```ts
-// Usage in a spec file
-import { makeMockContentItem } from "@/tests/mocks/content-item.factory";
+// content-item.spec.ts
+import type { ContentItemFieldsFragment } from "../generated/contentful-sdk.generated";
 
-const item = makeMockContentItem({ title: "My Job" });
+const fullContentItem = {
+  __typename: "ContentItem",
+  sys: { id: "job-1" },
+  title: "Senior Frontend Engineer",
+  // ...only the fields the adapter actually reads
+} as unknown as ContentItemFieldsFragment;
 ```
 
-> **Important:** When the Contentful schema changes, update the factories — otherwise tests pass on stale data shapes.
+Recursive/deeply-nested fragment fields (e.g. rich text's `body.links`) are supplied with a minimal shape and cast via `as unknown as <FragmentType>` rather than fully satisfying the generated union — the goal is a realistic fixture for the adapter under test, not a byte-for-byte GraphQL response.
+
+`tests/mocks/factories.ts` still exists as a lightweight `createFactory` helper, but is currently a near-empty skeleton — it's earmarked for the shared Vitest/Playwright fixture work described in [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md), not yet built out.
 
 ### Running Tests
 
@@ -206,11 +225,18 @@ test("homepage is accessible", async ({ page }) => {
 ## Known Gaps & Remediation Plan
 
 An audit on 2026-09-07 found unit/component coverage at ~21.6% statements (concentrated gaps: only 2 of the 13
-files in `src/contentful/adapters/` have their own spec, and `rich-text.tsx` under-covers its node-type mapping)
-and an E2E suite consisting of two smoke-level specs against a single, near-empty mock page. See
-[ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md) and
-[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md) for the full findings and the accepted, phased
-remediation plan (not yet implemented).
+files in `src/contentful/adapters/` had their own spec, and `rich-text.tsx` under-covered its node-type mapping)
+and an E2E suite consisting of two smoke-level specs against a single, near-empty mock page.
+
+**Unit/component side — done.** [ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md)'s full P0/P1/P2
+backlog has landed: the Contentful adapters, the `ContentSection`/`ContentList` block registries, `rich-text.tsx`'s
+node-type mapping, the motion/behavioral elements, and `theme-toggle`/`drawer`'s branch coverage are all tested.
+Application code (excluding the generated GraphQL SDK and migration scripts) now measures ~92% statements / ~82%
+branches, enforced by the coverage floor documented above.
+
+**E2E side — not started.** [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site
+and journey suite (navigation, per-block content, routing/error surfaces, accessibility, expanded device matrix)
+is still just a plan.
 
 ## Related ADRs
 

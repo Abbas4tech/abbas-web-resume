@@ -8,10 +8,10 @@ status: accepted
 
 ## Status
 
-Accepted. All open questions raised alongside this ADR have been resolved by the repo owner (see **Decision
-§2, §3**). The plan itself is settled; the test code described in §1 has not yet been written — it lands as the
-phased implementation PRs sequenced in the companion report (see
-[0022](./0022-e2e-journey-and-fixture-expansion.md) for the companion E2E plan).
+Accepted and **implemented**. All open questions raised alongside this ADR were resolved by the repo owner (see
+**Decision §2, §3**), and the full §1 backlog (P0/P1/P2) has landed across three PRs on this branch — see
+**Implementation** below for what shipped and the final numbers. The companion E2E plan
+([0022](./0022-e2e-journey-and-fixture-expansion.md)) is unaffected and still pending.
 
 > **Branch note:** this ADR was originally drafted while this branch was cut from an older `develop-draft` tip,
 > before PR #35 (`feat/develop-draft/page-description-richtext-field`) merged into `develop-draft`. This branch
@@ -152,6 +152,35 @@ Once the P0/P1 backlog above lands, add a `coverage.thresholds` block to `vitest
 and lines, 65% branches**, measured on the *application* subset (i.e., after the `generated`/`scripts`
 exclusions in §2), ratcheted up over time, so CI fails on regression instead of only reporting it.
 
+## Implementation
+
+Landed as three PRs on `feat/develop-draft/test-coverage-expansion-plan`, in the order proposed in §1:
+
+1. **Contentful adapter tests** (`content-item`, `content-list`, `content-section`, `icon`, `image`, `layout`,
+   `link`, `page`, `stat-item` — 9 new spec files, following the inline-typed-fixture convention already
+   established by `page-metadata.spec.ts`/`seo-metadata.spec.ts` rather than the `tests/mocks/factories.ts`
+   pattern anticipated in **Consequences** below). Adapters directory: 3.84% → **96.73%** statements.
+2. **Registry exhaustiveness + rich-text node types**: added the three missing `ContentList` dispatch tests
+   (`TimelineSection`, `SplitContentPanel`, `PanelShowcase`) and a full node-type/mark matrix for `RichText`
+   (all six heading levels, the function-form `headingClass` prop, ordered/unordered lists, blockquotes, tables,
+   bold/italic/underline/code). Both `content-list.tsx`/`content-section.tsx` and `rich-text.tsx` reached
+   **100%** statements/branches.
+3. **Motion/behavioral elements, remaining branches, and the coverage floor**: added specs for
+   `motion-provider.tsx` and `frozen-router.tsx` (previously untested), closed `theme-toggle.tsx`'s branch gaps
+   (dock-on-mobile variant, view-transition support, active-theme highlighting) and `drawer.tsx`'s (right-side
+   layout, the `useDrawer`-outside-provider guard, the mobile-collapsed initial state — isolated in its own
+   `drawer.mobile.spec.tsx` file since mocking `useMobile` there would otherwise affect every other test in the
+   module), and added `contentful/lib/client.spec.ts` for the GraphQL endpoint/token resolution. Implemented §2
+   (excluded `generated`/`scripts` from `vitest.config.ts`'s `coverage.exclude`) and §3 (added the
+   `coverage.thresholds` block) — verified achievable *before* enabling it: application code measured 91.71%
+   statements / 82.36% branches against the 75%/65% floor, so it started as a comfortable regression guard, not
+   a gate that would immediately fail CI.
+
+**Final state**: 84 → 97 spec files, 167 → 274 tests, all passing; lint and typecheck clean. `frozen-router.tsx`
+has one deliberately-unclosed gap — its `typeof window === "undefined"` SSR branch can't be exercised in jsdom
+without deleting the global `window`, which risked destabilizing the rest of the jsdom-based suite for a single
+branch of a purely defensive check.
+
 ## Considered Options
 
 - **Rewrite `vitest.config.ts`'s `include` to also catch `*.test.tsx`, instead of renaming the two files.**
@@ -173,8 +202,9 @@ exclusions in §2), ratcheted up over time, so CI fails on regression instead of
 - Restores the accuracy of the coverage number itself (Finding 1) so it can be trusted going forward.
 
 ### Negative / Trade-offs
-- P0 adapter tests require expanding `tests/mocks/factories.ts`, which is currently a near-empty skeleton (one
-  example factory, commented out) — this is shared groundwork with the E2E fixture work in ADR 0022, so the two
-  should be sequenced together to avoid duplicating mock-shape work.
 - Excluding `contentful/scripts/*` from coverage (§2) means a real bug in one of the migration scripts would
   still only be caught by manually running it against a real (or sandboxed) Contentful environment, not by CI.
+- *(Anticipated, did not materialize)* This section originally predicted P0 adapter tests would require
+  expanding `tests/mocks/factories.ts`. In implementation, each adapter spec built its fixtures inline instead
+  (matching the pre-existing `page-metadata.spec.ts`/`seo-metadata.spec.ts` convention), so `factories.ts`
+  remains untouched and is still available, unclaimed, for the E2E fixture work in ADR 0022.
