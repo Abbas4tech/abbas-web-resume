@@ -33,7 +33,7 @@ const HeroBanner = memo(
         >
           {bannerImage && (
             <MotionParallax
-              className="relative h-[25vh] max-h-[360px] min-h-[200px] w-full overflow-hidden md:h-[35vh]"
+              className="relative h-[25vh] max-h-90 min-h-50 w-full overflow-hidden md:h-[35vh]"
               speed={0.3}
             >
               <ContentfulImage
@@ -60,7 +60,7 @@ const HeroBanner = memo(
             </MotionWrapper>
           )}
 
-          {iconLinks.length && (
+          {iconLinks.length > 0 && (
             <MotionWrapper
               animation="fade-up"
               className="-mt-12 flex w-full items-center justify-between pb-4 md:-mt-20 md:pb-12"

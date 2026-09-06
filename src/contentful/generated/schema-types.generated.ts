@@ -399,6 +399,8 @@ export type AssetLinkingCollections = {
   imageCursorCollection?: Maybe<ImageCursorCollection>;
   layoutCollection?: Maybe<LayoutCollection>;
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
+  seoMetadataCollection?: Maybe<SeoMetadataCollection>;
+  seoMetadataCursorCollection?: Maybe<SeoMetadataCursorCollection>;
   videoCollection?: Maybe<VideoCollection>;
   videoCursorCollection?: Maybe<VideoCursorCollection>;
 };
@@ -452,6 +454,25 @@ export type AssetLinkingCollectionsLayoutCollectionArgs = {
 
 
 export type AssetLinkingCollectionsLayoutCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsSeoMetadataCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsSeoMetadataCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
@@ -1953,6 +1974,8 @@ export type IconLinkingCollections = {
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
   linkCollection?: Maybe<LinkCollection>;
   linkCursorCollection?: Maybe<LinkCursorCollection>;
+  pageCollection?: Maybe<PageCollection>;
+  pageCursorCollection?: Maybe<PageCursorCollection>;
   statItemCollection?: Maybe<StatItemCollection>;
   statItemCursorCollection?: Maybe<StatItemCursorCollection>;
 };
@@ -2033,6 +2056,27 @@ export type IconLinkingCollectionsLinkCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLinkCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionsPageCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsPageCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionsPageCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsPageCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2187,6 +2231,38 @@ export type IconLinkingCollectionsLinkCursorCollectionOrder =
   | 'text_DESC'
   | 'url_ASC'
   | 'url_DESC';
+
+export type IconLinkingCollectionsPageCollectionOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'path_ASC'
+  | 'path_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
+
+export type IconLinkingCollectionsPageCursorCollectionOrder =
+  | 'internalName_ASC'
+  | 'internalName_DESC'
+  | 'path_ASC'
+  | 'path_DESC'
+  | 'sys_firstPublishedAt_ASC'
+  | 'sys_firstPublishedAt_DESC'
+  | 'sys_id_ASC'
+  | 'sys_id_DESC'
+  | 'sys_publishedAt_ASC'
+  | 'sys_publishedAt_DESC'
+  | 'sys_publishedVersion_ASC'
+  | 'sys_publishedVersion_DESC'
+  | 'title_ASC'
+  | 'title_DESC';
 
 export type IconLinkingCollectionsStatItemCollectionOrder =
   | 'internalName_ASC'
@@ -2610,12 +2686,20 @@ export type ImageLinkingCollectionsLayoutCursorCollectionOrder =
 export type ImageLinkingCollectionsSeoMetadataCollectionOrder =
   | 'canonicalUrl_ASC'
   | 'canonicalUrl_DESC'
+  | 'countryName_ASC'
+  | 'countryName_DESC'
+  | 'creator_ASC'
+  | 'creator_DESC'
   | 'internalName_ASC'
   | 'internalName_DESC'
   | 'noFollow_ASC'
   | 'noFollow_DESC'
   | 'noIndex_ASC'
   | 'noIndex_DESC'
+  | 'publisher_ASC'
+  | 'publisher_DESC'
+  | 'siteName_ASC'
+  | 'siteName_DESC'
   | 'sys_firstPublishedAt_ASC'
   | 'sys_firstPublishedAt_DESC'
   | 'sys_id_ASC'
@@ -2630,12 +2714,20 @@ export type ImageLinkingCollectionsSeoMetadataCollectionOrder =
 export type ImageLinkingCollectionsSeoMetadataCursorCollectionOrder =
   | 'canonicalUrl_ASC'
   | 'canonicalUrl_DESC'
+  | 'countryName_ASC'
+  | 'countryName_DESC'
+  | 'creator_ASC'
+  | 'creator_DESC'
   | 'internalName_ASC'
   | 'internalName_DESC'
   | 'noFollow_ASC'
   | 'noFollow_DESC'
   | 'noIndex_ASC'
   | 'noIndex_DESC'
+  | 'publisher_ASC'
+  | 'publisher_DESC'
+  | 'siteName_ASC'
+  | 'siteName_DESC'
   | 'sys_firstPublishedAt_ASC'
   | 'sys_firstPublishedAt_DESC'
   | 'sys_id_ASC'
@@ -3385,6 +3477,7 @@ export type Page = Entry & _Node & {
   bottomContentAreaCursorCollection?: Maybe<PageBottomContentAreaCursorCollection>;
   contentfulMetadata: ContentfulMetadata;
   description?: Maybe<PageDescription>;
+  icon?: Maybe<Icon>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<PageLinkingCollections>;
   path?: Maybe<Scalars['String']['output']>;
@@ -3423,6 +3516,15 @@ export type PageBottomContentAreaCursorCollectionArgs = {
 export type PageDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/page) */
+export type PageIconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
 };
 
 
@@ -3594,6 +3696,8 @@ export type PageFilter = {
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<CfIconNestedFilter>;
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4295,13 +4399,18 @@ export type SeoMetadata = Entry & _Node & {
   _id: Scalars['ID']['output'];
   canonicalUrl?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
+  countryName?: Maybe<Scalars['String']['output']>;
+  creator?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  favicon?: Maybe<Asset>;
   internalName?: Maybe<Scalars['String']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   linkedFrom?: Maybe<SeoMetadataLinkingCollections>;
   noFollow?: Maybe<Scalars['Boolean']['output']>;
   noIndex?: Maybe<Scalars['Boolean']['output']>;
   ogImage?: Maybe<Image>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  siteName?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -4315,8 +4424,30 @@ export type SeoMetadataCanonicalUrlArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadataCountryNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadataCreatorArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
 export type SeoMetadataDescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadataFaviconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -4365,6 +4496,20 @@ export type SeoMetadataOgImageArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadataPublisherArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadataSiteNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
 export type SeoMetadataTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4396,6 +4541,20 @@ export type SeoMetadataFilter = {
   canonicalUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
   canonicalUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  countryName?: InputMaybe<Scalars['String']['input']>;
+  countryName_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  countryName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  countryName_not?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator?: InputMaybe<Scalars['String']['input']>;
+  creator_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  creator_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator_not?: InputMaybe<Scalars['String']['input']>;
+  creator_not_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4403,6 +4562,7 @@ export type SeoMetadataFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  favicon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4422,6 +4582,20 @@ export type SeoMetadataFilter = {
   noIndex_not?: InputMaybe<Scalars['Boolean']['input']>;
   ogImage?: InputMaybe<CfImageNestedFilter>;
   ogImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher?: InputMaybe<Scalars['String']['input']>;
+  publisher_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publisher_not?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName?: InputMaybe<Scalars['String']['input']>;
+  siteName_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName_not?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']['input']>;
   title_contains?: InputMaybe<Scalars['String']['input']>;
@@ -4590,12 +4764,20 @@ export type SeoMetadataLinkingCollectionsPageCursorCollectionOrder =
 export type SeoMetadataOrder =
   | 'canonicalUrl_ASC'
   | 'canonicalUrl_DESC'
+  | 'countryName_ASC'
+  | 'countryName_DESC'
+  | 'creator_ASC'
+  | 'creator_DESC'
   | 'internalName_ASC'
   | 'internalName_DESC'
   | 'noFollow_ASC'
   | 'noFollow_DESC'
   | 'noIndex_ASC'
   | 'noIndex_DESC'
+  | 'publisher_ASC'
+  | 'publisher_DESC'
+  | 'siteName_ASC'
+  | 'siteName_DESC'
   | 'sys_firstPublishedAt_ASC'
   | 'sys_firstPublishedAt_DESC'
   | 'sys_id_ASC'
@@ -5320,6 +5502,7 @@ export type CfPageNestedFilter = {
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5357,6 +5540,20 @@ export type CfSeoMetadataNestedFilter = {
   canonicalUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
   canonicalUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  countryName?: InputMaybe<Scalars['String']['input']>;
+  countryName_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  countryName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  countryName_not?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator?: InputMaybe<Scalars['String']['input']>;
+  creator_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  creator_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator_not?: InputMaybe<Scalars['String']['input']>;
+  creator_not_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5364,6 +5561,7 @@ export type CfSeoMetadataNestedFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  favicon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5382,6 +5580,20 @@ export type CfSeoMetadataNestedFilter = {
   noIndex_exists?: InputMaybe<Scalars['Boolean']['input']>;
   noIndex_not?: InputMaybe<Scalars['Boolean']['input']>;
   ogImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher?: InputMaybe<Scalars['String']['input']>;
+  publisher_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publisher_not?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName?: InputMaybe<Scalars['String']['input']>;
+  siteName_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName_not?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']['input']>;
   title_contains?: InputMaybe<Scalars['String']['input']>;
