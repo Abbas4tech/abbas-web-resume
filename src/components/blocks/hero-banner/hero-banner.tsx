@@ -37,7 +37,7 @@ const HeroBanner = memo(
               speed={0.3}
             >
               <ContentfulImage
-                className="pointer-events-none absolute inset-x-0 top-1/2 h-[130%] w-full -translate-y-1/2 select-none object-cover"
+                className="pointer-events-none absolute inset-x-0 top-1/2 h-[130%] w-full -translate-y-1/2 select-none object-contain"
                 data={bannerImage}
                 priority
               />

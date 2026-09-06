@@ -32,7 +32,10 @@ const NavItem = memo(
       <div className={cn("", className)} ref={ref} {...props}>
         <Button
           asLink={true}
-          className={cn("flex w-full items-center gap-2 px-4 py-2 md:py-3")}
+          className={cn(
+            "flex w-full items-center gap-2 px-4 py-2 md:py-3",
+            isActive && "font-bold"
+          )}
           href={href}
         >
           <Icon
