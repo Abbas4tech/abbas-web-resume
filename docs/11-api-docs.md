@@ -129,6 +129,10 @@ fragment PageFields on Page {
   internalName
   path
   title
+  description {
+    json
+    links { entries { block { sys { id } ... on Image { ...ImageFields } } } assets { block { sys { id } url title description width height } } }
+  }
   topContentAreaCollection(limit: 10) {
     items {
       ... on ContentList { ...ContentListFields }
@@ -300,6 +304,7 @@ type AdaptedPage = {
   id: string;
   path: string;
   title: string;
+  description: Document | null;  // rendered below the section heading
   topContentArea: (AdaptedContentList | AdaptedContentSection)[];
   bottomContentArea: (AdaptedContentList | AdaptedContentSection)[];
 };
