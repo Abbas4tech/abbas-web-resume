@@ -9,9 +9,14 @@ status: accepted
 ## Status
 
 Accepted. All open questions raised alongside this ADR have been resolved by the repo owner (see **Decision
-§0b, §2, §3**). The plan itself is settled; the test code described in §1 has not yet been written — it lands
-as the phased implementation PRs sequenced in the companion report (see
+§2, §3**). The plan itself is settled; the test code described in §1 has not yet been written — it lands as the
+phased implementation PRs sequenced in the companion report (see
 [0022](./0022-e2e-journey-and-fixture-expansion.md) for the companion E2E plan).
+
+> **Branch note:** this ADR was originally drafted while this branch was cut from an older `develop-draft` tip,
+> before PR #35 (`feat/develop-draft/page-description-richtext-field`) merged into `develop-draft`. This branch
+> has since picked up that merge. The findings and numbers below were re-verified against the current tree
+> after that merge landed, so they reflect what's actually on this branch today, not the pre-merge snapshot.
 
 ## Context
 
@@ -19,73 +24,54 @@ ADR [0005](./0005-vitest-component-testing-strategy.md) established the Vitest +
 strategy. That strategy is sound and already followed for most Element/Pattern/Block UI components. What it
 did not anticipate is *how unevenly it would end up applied* as the codebase grew past its first components.
 
-Running `pnpm test:coverage` on this branch today (2026-09-07, cut from `develop-draft`, 81 spec files) reports:
+Running `pnpm test:coverage` on this branch today (2026-09-07, 84 spec files, 167 tests, all passing) reports:
 
 ```
-Statements   : 26.08% ( 528/2024 )
-Branches     : 39.45% ( 247/626 )
-Functions    : 50.29% ( 173/344 )
-Lines        : 25.92% ( 521/2010 )
+Statements   : 21.56% ( 553/2564 )
+Branches     : 33.40% ( 334/1000 )
+Functions    : 44.58% ( 181/406 )
+Lines        : 21.52% ( 546/2536 )
 ```
 
 That figure is misleading on its own — a meaningful slice of the denominator is
-`src/contentful/generated/*` (auto-generated GraphQL SDK, ~5,970 lines, 0% and untestable by nature) and
-`src/contentful/scripts/setup-content-model.ts` (a one-off Contentful schema-provisioning script, ~960 lines,
-0%, dev tooling rather than app runtime code — see Decision §2). Excluding both from the
-denominator, the real picture is closer to **45-50% of shipped application code**, and the gaps are not
-noise — they cluster in exactly the places a coverage audit should worry about:
+`src/contentful/generated/*` (auto-generated GraphQL SDK, ~6,100 lines, 0% and untestable by nature) and
+`src/contentful/scripts/*` (six one-off Contentful migration/setup scripts, ~2,500 lines combined, 0%, dev
+tooling rather than app runtime code — see Decision §2). Excluding both from the denominator, the real picture
+is closer to **40-45% of shipped application code**, and the gaps are not noise — they cluster in exactly the
+places a coverage audit should worry about:
 
-### Finding 0 — A pre-existing test is currently failing on `develop-draft` (discovered during this audit, not caused by it)
-
-`src/components/blocks/hero-banner/hero-banner.adapter.spec.ts` — `adapts ContentSection to HeroBannerProps` —
-fails on a clean `develop-draft` checkout, independent of anything in this ADR:
-
-```
-expected { __typename: 'Image', …(9) } to deeply equal { __typename: 'Image', …(9) }
-- alternativeText: "Hero Alt"     + alternativeText: "Logo Alt"
-- url: "/hero.jpg"                + url: "/logo.png"
-```
-
-The test's mock input swaps which `Image` fixture stands in for the banner vs. the avatar/logo, so the
-assertion compares the adapter's (correct) banner-image output against the wrong fixture object. This is a
-test-fixture bug, not an adapter bug — but it means **this spec is not actually exercising anything today** on
-`develop-draft`, and CI would be red on this branch/spec until it's fixed. Flagged here as an immediate, isolated
-fix candidate, independent of the broader remediation plan (fixing a wrong assertion in an existing test is not
-new test-writing work, just a bug fix) — see Decision §0b.
-
-### Finding 1 — Two spec files were silently never run (fixed as part of this session, on this branch)
+### Finding 1 — Two spec files were silently never run (fixed as part of this session)
 
 `not-found.test.tsx` and `server-error.test.tsx` used the `.test.tsx` suffix instead of the `.spec.tsx`
 convention ADR 0005 §5 mandates. `vitest.config.ts`'s `include: ["src/**/*.spec.{ts,tsx}"]` never matched them,
 so both blocks silently reported 0% coverage despite having tests written for them. This was a pure naming bug,
-not a scope gap — see **Decision §0a** (already applied on this branch).
+not a scope gap — see **Decision §0** (already applied on this branch).
 
-### Finding 2 — The core Contentful adapters have almost zero test coverage
+### Finding 2 — The core Contentful adapters are almost entirely untested
 
 `src/contentful/adapters/` is the single most consequential directory in the codebase: every file in it is a
 pure function (`(GraphQL fragment) → domain shape`), per ADR 0005 §5's own colocation rule, and a bug here
-silently mis-renders or blanks out real CMS content in production with no compiler error to catch it. On this
-branch, the directory sits at **3.84% statements** — only `nav-mapper.ts` shows any coverage, and that's
-*incidental* (exercised indirectly by a `SidebarNav`/`AppHeader` component test, not by a spec of its own):
+silently mis-renders or blanks out real CMS content in production with no compiler error to catch it. Only 2 of
+13 files in this directory have their own spec:
 
 | Adapter | Coverage | Has its own spec? |
 |---|---|---|
+| `page-metadata.ts` | 100% | ✅ |
+| `seo-metadata.ts` | 80% | ✅ |
 | `nav-mapper.ts` | 100% (incidental) | ❌ |
+| `image.ts` | 50% (incidental) | ❌ |
 | `content-item.ts` | 0% | ❌ |
 | `content-list.ts` | 0% | ❌ |
 | `content-section.ts` | 0% | ❌ |
 | `icon.ts` | 0% | ❌ |
-| `image.ts` | 0% | ❌ |
 | `layout.ts` | 0% | ❌ |
 | `link.ts` | 0% | ❌ |
 | `page.ts` | 0% | ❌ |
-| `seo-metadata.ts` | 0% | ❌ |
 | `stat-item.ts` | 0% | ❌ |
 
 `layout.ts` and `page.ts` in particular back *every single page render* (they adapt the `GetLayout` and
 `GetPageByPath` responses consumed by `src/app/(app)/[[...slug]]/page.tsx`) and have no test guarding their
-null-handling, missing-field, or malformed-collection branches. `seo-metadata.ts` backs `generateMetadata` for
-every route (SEO title/description/OG tags) and is equally unguarded.
+null-handling, missing-field, or malformed-collection branches.
 
 ### Finding 3 — The block-type registries are only spot-checked, not exhaustively tested
 
@@ -100,11 +86,12 @@ author to cover it.
 ### Finding 4 — `rich-text.tsx` is under-tested relative to its blast radius
 
 `patterns/rich-text/rich-text.tsx` is at 38% statements / 27% functions. This component renders **every**
-Contentful Rich Text field in the app (hero banner bio, split-content-panel body, timeline entry body) by
-mapping each `@contentful/rich-text-types` node type to a DaisyUI element. Untested node-type branches (the
-coverage report points at lines 49-52, 62, 68-100) mean a malformed or unusual rich-text document authored in
-Contentful (e.g., a nested list, an embedded asset/entry, a blockquote, an `hr`) has no regression guard — the
-first time a gap in this mapping is discovered would be a live rendering bug, not a failing test.
+Contentful Rich Text field in the app (hero banner bio, split-content-panel body, timeline entry body, the page
+description field) by mapping each `@contentful/rich-text-types` node type to a DaisyUI element. Untested
+node-type branches (the coverage report points at lines 49-52, 62, 68-100) mean a malformed or unusual rich-text
+document authored in Contentful (e.g., a nested list, an embedded asset/entry, a blockquote, an `hr`) has no
+regression guard — the first time a gap in this mapping is discovered would be a live rendering bug, not a
+failing test.
 
 ### Finding 5 — Motion/behavioral elements and theme-toggle branch logic are weakly covered
 
@@ -122,28 +109,18 @@ on any PR.
 
 ## Decision
 
-### §0a — Applied immediately on this branch (approved by repo owner as a pre-work exception)
+### §0 — Applied immediately (approved by repo owner as a pre-work exception)
 
 Renamed the two mis-suffixed files (`not-found.test.tsx` → `not-found.spec.tsx`,
-`server-error.test.tsx` → `server-error.spec.tsx`). No other code was touched. `pnpm vitest run` now reports 80
-passed spec files / 147 passed tests out of 81 total spec files (the 81st being the pre-existing Finding 0
-failure, unrelated to this rename).
+`server-error.test.tsx` → `server-error.spec.tsx`). No other code was touched. `pnpm vitest run` reports 84
+passed spec files / 167 passed tests on this branch.
 
-### §0b — Deferred to the implementation sequence (repo-owner decision)
-
-Fix the swapped mock fixtures in `hero-banner.adapter.spec.ts` (Finding 0) so the assertion compares each
-adapted image against its correct fixture. This is a one-line-per-assertion correction to an existing test, not
-new test authorship, and restores this spec to actually verifying `adaptHeroBanner`'s image-mapping behavior.
-**Decision: not applied as a standalone out-of-band fix.** It ships as the first PR of the phased implementation
-sequence instead (see the companion report, Section 7, PR 1), rather than being cherry-picked into this
-planning session the way §0a was.
-
-### §1 — Priority order for the remaining work (once approved)
+### §1 — Priority order for the remaining work
 
 1. **P0 — Contentful adapters** (`content-item`, `content-list`, `content-section`, `icon`, `image`, `layout`,
-   `link`, `page`, `seo-metadata`, `stat-item`). Pure functions, cheapest to test, highest blast radius. Each
-   spec should cover: the happy path, `null`/`undefined` input, an empty nested collection, and (where
-   relevant) an unrecognized `__typename`/`ui` discriminant.
+   `link`, `page`, `stat-item`). Pure functions, cheapest to test, highest blast radius. Each spec should cover:
+   the happy path, `null`/`undefined` input, an empty nested collection, and (where relevant) an unrecognized
+   `__typename`/`ui` discriminant.
 2. **P1 — Registry exhaustiveness** for `content-section.tsx` and `content-list.tsx`: one test per registered
    `ui` branch plus the `BlockPlaceholder` fallback branch, asserting the correct Block component and adapter
    are invoked for each.
@@ -162,11 +139,12 @@ planning session the way §0a was.
 
 - `src/contentful/generated/*` — auto-generated GraphQL SDK types/client. Excluded from coverage targets
   entirely; regenerating and asserting on generated code has no value.
-- `src/contentful/scripts/setup-content-model.ts` — a one-off/administrative CLI script run manually against
-  Contentful to provision the schema, not part of the deployed app's runtime path. **Decision: excluded from
-  the coverage percentage target** (add to `vitest.config.ts`'s `coverage.exclude` as part of implementation).
-  No smoke tests requested for its internal mapping helpers either — it stays entirely outside the unit-test
-  surface for now.
+- `src/contentful/scripts/*` (`setup-content-model.ts`, `audit-environment-content.ts`,
+  `extract-legacy-content.ts`, `migrate-favicon-to-seo.ts`, `migrate-legacy-content.ts`,
+  `migrate-missing-content.ts`) — one-off/administrative CLI tooling run manually against Contentful, not part
+  of the deployed app's runtime path. **Decision: excluded from the coverage percentage target** (add to
+  `vitest.config.ts`'s `coverage.exclude` as part of implementation). No smoke tests requested for their
+  internal mapping helpers either — this directory stays entirely outside the unit-test surface for now.
 
 ### §3 — Coverage floor (decided)
 
@@ -178,11 +156,12 @@ exclusions in §2), ratcheted up over time, so CI fails on regression instead of
 
 - **Rewrite `vitest.config.ts`'s `include` to also catch `*.test.tsx`, instead of renaming the two files.**
   Rejected: it would leave the codebase with two competing naming conventions and contradict ADR 0005 §5,
-  which the rest of the codebase (the other 79 spec files) already follows correctly.
-- **Test the generated GraphQL SDK and the setup script to hit a single blanket coverage number.** Rejected: it
-  inflates the denominator with code that either can't meaningfully fail in a way a unit test would catch
-  (generated types) or isn't part of the runtime path the site's visitors exercise (the schema setup script).
-  Confirmed by the repo owner (Decision §2) — no smoke tests requested for the setup script either.
+  which the rest of the codebase (the other 82 spec files) already follows correctly.
+- **Test the generated GraphQL SDK and the migration scripts to hit a single blanket coverage number.**
+  Rejected: it inflates the denominator with code that either can't meaningfully fail in a way a unit test
+  would catch (generated types) or isn't part of the runtime path the site's visitors exercise (one-off
+  migration tooling). Confirmed by the repo owner (Decision §2) — no smoke tests requested for the scripts
+  either.
 
 ## Consequences
 
@@ -191,11 +170,11 @@ exclusions in §2), ratcheted up over time, so CI fails on regression instead of
   coverage the rest of the component layer already enjoys.
 - A future Contentful schema change or a new rich-text node type authored in the CMS has a test that fails
   loudly in CI instead of a silent rendering gap discovered by a site visitor.
-- Restores the accuracy of the coverage number itself (Findings 0 and 1) so it can be trusted going forward.
+- Restores the accuracy of the coverage number itself (Finding 1) so it can be trusted going forward.
 
 ### Negative / Trade-offs
 - P0 adapter tests require expanding `tests/mocks/factories.ts`, which is currently a near-empty skeleton (one
   example factory, commented out) — this is shared groundwork with the E2E fixture work in ADR 0022, so the two
   should be sequenced together to avoid duplicating mock-shape work.
-- Excluding `contentful/scripts/setup-content-model.ts` from coverage (§2) means a real bug in it would still
-  only be caught by manually running it against a real (or sandboxed) Contentful environment, not by CI.
+- Excluding `contentful/scripts/*` from coverage (§2) means a real bug in one of the migration scripts would
+  still only be caught by manually running it against a real (or sandboxed) Contentful environment, not by CI.

@@ -205,12 +205,11 @@ test("homepage is accessible", async ({ page }) => {
 
 ## Known Gaps & Remediation Plan
 
-An audit on 2026-09-07 found unit/component coverage at ~26% statements (concentrated gaps: the core Contentful
-adapters in `src/contentful/adapters/` are almost entirely untested at ~4%, and `rich-text.tsx` under-covers its
-node-type mapping), one pre-existing failing adapter spec with swapped mock fixtures, and an E2E suite
-consisting of two smoke-level specs against a single, near-empty mock page. See
+An audit on 2026-09-07 found unit/component coverage at ~21.6% statements (concentrated gaps: only 2 of the 13
+files in `src/contentful/adapters/` have their own spec, and `rich-text.tsx` under-covers its node-type mapping)
+and an E2E suite consisting of two smoke-level specs against a single, near-empty mock page. See
 [ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md) and
-[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md) for the full findings and the proposed, phased
+[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md) for the full findings and the accepted, phased
 remediation plan (not yet implemented).
 
 ## Related ADRs

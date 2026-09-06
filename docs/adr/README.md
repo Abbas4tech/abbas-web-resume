@@ -3,10 +3,6 @@
 This directory contains Architecture Decision Records — documents that capture the key technical and architectural decisions made during the development of this project, their context, the options considered, and their consequences.
 
 > **Format:** Each ADR is named `NNNN-short-title.md`. Status values: `accepted`, `deprecated`, `superseded`.
->
-> **Note:** 0018-0020 are reserved by ADRs already authored on an unmerged sibling branch
-> (`feat/develop-draft/page-description-richtext-field`) and are intentionally skipped here to avoid a numbering
-> collision when that branch merges into `develop-draft`.
 
 ---
 
@@ -54,7 +50,7 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0005]** — Vitest with jsdom, centralized mock factories, and colocated spec files
 - **[0006]** — Playwright with MSW-mocked Contentful API and Block Object Models
 - **[0007]** — Production Playwright configuration with browser caching
-- **[0021]** — Coverage audit (26% statements, adapters at ~4%) and a prioritized remediation plan
+- **[0021]** — Coverage audit (21.6% statements, core CMS adapters mostly untested) and a prioritized remediation plan
 - **[0022]** — Synthetic multi-page E2E fixture plan and full journey/device-matrix expansion
 
 ### Animation
