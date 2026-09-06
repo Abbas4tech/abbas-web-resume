@@ -161,7 +161,7 @@ const TimelineEntry = memo(
               >
                 {metaRows.map((row) => (
                   <m.div
-                    className="flex items-center gap-2 text-base-content/80 text-sm"
+                    className="flex items-center gap-2 text-base-content/80 text-sm md:text-lg"
                     key={row.text}
                     variants={metaRowVariants}
                   >

@@ -150,7 +150,8 @@ enum ArticleOrder {
 }
 
 """Represents a binary file in a space. An asset can be any file type."""
-type Asset {
+type Asset implements _Node {
+  _id: ID!
   contentType(locale: String, useFallbackLocale: Boolean): String
   contentfulMetadata: ContentfulMetadata!
   description(locale: String, useFallbackLocale: Boolean): String
@@ -253,6 +254,8 @@ type AssetLinkingCollections {
   imageCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): ImageCursorCollection
   layoutCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LayoutCollection
   layoutCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
+  seoMetadataCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SeoMetadataCollection
+  seoMetadataCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): SeoMetadataCursorCollection
   videoCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): VideoCollection
   videoCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): VideoCursorCollection
 }
@@ -1241,6 +1244,8 @@ type IconLinkingCollections {
   layoutCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLayoutCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LayoutCursorCollection
   linkCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLinkCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
   linkCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsLinkCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): LinkCursorCollection
+  pageCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
+  pageCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsPageCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): PageCursorCollection
   statItemCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): StatItemCollection
   statItemCursorCollection(limit: Int = 100, locale: String, order: [IconLinkingCollectionsStatItemCursorCollectionOrder], pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean): StatItemCursorCollection
 }
@@ -1377,6 +1382,40 @@ enum IconLinkingCollectionsLinkCursorCollectionOrder {
   text_DESC
   url_ASC
   url_DESC
+}
+
+enum IconLinkingCollectionsPageCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  path_ASC
+  path_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
+}
+
+enum IconLinkingCollectionsPageCursorCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  path_ASC
+  path_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
 }
 
 enum IconLinkingCollectionsStatItemCollectionOrder {
@@ -1676,12 +1715,20 @@ enum ImageLinkingCollectionsLayoutCursorCollectionOrder {
 enum ImageLinkingCollectionsSeoMetadataCollectionOrder {
   canonicalUrl_ASC
   canonicalUrl_DESC
+  countryName_ASC
+  countryName_DESC
+  creator_ASC
+  creator_DESC
   internalName_ASC
   internalName_DESC
   noFollow_ASC
   noFollow_DESC
   noIndex_ASC
   noIndex_DESC
+  publisher_ASC
+  publisher_DESC
+  siteName_ASC
+  siteName_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1697,12 +1744,20 @@ enum ImageLinkingCollectionsSeoMetadataCollectionOrder {
 enum ImageLinkingCollectionsSeoMetadataCursorCollectionOrder {
   canonicalUrl_ASC
   canonicalUrl_DESC
+  countryName_ASC
+  countryName_DESC
+  creator_ASC
+  creator_DESC
   internalName_ASC
   internalName_DESC
   noFollow_ASC
   noFollow_DESC
   noIndex_ASC
   noIndex_DESC
+  publisher_ASC
+  publisher_DESC
+  siteName_ASC
+  siteName_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2228,6 +2283,8 @@ type Page implements Entry & _Node {
   bottomContentAreaCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PageBottomContentAreaFilter): PageBottomContentAreaCollection
   bottomContentAreaCursorCollection(limit: Int = 100, locale: String, pageNext: String, pagePrev: String, preview: Boolean, useFallbackLocale: Boolean, where: PageBottomContentAreaFilter): PageBottomContentAreaCursorCollection
   contentfulMetadata: ContentfulMetadata!
+  description(locale: String, useFallbackLocale: Boolean): PageDescription
+  icon(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: IconFilter): Icon
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): PageLinkingCollections
   path(locale: String, useFallbackLocale: Boolean): String
@@ -2287,12 +2344,57 @@ type PageCursorCollection {
   pages: CursorPages!
 }
 
+type PageDescription {
+  json: JSON!
+  links: PageDescriptionLinks!
+}
+
+type PageDescriptionAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type PageDescriptionEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type PageDescriptionLinks {
+  assets: PageDescriptionAssets!
+  entries: PageDescriptionEntries!
+  resources: PageDescriptionResources!
+}
+
+type PageDescriptionResources {
+  block: [PageDescriptionResourcesBlock!]!
+  hyperlink: [PageDescriptionResourcesHyperlink!]!
+  inline: [PageDescriptionResourcesInline!]!
+}
+
+type PageDescriptionResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type PageDescriptionResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type PageDescriptionResourcesInline implements ResourceLink {
+  sys: ResourceSys!
+}
+
 input PageFilter {
   AND: [PageFilter]
   OR: [PageFilter]
   bottomContentArea: cfbottomContentAreaMultiTypeNestedFilter
   bottomContentAreaCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
+  description_contains: String
+  description_exists: Boolean
+  description_not_contains: String
+  icon: cfIconNestedFilter
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2485,13 +2587,18 @@ type SeoMetadata implements Entry & _Node {
   _id: ID!
   canonicalUrl(locale: String, useFallbackLocale: Boolean): String
   contentfulMetadata: ContentfulMetadata!
+  countryName(locale: String, useFallbackLocale: Boolean): String
+  creator(locale: String, useFallbackLocale: Boolean): String
   description(locale: String, useFallbackLocale: Boolean): String
+  favicon(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   internalName(locale: String, useFallbackLocale: Boolean): String
   keywords(locale: String, useFallbackLocale: Boolean): [String]
   linkedFrom(allowedLocales: [String]): SeoMetadataLinkingCollections
   noFollow(locale: String, useFallbackLocale: Boolean): Boolean
   noIndex(locale: String, useFallbackLocale: Boolean): Boolean
   ogImage(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: ImageFilter): Image
+  publisher(locale: String, useFallbackLocale: Boolean): String
+  siteName(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
   title(locale: String, useFallbackLocale: Boolean): String
 }
@@ -2520,6 +2627,20 @@ input SeoMetadataFilter {
   canonicalUrl_not_contains: String
   canonicalUrl_not_in: [String]
   contentfulMetadata: ContentfulMetadataFilter
+  countryName: String
+  countryName_contains: String
+  countryName_exists: Boolean
+  countryName_in: [String]
+  countryName_not: String
+  countryName_not_contains: String
+  countryName_not_in: [String]
+  creator: String
+  creator_contains: String
+  creator_exists: Boolean
+  creator_in: [String]
+  creator_not: String
+  creator_not_contains: String
+  creator_not_in: [String]
   description: String
   description_contains: String
   description_exists: Boolean
@@ -2527,6 +2648,7 @@ input SeoMetadataFilter {
   description_not: String
   description_not_contains: String
   description_not_in: [String]
+  favicon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2546,6 +2668,20 @@ input SeoMetadataFilter {
   noIndex_not: Boolean
   ogImage: cfImageNestedFilter
   ogImage_exists: Boolean
+  publisher: String
+  publisher_contains: String
+  publisher_exists: Boolean
+  publisher_in: [String]
+  publisher_not: String
+  publisher_not_contains: String
+  publisher_not_in: [String]
+  siteName: String
+  siteName_contains: String
+  siteName_exists: Boolean
+  siteName_in: [String]
+  siteName_not: String
+  siteName_not_contains: String
+  siteName_not_in: [String]
   sys: SysFilter
   title: String
   title_contains: String
@@ -2656,12 +2792,20 @@ enum SeoMetadataLinkingCollectionsPageCursorCollectionOrder {
 enum SeoMetadataOrder {
   canonicalUrl_ASC
   canonicalUrl_DESC
+  countryName_ASC
+  countryName_DESC
+  creator_ASC
+  creator_DESC
   internalName_ASC
   internalName_DESC
   noFollow_ASC
   noFollow_DESC
   noIndex_ASC
   noIndex_DESC
+  publisher_ASC
+  publisher_DESC
+  siteName_ASC
+  siteName_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -3226,6 +3370,10 @@ input cfPageNestedFilter {
   OR: [cfPageNestedFilter]
   bottomContentAreaCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
+  description_contains: String
+  description_exists: Boolean
+  description_not_contains: String
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -3263,6 +3411,20 @@ input cfSeoMetadataNestedFilter {
   canonicalUrl_not_contains: String
   canonicalUrl_not_in: [String]
   contentfulMetadata: ContentfulMetadataFilter
+  countryName: String
+  countryName_contains: String
+  countryName_exists: Boolean
+  countryName_in: [String]
+  countryName_not: String
+  countryName_not_contains: String
+  countryName_not_in: [String]
+  creator: String
+  creator_contains: String
+  creator_exists: Boolean
+  creator_in: [String]
+  creator_not: String
+  creator_not_contains: String
+  creator_not_in: [String]
   description: String
   description_contains: String
   description_exists: Boolean
@@ -3270,6 +3432,7 @@ input cfSeoMetadataNestedFilter {
   description_not: String
   description_not_contains: String
   description_not_in: [String]
+  favicon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -3288,6 +3451,20 @@ input cfSeoMetadataNestedFilter {
   noIndex_exists: Boolean
   noIndex_not: Boolean
   ogImage_exists: Boolean
+  publisher: String
+  publisher_contains: String
+  publisher_exists: Boolean
+  publisher_in: [String]
+  publisher_not: String
+  publisher_not_contains: String
+  publisher_not_in: [String]
+  siteName: String
+  siteName_contains: String
+  siteName_exists: Boolean
+  siteName_in: [String]
+  siteName_not: String
+  siteName_not_contains: String
+  siteName_not_in: [String]
   sys: SysFilter
   title: String
   title_contains: String

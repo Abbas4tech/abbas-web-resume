@@ -19,7 +19,7 @@
 ### 3. Page Structure
 - **Current**: Global `AppData` with `pagesCollection`. Individual pages (`HomePage`, `ExperiencePage`, `SkillsPage`, `ProjectsPage`) have specific queries and exact expected arrays (e.g. `experiencesCollection`).
 - **Target**: `page` entity with `topContentArea` and `bottomContentArea` containing generic `contentList` or `contentSection` entities. 
-- **Compatibility**: Requires a complete rewrite of the frontend data fetching layer. Components will no longer fetch "Experiences", they will fetch a "Page" and dynamically render "Content Lists" based on their `ui` property (e.g. `Experience Timeline` or `Bento Skills Grid`).
+- **Compatibility**: Requires a complete rewrite of the frontend data fetching layer. Components will no longer fetch "Experiences", they will fetch a "Page" and dynamically render "Content Lists" based on their `ui` property (e.g. `TimelineSection` or `PanelShowcase`).
 
 ### 4. Layout & SEO
 - **Current**: Mixed inside `AppData` and `SEO` types. 
@@ -31,11 +31,11 @@
 | Current Entity | Target Composable Entity | UI Variant |
 | --- | --- | --- |
 | `HomePageData` | `page` | N/A |
-| `BioCard` | `contentItem` | Inside `contentList` (Grid variant) |
+| `BioCard` | `contentItem` | Inside `contentList` (`SplitContentPanel` variant) |
 | `ExperiencePageData`| `page` | N/A |
-| `JobExperience` | `contentItem` | Inside `contentList` (`Experience Timeline` variant) |
+| `JobExperience` | `contentItem` | Inside `contentList` (`TimelineSection` variant) |
 | `ProjectsPageData` | `page` | N/A |
-| `ProjectCard` | `contentItem` | Inside `contentList` (`Grid` or `Carousel` variant) |
-| `SkillSet` | `contentList` | `Bento Skills Grid` |
-| `SkillGroup` | `contentItem` | N/A |
-| `AppData` / `Banner` | `layout` / `config` | N/A |
+| `ProjectCard` | `contentItem` | Inside `contentList` (`CardGrid` variant) |
+| `SkillSet` | `contentItem` | Inside `contentList` (`PanelShowcase` variant) — one `contentItem` per `SkillSet`, not `SkillGroup` |
+| `SkillGroup` | `statItem` | One progress-bar-and-icon-cluster row per group, inside its `SkillSet` contentItem's `subItems` |
+| `AppData` / `Banner` | `layout` / `contentItem` | `Banner` is a Home-page `contentItem` (via `HeroBanner`), not `config` — see ADR-0019 |

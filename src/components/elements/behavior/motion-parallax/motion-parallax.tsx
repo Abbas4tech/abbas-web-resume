@@ -33,7 +33,7 @@ const MotionParallaxInner = memo(
 
     return (
       <div className={className} style={{ overflow: "hidden" }}>
-        <m.div className="will-change-transform" style={{ y }}>
+        <m.div className="relative h-full will-change-transform" style={{ y }}>
           {children}
         </m.div>
       </div>
@@ -67,7 +67,7 @@ const MotionParallax = memo(
           ref={placeholderRef}
           style={{ overflow: "hidden" }}
         >
-          <div>{children}</div>
+          <div className="relative h-full">{children}</div>
         </div>
       );
     }

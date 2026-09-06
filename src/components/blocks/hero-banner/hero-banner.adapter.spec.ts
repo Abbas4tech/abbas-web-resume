@@ -34,8 +34,11 @@ describe("adaptHeroBanner", () => {
     const input: AdaptedContentSection = {
       entry: {
         __typename: "ContentItem",
-        image: mockImage,
-        coverImage: mockSiteLogo,
+        // `image` is the avatar and `coverImage` is the banner (see
+        // migrate-legacy-content.ts's migrateHomeBanner: profilePicture -> image,
+        // bannerImage -> coverImage), matching adaptHeroBanner's mapping below.
+        image: mockSiteLogo,
+        coverImage: mockImage,
         links: [
           { text: "LinkedIn", href: "https://linkedin.com" },
           { text: "GitHub", href: "https://github.com" },

@@ -2,6 +2,15 @@
 
 This document visualizes the transition from our current highly-specific Contentful models to the new composable architecture.
 
+> **Note (2026-09-06):** this document captures the original design intent (ADR-0003). For the
+> migration-verified field-by-field mapping — checked against what the legacy and target frontends
+> actually render, not just the schema shape — see
+> [`legacy-space-migration-field-mapping.md`](../contentful/legacy-space-migration-field-mapping.md) and
+> [ADR-0019](../adr/0019-legacy-space-cross-schema-content-migration.md). A few details below (the
+> `"Bento Skills Grid"` UI name, and `JobExperience.techStack`'s mapping to `subItems`) turned out to
+> differ from what actually ships — §4 below is corrected; the Job Experience diagram in §2 and the field
+> table at the bottom are not, and should be read as illustrative rather than authoritative.
+
 ## 1. High-Level Architecture Shift
 
 The old architecture required specific page types and globally fetched collections. The new architecture uses a single generic `page` type that constructs itself out of `contentList` sections.
@@ -23,9 +32,9 @@ graph TD
         K -->|bottomContentArea| L2[ContentList: 'Project Showcase']
         L2 -->|entries| M[ContentItem]
         
-        N[Page: '/skills'] -->|topContentArea| O[ContentList: 'Bento Skills Grid']
-        O -->|entries| P[ContentItem]
-        P -->|subItems| Q[Badge]
+        N[Page: '/skills'] -->|topContentArea| O[ContentList: 'PanelShowcase']
+        O -->|entries| P[ContentItem: one per SkillSet]
+        P -->|subItems| Q[StatItem: one per SkillGroup]
     end
 ```
 
@@ -81,27 +90,32 @@ classDiagram
 
 ## 4. Skills Entity Mapping
 
-The `SkillSet` is a complex nested structure. In the new model, the parent `SkillSet` becomes a `ContentList` configured to render as a "Bento Skills Grid". The `SkillGroup` becomes a generic `ContentItem` acting as a category, and the actual skills become `Badge`s.
+**Corrected 2026-09-06 (see [ADR-0019](../adr/0019-legacy-space-cross-schema-content-migration.md)):** an
+earlier version of this diagram put the panel at the `SkillGroup` level, reasoning that a `PanelShowcase`
+row needs a label to stay visible. Checking production's actual `skills/page.tsx` showed that's wrong —
+`SkillGroup.title` is never rendered there, only used as a React key. Production's real heading is one
+per `SkillSet` (icon + title, both rendered), with each `SkillGroup` as one *unlabeled* progress-bar row
+underneath. The `ContentList` renders as `PanelShowcase` (not "Bento Skills Grid", which was never
+actually deployed), with the panel at the `SkillSet` level:
 
 ```mermaid
 graph LR
     subgraph Old Model
-        SS[SkillSet] --> SG1[SkillGroup: Frontend]
+        SS[SkillSet: title + icon] --> SG1[SkillGroup: progress + icons]
         SG1 --> I1[Icon: React]
         SG1 --> I2[Icon: Vue]
     end
 
     subgraph New Composable Model
-        CL[ContentList: 'Bento Skills Grid'] --> CI[ContentItem: 'Frontend']
-        CI --> B1[Badge: 'React']
-        B1 --> IC1[Icon: React]
-        CI --> B2[Badge: 'Vue']
-        B2 --> IC2[Icon: Vue]
+        CL[ContentList: 'PanelShowcase'] --> CI[ContentItem: title=SkillSet.title, icon=SkillSet.icon]
+        CI --> SI1[StatItem row: progress + icons]
+        SI1 --> IC1[Icon: React]
+        SI1 --> IC2[Icon: Vue]
     end
 
-    SS -.-> CL
-    SG1 -.-> CI
-    I1 -.-> B1
+    SS -.-> CI
+    SG1 -.-> SI1
+    I1 -.-> IC1
 ```
 
 ## Summary of Field Mappings

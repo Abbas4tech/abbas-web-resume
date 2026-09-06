@@ -10,16 +10,6 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.05,
-    },
-  },
-};
-
 const childVariants = {
   hidden: { opacity: 0, scale: 0.85, y: 15 },
   visible: {
@@ -44,27 +34,25 @@ export interface MotionStaggerContainerProps extends CleanHTMLAttributes {
   as?: "div" | "ul" | "ol" | "section";
   children: ReactNode;
   className?: string;
-  once?: boolean;
 }
 
-/** Wraps a list/grid and stagger-animates each direct MotionStaggerItem child. */
+/**
+ * Structural grid/list wrapper for MotionStaggerItem children.
+ * Deliberately has no whileInView of its own: a shared container-level trigger
+ * fires as soon as any part of the (often much taller than the viewport) grid
+ * scrolls into view at all, which then animates every child at once regardless
+ * of how far down the page it actually sits. Each MotionStaggerItem tracks its
+ * own visibility instead, so a card only animates once it is itself in view.
+ */
 const MotionStaggerContainer = memo(
   forwardRef<HTMLElement, MotionStaggerContainerProps>(
-    ({ children, className, as = "div", once = true, ...rest }, ref) => {
+    ({ children, className, as = "div", ...rest }, ref) => {
       const Component = m[as] as ComponentType<
         { ref?: React.Ref<HTMLElement> } & CleanHTMLAttributes & MotionProps
       >;
 
       return (
-        <Component
-          className={cn(className)}
-          initial="hidden"
-          ref={ref}
-          variants={containerVariants}
-          viewport={{ once, margin: "-60px" }}
-          whileInView="visible"
-          {...rest}
-        >
+        <Component className={cn(className)} ref={ref} {...rest}>
           {children}
         </Component>
       );
@@ -77,14 +65,28 @@ export interface MotionStaggerItemProps extends CleanHTMLAttributes {
   as?: "div" | "li" | "span" | "article";
   children: ReactNode;
   className?: string;
+  once?: boolean;
 }
 
-/** Each child inside a MotionStaggerContainer. Animates in orchestrated sequence. */
+/** Animates in independently as soon as this specific item enters the viewport. */
 const MotionStaggerItem = memo(
-  ({ children, className, as = "div", ...rest }: MotionStaggerItemProps) => {
+  ({
+    children,
+    className,
+    as = "div",
+    once = true,
+    ...rest
+  }: MotionStaggerItemProps) => {
     const Component = m[as] as ComponentType<CleanHTMLAttributes & MotionProps>;
     return (
-      <Component className={cn(className)} variants={childVariants} {...rest}>
+      <Component
+        className={cn(className)}
+        initial="hidden"
+        variants={childVariants}
+        viewport={{ once, margin: "-60px" }}
+        whileInView="visible"
+        {...rest}
+      >
         {children}
       </Component>
     );

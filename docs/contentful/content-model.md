@@ -9,11 +9,17 @@ These are the smallest building blocks, often embedded inside other content type
 ### 🖼 Icon (`icon`)
 Icon representation, primarily mapping to React-icons.
 * **internalName** (Symbol, Required)
-* **name** (Symbol, Required): The exact React-icon name (e.g., `FaGithub`).
-* **iconCode** (Symbol): Optional code/class.
+* **name** (Symbol, Required): **The human-facing accessible name / tooltip text** (e.g., `Typescript`,
+  `Github`) — read by `Icon`'s `data-tip`/`aria-label`. **Not** the react-icon component name, despite an
+  earlier version of this doc saying so; see [ADR-0016](../adr/0016-curated-static-icon-registry.md) and
+  `src/components/elements/ui/icon/icon-map.ts`'s own `IconProps.name` doc comment, which is authoritative.
+* **iconCode** (Symbol): The technical identifier, format `"library/ComponentName"` (e.g. `fa/FaGithub`)
+  — this is what `Icon` actually resolves against the curated registry to pick a component to render.
 * **showTooltip** (Boolean)
-* **library** (Symbol): The icon library (e.g., `fa`, `fi`).
-* **title** (Symbol)
+* **library** (Symbol): The icon library (e.g., `fa`, `fi`) — normally redundant with the prefix already
+  in `iconCode`, but kept as its own field since some callers pass it explicitly.
+* **title** (Symbol): Adapted (`AdaptedIcon.title`) but not currently read by any rendering component —
+  reserved/unused today.
 * **color** (Symbol): Hex color code.
 
 ### 🖼 Image (`image`)
@@ -78,6 +84,7 @@ Main page definitions that map to URL routes.
 * **internalName** (Symbol, Required)
 * **path** (Symbol, Required, Unique): The URL path (e.g., `/`, `/about`).
 * **title** (Symbol, Required)
+* **description** (RichText): Page description, rendered below the section heading.
 * **topContentArea** (Array of `contentList`, `contentSection`): Components rendered at the top of the page.
 * **bottomContentArea** (Array of `contentList`, `contentSection`): Components rendered at the bottom.
 * **seo** (Entry Link to `seoMetadata`)

@@ -56,7 +56,7 @@ The content model uses a composable, presentation-agnostic hierarchy defined in 
 
 | Content Type | Purpose |
 |-------------|---------|
-| `page` | Maps to a URL path. Has `topContentArea` and `bottomContentArea` content slots. |
+| `page` | Maps to a URL path. Has a rich text `description` rendered below the section heading, plus `topContentArea` and `bottomContentArea` content slots. |
 | `layout` | Global site settings: navigation, logo, theme, resume asset, footer. |
 | `seoMetadata` | Reusable SEO metadata (title, description, OG image, noIndex). |
 
@@ -113,6 +113,9 @@ query GetPageByPath($path: String!) {
   pageCollection(where: { path: $path }, limit: 1) {
     items {
       title
+      description {
+        json
+      }
       topContentAreaCollection {
         items {
           ... on ContentList {

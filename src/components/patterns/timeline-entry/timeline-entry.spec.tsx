@@ -51,4 +51,16 @@ describe("TimelineEntry", () => {
       await screen.findByRole("img", { name: "Calendar" })
     ).toBeInTheDocument();
   });
+
+  it("scales meta row text up on desktop, matching the pre-refactor ambient size (ADR-0020 regression guard)", () => {
+    // ExperienceCard (pre-refactor) had no explicit text size on these rows, so
+    // they inherited the ambient layout's `text-sm md:text-lg`. Consolidating
+    // them into one generic metaRows row hardcoded `text-sm` with no responsive
+    // variant, silently shrinking this text ~22% on desktop and making it
+    // non-responsive. See docs/adr/0020-font-loading-and-typography-continuity-
+    // audit.md, Finding 8a.
+    render(<TimelineEntry {...mockProps} />);
+    const row = screen.getByText("New York, NY").closest("div");
+    expect(row).toHaveClass("text-sm", "md:text-lg");
+  });
 });
