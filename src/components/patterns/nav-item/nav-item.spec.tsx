@@ -23,4 +23,21 @@ describe("NavItem", () => {
     const icon = await screen.findByRole("img", { name: "User Icon" });
     expect(icon).toBeInTheDocument();
   });
+
+  it("bolds the label when active, matching the previous SidebarMenu behavior (ADR-0020 regression guard)", () => {
+    // The refactor from SidebarMenu -> SidebarNav/NavItem dropped the active
+    // page's font-bold weight entirely: `isActive` was accepted as a prop but
+    // never read. The active state ended up indicated only by a background
+    // highlight box, with no font-weight distinction on the text itself. See
+    // docs/adr/0020-font-loading-and-typography-continuity-audit.md, Finding 8b.
+    render(<NavItem {...mockProps} isActive={true} />);
+    const link = screen.getByRole("link", { name: ABOUT_ME_REGEX });
+    expect(link).toHaveClass("font-bold");
+  });
+
+  it("does not bold the label when inactive", () => {
+    render(<NavItem {...mockProps} isActive={false} />);
+    const link = screen.getByRole("link", { name: ABOUT_ME_REGEX });
+    expect(link).not.toHaveClass("font-bold");
+  });
 });
