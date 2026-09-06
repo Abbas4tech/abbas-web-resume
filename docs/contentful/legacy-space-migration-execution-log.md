@@ -4,9 +4,9 @@ Companion to [ADR-0019](../adr/0019-legacy-space-cross-schema-content-migration.
 [legacy-space-migration-field-mapping.md](./legacy-space-migration-field-mapping.md) (the field-by-field
 plan). This document records what was actually *done* — the execution, not the design.
 
-**Date:** 2026-09-06
-**Result:** legacy content is live in the target space (`llac041ddp2o`) `development` environment,
-verified rendering correctly on all four pages.
+**Date:** 2026-09-06 (development), 2026-09-07 (production)
+**Result:** legacy content is live in both the target space's (`llac041ddp2o`) `development` and
+`production` environments, verified rendering correctly on all four pages in each.
 
 ---
 
@@ -115,14 +115,54 @@ Frontend Developer") that the bug had been cropping out entirely.
   `content-model-mapping.md`/`content-model-migration.md`, including the underlying diagram structure
   (panel level is `SkillSet`, not `SkillGroup` — see mapping doc §9 for why).
 
+## 9. Extended to the target space's `production` environment (2026-09-07)
+
+The same migration was repeated against `llac041ddp2o`'s `production` environment — the intra-space
+scope boundary from ADR-0019 (§1: "environment sync... is a separate, already-tooled concern") turned
+out to be unavoidable in practice, because `production`'s schema and content had never been kept in sync
+with `development` at all. Concretely, before this could run, `production` was missing:
+
+- The **`statItem` content type entirely** (didn't exist).
+- Most fields on `contentItem`, `icon`, `page`, `layout`, `link`, and `seoMetadata` — `layout` in
+  particular had only `internalName` and `globalSeo`, none of the ~13 other fields the migration needs.
+- The same placeholder/seed content as `development` had (confirmed by **identical entry IDs** —
+  `1mmE4HdI3z9NcmpU6FxBoz` "Abbas Shaikh Banner" and others — proving `production` and `development` were
+  branched from the same scaffold and `production` was simply never updated since March/May 2026).
+
+Sequence actually run: schema sync (`setup-content-model.ts` pointed at `production`) → seed content
+cleanup (13 entries/assets, same rationale as §4) → schema sync retried → migration (`--apply`, pointed
+at `production`) → verified via a local dev server with `CONTENTFUL_ENVIRONMENT=production`.
+
+**A schema-sync side effect required a real fix, not a workaround.** The first schema-sync attempt failed
+on `contentList` — Contentful rejects changing a field's *type* on an already-published field
+unconditionally (this is a platform restriction, not an entry-validation check). The path of least
+resistance — leave `contentList.description` as the pre-existing `Text` type instead of the canonical
+`RichText`, since the migration itself never writes to that field — got the schema sync unblocked, but
+broke every single page query at runtime: the shared GraphQL query includes a `ContentList` fragment
+selecting `description { json }` (RichText shape) on nearly every page, and Contentful returns a hard
+error (`Field "description" must not have a selection since type "String" has no subfields`) the moment
+that shape doesn't match, regardless of whether any entry actually has a value there.
+
+**Fix:** Contentful's only supported path to change a field's type is omit → publish → delete → publish →
+re-add with the new type → publish. Confirmed zero `contentList` entries held any value in `description`
+first (safe — nothing to lose), then ran that three-step sequence. Verified via direct GraphQL
+introspection (`__type(name: "ContentList")`) that `description` now reports as the `RichText` object
+shape, and via the local dev server that all four routes render correctly.
+
+**Lesson for next time:** don't route around a Contentful "can't change this" error by leaving a type
+mismatched — if the canonical schema says `RichText`, either match it (via omit/delete/recreate, safe
+when the field is unused) or change the canonical schema to genuinely accept the divergence. A "doesn't
+matter, we don't write to it" field-type shortcut still has to satisfy the *read* side (the GraphQL query
+shape), which isn't scoped per-field the way writes are.
+
 ## Not done / follow-ups
 
-- **Not committed to git as of this log** — see the commit(s) alongside it for what actually landed.
-- **`production` environment untouched**, in either space — this migration only ever wrote to the new
-  space's `development` environment, per ADR-0019's scope.
+- **`production` environment now holds the same real content as `development`** (§9) — both are current
+  as of this log.
 - **The intra-space `production`↔`development` audit/migration scripts** already in the repo
-  (`audit-environment-content.ts`, `migrate-missing-content.ts`) remain a separate, unresolved concern —
-  not part of this migration, not touched by it.
+  (`audit-environment-content.ts`, `migrate-missing-content.ts`) remain available for future use but
+  weren't what closed the schema/content gap described in §9 — that was done directly via the same
+  scripts as the cross-space migration itself, pointed at a different environment.
 - **Manual review still worthwhile:** the `layout.title` typo ("Dev CV tesrt") and the `favicon`
   source-of-truth inconsistency noted in the mapping doc (§10) were migrated as-is; fixing either is a
   content edit in Contentful, not a script change.

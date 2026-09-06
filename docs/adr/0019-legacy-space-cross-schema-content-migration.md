@@ -52,6 +52,11 @@ or a presentation mechanism this branch has already, deliberately, superseded (C
    `llac041ddp2o`) is a separate, already-tooled concern and is not part of this effort.
 2. **Target:** the new space's `development` environment — the one this branch already runs against.
    Nothing is written to `production` (of either space) by this migration.
+   **Update 2026-09-07:** this migration was subsequently repeated against `llac041ddp2o`'s `production`
+   environment too, once it became clear its schema and content had never been kept in sync with
+   `development` at all — see [the execution log](../contentful/legacy-space-migration-execution-log.md)
+   §9 for what that actually required (a schema sync, a second seed-content cleanup, and a real field-type
+   fix, not just a re-run).
 3. **Extraction is read-only GraphQL against the legacy space**, reusing the existing queries in
    `src/queries/*.ts` (master) rather than requiring Management API access to the legacy space — the
    legacy `.env.local` block only ever had a Content Delivery API key, and the entire legacy content
