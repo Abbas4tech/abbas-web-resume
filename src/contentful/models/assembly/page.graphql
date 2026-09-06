@@ -6,6 +6,9 @@ fragment PageFields on Page {
   internalName
   path
   title
+  icon {
+    ...IconFields
+  }
   description {
     json
     links {
