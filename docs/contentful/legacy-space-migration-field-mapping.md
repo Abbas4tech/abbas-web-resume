@@ -200,6 +200,16 @@ This is the highest-friction mapping — one legacy entity fans out across `cont
 | `showTooltip` | `showTooltip` | ✅ |
 | `classes` (e.g. `"fa fa-github"`) | `library` (e.g. `"fa"`) + `title`/`color` unset | 🔁 | Per [ADR-0016](../adr/0016-curated-static-icon-registry.md), the new model wants structured `library` rather than a raw CSS class string. Parse the library prefix out of `classes`/`name` mechanically — this is a deterministic string transform, no human decision needed, but the migration script must verify every parsed `library` value actually exists in the curated static registry from ADR-0016, or the icon will silently fail to render. |
 
+**Corrected 2026-09-07:** the `name → name` row above is a direct mapping and was always correct — legacy
+`Icon.name` is already the human-facing label (e.g. "Typescript", "Github"). The bug was in the *first
+implementation* of this mapping (`migrate-legacy-content.ts`), which computed something else — the
+react-icon component name parsed from `iconCode` — instead of using `icon.name` directly, because
+[`content-model.md`](./content-model.md) itself documented the new `name` field as "the exact React-icon
+name," contradicting what `icon.tsx`'s own `IconProps.name` doc comment (*"Accessible name / tooltip
+text"*) actually says. `content-model.md` has been corrected. Lesson: when a doc and the component's own
+code comments disagree, the code is authoritative — check it, not just the doc, before writing a
+transform. See the [execution log](./legacy-space-migration-execution-log.md) §10 for the fix.
+
 ## 8. `ProjectCard` → `contentItem`
 
 | Legacy | New | | Notes |
