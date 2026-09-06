@@ -5,7 +5,6 @@ import type { CardGridProps } from "./card-grid";
  * Maps generic AdaptedContentList to the CardGrid block props.
  */
 export function adaptCardGrid(data: AdaptedContentList): CardGridProps {
-  console.log(data.customEntries.map(({ icon }) => icon));
   return {
     cards: data.customEntries.map((item) => ({
       title: item.title,

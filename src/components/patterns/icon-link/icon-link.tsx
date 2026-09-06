@@ -2,20 +2,79 @@ import Image from "next/image";
 import Link from "next/link";
 import { forwardRef, type HTMLAttributes, memo } from "react";
 import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
+import { Icon } from "@/components/elements/ui/icon/icon";
 import { cn } from "@/lib/utils";
 
 export interface IconLinkProps {
   href: string;
+  iconCode?: string;
+  iconHeight?: number;
+  iconSrc?: string;
+  iconWidth?: number;
+  label: string;
+}
+
+interface IconVisualProps {
+  iconCode?: string;
   iconHeight: number;
-  iconSrc: string;
+  iconSrc?: string;
   iconWidth: number;
   label: string;
+}
+
+function renderIcon({
+  iconSrc,
+  iconCode,
+  iconWidth,
+  iconHeight,
+  label,
+}: IconVisualProps) {
+  const isRealImage =
+    !!iconSrc && (iconSrc.startsWith("http") || iconSrc.startsWith("/"));
+
+  if (isRealImage) {
+    return (
+      <Image
+        alt={`${label} icon`}
+        className="h-6 w-6 md:h-8 md:w-8"
+        height={iconHeight}
+        src={iconSrc as string}
+        width={iconWidth}
+      />
+    );
+  }
+
+  if (iconCode) {
+    return (
+      <Icon
+        className="h-6 w-6 md:h-8 md:w-8"
+        iconCode={iconCode}
+        showTooltip={false}
+        size="28"
+      />
+    );
+  }
+
+  return (
+    <span className="font-semibold text-primary text-sm hover:underline">
+      {label}
+    </span>
+  );
 }
 
 const IconLink = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & IconLinkProps>(
     (
-      { href, label, iconSrc, iconWidth, iconHeight, className, ...props },
+      {
+        href,
+        label,
+        iconSrc,
+        iconCode,
+        iconWidth = 32,
+        iconHeight = 32,
+        className,
+        ...props
+      },
       ref
     ) => (
       <div
@@ -34,19 +93,7 @@ const IconLink = memo(
             rel="noopener noreferrer"
             target="_blank"
           >
-            {iconSrc ? (
-              <Image
-                alt={`${label} icon`}
-                className="h-6 w-6 md:h-8 md:w-8"
-                height={iconHeight}
-                src={iconSrc}
-                width={iconWidth}
-              />
-            ) : (
-              <span className="font-semibold text-primary text-sm hover:underline">
-                {label}
-              </span>
-            )}
+            {renderIcon({ iconSrc, iconCode, iconWidth, iconHeight, label })}
           </Link>
         </MotionHover>
       </div>
