@@ -175,6 +175,29 @@ when the field is unused) or change the canonical schema to genuinely accept the
 matter, we don't write to it" field-type shortcut still has to satisfy the *read* side (the GraphQL query
 shape), which isn't scoped per-field the way writes are.
 
+## 10. Icon tooltips showed react-icon identifiers instead of names (2026-09-07)
+
+Found via a screenshot: hovering a skill icon (e.g. TypeScript) showed the tooltip `"SiTypescript"`
+instead of `"Typescript"`. Root cause was in `migrate-legacy-content.ts`'s `createIcon`, not a rendering
+bug: `IconProps.name` is explicitly documented in `icon-map.ts` as *"Accessible name / tooltip text"* —
+a human-facing label, distinct from the technical react-icon identifier, which the `Icon` component
+derives from `iconCode` itself via a separate `iconName` prop that `adaptIcon` never even sets. The
+migration script had the mapping backwards: it wrote the parsed technical name (e.g. `"SiTypescript"`,
+from splitting `iconCode`) into `name`, and the correct human label (from the legacy data) into `title` —
+a field nothing in the render path reads for tooltips.
+
+**Fix:** corrected `createIcon` to write the human label into `name` (matching what the component
+actually expects), then fixed the already-migrated data directly — every `icon` entry's `title` field
+already held the correct label from the same migration run, so a one-off script copied `title` → `name`
+and republished, in both `development` and `production` (48 icons each, all fixed, since 100% of
+existing icons had this bug). Verified via the rendered page's `data-tip` attributes: every tooltip now
+shows the human label (`"Typescript"`, `"Github"`, `"React"`, etc.), never the react-icon identifier.
+
+No risk to icon rendering/lookup: confirmed via `parseIconCode` in `icon.tsx` that `name` is never read
+for resolving which icon component to render — only `iconCode` (and the optional `iconName`/`library`
+props, which this adapter doesn't set) are used for that. Changing `name`'s content only affects tooltip
+and `aria-label` text.
+
 ## Not done / follow-ups
 
 - **`production` environment now holds the same real content as `development`** (§9) — both are current

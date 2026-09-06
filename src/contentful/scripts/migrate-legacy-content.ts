@@ -184,7 +184,11 @@ async function createIcon(
   const created = await ctx.target.createEntry("icon", {
     fields: {
       internalName: { "en-US": icon.name || iconName },
-      name: { "en-US": iconName },
+      // IconProps.name is documented (icon-map.ts) as "Accessible name /
+      // tooltip text" — the human label, not the react-icon identifier.
+      // The component derives the technical name from iconCode itself, via
+      // a separate `iconName` prop this adapter never sets.
+      name: { "en-US": icon.name || iconName },
       iconCode: { "en-US": icon.iconCode },
       library: { "en-US": library },
       title: { "en-US": icon.name || "" },
