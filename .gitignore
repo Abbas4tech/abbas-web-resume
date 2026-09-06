@@ -46,3 +46,4 @@ playwright-report
 # local-only Contentful audit/extraction artifacts — may contain personal data
 .contentful-audit
 build-storybook.log
+.env*

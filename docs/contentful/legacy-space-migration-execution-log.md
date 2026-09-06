@@ -34,14 +34,34 @@ real against `llac041ddp2o`/`development`:
   only with `--apply`. Not idempotent across runs (the target space starts empty for this content) — see
   §4 for what that meant in practice.
 
-## 3. Extraction — confirmed real, not test data
+## 3. Extraction — confirmed real, but initially from the wrong environment
 
-Running the extraction against the legacy space (`6mdmgsjzhh4y`/`development`) returned genuine
-production content: real employers (Xcentium, iSchoolConnect Technologies), real project names and
-descriptions, real dates, and a working resume asset URL. One curiosity: `userInfo.title` extracts as
-`"Dev CV tesrt"` — a typo, but confirmed (via `GlobalHeader.tsx` on `master`) to be exactly what renders
-in production's header today. Migrated as-is per your explicit call — this migration's job is content
-parity, not content correction.
+Running the extraction against the legacy space (`6mdmgsjzhh4y`/`development`) returned genuine content —
+real employers (Xcentium, iSchoolConnect Technologies), real project names and descriptions, real dates,
+a working resume asset URL — which was taken as sufficient confirmation it was safe to migrate. **That
+was an incomplete check.** It confirmed the data wasn't placeholder junk, but never confirmed it was the
+data actually serving `abbas-web-resume.vercel.app` — and it wasn't.
+
+**Corrected 2026-09-07**, after the user compared screenshots of the real production site against the
+migrated result and found the bio text, header title, and profile photo all different. Root cause: the
+legacy `.env.local` block this migration's credentials were copied from was originally captured via
+`vercel env pull` with no `--environment` flag, which **defaults to pulling Development-scoped
+variables** — not Production. `CONTENTFUL_ENVIRONMENT_ID=development` and its API key were real, working
+credentials, just for the wrong Contentful environment: a developer's own working copy (title `"Dev CV
+tesrt"`, an older bio paragraph), not what Vercel's production deployment actually uses.
+
+The real production credentials were retrieved via `vercel env pull .env.production.local
+--environment=production`, which confirmed `CONTENTFUL_ENVIRONMENT_ID=production` (space ID and the
+page/app-data entry keys are identical between the two scopes — only the environment and its API key
+differ). `.env.local`'s `LEGACY_CONTENTFUL_*` block was corrected to match, and both `development` and
+`production` in the target space were wiped and re-migrated from a fresh extraction against the correct
+source. Verified against a local dev server that the result now matches the live production site exactly
+(title "Abbas CV", the real bio paragraph, the real resume file).
+
+**Lesson for next time:** "the data looks real" is necessary but not sufficient evidence a migration
+source is correct — it rules out placeholder/test data, but not a stale or wrong-environment *real*
+snapshot. The only check that actually catches the latter is diffing against the live, currently-serving
+site itself, which is what should have been done before the first migration run rather than after.
 
 ## 4. Pre-existing seed content — discovered, then removed
 
@@ -163,6 +183,8 @@ shape), which isn't scoped per-field the way writes are.
   (`audit-environment-content.ts`, `migrate-missing-content.ts`) remain available for future use but
   weren't what closed the schema/content gap described in §9 — that was done directly via the same
   scripts as the cross-space migration itself, pointed at a different environment.
-- **Manual review still worthwhile:** the `layout.title` typo ("Dev CV tesrt") and the `favicon`
-  source-of-truth inconsistency noted in the mapping doc (§10) were migrated as-is; fixing either is a
-  content edit in Contentful, not a script change.
+- **Both concerns raised in earlier passes of this doc turned out to be artifacts of the wrong-environment
+  data, not real issues**: `layout.title` is correctly "Abbas CV" in the real production data (no typo —
+  "Dev CV tesrt" was the developer's own dev-environment value); the `favicon` is identical across all
+  four pages in the real data (the earlier "Skills page points at a different favicon" inconsistency was
+  specific to the dev-scoped snapshot). Nothing left to manually review on either front.
