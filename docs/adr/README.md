@@ -35,8 +35,8 @@ This directory contains Architecture Decision Records — documents that capture
 | [0018](./0018-contentful-wrapper-components-and-taxonomy.md) | Contentful Wrapper Components and Model Taxonomy Alignment | 🔶 proposed | 2026-06-23 |
 | [0019](./0019-legacy-space-cross-schema-content-migration.md) | Legacy Contentful Space → Composable Space: Cross-Schema Content Migration | ✅ accepted | 2026-09-06 |
 | [0020](./0020-font-loading-and-typography-continuity-audit.md) | Font Loading and Typography Continuity Audit (master vs. develop-draft) | 🔶 proposed | 2026-09-07 |
-| [0021](./0021-unit-component-test-coverage-remediation.md) | Unit & Component Test Coverage Remediation Plan | 🔶 proposed | 2026-09-07 |
-| [0022](./0022-e2e-journey-and-fixture-expansion.md) | E2E Journey Coverage & Synthetic Fixture Expansion | 🔶 proposed | 2026-09-07 |
+| [0021](./0021-unit-component-test-coverage-remediation.md) | Unit & Component Test Coverage Remediation Plan | ✅ accepted | 2026-09-07 |
+| [0022](./0022-e2e-journey-and-fixture-expansion.md) | E2E Journey Coverage & Synthetic Fixture Expansion | ✅ accepted | 2026-09-07 |
 
 ---
 

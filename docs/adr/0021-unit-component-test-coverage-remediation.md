@@ -1,18 +1,17 @@
 ---
 title: 0021 - Unit & Component Test Coverage Remediation Plan
 date: 2026-09-07
-status: proposed
+status: accepted
 ---
 
 # 0021 - Unit & Component Test Coverage Remediation Plan
 
 ## Status
 
-Proposed. This ADR documents a **plan**, agreed in principle with the repo owner, that has not yet been
-implemented (aside from the one zero-risk fix noted in Decision §0). No test code described below has been
-written yet — it is scoped here first so the repo owner and the author can align on priority and boundaries
-before the implementation PRs land (see [0022](./0022-e2e-journey-and-fixture-expansion.md) for the companion
-E2E plan, and the accompanying PDF report for the full write-up with open questions).
+Accepted. All open questions raised alongside this ADR have been resolved by the repo owner (see **Decision
+§0b, §2, §3**). The plan itself is settled; the test code described in §1 has not yet been written — it lands
+as the phased implementation PRs sequenced in the companion report (see
+[0022](./0022-e2e-journey-and-fixture-expansion.md) for the companion E2E plan).
 
 ## Context
 
@@ -32,7 +31,7 @@ Lines        : 25.92% ( 521/2010 )
 That figure is misleading on its own — a meaningful slice of the denominator is
 `src/contentful/generated/*` (auto-generated GraphQL SDK, ~5,970 lines, 0% and untestable by nature) and
 `src/contentful/scripts/setup-content-model.ts` (a one-off Contentful schema-provisioning script, ~960 lines,
-0%, arguably dev tooling rather than app runtime code — see Open Questions). Excluding both from the
+0%, dev tooling rather than app runtime code — see Decision §2). Excluding both from the
 denominator, the real picture is closer to **45-50% of shipped application code**, and the gaps are not
 noise — they cluster in exactly the places a coverage audit should worry about:
 
@@ -130,11 +129,14 @@ Renamed the two mis-suffixed files (`not-found.test.tsx` → `not-found.spec.tsx
 passed spec files / 147 passed tests out of 81 total spec files (the 81st being the pre-existing Finding 0
 failure, unrelated to this rename).
 
-### §0b — Proposed as a second isolated, zero-risk fix (not yet applied — pending repo-owner go-ahead)
+### §0b — Deferred to the implementation sequence (repo-owner decision)
 
 Fix the swapped mock fixtures in `hero-banner.adapter.spec.ts` (Finding 0) so the assertion compares each
 adapted image against its correct fixture. This is a one-line-per-assertion correction to an existing test, not
 new test authorship, and restores this spec to actually verifying `adaptHeroBanner`'s image-mapping behavior.
+**Decision: not applied as a standalone out-of-band fix.** It ships as the first PR of the phased implementation
+sequence instead (see the companion report, Section 7, PR 1), rather than being cherry-picked into this
+planning session the way §0a was.
 
 ### §1 — Priority order for the remaining work (once approved)
 
@@ -156,32 +158,31 @@ new test authorship, and restores this spec to actually verifying `adaptHeroBann
    config wiring — but a single test confirming the correct endpoint/token/environment resolution is cheap
    insurance against a misconfigured request silently hitting the wrong Contentful environment.
 
-### §2 — Explicitly out of scope (proposed, needs repo-owner sign-off)
+### §2 — Explicitly out of scope (decided)
 
 - `src/contentful/generated/*` — auto-generated GraphQL SDK types/client. Excluded from coverage targets
   entirely; regenerating and asserting on generated code has no value.
 - `src/contentful/scripts/setup-content-model.ts` — a one-off/administrative CLI script run manually against
-  Contentful to provision the schema, not part of the deployed app's runtime path. Proposed to exclude from the
-  coverage percentage target (add to `vitest.config.ts`'s `coverage.exclude`), though a case could be made for
-  at least smoke-testing any pure data-mapping helper functions inside it if the repo owner wants that safety
-  net — flagged as an open question, not decided here.
+  Contentful to provision the schema, not part of the deployed app's runtime path. **Decision: excluded from
+  the coverage percentage target** (add to `vitest.config.ts`'s `coverage.exclude` as part of implementation).
+  No smoke tests requested for its internal mapping helpers either — it stays entirely outside the unit-test
+  surface for now.
 
-### §3 — Coverage floor
+### §3 — Coverage floor (decided)
 
-Once the P0/P1 backlog above lands, add a `coverage.thresholds` block to `vitest.config.ts` (proposed initial
-floor: 75% statements/lines, 65% branches, on the *application* subset — i.e., after the `generated`/`scripts`
-exclusions in §2 — ratcheted up over time) so CI fails on regression instead of only reporting it.
+Once the P0/P1 backlog above lands, add a `coverage.thresholds` block to `vitest.config.ts`: **75% statements
+and lines, 65% branches**, measured on the *application* subset (i.e., after the `generated`/`scripts`
+exclusions in §2), ratcheted up over time, so CI fails on regression instead of only reporting it.
 
 ## Considered Options
 
 - **Rewrite `vitest.config.ts`'s `include` to also catch `*.test.tsx`, instead of renaming the two files.**
   Rejected: it would leave the codebase with two competing naming conventions and contradict ADR 0005 §5,
   which the rest of the codebase (the other 79 spec files) already follows correctly.
-- **Test the generated GraphQL SDK and the setup script to hit a single blanket coverage number.** Rejected as
-  the default: it inflates the denominator with code that either can't meaningfully fail in a way a unit test
-  would catch (generated types) or isn't part of the runtime path the site's visitors exercise (the schema
-  setup script). Kept as an open question rather than a hard "no", since the repo owner may still want smoke
-  tests on any pure mapping logic inside it.
+- **Test the generated GraphQL SDK and the setup script to hit a single blanket coverage number.** Rejected: it
+  inflates the denominator with code that either can't meaningfully fail in a way a unit test would catch
+  (generated types) or isn't part of the runtime path the site's visitors exercise (the schema setup script).
+  Confirmed by the repo owner (Decision §2) — no smoke tests requested for the setup script either.
 
 ## Consequences
 

@@ -1,23 +1,27 @@
 ---
 title: 0022 - E2E Journey Coverage & Synthetic Fixture Expansion
 date: 2026-09-07
-status: proposed
+status: accepted
 ---
 
 # 0022 - E2E Journey Coverage & Synthetic Fixture Expansion
 
 ## Status
 
-Proposed. Companion to [0021](./0021-unit-component-test-coverage-remediation.md). No E2E code described below
-has been written yet — scoped here for repo-owner sign-off before implementation (see the accompanying PDF for
-the full write-up and open questions). Confirmed with the repo owner ahead of writing this ADR:
+Accepted. Companion to [0021](./0021-unit-component-test-coverage-remediation.md). No E2E code described below
+has been written yet — it lands as the phased implementation PRs sequenced in the companion report. Confirmed
+with the repo owner:
 
 - Fixture strategy: build a **synthetic, CMS-agnostic fixture site** (Decision §1), not a mirror of the live
   Contentful content, since content changes independently of code and a fixture tied to today's real copy would
-  drift immediately.
+  drift immediately. The fixture stays entirely fictional — no real page/nav content from the live Contentful
+  space needs to be mirrored into it.
 - Device/browser matrix: **expand** the existing Playwright projects (Decision §3).
-- Delivery: **phased PRs**, sequenced by journey group, each with its own changeset (see the PDF plan for the
-  proposed sequence).
+- Delivery: **phased PRs**, sequenced by journey group, each with its own changeset (see the companion report
+  for the proposed sequence).
+- Visual regression stays out of scope for this suite: Playwright E2E covers functional journeys only, since
+  Storybook + Chromatic already own visual regression at the component level. No `toHaveScreenshot` assertions
+  are planned as part of this expansion.
 
 ## Context
 
