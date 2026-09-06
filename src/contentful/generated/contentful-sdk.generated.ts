@@ -238,8 +238,9 @@ export enum ArticleOrder {
 }
 
 /** Represents a binary file in a space. An asset can be any file type. */
-export type Asset = {
+export type Asset = _Node & {
   __typename?: 'Asset';
+  _id: Scalars['ID']['output'];
   contentType?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   description?: Maybe<Scalars['String']['output']>;
@@ -408,6 +409,8 @@ export type AssetLinkingCollections = {
   imageCursorCollection?: Maybe<ImageCursorCollection>;
   layoutCollection?: Maybe<LayoutCollection>;
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
+  seoMetadataCollection?: Maybe<SeoMetadataCollection>;
+  seoMetadataCursorCollection?: Maybe<SeoMetadataCursorCollection>;
   videoCollection?: Maybe<VideoCollection>;
   videoCursorCollection?: Maybe<VideoCursorCollection>;
 };
@@ -461,6 +464,25 @@ export type AssetLinkingCollectionslayoutCollectionArgs = {
 
 
 export type AssetLinkingCollectionslayoutCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsseoMetadataCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type AssetLinkingCollectionsseoMetadataCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
@@ -1982,6 +2004,8 @@ export type IconLinkingCollections = {
   layoutCursorCollection?: Maybe<LayoutCursorCollection>;
   linkCollection?: Maybe<LinkCollection>;
   linkCursorCollection?: Maybe<LinkCursorCollection>;
+  pageCollection?: Maybe<PageCollection>;
+  pageCursorCollection?: Maybe<PageCursorCollection>;
   statItemCollection?: Maybe<StatItemCollection>;
   statItemCursorCollection?: Maybe<StatItemCursorCollection>;
 };
@@ -2062,6 +2086,27 @@ export type IconLinkingCollectionslinkCursorCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsLinkCursorCollectionOrder>>>;
+  pageNext?: InputMaybe<Scalars['String']['input']>;
+  pagePrev?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionspageCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsPageCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type IconLinkingCollectionspageCursorCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<IconLinkingCollectionsPageCursorCollectionOrder>>>;
   pageNext?: InputMaybe<Scalars['String']['input']>;
   pagePrev?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2221,6 +2266,40 @@ export enum IconLinkingCollectionsLinkCursorCollectionOrder {
   text_DESC = 'text_DESC',
   url_ASC = 'url_ASC',
   url_DESC = 'url_DESC'
+}
+
+export enum IconLinkingCollectionsPageCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  path_ASC = 'path_ASC',
+  path_DESC = 'path_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
+}
+
+export enum IconLinkingCollectionsPageCursorCollectionOrder {
+  internalName_ASC = 'internalName_ASC',
+  internalName_DESC = 'internalName_DESC',
+  path_ASC = 'path_ASC',
+  path_DESC = 'path_DESC',
+  sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
+  sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
+  sys_id_ASC = 'sys_id_ASC',
+  sys_id_DESC = 'sys_id_DESC',
+  sys_publishedAt_ASC = 'sys_publishedAt_ASC',
+  sys_publishedAt_DESC = 'sys_publishedAt_DESC',
+  sys_publishedVersion_ASC = 'sys_publishedVersion_ASC',
+  sys_publishedVersion_DESC = 'sys_publishedVersion_DESC',
+  title_ASC = 'title_ASC',
+  title_DESC = 'title_DESC'
 }
 
 export enum IconLinkingCollectionsStatItemCollectionOrder {
@@ -2655,12 +2734,20 @@ export enum ImageLinkingCollectionsLayoutCursorCollectionOrder {
 export enum ImageLinkingCollectionsSeoMetadataCollectionOrder {
   canonicalUrl_ASC = 'canonicalUrl_ASC',
   canonicalUrl_DESC = 'canonicalUrl_DESC',
+  countryName_ASC = 'countryName_ASC',
+  countryName_DESC = 'countryName_DESC',
+  creator_ASC = 'creator_ASC',
+  creator_DESC = 'creator_DESC',
   internalName_ASC = 'internalName_ASC',
   internalName_DESC = 'internalName_DESC',
   noFollow_ASC = 'noFollow_ASC',
   noFollow_DESC = 'noFollow_DESC',
   noIndex_ASC = 'noIndex_ASC',
   noIndex_DESC = 'noIndex_DESC',
+  publisher_ASC = 'publisher_ASC',
+  publisher_DESC = 'publisher_DESC',
+  siteName_ASC = 'siteName_ASC',
+  siteName_DESC = 'siteName_DESC',
   sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
   sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
   sys_id_ASC = 'sys_id_ASC',
@@ -2676,12 +2763,20 @@ export enum ImageLinkingCollectionsSeoMetadataCollectionOrder {
 export enum ImageLinkingCollectionsSeoMetadataCursorCollectionOrder {
   canonicalUrl_ASC = 'canonicalUrl_ASC',
   canonicalUrl_DESC = 'canonicalUrl_DESC',
+  countryName_ASC = 'countryName_ASC',
+  countryName_DESC = 'countryName_DESC',
+  creator_ASC = 'creator_ASC',
+  creator_DESC = 'creator_DESC',
   internalName_ASC = 'internalName_ASC',
   internalName_DESC = 'internalName_DESC',
   noFollow_ASC = 'noFollow_ASC',
   noFollow_DESC = 'noFollow_DESC',
   noIndex_ASC = 'noIndex_ASC',
   noIndex_DESC = 'noIndex_DESC',
+  publisher_ASC = 'publisher_ASC',
+  publisher_DESC = 'publisher_DESC',
+  siteName_ASC = 'siteName_ASC',
+  siteName_DESC = 'siteName_DESC',
   sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
   sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
   sys_id_ASC = 'sys_id_ASC',
@@ -3442,6 +3537,8 @@ export type Page = Entry & _Node & {
   bottomContentAreaCollection?: Maybe<PageBottomContentAreaCollection>;
   bottomContentAreaCursorCollection?: Maybe<PageBottomContentAreaCursorCollection>;
   contentfulMetadata: ContentfulMetadata;
+  description?: Maybe<PageDescription>;
+  icon?: Maybe<Icon>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<PageLinkingCollections>;
   path?: Maybe<Scalars['String']['output']>;
@@ -3473,6 +3570,22 @@ export type PagebottomContentAreaCursorCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PageBottomContentAreaFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/page) */
+export type PagedescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/page) */
+export type PageiconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<IconFilter>;
 };
 
 
@@ -3587,12 +3700,65 @@ export type PageCursorCollection = {
   pages: CursorPages;
 };
 
+export type PageDescription = {
+  __typename?: 'PageDescription';
+  json: Scalars['JSON']['output'];
+  links: PageDescriptionLinks;
+};
+
+export type PageDescriptionAssets = {
+  __typename?: 'PageDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type PageDescriptionEntries = {
+  __typename?: 'PageDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type PageDescriptionLinks = {
+  __typename?: 'PageDescriptionLinks';
+  assets: PageDescriptionAssets;
+  entries: PageDescriptionEntries;
+  resources: PageDescriptionResources;
+};
+
+export type PageDescriptionResources = {
+  __typename?: 'PageDescriptionResources';
+  block: Array<PageDescriptionResourcesBlock>;
+  hyperlink: Array<PageDescriptionResourcesHyperlink>;
+  inline: Array<PageDescriptionResourcesInline>;
+};
+
+export type PageDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type PageDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type PageDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesInline';
+  sys: ResourceSys;
+};
+
 export type PageFilter = {
   AND?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   bottomContentArea?: InputMaybe<cfbottomContentAreaMultiTypeNestedFilter>;
   bottomContentAreaCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
+  icon?: InputMaybe<cfIconNestedFilter>;
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4297,13 +4463,18 @@ export type SeoMetadata = Entry & _Node & {
   _id: Scalars['ID']['output'];
   canonicalUrl?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
+  countryName?: Maybe<Scalars['String']['output']>;
+  creator?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
+  favicon?: Maybe<Asset>;
   internalName?: Maybe<Scalars['String']['output']>;
   keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   linkedFrom?: Maybe<SeoMetadataLinkingCollections>;
   noFollow?: Maybe<Scalars['Boolean']['output']>;
   noIndex?: Maybe<Scalars['Boolean']['output']>;
   ogImage?: Maybe<Image>;
+  publisher?: Maybe<Scalars['String']['output']>;
+  siteName?: Maybe<Scalars['String']['output']>;
   sys: Sys;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -4317,8 +4488,30 @@ export type SeoMetadatacanonicalUrlArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadatacountryNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadatacreatorArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
 export type SeoMetadatadescriptionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadatafaviconArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -4367,6 +4560,20 @@ export type SeoMetadataogImageArgs = {
 
 
 /** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadatapublisherArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
+export type SeoMetadatasiteNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/seoMetadata) */
 export type SeoMetadatatitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4398,6 +4605,20 @@ export type SeoMetadataFilter = {
   canonicalUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
   canonicalUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  countryName?: InputMaybe<Scalars['String']['input']>;
+  countryName_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  countryName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  countryName_not?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator?: InputMaybe<Scalars['String']['input']>;
+  creator_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  creator_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator_not?: InputMaybe<Scalars['String']['input']>;
+  creator_not_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4405,6 +4626,7 @@ export type SeoMetadataFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  favicon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4424,6 +4646,20 @@ export type SeoMetadataFilter = {
   noIndex_not?: InputMaybe<Scalars['Boolean']['input']>;
   ogImage?: InputMaybe<cfImageNestedFilter>;
   ogImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher?: InputMaybe<Scalars['String']['input']>;
+  publisher_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publisher_not?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName?: InputMaybe<Scalars['String']['input']>;
+  siteName_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName_not?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']['input']>;
   title_contains?: InputMaybe<Scalars['String']['input']>;
@@ -4596,12 +4832,20 @@ export enum SeoMetadataLinkingCollectionsPageCursorCollectionOrder {
 export enum SeoMetadataOrder {
   canonicalUrl_ASC = 'canonicalUrl_ASC',
   canonicalUrl_DESC = 'canonicalUrl_DESC',
+  countryName_ASC = 'countryName_ASC',
+  countryName_DESC = 'countryName_DESC',
+  creator_ASC = 'creator_ASC',
+  creator_DESC = 'creator_DESC',
   internalName_ASC = 'internalName_ASC',
   internalName_DESC = 'internalName_DESC',
   noFollow_ASC = 'noFollow_ASC',
   noFollow_DESC = 'noFollow_DESC',
   noIndex_ASC = 'noIndex_ASC',
   noIndex_DESC = 'noIndex_DESC',
+  publisher_ASC = 'publisher_ASC',
+  publisher_DESC = 'publisher_DESC',
+  siteName_ASC = 'siteName_ASC',
+  siteName_DESC = 'siteName_DESC',
   sys_firstPublishedAt_ASC = 'sys_firstPublishedAt_ASC',
   sys_firstPublishedAt_DESC = 'sys_firstPublishedAt_DESC',
   sys_id_ASC = 'sys_id_ASC',
@@ -5332,6 +5576,10 @@ export type cfPageNestedFilter = {
   OR?: InputMaybe<Array<InputMaybe<cfPageNestedFilter>>>;
   bottomContentAreaCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
+  icon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5369,6 +5617,20 @@ export type cfSeoMetadataNestedFilter = {
   canonicalUrl_not_contains?: InputMaybe<Scalars['String']['input']>;
   canonicalUrl_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  countryName?: InputMaybe<Scalars['String']['input']>;
+  countryName_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  countryName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  countryName_not?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  countryName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator?: InputMaybe<Scalars['String']['input']>;
+  creator_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  creator_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  creator_not?: InputMaybe<Scalars['String']['input']>;
+  creator_not_contains?: InputMaybe<Scalars['String']['input']>;
+  creator_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   description?: InputMaybe<Scalars['String']['input']>;
   description_contains?: InputMaybe<Scalars['String']['input']>;
   description_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5376,6 +5638,7 @@ export type cfSeoMetadataNestedFilter = {
   description_not?: InputMaybe<Scalars['String']['input']>;
   description_not_contains?: InputMaybe<Scalars['String']['input']>;
   description_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  favicon_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5394,6 +5657,20 @@ export type cfSeoMetadataNestedFilter = {
   noIndex_exists?: InputMaybe<Scalars['Boolean']['input']>;
   noIndex_not?: InputMaybe<Scalars['Boolean']['input']>;
   ogImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher?: InputMaybe<Scalars['String']['input']>;
+  publisher_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  publisher_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  publisher_not?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_contains?: InputMaybe<Scalars['String']['input']>;
+  publisher_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName?: InputMaybe<Scalars['String']['input']>;
+  siteName_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  siteName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  siteName_not?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  siteName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']['input']>;
   title_contains?: InputMaybe<Scalars['String']['input']>;
@@ -5477,9 +5754,47 @@ export type cftopContentAreaMultiTypeNestedFilter = {
   ui_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type LayoutFieldsFragment = { __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null };
+export type ContentItemFieldsFragment = { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, coverImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
 
-export type PageFieldsFragment = { __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
+export type StatItemFieldsFragment = { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null };
+
+export type IconFieldsFragment = { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } };
+
+export type ImageFieldsFragment = { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
+
+export type LinkFieldsFragment = { __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null };
+
+export type LayoutFieldsFragment = { __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, siteName: string | null, publisher: string | null, creator: string | null, countryName: string | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, favicon: { url: string | null, title: string | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null };
+
+export type PageFieldsFragment = { __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, description: { json: unknown, links: { entries: { block: Array<
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, siteName: string | null, publisher: string | null, creator: string | null, countryName: string | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, favicon: { url: string | null, title: string | null } | null } | null, topContentAreaCollection: { items: Array<
       | { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
                     | { sys: { id: string } }
@@ -5549,31 +5864,7 @@ export type PageFieldsFragment = { __typename: 'Page', internalName: string | nu
          | null }
      | null> } | null };
 
-export type ContentItemFieldsFragment = { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, coverImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
-
-export type StatItemFieldsFragment = { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null };
-
-export type IconFieldsFragment = { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } };
-
-export type ImageFieldsFragment = { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
-
-export type LinkFieldsFragment = { __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null };
-
-export type SeoMetadataFieldsFragment = { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null };
+export type SeoMetadataFieldsFragment = { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, siteName: string | null, publisher: string | null, creator: string | null, countryName: string | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, favicon: { url: string | null, title: string | null } | null };
 
 export type ContentListFieldsFragment = { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
               | { sys: { id: string } }
@@ -5615,7 +5906,7 @@ export type GetLayoutQueryVariables = Exact<{
 }>;
 
 
-export type GetLayoutQuery = { layoutCollection: { items: Array<{ __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null };
+export type GetLayoutQuery = { layoutCollection: { items: Array<{ __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, siteName: string | null, publisher: string | null, creator: string | null, countryName: string | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, favicon: { url: string | null, title: string | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null } | null> } | null };
 
 export type GetPageByPathQueryVariables = Exact<{
   path: string;
@@ -5623,7 +5914,21 @@ export type GetPageByPathQueryVariables = Exact<{
 }>;
 
 
-export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
+export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, description: { json: unknown, links: { entries: { block: Array<
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, siteName: string | null, publisher: string | null, creator: string | null, countryName: string | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, favicon: { url: string | null, title: string | null } | null } | null, topContentAreaCollection: { items: Array<
           | { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                         | { sys: { id: string } }
                         | { sys: { id: string } }
@@ -5721,11 +6026,19 @@ export const SeoMetadataFieldsFragmentDoc = gql`
   title
   description
   keywords
+  siteName
+  publisher
+  creator
+  countryName
   canonicalUrl
   noIndex
   noFollow
   ogImage {
     ...ImageFields
+  }
+  favicon {
+    url
+    title
   }
 }
     ${ImageFieldsFragmentDoc}`;
@@ -5931,6 +6244,36 @@ export const PageFieldsFragmentDoc = gql`
   internalName
   path
   title
+  icon {
+    ...IconFields
+  }
+  description {
+    json
+    links {
+      entries {
+        block {
+          sys {
+            id
+          }
+          ... on Image {
+            ...ImageFields
+          }
+        }
+      }
+      assets {
+        block {
+          sys {
+            id
+          }
+          url
+          title
+          description
+          width
+          height
+        }
+      }
+    }
+  }
   seo {
     ...SeoMetadataFields
   }
@@ -5955,7 +6298,9 @@ export const PageFieldsFragmentDoc = gql`
     }
   }
 }
-    ${SeoMetadataFieldsFragmentDoc}
+    ${IconFieldsFragmentDoc}
+${ImageFieldsFragmentDoc}
+${SeoMetadataFieldsFragmentDoc}
 ${ContentListFieldsFragmentDoc}
 ${ContentSectionFieldsFragmentDoc}`;
 export const GetLayoutDocument = gql`

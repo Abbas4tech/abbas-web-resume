@@ -71,10 +71,7 @@ const StepTitle = memo(
   forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
     ({ className, ...props }, ref) => (
       <h3
-        className={cn(
-          "font-extrabold text-xl sm:text-2xl md:text-3xl",
-          className
-        )}
+        className={cn("font-bold text-xl sm:text-2xl md:text-3xl", className)}
         ref={ref}
         {...props}
       />

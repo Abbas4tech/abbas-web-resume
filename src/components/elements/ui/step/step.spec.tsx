@@ -27,7 +27,7 @@ describe("Step Components", () => {
     expect(screen.getByTestId("step-item")).toHaveClass("relative", "flex");
     expect(screen.getByTestId("step-sep")).toHaveClass("border-gray-600");
     expect(screen.getByText("1")).toBeInTheDocument();
-    expect(screen.getByText("Step One")).toHaveClass("font-extrabold");
+    expect(screen.getByText("Step One")).toHaveClass("font-bold");
     expect(screen.getByText("This is the first step.")).toBeInTheDocument();
     expect(screen.getByText("Inner Content")).toBeInTheDocument();
   });

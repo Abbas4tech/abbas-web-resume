@@ -28,6 +28,9 @@ This directory contains Architecture Decision Records — documents that capture
 | [0015](./0015-motion-components-in-element-layer.md) | Motion Components in Element Layer | ✅ accepted | 2026-06 |
 | [0016](./0016-curated-static-icon-registry.md) | Curated Static Icon Registry | ✅ accepted | 2026-06-21 |
 | [0017](./0017-animated-grid-card-physics.md) | Animated Grid Card Physics | ✅ accepted | 2026-06 |
+| [0018](./0018-contentful-wrapper-components-and-taxonomy.md) | Contentful Wrapper Components and Model Taxonomy Alignment | 🔶 proposed | 2026-06-23 |
+| [0019](./0019-legacy-space-cross-schema-content-migration.md) | Legacy Contentful Space → Composable Space: Cross-Schema Content Migration | ✅ accepted | 2026-09-06 |
+| [0020](./0020-font-loading-and-typography-continuity-audit.md) | Font Loading and Typography Continuity Audit (master vs. develop-draft) | 🔶 proposed | 2026-09-07 |
 
 ---
 
@@ -52,6 +55,9 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0014]** — Advanced motion patterns (parallax, stagger, scroll progress)
 - **[0015]** — Motion behavioral elements placed in the Element layer
 - **[0017]** — Tactile spring physics for grid card animations
+
+### Typography
+- **[0020]** — Audited font-size/weight parity between deployed `master` and the `develop-draft` rewrite; found the component refactor preserved the type scale exactly, but flagged a real font-weight-loading fix (and a font-subset regression risk) in the shared `next/font` config
 
 ### Tooling & Infrastructure
 - **[0002]** — Storybook v10 with `@storybook/nextjs-vite`, DaisyUI theme addon

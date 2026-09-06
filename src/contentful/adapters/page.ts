@@ -1,3 +1,4 @@
+import type { Document } from "@contentful/rich-text-types";
 import type {
   ContentListFieldsFragment,
   ContentSectionFieldsFragment,
@@ -5,6 +6,7 @@ import type {
 } from "../generated/contentful-sdk.generated";
 import { adaptContentList } from "./content-list";
 import { adaptContentSection } from "./content-section";
+import { adaptIcon } from "./icon";
 import { adaptSeoMetadata } from "./seo-metadata";
 
 type ContentBlock =
@@ -63,6 +65,8 @@ export function adaptPage(item: PageFieldsFragment | null | undefined) {
     internalName: item.internalName || "",
     title: item.title || "",
     path: item.path || "",
+    icon: adaptIcon(item.icon),
+    description: (item.description?.json as Document) || null,
     seo: adaptSeoMetadata(item.seo),
     topContentArea: (item.topContentAreaCollection?.items || [])
       .map(adaptContentBlock)

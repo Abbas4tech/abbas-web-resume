@@ -7,10 +7,18 @@ fragment SeoMetadataFields on SeoMetadata {
   title
   description
   keywords
+  siteName
+  publisher
+  creator
+  countryName
   canonicalUrl
   noIndex
   noFollow
   ogImage {
     ...ImageFields
+  }
+  favicon {
+    url
+    title
   }
 }
