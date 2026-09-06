@@ -823,6 +823,15 @@ async function main() {
         localized: false,
         validations: [{ linkContentType: ["image"] }],
       },
+      {
+        id: "favicon",
+        name: "favicon",
+        type: "Link",
+        linkType: "Asset",
+        required: false,
+        localized: false,
+        validations: [],
+      },
     ],
   });
 
@@ -858,15 +867,6 @@ async function main() {
       {
         id: "resume",
         name: "resume",
-        type: "Link",
-        linkType: "Asset",
-        required: false,
-        localized: false,
-        validations: [],
-      },
-      {
-        id: "favicon",
-        name: "favicon",
         type: "Link",
         linkType: "Asset",
         required: false,
