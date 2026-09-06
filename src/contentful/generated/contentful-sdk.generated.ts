@@ -238,8 +238,9 @@ export enum ArticleOrder {
 }
 
 /** Represents a binary file in a space. An asset can be any file type. */
-export type Asset = {
+export type Asset = _Node & {
   __typename?: 'Asset';
+  _id: Scalars['ID']['output'];
   contentType?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   description?: Maybe<Scalars['String']['output']>;
@@ -3442,6 +3443,7 @@ export type Page = Entry & _Node & {
   bottomContentAreaCollection?: Maybe<PageBottomContentAreaCollection>;
   bottomContentAreaCursorCollection?: Maybe<PageBottomContentAreaCursorCollection>;
   contentfulMetadata: ContentfulMetadata;
+  description?: Maybe<PageDescription>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<PageLinkingCollections>;
   path?: Maybe<Scalars['String']['output']>;
@@ -3473,6 +3475,13 @@ export type PagebottomContentAreaCursorCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PageBottomContentAreaFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/page) */
+export type PagedescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3587,12 +3596,63 @@ export type PageCursorCollection = {
   pages: CursorPages;
 };
 
+export type PageDescription = {
+  __typename?: 'PageDescription';
+  json: Scalars['JSON']['output'];
+  links: PageDescriptionLinks;
+};
+
+export type PageDescriptionAssets = {
+  __typename?: 'PageDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type PageDescriptionEntries = {
+  __typename?: 'PageDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type PageDescriptionLinks = {
+  __typename?: 'PageDescriptionLinks';
+  assets: PageDescriptionAssets;
+  entries: PageDescriptionEntries;
+  resources: PageDescriptionResources;
+};
+
+export type PageDescriptionResources = {
+  __typename?: 'PageDescriptionResources';
+  block: Array<PageDescriptionResourcesBlock>;
+  hyperlink: Array<PageDescriptionResourcesHyperlink>;
+  inline: Array<PageDescriptionResourcesInline>;
+};
+
+export type PageDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type PageDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type PageDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesInline';
+  sys: ResourceSys;
+};
+
 export type PageFilter = {
   AND?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   bottomContentArea?: InputMaybe<cfbottomContentAreaMultiTypeNestedFilter>;
   bottomContentAreaCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5332,6 +5392,9 @@ export type cfPageNestedFilter = {
   OR?: InputMaybe<Array<InputMaybe<cfPageNestedFilter>>>;
   bottomContentAreaCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5477,9 +5540,47 @@ export type cftopContentAreaMultiTypeNestedFilter = {
   ui_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type ContentItemFieldsFragment = { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, coverImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
+
+export type StatItemFieldsFragment = { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null };
+
+export type IconFieldsFragment = { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } };
+
+export type ImageFieldsFragment = { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
+
+export type LinkFieldsFragment = { __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null };
+
 export type LayoutFieldsFragment = { __typename: 'Layout', internalName: string | null, title: string | null, role: string | null, defaultTheme: string | null, themeList: Array<string | null> | null, email: string | null, footerText: string | null, drawerVariant: string | null, drawerSide: string | null, sys: { id: string }, resume: { url: string | null, title: string | null } | null, globalSeo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, siteLogo: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, resumeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, themeIcon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, navigationLinksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null };
 
-export type PageFieldsFragment = { __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
+export type PageFieldsFragment = { __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, description: { json: unknown, links: { entries: { block: Array<
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+          | { sys: { id: string } }
+         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
       | { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                     | { sys: { id: string } }
                     | { sys: { id: string } }
@@ -5549,30 +5650,6 @@ export type PageFieldsFragment = { __typename: 'Page', internalName: string | nu
          | null }
      | null> } | null };
 
-export type ContentItemFieldsFragment = { __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-          | { sys: { id: string } }
-         | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, image: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, coverImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null, linksCollection: { items: Array<{ __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null } | null> } | null, subItemsCollection: { items: Array<{ __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null } | null> } | null };
-
-export type StatItemFieldsFragment = { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null };
-
-export type IconFieldsFragment = { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } };
-
-export type ImageFieldsFragment = { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null };
-
-export type LinkFieldsFragment = { __typename: 'Link', internalName: string | null, text: string | null, url: string | null, sys: { id: string }, page: { path: string | null, sys: { id: string } } | null, icon: { __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null };
-
 export type SeoMetadataFieldsFragment = { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null };
 
 export type ContentListFieldsFragment = { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
@@ -5623,7 +5700,21 @@ export type GetPageByPathQueryVariables = Exact<{
 }>;
 
 
-export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
+export type GetPageByPathQuery = { pageCollection: { items: Array<{ __typename: 'Page', internalName: string | null, path: string | null, title: string | null, sys: { id: string }, description: { json: unknown, links: { entries: { block: Array<
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+              | { sys: { id: string } }
+             | null> }, assets: { block: Array<{ url: string | null, title: string | null, description: string | null, width: number | null, height: number | null, sys: { id: string } } | null> } } } | null, seo: { __typename: 'SeoMetadata', internalName: string | null, title: string | null, description: string | null, keywords: Array<string | null> | null, canonicalUrl: string | null, noIndex: boolean | null, noFollow: boolean | null, sys: { id: string }, ogImage: { __typename: 'Image', internalName: string | null, alternativeText: string | null, caption: string | null, sys: { id: string }, image: { url: string | null, title: string | null, description: string | null, width: number | null, height: number | null } | null } | null } | null, topContentAreaCollection: { items: Array<
           | { internalName: string | null, ui: string | null, title: string | null, entries: string | null, sys: { id: string }, description: { json: unknown } | null, customEntriesCollection: { items: Array<{ __typename: 'ContentItem', entryField: string | null, title: string | null, subtitle: string | null, description: string | null, startDate: unknown, endDate: unknown, tags: Array<string | null> | null, sys: { id: string }, body: { json: unknown, links: { entries: { block: Array<
                         | { sys: { id: string } }
                         | { sys: { id: string } }
@@ -5931,6 +6022,33 @@ export const PageFieldsFragmentDoc = gql`
   internalName
   path
   title
+  description {
+    json
+    links {
+      entries {
+        block {
+          sys {
+            id
+          }
+          ... on Image {
+            ...ImageFields
+          }
+        }
+      }
+      assets {
+        block {
+          sys {
+            id
+          }
+          url
+          title
+          description
+          width
+          height
+        }
+      }
+    }
+  }
   seo {
     ...SeoMetadataFields
   }
@@ -5955,7 +6073,8 @@ export const PageFieldsFragmentDoc = gql`
     }
   }
 }
-    ${SeoMetadataFieldsFragmentDoc}
+    ${ImageFieldsFragmentDoc}
+${SeoMetadataFieldsFragmentDoc}
 ${ContentListFieldsFragmentDoc}
 ${ContentSectionFieldsFragmentDoc}`;
 export const GetLayoutDocument = gql`

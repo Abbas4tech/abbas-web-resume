@@ -5,7 +5,7 @@ import { MotionProvider } from "@/components/elements/behavior/motion-provider/m
 
 import "./globals.css";
 
-const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
+const inter = Poppins({ subsets: ["latin-ext"], weight: ["400", "700"] });
 
 export default async function RootLayout({
   children,

@@ -664,6 +664,14 @@ async function main() {
         validations: [],
       },
       {
+        id: "description",
+        name: "description",
+        type: "RichText",
+        required: false,
+        localized: false,
+        validations: richTextValidation,
+      },
+      {
         id: "topContentArea",
         name: "topContentArea",
         type: "Array",

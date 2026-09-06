@@ -228,8 +228,9 @@ export type ArticleOrder =
   | 'title_DESC';
 
 /** Represents a binary file in a space. An asset can be any file type. */
-export type Asset = {
+export type Asset = _Node & {
   __typename?: 'Asset';
+  _id: Scalars['ID']['output'];
   contentType?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   description?: Maybe<Scalars['String']['output']>;
@@ -3383,6 +3384,7 @@ export type Page = Entry & _Node & {
   bottomContentAreaCollection?: Maybe<PageBottomContentAreaCollection>;
   bottomContentAreaCursorCollection?: Maybe<PageBottomContentAreaCursorCollection>;
   contentfulMetadata: ContentfulMetadata;
+  description?: Maybe<PageDescription>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<PageLinkingCollections>;
   path?: Maybe<Scalars['String']['output']>;
@@ -3414,6 +3416,13 @@ export type PageBottomContentAreaCursorCollectionArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PageBottomContentAreaFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/llac041ddp2o/content_types/page) */
+export type PageDescriptionArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3528,12 +3537,63 @@ export type PageCursorCollection = {
   pages: CursorPages;
 };
 
+export type PageDescription = {
+  __typename?: 'PageDescription';
+  json: Scalars['JSON']['output'];
+  links: PageDescriptionLinks;
+};
+
+export type PageDescriptionAssets = {
+  __typename?: 'PageDescriptionAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type PageDescriptionEntries = {
+  __typename?: 'PageDescriptionEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type PageDescriptionLinks = {
+  __typename?: 'PageDescriptionLinks';
+  assets: PageDescriptionAssets;
+  entries: PageDescriptionEntries;
+  resources: PageDescriptionResources;
+};
+
+export type PageDescriptionResources = {
+  __typename?: 'PageDescriptionResources';
+  block: Array<PageDescriptionResourcesBlock>;
+  hyperlink: Array<PageDescriptionResourcesHyperlink>;
+  inline: Array<PageDescriptionResourcesInline>;
+};
+
+export type PageDescriptionResourcesBlock = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type PageDescriptionResourcesHyperlink = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type PageDescriptionResourcesInline = ResourceLink & {
+  __typename?: 'PageDescriptionResourcesInline';
+  sys: ResourceSys;
+};
+
 export type PageFilter = {
   AND?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   bottomContentArea?: InputMaybe<CfbottomContentAreaMultiTypeNestedFilter>;
   bottomContentAreaCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5257,6 +5317,9 @@ export type CfPageNestedFilter = {
   OR?: InputMaybe<Array<InputMaybe<CfPageNestedFilter>>>;
   bottomContentAreaCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  description_contains?: InputMaybe<Scalars['String']['input']>;
+  description_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  description_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;

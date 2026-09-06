@@ -78,6 +78,7 @@ Main page definitions that map to URL routes.
 * **internalName** (Symbol, Required)
 * **path** (Symbol, Required, Unique): The URL path (e.g., `/`, `/about`).
 * **title** (Symbol, Required)
+* **description** (RichText): Page description, rendered below the section heading.
 * **topContentArea** (Array of `contentList`, `contentSection`): Components rendered at the top of the page.
 * **bottomContentArea** (Array of `contentList`, `contentSection`): Components rendered at the bottom.
 * **seo** (Entry Link to `seoMetadata`)
