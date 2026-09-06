@@ -1,4 +1,4 @@
-import type { Document } from "@contentful/rich-text-types";
+import type { Document, Text } from "@contentful/rich-text-types";
 import { BLOCKS } from "@contentful/rich-text-types";
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@/test/utils";
@@ -47,7 +47,7 @@ describe("RichText", () => {
     expect(paragraph).toHaveClass("custom-p");
   });
 
-  function textNode(value: string) {
+  function textNode(value: string): Text {
     return { nodeType: "text", value, marks: [], data: {} };
   }
 
