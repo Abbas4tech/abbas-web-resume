@@ -203,8 +203,20 @@ test("homepage is accessible", async ({ page }) => {
 
 ---
 
+## Known Gaps & Remediation Plan
+
+An audit on 2026-09-07 found unit/component coverage at ~26% statements (concentrated gaps: the core Contentful
+adapters in `src/contentful/adapters/` are almost entirely untested at ~4%, and `rich-text.tsx` under-covers its
+node-type mapping), one pre-existing failing adapter spec with swapped mock fixtures, and an E2E suite
+consisting of two smoke-level specs against a single, near-empty mock page. See
+[ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md) and
+[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md) for the full findings and the proposed, phased
+remediation plan (not yet implemented).
+
 ## Related ADRs
 
 - [ADR 0005 — Vitest Component Testing Strategy](./adr/0005-vitest-component-testing-strategy.md)
 - [ADR 0006 — Playwright E2E Strategy](./adr/0006-playwright-e2e-strategy.md)
 - [ADR 0007 — Playwright Production Setup](./adr/0007-playwright-production-setup.md)
+- [ADR 0021 — Unit & Component Test Coverage Remediation Plan](./adr/0021-unit-component-test-coverage-remediation.md)
+- [ADR 0022 — E2E Journey Coverage & Synthetic Fixture Expansion](./adr/0022-e2e-journey-and-fixture-expansion.md)

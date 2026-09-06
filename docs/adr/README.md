@@ -3,6 +3,10 @@
 This directory contains Architecture Decision Records — documents that capture the key technical and architectural decisions made during the development of this project, their context, the options considered, and their consequences.
 
 > **Format:** Each ADR is named `NNNN-short-title.md`. Status values: `accepted`, `deprecated`, `superseded`.
+>
+> **Note:** 0018-0020 are reserved by ADRs already authored on an unmerged sibling branch
+> (`feat/develop-draft/page-description-richtext-field`) and are intentionally skipped here to avoid a numbering
+> collision when that branch merges into `develop-draft`.
 
 ---
 
@@ -28,6 +32,8 @@ This directory contains Architecture Decision Records — documents that capture
 | [0015](./0015-motion-components-in-element-layer.md) | Motion Components in Element Layer | ✅ accepted | 2026-06 |
 | [0016](./0016-curated-static-icon-registry.md) | Curated Static Icon Registry | ✅ accepted | 2026-06-21 |
 | [0017](./0017-animated-grid-card-physics.md) | Animated Grid Card Physics | ✅ accepted | 2026-06 |
+| [0021](./0021-unit-component-test-coverage-remediation.md) | Unit & Component Test Coverage Remediation Plan | 🔶 proposed | 2026-09-07 |
+| [0022](./0022-e2e-journey-and-fixture-expansion.md) | E2E Journey Coverage & Synthetic Fixture Expansion | 🔶 proposed | 2026-09-07 |
 
 ---
 
@@ -45,6 +51,8 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0005]** — Vitest with jsdom, centralized mock factories, and colocated spec files
 - **[0006]** — Playwright with MSW-mocked Contentful API and Block Object Models
 - **[0007]** — Production Playwright configuration with browser caching
+- **[0021]** — Coverage audit (26% statements, adapters at ~4%) and a prioritized remediation plan
+- **[0022]** — Synthetic multi-page E2E fixture plan and full journey/device-matrix expansion
 
 ### Animation
 - **[0011]** — Removed AOS (CSS-class-based, incompatible with RSC)
