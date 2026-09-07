@@ -243,6 +243,12 @@ fetch-cache finding was possible at all, rather than treating the `webServer.com
   cache restored from a previous run regardless of this fix — the fetch-cache bug was never actually reachable
   in the current CI job as written. It's undocumented, easy to invalidate with an innocent step reorder, and
   now moot besides: `cache: "no-store"` means there is nothing to restore.
+- **Fixture images moved from fake `images.ctfassets.net` URLs to local files under `public/fixtures/`.**
+  Purely cosmetic — the fake URLs 404'd against the real CDN on every render, which didn't fail any assertion
+  (Next Image still renders the `<img>` with its `alt` text regardless) but spammed `[WebServer] upstream
+  image response failed` into every local/CI run's output. Generated 7 small solid-gradient PNGs (no image
+  library needed — hand-built via Node's `zlib.deflateSync`/`crc32`) matching the fixture's real dimensions,
+  referenced as `/fixtures/<name>.png` so Next resolves them locally with no network call at all.
 
 Remaining groups (3 — per-block content journeys, 4 — routing & error surfaces, 5 — accessibility, 6 — device
 sweep) are not yet implemented.

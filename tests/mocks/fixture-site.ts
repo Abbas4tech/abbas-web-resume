@@ -117,7 +117,7 @@ export const fixtureLayout = createMockLayout({
     alternativeText: "Ada Sparkline logo",
     caption: null,
     image: {
-      url: "https://images.ctfassets.net/fixture-space/logo.svg",
+      url: "/fixtures/logo.png",
       title: "Ada Sparkline logo",
       description: null,
       width: 64,
@@ -198,7 +198,7 @@ const aboutHero = createMockContentSection({
       internalName: "Hero banner cover",
       alternativeText: "Abstract fixture banner artwork",
       image: {
-        url: "https://images.ctfassets.net/fixture-space/hero-banner.jpg",
+        url: "/fixtures/hero-banner.png",
         title: "Hero banner",
         description: null,
         width: 1600,
@@ -210,7 +210,7 @@ const aboutHero = createMockContentSection({
       internalName: "Hero avatar",
       alternativeText: "Ada Sparkline avatar illustration",
       image: {
-        url: "https://images.ctfassets.net/fixture-space/avatar.png",
+        url: "/fixtures/avatar.png",
         title: "Avatar",
         description: null,
         width: 240,
@@ -462,7 +462,7 @@ const projectCard = (
       internalName: `${title} thumbnail`,
       alternativeText: `${title} thumbnail`,
       image: {
-        url: `https://images.ctfassets.net/fixture-space/${id}.jpg`,
+        url: `/fixtures/${id}.png`,
         title,
         description: null,
         width: 640,

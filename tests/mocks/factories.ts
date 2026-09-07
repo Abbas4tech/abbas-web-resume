@@ -68,7 +68,7 @@ export const createMockImage = createFactory<ImageFieldsFragment>({
   alternativeText: "A placeholder fixture image",
   caption: null,
   image: {
-    url: "https://images.ctfassets.net/fixture-space/default.svg",
+    url: "/fixtures/logo.png",
     title: "Default image",
     description: null,
     width: 800,
