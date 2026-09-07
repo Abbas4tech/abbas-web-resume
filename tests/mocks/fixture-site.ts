@@ -63,6 +63,11 @@ export const fixtureIcons = {
   postgres: icon("icon-postgres", "si/SiPostgresql", "PostgreSQL"),
   vitest: icon("icon-vitest", "si/SiVitest", "Vitest"),
   storybook: icon("icon-storybook", "si/SiStorybook", "Storybook"),
+  viewProject: icon(
+    "icon-view-project",
+    "fa/FaExternalLinkAlt",
+    "View project"
+  ),
 };
 
 function pageSeo(
@@ -475,6 +480,7 @@ const projectCard = (
           sys: mockContentfulSys(`${id}-link`),
           internalName: `${title} demo link`,
           text: "View project",
+          icon: fixtureIcons.viewProject,
           url: demoUrl,
         }),
       ],

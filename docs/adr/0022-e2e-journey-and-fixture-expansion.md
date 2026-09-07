@@ -250,7 +250,34 @@ fetch-cache finding was possible at all, rather than treating the `webServer.com
   library needed — hand-built via Node's `zlib.deflateSync`/`crc32`) matching the fixture's real dimensions,
   referenced as `/fixtures/<name>.png` so Next resolves them locally with no network call at all.
 
-Remaining groups (3 — per-block content journeys, 4 — routing & error surfaces, 5 — accessibility, 6 — device
+### PR 7 — Per-block content journeys (§2 group 3) — done
+
+One spec file per Block, each with its own Block Object Model, asserting against the fixture content built in
+PR 4: `hero-banner.spec.ts`, `split-content-panel.spec.ts`, `timeline-section.spec.ts` (both entries and the
+multi-node-type rich-text body), `card-grid.spec.ts`, `panel-showcase.spec.ts`. New BOMs: `HeroBannerModel`,
+`SplitContentPanelModel`, `TimelineSectionModel`, `CardGridModel`, `PanelShowcaseModel`.
+
+Two content-model fields turned out to be silently dropped by the components that render them — both fixed by
+enriching the fixture rather than touching the components, since neither breaks anything today and a component
+change felt like a bigger call than this PR's scope:
+
+- **`CardGrid`'s footer links never render their link `text`.** `MediaCard`'s `CardFooter` only ever renders
+  `{icon && <Icon {...icon} />}` for each link — `link.text` (e.g. "View project") is read from Contentful,
+  survives the adapter, and is then never used. A link with no `icon` set renders as a completely empty,
+  content-less `<a>` with no accessible name at all. Worked around by giving the fixture's project links an
+  icon (`fa/FaExternalLinkAlt`, named "View project") so `Icon`'s own `aria-label` gives the link *some*
+  accessible name — but this is a real gap for actual Contentful content authored without an icon.
+- **`PanelShowcase` never renders a skill row's `title`.** `PanelShowcaseRow` only carries `{ progress, icons }`
+  — `adaptPanelShowcase` drops `subItem.title` on the floor. The row is only identifiable by its icons and
+  progress value, which is what `PanelShowcaseModel.rowByIcon()` locates by instead of a label that doesn't
+  exist in the DOM.
+
+One test-authoring bug caught by a real failure, not by inspection: the first pass at `entryTitles` used
+`page.getByRole("heading", { level: 3 })`, which also matched the `<h3>` inside the timeline entry's own
+rich-text body ("What I shipped") — 4 headings instead of 3. Fixed by scoping to headings with a `.sr-only`
+descendant (unique to `StepTitle`, absent from a rich-text heading).
+
+Remaining groups (4 — routing & error surfaces, 5 — accessibility, 6 — device
 sweep) are not yet implemented.
 
 ## Considered Options
