@@ -6,6 +6,13 @@ Date: 2026-06-18
 
 Accepted
 
+> **Note (2026-09-07):** The job structure and branch name described below have been
+> superseded by [ADR 0023](./0023-ci-pipeline-parallelization.md) — the pipeline is
+> now a parallel job graph rather than one sequential job, and the branch used
+> throughout this ADR as `main` is this repository's actual `master`. The
+> decisions below (Vercel for CD, the Python changeset gate, Python-driven
+> release automation) are otherwise still accurate.
+
 ## Context
 
 We need a production-grade CI/CD pipeline to ensure code quality, test integrity, and predictable releases. The project currently leverages a modern stack consisting of Next.js, Vercel (for hosting), Ultracite (linting/formatting), TypeScript, Vitest (component testing), Playwright (E2E testing), Storybook, and Changesets (versioning).

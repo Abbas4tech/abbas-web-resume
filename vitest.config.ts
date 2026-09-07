@@ -13,7 +13,17 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "json", "html"],
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/**/*.mock.ts", "src/**/*.stories.tsx"],
+      exclude: [
+        "src/**/*.mock.ts",
+        "src/**/*.stories.tsx",
+        "src/contentful/generated/**",
+        "src/contentful/scripts/**",
+      ],
+      thresholds: {
+        statements: 75,
+        lines: 75,
+        branches: 65,
+      },
     },
   },
 });

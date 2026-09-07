@@ -10,7 +10,7 @@ The application is hosted on **Vercel** using native GitHub integration. Every p
 
 | Branch | Deployment |
 |--------|-----------|
-| `main` | Production (`https://your-domain.vercel.app`) |
+| `master` | Production (`https://your-domain.vercel.app`) |
 | `develop-draft` | Preview environment |
 | Any PR branch | Per-PR preview URL |
 
@@ -50,37 +50,45 @@ on:
   push:
     branches: ['develop-draft', '**/develop-draft/**', 'feat/develop-draft/**']
   pull_request:
-    branches: [main, 'develop-draft', '**/develop-draft/**', 'feat/develop-draft/**']
+    branches: [master, 'develop-draft', '**/develop-draft/**', 'feat/develop-draft/**']
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 ```
 
-### Job 1: Check Changeset
+A new push to the same branch/PR cancels whatever CI run was already in flight for it, instead of letting a now-superseded run finish and burn runner minutes.
 
-**Always runs first.**
+### Job Graph
 
-```bash
-python scripts/ci/check-changeset.py
+As of [ADR 0023](./adr/0023-ci-pipeline-parallelization.md), everything past the changeset gate runs as **parallel sibling jobs** on separate runners instead of sequential steps in one job — the old single-job pipeline could take 25-48 minutes end to end because every step, including all 6 Playwright device projects, ran one after another on one machine.
+
+```
+check-changeset
+      │
+      ├── lint
+      ├── typecheck
+      ├── unit-test ─────────────── unit-test-coverage/
+      ├── e2e-test (4-way shard) ── blob-report-{1..4}/ ──▶ merge-e2e-reports ── playwright-report/
+      ├── build
+      └── build-storybook ───────── storybook-static/
 ```
 
-Verifies that a `.changeset/*.md` file is present in the PR diff. Fails immediately if missing — no lint or tests are wasted.
+| Job | Command | Artifact |
+|-----|---------|---------|
+| `lint` | `pnpm check` | — |
+| `typecheck` | `pnpm tsc --noEmit` | — |
+| `unit-test` | `pnpm test:coverage` | `unit-test-coverage/` |
+| `e2e-test` (×4 shards) | `playwright test --shard=N/4` | `blob-report-N/` |
+| `merge-e2e-reports` | `playwright merge-reports` | `playwright-report/` |
+| `build` | `pnpm build` (cached `.next/cache`) | — |
+| `build-storybook` | `pnpm build-storybook` | `storybook-static/` |
 
-### Job 2: Lint, Test, and Build
+Each job installs its own dependencies (fast — pnpm's store is cached by `actions/setup-node`'s `cache: pnpm`), so wall-clock time is roughly the slowest single job rather than the sum of all of them. `e2e-test` is the one that needed real parallelism: it's split into 4 shards via Playwright's `--shard` flag, each uploading a `blob` report, merged into one HTML report by `merge-e2e-reports` afterward.
 
-Runs after Job 1 passes.
+Only `build` receives the Contentful secrets — it's the only job that fetches real content (`next build` statically renders pages from it). Every other job runs against the MSW-mocked fixture site, which matches requests by GraphQL operation name rather than URL or credentials, so it needs no secrets at all.
 
-| Step | Command | Artifact |
-|------|---------|---------|
-| Install pnpm | `pnpm/action-setup@v3 v10.29.1` | — |
-| Install Node | `actions/setup-node@v4 node 22` | — |
-| Install deps | `pnpm install` (cached) | — |
-| Lint & format | `pnpm check` | — |
-| Typecheck | `pnpm tsc --noEmit` | — |
-| Unit tests | `pnpm test:coverage` | `unit-test-coverage/` |
-| Install Playwright | `npx playwright install --with-deps` (cached) | — |
-| E2E tests | `pnpm test:e2e` | `playwright-report/` |
-| Build Next.js | `pnpm build` (cached `.next/`) | — |
-| Build Storybook | `pnpm build-storybook` | `storybook-static/` |
-
-All artifacts are retained for **14 days** per PR.
+All artifacts are retained for **14 days**.
 
 ---
 
@@ -88,7 +96,7 @@ All artifacts are retained for **14 days** per PR.
 
 Defined in `.github/workflows/release.yml`.
 
-On merge to `main`, a Python release script runs:
+On merge to `master`, a Python release script runs:
 
 ```bash
 python scripts/ci/manage-release.py
@@ -130,14 +138,15 @@ The CI pipeline uses aggressive caching to minimize build times:
 | Cache | Key |
 |-------|-----|
 | pnpm store | `pnpm-lock.yaml` hash |
-| Playwright browsers | `pnpm-lock.yaml` hash |
 | Next.js build cache | `pnpm-lock.yaml` + source file hashes |
+
+Playwright's browser binaries are deliberately **not** cached — Playwright's own CI guidance notes that restoring a browser-binary cache takes about as long as a fresh `npx playwright install --with-deps` download, so the cache step was pure overhead with no real speedup. See ADR 0023.
 
 ---
 
 ## Deployment Checklist
 
-Before merging a PR to `main`:
+Before merging a PR to `master`:
 
 - [ ] CI pipeline passes (all jobs green)
 - [ ] Changeset file present
@@ -152,3 +161,4 @@ Before merging a PR to `main`:
 
 - [ADR 0010 — CI/CD Pipeline Architecture](./adr/0010-ci-cd-pipeline-architecture.md)
 - [ADR 0007 — Playwright Production Setup](./adr/0007-playwright-production-setup.md)
+- [ADR 0023 — CI Pipeline Parallelization & Branch-Name Correction](./adr/0023-ci-pipeline-parallelization.md)

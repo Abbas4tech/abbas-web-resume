@@ -22,6 +22,45 @@ describe("ContentList", () => {
     expect(screen.getByText("Card 1")).toBeInTheDocument();
   });
 
+  it("renders TimelineSection block for TimelineSection ui type", () => {
+    const mockData: AdaptedContentList = {
+      __typename: "ContentList",
+      id: "3",
+      internalName: "Experience",
+      ui: "TimelineSection",
+      customEntries: [{ title: "Senior Frontend Engineer" }],
+    } as unknown as AdaptedContentList;
+
+    render(<ContentList data={mockData} />);
+    expect(screen.getByText("Senior Frontend Engineer")).toBeInTheDocument();
+  });
+
+  it("renders SplitContentPanel block for SplitContentPanel ui type", () => {
+    const mockData: AdaptedContentList = {
+      __typename: "ContentList",
+      id: "4",
+      internalName: "About",
+      ui: "SplitContentPanel",
+      customEntries: [{ title: "React", description: "Advanced" }],
+    } as unknown as AdaptedContentList;
+
+    render(<ContentList data={mockData} />);
+    expect(screen.getByText("React")).toBeInTheDocument();
+  });
+
+  it("renders PanelShowcase block for PanelShowcase ui type", () => {
+    const mockData: AdaptedContentList = {
+      __typename: "ContentList",
+      id: "5",
+      internalName: "Skills",
+      ui: "PanelShowcase",
+      customEntries: [{ title: "Frontend", subItems: [] }],
+    } as unknown as AdaptedContentList;
+
+    render(<ContentList data={mockData} />);
+    expect(screen.getByText("Frontend")).toBeInTheDocument();
+  });
+
   it("renders BlockPlaceholder (null in test/prod environment) when ui does not match", () => {
     const mockData: AdaptedContentList = {
       __typename: "ContentList",

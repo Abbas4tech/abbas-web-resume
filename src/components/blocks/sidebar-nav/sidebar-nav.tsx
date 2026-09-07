@@ -5,6 +5,7 @@ import type { ComponentProps } from "react";
 import {
   DrawerSideItem,
   DrawerSideMenu,
+  useDrawer,
 } from "@/components/elements/ui/drawer/drawer";
 import { NavItem } from "@/components/patterns/nav-item/nav-item";
 import { adaptNavItem } from "@/components/patterns/nav-item/nav-item.adapter";
@@ -29,6 +30,7 @@ const SidebarNav = ({
   ...props
 }: SidebarNavProps): React.JSX.Element => {
   const { currentPageData } = usePage({ pages });
+  const { toggleSidebar } = useDrawer();
   return (
     <DrawerSideMenu {...props}>
       {pages.map((page) => {
@@ -45,12 +47,16 @@ const SidebarNav = ({
           <DrawerSideItem className="relative" id={page.title} key={page.title}>
             {isActive && (
               <m.div
-                className="absolute inset-0 border-primary border-l-4 bg-primary/10"
+                className="pointer-events-none absolute inset-0 border-primary border-l-4 bg-primary/10"
                 layoutId="activeSidebarNav"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />
             )}
-            <NavItem {...navItemProps} href={page.pageUrl} />
+            <NavItem
+              {...navItemProps}
+              href={page.pageUrl}
+              onClick={toggleSidebar}
+            />
           </DrawerSideItem>
         );
       })}

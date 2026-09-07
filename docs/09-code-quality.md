@@ -122,14 +122,20 @@ Husky is installed automatically by `pnpm prepare` (runs after `pnpm install`).
 
 ### Pre-commit Hook
 
-Before every commit, Biome auto-fixes all staged files:
+Before every commit, `.husky/pre-commit` runs `ultracite fix` scoped to just the staged files (not the whole repo) and re-stages whatever it changed:
 
 ```bash
-# .husky/pre-commit
-pnpm fix
+# .husky/pre-commit (simplified)
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+# ...build "$@" from $STAGED_FILES...
+if pnpm exec ultracite fix "$@"; then
+  FORMAT_EXIT_CODE=0
+else
+  FORMAT_EXIT_CODE=$?
+fi
 ```
 
-If Biome encounters unfixable issues, the commit is **blocked**. Resolve them manually, then recommit.
+If Biome encounters unfixable issues, the commit is **blocked**. Resolve them manually, then recommit. The `if`/`else` around the fix command is deliberate: under the hook's `set -e`, capturing the exit code as a separate statement (`cmd; code=$?`) would make the script abort on the fix command itself before that capture ever ran — see [ADR 0023](./adr/0023-ci-pipeline-parallelization.md) for the bug this replaced.
 
 ---
 

@@ -31,6 +31,9 @@ This directory contains Architecture Decision Records — documents that capture
 | [0018](./0018-contentful-wrapper-components-and-taxonomy.md) | Contentful Wrapper Components and Model Taxonomy Alignment | 🔶 proposed | 2026-06-23 |
 | [0019](./0019-legacy-space-cross-schema-content-migration.md) | Legacy Contentful Space → Composable Space: Cross-Schema Content Migration | ✅ accepted | 2026-09-06 |
 | [0020](./0020-font-loading-and-typography-continuity-audit.md) | Font Loading and Typography Continuity Audit (master vs. develop-draft) | 🔶 proposed | 2026-09-07 |
+| [0021](./0021-unit-component-test-coverage-remediation.md) | Unit & Component Test Coverage Remediation Plan | ✅ accepted | 2026-09-07 |
+| [0022](./0022-e2e-journey-and-fixture-expansion.md) | E2E Journey Coverage & Synthetic Fixture Expansion | ✅ accepted | 2026-09-07 |
+| [0023](./0023-ci-pipeline-parallelization.md) | CI Pipeline Parallelization & Branch-Name Correction | ✅ accepted | 2026-09-07 |
 
 ---
 
@@ -48,6 +51,8 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0005]** — Vitest with jsdom, centralized mock factories, and colocated spec files
 - **[0006]** — Playwright with MSW-mocked Contentful API and Block Object Models
 - **[0007]** — Production Playwright configuration with browser caching
+- **[0021]** — Coverage audit and remediation, implemented: adapters 4%→97% statements, app-code coverage floor enforced in CI at 75%/65% (currently ~92%/82%)
+- **[0022]** — Full E2E journey suite implemented: synthetic fixture site, global chrome/navigation, per-block content journeys, routing/error surfaces, automated accessibility scanning, and a 6-project device matrix (Mobile Safari + tablet added)
 
 ### Animation
 - **[0011]** — Removed AOS (CSS-class-based, incompatible with RSC)
@@ -63,6 +68,7 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0002]** — Storybook v10 with `@storybook/nextjs-vite`, DaisyUI theme addon
 - **[0010]** — Python-orchestrated CI/CD with Vercel native deployment
 - **[0016]** — Curated static icon registry (reduced bundle from 575 kB to ~173 kB)
+- **[0023]** — Replaced the single sequential CI job with parallel jobs + 4-way E2E sharding (~48 min → roughly a quarter of that on the slowest job); fixed release automation that hardcoded a nonexistent `main` branch instead of the repo's actual `master`
 
 ---
 

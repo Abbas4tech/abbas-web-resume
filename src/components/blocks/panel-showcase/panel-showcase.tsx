@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 export interface PanelShowcaseRow
   extends Pick<IconProgressRowProps, "progress"> {
   icons: IconProps[];
+  label: string;
 }
 
 export interface PanelShowcasePanel {
@@ -52,7 +53,8 @@ const PanelShowcase = memo(
                 <div className="grid grid-cols-1 gap-8 p-2 md:grid-cols-2 md:p-4">
                   {panel.rows.map((row) => (
                     <IconProgressRow
-                      key={`${panel.title}-progress-${row.progress}`}
+                      key={`${panel.title}-${row.label}`}
+                      label={row.label}
                       progress={row.progress}
                     >
                       <IconCluster>

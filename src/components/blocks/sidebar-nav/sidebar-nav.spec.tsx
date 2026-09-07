@@ -1,4 +1,6 @@
+import { fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { Drawer, DrawerButton } from "@/components/elements/ui/drawer/drawer";
 import { render, screen } from "@/test/utils";
 import { SidebarNav } from "./sidebar-nav";
 
@@ -43,5 +45,30 @@ describe("SidebarNav", () => {
     expect(
       await screen.findByRole("img", { name: "Phone Icon" })
     ).toBeInTheDocument();
+  });
+
+  it("closes the drawer when a nav link is clicked", () => {
+    // Closing on click used to be DrawerSideItem's own job (a <button>
+    // wrapping the link), which nested two interactive controls — an axe
+    // "nested-interactive" violation. It's now wired directly onto the
+    // link itself via NavItem's onClick, exercised here through a real
+    // Drawer so the resulting state change is observable.
+    const { container } = render(
+      <Drawer>
+        <DrawerButton data-testid="drawer-toggle" />
+        <SidebarNav pages={mockPages} />
+      </Drawer>
+    );
+
+    const drawer = container.querySelector(".drawer");
+    // Starts collapsed (see the comment on DrawerProvider's `open` state for
+    // why) — open it first so a nav-link click has something to close.
+    expect(drawer).toHaveAttribute("data-state", "collapsed");
+    fireEvent.click(screen.getByTestId("drawer-toggle"));
+    expect(drawer).toHaveAttribute("data-state", "expanded");
+
+    fireEvent.click(screen.getByRole("link", { name: HomeRegex }));
+
+    expect(drawer).toHaveAttribute("data-state", "collapsed");
   });
 });
