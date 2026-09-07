@@ -51,7 +51,7 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0006]** — Playwright with MSW-mocked Contentful API and Block Object Models
 - **[0007]** — Production Playwright configuration with browser caching
 - **[0021]** — Coverage audit and remediation, implemented: adapters 4%→97% statements, app-code coverage floor enforced in CI at 75%/65% (currently ~92%/82%)
-- **[0022]** — Synthetic E2E fixture site, global chrome/navigation, per-block content journeys, and routing/error surfaces implemented (§2 groups 1-4); accessibility and device-matrix expansion (groups 5-6) still planned
+- **[0022]** — Synthetic E2E fixture site, global chrome/navigation, per-block content journeys, routing/error surfaces, and automated accessibility scanning implemented (§2 groups 1-5); device-matrix expansion (group 6) still planned
 
 ### Animation
 - **[0011]** — Removed AOS (CSS-class-based, incompatible with RSC)

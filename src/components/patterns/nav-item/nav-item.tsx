@@ -5,13 +5,16 @@ import { Button } from "@/components/elements/ui/button/button";
 import { Icon } from "@/components/elements/ui/icon/icon";
 import { cn } from "@/lib/utils";
 
-export interface NavItemProps extends HTMLAttributes<HTMLDivElement> {
+export interface NavItemProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onClick"> {
   href: string;
   iconClasses?: string[];
   iconCode: string;
   iconName?: string;
   isActive?: boolean;
   label: string;
+  /** Fired when the link is activated (click, or Enter/Space via its own focus). */
+  onClick?: () => void;
 }
 
 const NavItem = memo(
@@ -25,11 +28,12 @@ const NavItem = memo(
         iconName,
         isActive,
         className,
+        onClick,
         ...props
       },
       ref
     ) => (
-      <div className={cn("", className)} ref={ref} {...props}>
+      <div className={cn("w-full text-left", className)} ref={ref} {...props}>
         <Button
           asLink={true}
           className={cn(
@@ -37,6 +41,7 @@ const NavItem = memo(
             isActive && "font-bold"
           )}
           href={href}
+          onClick={onClick}
         >
           <Icon
             classes={iconClasses ?? []}

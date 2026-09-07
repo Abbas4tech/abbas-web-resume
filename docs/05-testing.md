@@ -231,16 +231,25 @@ Playwright reports are written to `playwright-report/` and uploaded as CI artifa
 
 **Component level**: Testing Library queries encourage semantic, accessible markup by using `getByRole`, `getByLabel`, etc.
 
-**E2E level**: `axe-playwright` runs automated accessibility audits against full page renders:
+**E2E level**: `axe-playwright` runs automatically after every test, wired into the shared
+`tests/e2e/fixtures/test-base.ts` fixture as a `test.afterEach` hook — no per-spec opt-in needed:
 
 ```ts
-import { checkA11y } from "axe-playwright";
-
-test("homepage is accessible", async ({ page }) => {
-  await page.goto("/");
-  await checkA11y(page);
+// tests/e2e/fixtures/test-base.ts (simplified)
+test.afterEach(async ({ page }) => {
+  if (page.url() === "about:blank") return;
+  await page.waitForTimeout(ANIMATION_SETTLE_MS); // see comment in the file for why
+  await injectAxe(page);
+  await checkA11y(page, ACCESSIBILITY_SCAN_CONTEXT, ACCESSIBILITY_SCAN_OPTIONS);
 });
 ```
+
+A handful of rules are disabled suite-wide — each is a real, currently-true gap in the app (no `<h1>` on any
+page, the sidebar/BottomDock aren't wrapped in a landmark element, DaisyUI's `.stats` row isn't
+keyboard-focusable when it overflows), not a false positive being swept under the rug. See
+[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s PR 9 for the full list and the three real bugs
+this scan already found and got fixed (a duplicate `<main>` landmark, a `<button>` nested around a link, and a
+progress bar with no accessible name).
 
 ---
 
@@ -262,16 +271,17 @@ node-type mapping, the motion/behavioral elements, and `theme-toggle`/`drawer`'s
 Application code (excluding the generated GraphQL SDK and migration scripts) now measures ~92% statements / ~82%
 branches, enforced by the coverage floor documented above.
 
-**E2E side — fixture, navigation, per-block, and routing/error journeys done, accessibility/device-matrix not
-started.** [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site (§2 group 1),
-global chrome/navigation journeys (§2 group 2), per-block content journeys (§2 group 3), and routing/error
-surfaces (§2 group 4) are implemented: `tests/mocks/fixture-site.ts` serves a fictional multi-page site
-exercising every registered Block, routed by path through `tests/mocks/handlers.ts`;
-`tests/e2e/navigation.spec.ts` covers the header and sidebar/BottomDock navigation; a spec per Block
-(`hero-banner`, `split-content-panel`, `timeline-section`, `card-grid`, `panel-showcase`) asserts against that
-fixture content; and `tests/e2e/routing.spec.ts` covers direct navigation, the real `notFound()` branch, and
-the `error.tsx` boundary (the last one exercised by a sentinel path the mock handler answers with a GraphQL
-error response). Accessibility and the expanded device matrix (groups 5-6) are still just a plan.
+**E2E side — fixture, navigation, per-block, routing/error, and accessibility done, device-matrix not started.**
+[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site (§2 group 1), global
+chrome/navigation journeys (§2 group 2), per-block content journeys (§2 group 3), routing/error surfaces (§2
+group 4), and automated accessibility scanning (§2 group 5) are implemented: `tests/mocks/fixture-site.ts`
+serves a fictional multi-page site exercising every registered Block, routed by path through
+`tests/mocks/handlers.ts`; `tests/e2e/navigation.spec.ts` covers the header and sidebar/BottomDock navigation; a
+spec per Block (`hero-banner`, `split-content-panel`, `timeline-section`, `card-grid`, `panel-showcase`) asserts
+against that fixture content; `tests/e2e/routing.spec.ts` covers direct navigation, the real `notFound()`
+branch, and the `error.tsx` boundary; and `axe-playwright` runs automatically after every test via a shared
+fixture hook, having already found and gotten fixed three real accessibility bugs. Only the expanded device
+matrix (group 6 — Mobile Safari, tablet) is still just a plan.
 
 ## Related ADRs
 

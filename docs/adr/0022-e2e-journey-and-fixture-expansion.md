@@ -310,7 +310,57 @@ Two things worth knowing about how that error boundary actually behaves, found e
   is long enough to survive slower hydration under load, rather than clicking first and hoping the assertion's
   timeout is generous enough.
 
-Remaining groups (5 — accessibility, 6 — device
+### PR 9 — Accessibility (§2 group 5, §4) — done
+
+`axe-playwright`'s `checkA11y` is wired into the shared `tests/e2e/fixtures/test-base.ts` fixture as a
+`test.afterEach` hook, so every existing and future journey spec gets an automated WCAG scan for free — per §4
+— rather than a parallel a11y-only suite that would need its own page-visit list kept in sync by hand.
+
+Running it for the first time against every fixture page surfaced real, pre-existing structural bugs, not
+fixture artifacts — fixed directly rather than suppressed:
+
+- **Two `<main>` landmarks on every single page.** `Drawer` (in `drawer.tsx`) rendered as a semantic `<main>`
+  purely to hang DaisyUI's `.drawer` class off of, wrapping the page's *actual* content `<main>`
+  (`PageWrapper`). Changed to a `<div>` — `DrawerProps` updated to match, four `drawer.spec.tsx` assertions
+  that queried `container.querySelector("main")` updated to `.drawer` instead.
+- **A `<button>` wrapping a link, on every sidebar nav item.** `DrawerSideItem` wrapped its `children` (always
+  `NavItem`, a real link) in its own `<button onClick={toggleSidebar}>` so that clicking a nav item also closed
+  the drawer — nesting two interactive controls, an axe `nested-interactive` violation. Moved the close-on-tap
+  behavior onto the link itself instead: `NavItem` gained an `onClick` prop forwarded to its underlying
+  `Button`, `SidebarNav` now reads `toggleSidebar` from `useDrawer()` and passes it through, and
+  `DrawerSideItem` went back to being a plain `<li>` wrapper with no behavior of its own. The click-closes-drawer
+  test moved from `drawer.spec.tsx` to `sidebar-nav.spec.tsx`, where the behavior actually lives now.
+- **`PanelShowcase`'s progress bars had no accessible name at all** (`aria-progressbar-name`) — the direct
+  consequence of the row `title` being dropped, found and merely *documented* in PR 7. Fixed properly this
+  time: `adaptPanelShowcase` now keeps `subItem.title` as `label`, threaded through `PanelShowcaseRow` →
+  `IconProgressRow` → `Progress`'s `aria-label`. `panel-showcase.mock.ts` and its Vitest/E2E specs updated to
+  match and assert the new accessible name.
+- **`IconLink`'s icon-code path never passed a `name` to `Icon`,** so the rendered SVG (`role="img"`) had no
+  `aria-label` at all — `svg-img-alt`. One-line fix: pass `name={label}` (the `IconLinkProps.label` was already
+  there, just unused for this).
+
+Three violations are disabled suite-wide because they're real, accepted, *undone* gaps rather than false
+positives — documented here instead of silently swallowed:
+
+- `page-has-heading-one` — `SectionHeading` has no `<h1>` variant; every page's own heading renders as an h2.
+- `region` — the sidebar and BottomDock aren't wrapped in a `<nav>`/landmark element.
+- `scrollable-region-focusable` — DaisyUI's `.stats` row (`SplitContentPanel`'s info rows) can overflow
+  horizontally without being keyboard-focusable when it does.
+
+Separately, `BlockPlaceholder` (the dev-only "missing Block registry mapping" diagnostic — never rendered when
+`NODE_ENV !== "development"`) is excluded from the scan by selector (`.border-warning`) rather than disabling
+`color-contrast`/`heading-order` suite-wide for one intentionally unpolished tool real users never see.
+
+One flakiness trade-off worth knowing about: a scan that fires the instant a test's own assertions pass can
+catch a page mid-animation. Twice across two full-suite runs, a transient `color-contrast` "violation" appeared
+on a themed/animated page and could not be reproduced by rerunning the same test in isolation (3/3 clean) —
+consistent with a spring animation (Framer Motion doesn't use the native Web Animations API, so there's no
+`getAnimations()`-based wait to hook into) still settling under the CPU contention of `fullyParallel: true`
+workers, not a real defect. Mitigated with a flat `750ms` settle delay before injecting axe — a pragmatic
+trade against occasional flakiness, not a claim about how long any specific animation takes. CI's existing
+`retries: 2` is the backstop if it still happens once in a while.
+
+Remaining groups (6 — device
 sweep) are not yet implemented.
 
 ## Considered Options

@@ -31,7 +31,7 @@ export type DrawerProviderProps = ComponentProps<"div"> & {
   variant?: DrawerVariants;
 };
 
-export type DrawerProps = ComponentProps<"main">;
+export type DrawerProps = ComponentProps<"div">;
 export type DrawerButtonProps = HTMLAttributes<HTMLLabelElement>;
 export type DrawerPageContentProps = HTMLAttributes<HTMLDivElement>;
 export type DrawerSideProps = HTMLAttributes<HTMLDivElement>;
@@ -178,11 +178,15 @@ const DrawerButton = memo(
 );
 DrawerButton.displayName = "DrawerButton";
 
-const Drawer = forwardRef<HTMLDivElement, ComponentProps<"main">>(
+const Drawer = forwardRef<HTMLDivElement, ComponentProps<"div">>(
   ({ className, children, ...props }, ref) => {
     const { state, side } = useDrawer();
     return (
-      <main
+      // A layout container for the drawer/sidebar chrome, not page content —
+      // `<main>` belongs to PageWrapper's actual content region. Using it
+      // here produced two <main> landmarks on every page (one nested inside
+      // the other), an axe "landmark-no-duplicate-main" violation.
+      <div
         className={cn(
           "drawer lg:drawer-open",
           side === "right" && "drawer-end",
@@ -194,7 +198,7 @@ const Drawer = forwardRef<HTMLDivElement, ComponentProps<"main">>(
       >
         <DrawerToggle data-state={state} />
         {children}
-      </main>
+      </div>
     );
   }
 );
@@ -254,7 +258,7 @@ DrawerSideMenu.displayName = "DrawerSideMenu";
 const DrawerSideItem = memo(
   forwardRef<HTMLLIElement, HTMLAttributes<HTMLLIElement>>(
     ({ className, children, ...props }, ref) => {
-      const { toggleSidebar, side } = useDrawer();
+      const { side } = useDrawer();
       return (
         <li
           className={cn(
@@ -265,13 +269,7 @@ const DrawerSideItem = memo(
           ref={ref}
           {...props}
         >
-          <button
-            className="w-full text-left"
-            onClick={toggleSidebar}
-            type="button"
-          >
-            {children}
-          </button>
+          {children}
         </li>
       );
     }

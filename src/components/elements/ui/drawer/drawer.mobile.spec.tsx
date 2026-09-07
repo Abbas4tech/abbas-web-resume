@@ -20,7 +20,7 @@ describe("Drawer on mobile", () => {
       </DrawerProvider>
     );
 
-    expect(container.querySelector("main")).toHaveAttribute(
+    expect(container.querySelector(".drawer")).toHaveAttribute(
       "data-state",
       "collapsed"
     );

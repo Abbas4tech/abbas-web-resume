@@ -49,6 +49,7 @@ function renderIcon({
       <Icon
         className="h-6 w-6 md:h-8 md:w-8"
         iconCode={iconCode}
+        name={label}
         showTooltip={false}
         size="28"
       />

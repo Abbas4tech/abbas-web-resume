@@ -12,6 +12,7 @@ export function adaptPanelShowcase(
       title: panel.title,
       headingIcon: panel.icon || { iconCode: "" },
       rows: (panel.subItems || []).map((row) => ({
+        label: row.title,
         progress: row.progress || 0,
         icons: row.icons || [],
       })),

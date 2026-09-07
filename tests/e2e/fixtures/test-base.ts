@@ -1,4 +1,5 @@
 import { test as base } from "@playwright/test";
+import { checkA11y, injectAxe } from "axe-playwright";
 import { AppHeaderModel } from "../models/app-header-model";
 import { BottomDockModel } from "../models/bottom-dock-model";
 import { CardGridModel } from "../models/card-grid-model";
@@ -60,4 +61,51 @@ export const test = base.extend<CustomFixtures>({
   serverError: async ({ page }, use) => {
     await use(new ServerErrorModel(page));
   },
+});
+
+// Rules disabled suite-wide because the app genuinely doesn't satisfy them
+// yet — each is a real, documented gap (see ADR 0022 §4), not a false
+// positive. Disabling them here means a *new* violation of anything else
+// still fails the test it's found in, rather than requiring a parallel,
+// easy-to-forget a11y-only suite.
+const ACCESSIBILITY_SCAN_OPTIONS = {
+  axeOptions: {
+    rules: {
+      // SectionHeading has no h1 variant — every page's own heading renders
+      // as an h2.
+      "page-has-heading-one": { enabled: false },
+      // The sidebar and BottomDock aren't wrapped in a nav/landmark element.
+      region: { enabled: false },
+      // DaisyUI's `.stats` row can overflow horizontally without being
+      // keyboard-focusable when it does.
+      "scrollable-region-focusable": { enabled: false },
+    },
+  },
+};
+
+// BlockPlaceholder only ever renders in development (see its own
+// `NODE_ENV !== "development"` guard) as a diagnostic for a missing Block
+// registry mapping — never shipped to production. Excluded outright rather
+// than disabling color-contrast/heading-order suite-wide for one
+// intentionally unpolished dev-only tool.
+const ACCESSIBILITY_SCAN_CONTEXT = { exclude: [".border-warning"] };
+
+// Framer Motion's spring-based animations (used throughout — theme-switch
+// icon transitions, stagger/fade-up entrances) aren't driven by the native
+// Web Animations API, so there's no reliable "wait for animations" signal to
+// hook into. A scan that fires the instant a test's own assertions pass can
+// catch a genuinely mid-transition frame (observed: a transient
+// color-contrast "violation" after switching themes that a rerun on the
+// same page couldn't reproduce). This settle delay is a pragmatic trade
+// against that flakiness, not a claim about how long any specific animation
+// takes.
+const ANIMATION_SETTLE_MS = 750;
+
+test.afterEach(async ({ page }) => {
+  if (page.url() === "about:blank") {
+    return;
+  }
+  await page.waitForTimeout(ANIMATION_SETTLE_MS);
+  await injectAxe(page);
+  await checkA11y(page, ACCESSIBILITY_SCAN_CONTEXT, ACCESSIBILITY_SCAN_OPTIONS);
 });

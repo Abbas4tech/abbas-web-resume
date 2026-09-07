@@ -25,4 +25,8 @@ export class PanelShowcaseModel {
       .locator(".grid.grid-cols-2")
       .filter({ has: this.page.getByRole("img", { name: iconName }) });
   }
+
+  progressBar(panelTitle: string, label: string): Locator {
+    return this.panel(panelTitle).getByRole("progressbar", { name: label });
+  }
 }

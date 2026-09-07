@@ -10,6 +10,7 @@ describe("PanelShowcase", () => {
         headingIcon: { iconCode: "fa/FaCode", name: "Code Icon" },
         rows: [
           {
+            label: "React",
             progress: 85,
             icons: [{ iconCode: "fa/FaReact", name: "React Icon" }],
           },
@@ -33,7 +34,7 @@ describe("PanelShowcase", () => {
     ).toBeInTheDocument();
 
     // Progress bar
-    const progressBar = screen.getByRole("progressbar");
+    const progressBar = screen.getByRole("progressbar", { name: "React" });
     expect(progressBar).toBeInTheDocument();
     expect(progressBar).toHaveAttribute("aria-valuenow", "85");
   });
