@@ -156,6 +156,23 @@ jobs:
         run: pnpm exec playwright test --shard=${{ matrix.shardIndex }}/${{ env.PLAYWRIGHT_SHARD_TOTAL }}
         env:
           NEXT_PUBLIC_API_MOCKING: enabled
+          # MSW intercepts the GraphQL request by operation name, not by
+          # URL or credentials, so these never need to be real -- but they
+          # DO need to exist: src/contentful/lib/client.ts builds the
+          # GraphQL endpoint via string interpolation
+          # (`${BASE_URL}/${SPACE_ID}/environments/${ENVIRONMENT}`), and
+          # with these unset that interpolates to the literal string
+          # "undefined/undefined/environments/undefined". The Fetch API's
+          # Request constructor throws `TypeError: Invalid URL` on that
+          # before MSW ever gets a chance to intercept it -- confirmed by
+          # reproducing this exact crash locally and in a real CI run
+          # after these were first dropped from this job. Placeholders
+          # only; never put real Contentful secrets here (see `build`,
+          # the one job that actually talks to real Contentful).
+          CONTENTFUL_API_BASE_URL: https://cdn.contentful.mock
+          CONTENTFUL_SPACE_ID: mock-space-id
+          CONTENTFUL_ENVIRONMENT: mock
+          CONTENTFUL_CDA_TOKEN: mock-token
       - name: Upload Blob Report (shard ${{ matrix.shardIndex }})
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
@@ -206,10 +223,12 @@ jobs:
     timeout-minutes: 10
     env:
       # Only this job talks to real Contentful (`next build` statically
-      # renders pages from it). Every other job runs against the MSW-mocked
-      # fixture site regardless of these values — see tests/mocks/handlers.ts,
-      # which matches by GraphQL operation name, not URL/credentials — so
-      # they don't need these secrets at all.
+      # renders pages from it). `e2e-test` runs against the MSW-mocked
+      # fixture site instead (tests/mocks/handlers.ts matches by GraphQL
+      # operation name, not URL/credentials) but still needs *some* syntactically
+      # valid values here, just not real ones — see the placeholder env block
+      # on that job for why. lint/typecheck/unit-test never construct this
+      # endpoint at all, so they need nothing.
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_CDA_TOKEN: ${{ secrets.CONTENTFUL_CDA_TOKEN }}
       CONTENTFUL_API_BASE_URL: ${{ secrets.CONTENTFUL_API_BASE_URL }}
