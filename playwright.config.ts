@@ -27,18 +27,22 @@ export default defineConfig({
    * runs fast while leaving enough headroom that a real regression doesn't
    * hide behind this same class of flake.
    *
-   * CI previously ran fully serially (workers: 1) as the safest option, but
-   * a real run took ~48 minutes — most of that was retry overhead from the
-   * color-contrast false-positive rate documented below (test-base.ts),
-   * not the tests themselves. With that fixed, a small amount of CI
-   * parallelism should meaningfully cut runtime without reintroducing the
-   * contention this comment describes; 2 is a deliberately modest first
-   * step given `ubuntu-latest` runners are typically 2-core, not a
-   * guarantee — watch the next few CI runs and drop back to 1 if it
-   * reintroduces flakes instead of just going faster. See ADR 0022 PR 10. */
-  workers: process.env.CI ? 2 : "50%",
-  /* Reporter to use. Use GitHub reporter in CI */
-  reporter: process.env.CI ? [["github"], ["html"]] : [["list"], ["html"]],
+   * CI runs fully serially (workers: 1) within a job on purpose — Playwright's
+   * own CI guide recommends this for stability and getting parallelism from
+   * *sharding across jobs* instead of raising in-job worker count on a
+   * shared, small runner. The ~48-minute CI run this suite used to take was
+   * dominated by retry overhead from the color-contrast false-positive rate
+   * (documented below, test-base.ts), not real test time or a lack of
+   * workers; with that fixed, ci.yml now shards the suite across 4 parallel
+   * jobs instead. See ADR 0022 PR 10 (the now-superseded workers-bump
+   * experiment) and ADR 0023 (the sharding fix). */
+  workers: process.env.CI ? 1 : "50%",
+  /* `blob` is Playwright's report format for sharded CI runs — each shard's
+   * job uploads its own blob, and a separate merge job combines them into
+   * one HTML report (see ci.yml). `github` adds inline PR annotations for
+   * failures on top of that. Locally there's only ever one shard, so plain
+   * `list` + `html` is simpler and browsable without a merge step. */
+  reporter: process.env.CI ? [["blob"], ["github"]] : [["list"], ["html"]],
 
   /* Explicit timeouts */
   timeout: 30 * 1000,

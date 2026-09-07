@@ -132,8 +132,11 @@ export default defineConfig({
   testDir: "./tests/e2e",
   globalSetup: "./tests/e2e/global-setup.ts",
   fullyParallel: true,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 2 : 1,
+  // CI parallelism comes from sharding across jobs (ci.yml), not from
+  // raising this — Playwright's own CI guidance is workers: 1 in-job.
+  workers: process.env.CI ? 1 : "50%",
+  reporter: process.env.CI ? [["blob"], ["github"]] : [["list"], ["html"]],
   use: {
     baseURL: "http://localhost:3000",
     trace: "retain-on-failure",
@@ -226,6 +229,10 @@ pnpm test:e2e:codegen   # Record new tests by clicking
 ```
 
 Playwright reports are written to `playwright-report/` and uploaded as CI artifacts.
+
+### CI Sharding
+
+`pnpm test:e2e` runs the full suite (all 6 device projects) in one process — fine locally, but in CI it used to mean one runner working through all of it serially. As of [ADR 0023](./adr/0023-ci-pipeline-parallelization.md), `ci.yml`'s `e2e-test` job is a 4-way matrix, each shard running `playwright test --shard=N/4` on its own runner and uploading a `blob` report; a `merge-e2e-reports` job downloads all 4 and merges them into the single HTML report that gets uploaded as the `playwright-report` artifact. Playwright's browser binaries are installed fresh per shard rather than cached — restoring a cache of them is about as slow as downloading them.
 
 ---
 

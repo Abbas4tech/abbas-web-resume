@@ -34,7 +34,7 @@ pnpm changeset
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Production source of truth. Only Version Package PRs merge here. |
+| `master` | Production source of truth. Only Version Package PRs merge here. |
 | `develop-draft` | Staging integration branch. All feature PRs target this. |
 | `feat/develop-draft/**` | Individual feature branches. |
 
@@ -76,7 +76,7 @@ The generated file in `.changeset/` must be committed alongside your code change
 
 ### Consuming Changesets (Release)
 
-On merge to `main`, a Python release script (`scripts/ci/manage-release.py`) runs:
+On merge to `master`, a Python release script (`scripts/ci/manage-release.py`) runs:
 
 1. Executes `pnpm changeset version` — bumps `package.json` version and updates `CHANGELOG.md`
 2. Opens a "Version Packages" PR with the version bump

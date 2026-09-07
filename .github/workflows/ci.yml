@@ -8,20 +8,30 @@ on:
       - 'feat/develop-draft/**'
   pull_request:
     branches:
-      - main
+      - master
       - 'develop-draft'
       - '**/develop-draft/**'
       - 'feat/develop-draft/**'
+
+# Supersede a run in progress for the same branch/PR when new commits land,
+# instead of letting both burn runner minutes to completion. See ADR 0023.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PLAYWRIGHT_SHARD_TOTAL: 4
 
 jobs:
   check-changeset:
     name: Check Changeset
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required for git diff to compare against origin/main
+          fetch-depth: 0 # Required for git diff to compare against origin/<base>
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
@@ -29,11 +39,177 @@ jobs:
       - name: Check Changeset
         run: python scripts/ci/check-changeset.py
 
-  verify-and-build:
-    name: Lint, Test, and Build
+  # lint / typecheck / unit-test / e2e-test / build / build-storybook all only
+  # need check-changeset, not each other — they used to run as sequential
+  # steps in one job (~25-48 min end to end). Running them as sibling jobs
+  # lets GitHub Actions schedule them concurrently on separate runners, so
+  # total wall time drops to roughly the slowest single job instead of the
+  # sum of all of them. See ADR 0023.
+
+  lint:
+    name: Lint & Format
     needs: check-changeset
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Check Linting & Formatting
+        run: pnpm check
+
+  typecheck:
+    name: Typecheck
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm tsc --noEmit
+
+  unit-test:
+    name: Unit & Component Tests
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Unit & Component Tests
+        run: pnpm test:coverage
+      - name: Upload Unit Test Coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-coverage
+          path: coverage/
+          retention-days: 14
+
+  e2e-test:
+    name: E2E Tests (${{ matrix.shardIndex }}/${{ strategy.job-total }})
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      # Deliberately not cached: Playwright's own CI guide notes restoring a
+      # browser-binary cache takes about as long as downloading fresh, so a
+      # cache step here is pure overhead, not a speedup.
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      # Splits the suite across 4 parallel jobs instead of running all 6
+      # device projects serially in one — this is what actually cut the
+      # ~48-minute CI run down, not the worker count within a single job
+      # (Playwright's own CI guidance is workers: 1 in-job, and to get
+      # parallelism from sharding across machines instead). See ADR 0023.
+      - name: Run E2E Tests (shard ${{ matrix.shardIndex }})
+        run: pnpm exec playwright test --shard=${{ matrix.shardIndex }}/${{ env.PLAYWRIGHT_SHARD_TOTAL }}
+        env:
+          NEXT_PUBLIC_API_MOCKING: enabled
+      - name: Upload Blob Report (shard ${{ matrix.shardIndex }})
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report/
+          retention-days: 14
+
+  merge-e2e-reports:
+    name: Merge E2E Reports
+    if: ${{ !cancelled() }}
+    needs: e2e-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Download blob reports
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+      - name: Merge into one HTML report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  build:
+    name: Build Project
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
+      # Only this job talks to real Contentful (`next build` statically
+      # renders pages from it). Every other job runs against the MSW-mocked
+      # fixture site regardless of these values — see tests/mocks/handlers.ts,
+      # which matches by GraphQL operation name, not URL/credentials — so
+      # they don't need these secrets at all.
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_CDA_TOKEN: ${{ secrets.CONTENTFUL_CDA_TOKEN }}
       CONTENTFUL_API_BASE_URL: ${{ secrets.CONTENTFUL_API_BASE_URL }}
@@ -50,48 +226,8 @@ jobs:
         with:
           node-version: 22
           cache: "pnpm"
-      - name: Install dependencies (Uses Cache)
-        run: pnpm install
-
-      - name: Check Linting & Formatting
-        run: pnpm check
-
-      - name: Typecheck
-        run: pnpm tsc --noEmit
-
-      - name: Unit & Component Tests
-        run: pnpm test:coverage
-
-      - name: Upload Unit Test Coverage
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: unit-test-coverage
-          path: coverage/
-          retention-days: 14
-
-      - name: Cache Playwright Browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run E2E Tests
-        run: pnpm test:e2e
-
-      - name: Upload Playwright Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 14
-
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Cache Next.js Build
         uses: actions/cache@v4
         with:
@@ -99,13 +235,30 @@ jobs:
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
-
       - name: Build Project
         run: pnpm build
 
+  build-storybook:
+    name: Build Storybook
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
       - name: Build Storybook
         run: pnpm build-storybook
-
       - name: Upload Storybook Static Build
         if: always()
         uses: actions/upload-artifact@v4

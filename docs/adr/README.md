@@ -33,6 +33,7 @@ This directory contains Architecture Decision Records — documents that capture
 | [0020](./0020-font-loading-and-typography-continuity-audit.md) | Font Loading and Typography Continuity Audit (master vs. develop-draft) | 🔶 proposed | 2026-09-07 |
 | [0021](./0021-unit-component-test-coverage-remediation.md) | Unit & Component Test Coverage Remediation Plan | ✅ accepted | 2026-09-07 |
 | [0022](./0022-e2e-journey-and-fixture-expansion.md) | E2E Journey Coverage & Synthetic Fixture Expansion | ✅ accepted | 2026-09-07 |
+| [0023](./0023-ci-pipeline-parallelization.md) | CI Pipeline Parallelization & Branch-Name Correction | ✅ accepted | 2026-09-07 |
 
 ---
 
@@ -67,6 +68,7 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0002]** — Storybook v10 with `@storybook/nextjs-vite`, DaisyUI theme addon
 - **[0010]** — Python-orchestrated CI/CD with Vercel native deployment
 - **[0016]** — Curated static icon registry (reduced bundle from 575 kB to ~173 kB)
+- **[0023]** — Replaced the single sequential CI job with parallel jobs + 4-way E2E sharding (~48 min → roughly a quarter of that on the slowest job); fixed release automation that hardcoded a nonexistent `main` branch instead of the repo's actual `master`
 
 ---
 
