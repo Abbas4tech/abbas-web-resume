@@ -277,7 +277,40 @@ One test-authoring bug caught by a real failure, not by inspection: the first pa
 rich-text body ("What I shipped") — 4 headings instead of 3. Fixed by scoping to headings with a `.sr-only`
 descendant (unique to `StepTitle`, absent from a rich-text heading).
 
-Remaining groups (4 — routing & error surfaces, 5 — accessibility, 6 — device
+### PR 8 — Routing & error surfaces (§2 group 4) — done
+
+`tests/e2e/routing.spec.ts` covers direct navigation to a valid nested path, the real `notFound()` branch
+(`NON_EXISTENT_PAGE_PATH`, a path never in `fixturePages`) rendering `NotFoundBlock` with a working "Go back
+home" link, and — the hard part — the real `src/app/error.tsx` boundary. New BOMs: `NotFoundModel`,
+`ServerErrorModel`.
+
+There was no way to make a component throw from realistic fixture *data* alone (every adapter is defensive:
+optional chaining, `|| ""` fallbacks, no path that reaches an unguarded property access). Instead,
+`tests/mocks/handlers.ts` special-cases a sentinel path (`SERVER_ERROR_PAGE_PATH`) to return a GraphQL response
+with an `errors` array and no `data` — `graphql-request`'s default `errorPolicy: "none"` throws a `ClientError`
+on exactly that shape (confirmed by reading `runRequest.js`), which propagates out of the Server Component
+fetch in `page.tsx` into the real `error.tsx` boundary, same as a genuine Contentful outage would.
+
+Two things worth knowing about how that error boundary actually behaves, found empirically rather than assumed:
+
+- **A plain `curl` (or anything that doesn't execute JS) will never see `ServerErrorBlock`.** `error.tsx` is a
+  `"use client"` component — Next.js's dev server serves a minimal generic fallback shell
+  (`id="__next_error__"`) as the initial HTML for a genuine thrown-during-render error, and only the real
+  browser's hydration swaps in the actual boundary content via React's client-side error-boundary mechanism.
+  `notFound()` doesn't have this limitation — it's handled server-side and a plain `curl` sees the real
+  `NotFoundBlock` HTML immediately, correctly returning HTTP 404. First-pass verification with `curl` against
+  the error path looked like a bug (it showed `NotFoundBlock`, not `ServerErrorBlock`) until re-checked through
+  actual Playwright/Chromium, which rendered correctly — the lesson being that `curl` is a fine tool for
+  verifying server-rendered fixture pages (used throughout this ADR's work) but cannot validate anything that
+  depends on client-side React taking over, error boundaries included.
+- **A hydration-timing flake on `NotFoundModel.homeLink`.** Clicking the link and then separately asserting
+  the URL changed passed in isolation but failed on all 4 projects under the full suite's parallel load — the
+  click landed before the client-side `Link` handler had attached, so nothing happened within `expect()`'s
+  default 5s window. Fixed by racing `page.waitForURL(...)` against the `.click()` in a `Promise.all`, which
+  is long enough to survive slower hydration under load, rather than clicking first and hoping the assertion's
+  timeout is generous enough.
+
+Remaining groups (5 — accessibility, 6 — device
 sweep) are not yet implemented.
 
 ## Considered Options

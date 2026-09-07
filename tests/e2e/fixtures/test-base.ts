@@ -3,7 +3,9 @@ import { AppHeaderModel } from "../models/app-header-model";
 import { BottomDockModel } from "../models/bottom-dock-model";
 import { CardGridModel } from "../models/card-grid-model";
 import { HeroBannerModel } from "../models/hero-banner-model";
+import { NotFoundModel } from "../models/not-found-model";
 import { PanelShowcaseModel } from "../models/panel-showcase-model";
+import { ServerErrorModel } from "../models/server-error-model";
 import { SidebarNavModel } from "../models/sidebar-nav-models";
 import { SplitContentPanelModel } from "../models/split-content-panel-model";
 import { ThemeToggleModel } from "../models/theme-toggle-model";
@@ -15,7 +17,9 @@ interface CustomFixtures {
   header: AppHeaderModel;
   heroBanner: HeroBannerModel;
   mockContentful: (mockData: Record<string, unknown>) => Promise<void>;
+  notFound: NotFoundModel;
   panelShowcase: PanelShowcaseModel;
+  serverError: ServerErrorModel;
   sidebar: SidebarNavModel;
   splitContentPanel: SplitContentPanelModel;
   themeToggle: ThemeToggleModel;
@@ -49,5 +53,11 @@ export const test = base.extend<CustomFixtures>({
   },
   panelShowcase: async ({ page }, use) => {
     await use(new PanelShowcaseModel(page));
+  },
+  notFound: async ({ page }, use) => {
+    await use(new NotFoundModel(page));
+  },
+  serverError: async ({ page }, use) => {
+    await use(new ServerErrorModel(page));
   },
 });

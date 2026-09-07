@@ -262,14 +262,16 @@ node-type mapping, the motion/behavioral elements, and `theme-toggle`/`drawer`'s
 Application code (excluding the generated GraphQL SDK and migration scripts) now measures ~92% statements / ~82%
 branches, enforced by the coverage floor documented above.
 
-**E2E side — fixture, navigation, and per-block journeys done, routing/error/accessibility/device-matrix not
+**E2E side — fixture, navigation, per-block, and routing/error journeys done, accessibility/device-matrix not
 started.** [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site (§2 group 1),
-global chrome/navigation journeys (§2 group 2), and per-block content journeys (§2 group 3) are implemented:
-`tests/mocks/fixture-site.ts` serves a fictional multi-page site exercising every registered Block, routed by
-path through `tests/mocks/handlers.ts`; `tests/e2e/navigation.spec.ts` covers the header and
-sidebar/BottomDock navigation; and a spec per Block (`hero-banner`, `split-content-panel`, `timeline-section`,
-`card-grid`, `panel-showcase`) asserts against that fixture content. Routing/error surfaces, accessibility, and
-the expanded device matrix (groups 4-6) are still just a plan.
+global chrome/navigation journeys (§2 group 2), per-block content journeys (§2 group 3), and routing/error
+surfaces (§2 group 4) are implemented: `tests/mocks/fixture-site.ts` serves a fictional multi-page site
+exercising every registered Block, routed by path through `tests/mocks/handlers.ts`;
+`tests/e2e/navigation.spec.ts` covers the header and sidebar/BottomDock navigation; a spec per Block
+(`hero-banner`, `split-content-panel`, `timeline-section`, `card-grid`, `panel-showcase`) asserts against that
+fixture content; and `tests/e2e/routing.spec.ts` covers direct navigation, the real `notFound()` branch, and
+the `error.tsx` boundary (the last one exercised by a sentinel path the mock handler answers with a GraphQL
+error response). Accessibility and the expanded device matrix (groups 5-6) are still just a plan.
 
 ## Related ADRs
 

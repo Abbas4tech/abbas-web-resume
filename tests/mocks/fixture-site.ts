@@ -665,3 +665,11 @@ export const fixturePages: PageFieldsFragment[] = [
  * for a path the fixture site has never heard of.
  */
 export const NON_EXISTENT_PAGE_PATH = "/this-page-does-not-exist";
+
+/**
+ * A sentinel path `tests/mocks/handlers.ts` special-cases to return a
+ * GraphQL error response (rather than a page) for, so E2E specs can exercise
+ * the real `src/app/error.tsx` boundary end to end without needing a
+ * component that can actually be made to throw from fixture data alone.
+ */
+export const SERVER_ERROR_PAGE_PATH = "/this-page-errors";
