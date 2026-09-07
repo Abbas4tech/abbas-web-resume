@@ -7,6 +7,10 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env.local") });
 
 export default defineConfig({
   testDir: "./tests/e2e",
+  /* Fails the whole run fast, with one clear message, if the server the
+   * suite is about to hit isn't actually serving the mocked fixture — see
+   * the file for why that can silently happen. */
+  globalSetup: "./tests/e2e/global-setup.ts",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -57,11 +61,12 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    // Next.js persists the Data Cache for `fetch()` calls to
-    // `.next/cache/fetch-cache` across dev-server restarts. Without clearing
-    // it first, a GraphQL response cached from a previous *unmocked* run
-    // (real Contentful data) would be served instead of MSW's fixture data,
-    // silently defeating the mocking below.
+    // `src/contentful/lib/client.ts` now sets `cache: "no-store"`, so
+    // Contentful fetches are never written to Next's on-disk Data Cache in
+    // the first place — this clear is defense-in-depth against anything
+    // else ever caching there, not the primary fix. (It used to be: a
+    // GraphQL response cached from a previous *unmocked* run would silently
+    // be served instead of MSW's fixture data — see ADR 0022.)
     command:
       "node -e \"require('fs').rmSync('.next/cache/fetch-cache',{recursive:true,force:true})\" && npm run dev",
     url: "http://localhost:3000",

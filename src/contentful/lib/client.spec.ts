@@ -35,7 +35,10 @@ describe("contentfulSdk client", () => {
 
     expect(graphQLClientMock).toHaveBeenCalledWith(
       "https://graphql.contentful.com/content/v1/spaces/space123/environments/production",
-      { headers: { Authorization: "Bearer secret-token" } }
+      {
+        headers: { Authorization: "Bearer secret-token" },
+        cache: "no-store",
+      }
     );
   });
 
@@ -49,7 +52,7 @@ describe("contentfulSdk client", () => {
 
     expect(graphQLClientMock).toHaveBeenCalledWith(
       "https://api.example.com/space456/environments/development",
-      { headers: { Authorization: "Bearer dev-token" } }
+      { headers: { Authorization: "Bearer dev-token" }, cache: "no-store" }
     );
   });
 

@@ -165,8 +165,9 @@ Three things surfaced during this work that weren't anticipated when this ADR wa
   apparently been true since ADR 0007 first set up MSW; it went unnoticed because the two original smoke specs
   only asserted generic visibility (a header, *a* sidebar item) that real content also satisfies. It became
   impossible to miss once the fixture's fictional persona ("Ada Sparkline") diverged sharply from the real
-  site's content. Fixed by having `playwright.config.ts`'s `webServer.command` clear
-  `.next/cache/fetch-cache` before every run.
+  site's content. Initially patched by having `playwright.config.ts`'s `webServer.command` clear
+  `.next/cache/fetch-cache` before every run — **superseded in PR 6** by removing the cache entirely at the
+  source (see below), which this comment is kept only as a defense-in-depth no-op.
 
 One more pre-existing bug came out of actually exercising the header BOM: `AppHeaderModel.titleLink` was
 `.navbar-start .btn-ghost`, which also matches the drawer toggle button (both carry `btn-ghost`) — a Playwright
@@ -201,6 +202,47 @@ This group found three more real gaps, on top of PR 4's:
   (the BottomDock takes over) — there's no way to open/close the sidebar drawer at all. At the current desktop
   viewports (≥1024px), `DrawerButton` is `lg:hidden`. That leaves only the not-yet-added tablet project (§3) as
   a place to actually exercise the toggleable drawer; group 2 does not cover it for that reason.
+
+### PR 6 — Infra hardening (unplanned, raised by repo owner) — done
+
+Reviewing PRs 4-5, the repo owner flagged that the suite still felt "immature" — a redundant `example.spec.ts`
+placeholder, a local `pnpm test:e2e` run failing for reasons the fix history didn't explain, and no answer to
+"is this actually solid, or does it just happen to pass for me." That prompted a harder look at *why* PR 4's
+fetch-cache finding was possible at all, rather than treating the `webServer.command` clear as the fix:
+
+- **Root cause eliminated: `src/contentful/lib/client.ts` now passes `cache: "no-store"` to `GraphQLClient`.**
+  The PR 4 fix only cleared `.next/cache/fetch-cache` when Playwright itself started a fresh server. It did
+  nothing when `reuseExistingServer: !process.env.CI` (true locally) found a server *someone else* had already
+  started — including one Playwright itself was managing for a previous test run. Reproduced directly: booted
+  a plain, unmocked `next dev` right after a mocked Playwright run, and it served the *mocked fixture's*
+  stale cached response despite having mocking disabled — proving the disk cache leaks in either direction and
+  that clearing it only at one call site was never going to be reliable. `graphql-request`'s `GraphQLClient`
+  config accepts arbitrary `RequestInit` fields, which it spreads into the underlying `fetch()` call
+  (confirmed by reading `runRequest.js`) — `cache: "no-store"` there means Contentful responses are never
+  written to Next's Data Cache in the first place, in dev or production. This is also a real production
+  finding, not just a testing one: without it, a content edit in Contentful might never appear on the deployed
+  site without a redeploy, since nothing was ever set to revalidate the cached response. `no-store` was chosen
+  over a `next: { revalidate: N }` window because it needs no tuning and is always correct; an ISR-style
+  revalidate period is a reasonable alternative if the extra Contentful API traffic ever becomes a concern.
+- **Added `tests/e2e/global-setup.ts`.** Runs once before the suite, requests `/about`, and fails the entire
+  run immediately with one specific, actionable message if the fixture's persona name isn't present — instead
+  of a scattered handful of confusing failures across unrelated spec files whenever the server Playwright ends
+  up testing against (started fresh, or reused per `reuseExistingServer`) isn't actually serving the mocked
+  fixture. Verified directly: pointed it at a real unmocked server and confirmed it fails fast with the
+  intended message, then confirmed a correctly-mocked run passes it transparently.
+- **Removed `tests/e2e/example.spec.ts`.** It was the original Playwright-scaffold placeholder and had become
+  fully redundant with `smoke.spec.ts` once the fixture site existed; its one distinctive assertion (avatar
+  image visible) was folded into `smoke.spec.ts` instead of living in its own near-empty file.
+- **Local setup gap: Playwright's browser binaries were never documented as a one-time install step.** Unlike
+  CI (which has its own explicit install step), nothing in this repo told a contributor to run
+  `pnpm test:e2e:install` before `pnpm test:e2e` works locally — the most likely explanation for "some tests
+  fail and I don't know why" on a machine that has never run Playwright before. Added the script and a
+  "Local Setup" note in `docs/05-testing.md`.
+- **CI ordering checked, not changed.** `.github/workflows/ci.yml`'s "Cache Next.js Build" step (which
+  restores/saves `.next/cache`) runs *after* "Run E2E Tests" in the job, so a CI run's E2E step never sees a
+  cache restored from a previous run regardless of this fix — the fetch-cache bug was never actually reachable
+  in the current CI job as written. It's undocumented, easy to invalidate with an innocent step reorder, and
+  now moot besides: `cache: "no-store"` means there is nothing to restore.
 
 Remaining groups (3 — per-block content journeys, 4 — routing & error surfaces, 5 — accessibility, 6 — device
 sweep) are not yet implemented.
