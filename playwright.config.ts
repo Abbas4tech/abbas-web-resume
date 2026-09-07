@@ -19,15 +19,24 @@ export default defineConfig({
    * parallelism (see the `workers` comment) — CI gets two since it also
    * has to absorb runner-to-runner variance. */
   retries: process.env.CI ? 2 : 1,
-  /* CI runs one worker at a time (its own comment below). Locally, using
-   * every CPU core (Playwright's default) reliably produced a couple of
-   * failures per full run on this machine — real interactions timing out
-   * under contention from 6 projects' worth of browsers all fighting for
-   * the same CPU, not application bugs (confirmed: clean in isolation and
-   * under --workers=1). Capping at half the cores keeps local runs fast
-   * while leaving enough headroom that a real regression doesn't hide
-   * behind this same class of flake. See ADR 0022 PR 10. */
-  workers: process.env.CI ? 1 : "50%",
+  /* Locally, using every CPU core (Playwright's default) reliably produced
+   * a couple of failures per full run on this machine — real interactions
+   * timing out under contention from 6 projects' worth of browsers all
+   * fighting for the same CPU, not application bugs (confirmed: clean in
+   * isolation and under --workers=1). Capping at half the cores keeps local
+   * runs fast while leaving enough headroom that a real regression doesn't
+   * hide behind this same class of flake.
+   *
+   * CI previously ran fully serially (workers: 1) as the safest option, but
+   * a real run took ~48 minutes — most of that was retry overhead from the
+   * color-contrast false-positive rate documented below (test-base.ts),
+   * not the tests themselves. With that fixed, a small amount of CI
+   * parallelism should meaningfully cut runtime without reintroducing the
+   * contention this comment describes; 2 is a deliberately modest first
+   * step given `ubuntu-latest` runners are typically 2-core, not a
+   * guarantee — watch the next few CI runs and drop back to 1 if it
+   * reintroduces flakes instead of just going faster. See ADR 0022 PR 10. */
+  workers: process.env.CI ? 2 : "50%",
   /* Reporter to use. Use GitHub reporter in CI */
   reporter: process.env.CI ? [["github"], ["html"]] : [["list"], ["html"]],
 

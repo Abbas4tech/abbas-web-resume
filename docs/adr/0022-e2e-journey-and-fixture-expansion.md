@@ -402,6 +402,44 @@ flake resolves on its own re-run, while still leaving retries low enough that a 
 hide behind them. Verified over two full local runs post-change: zero hard failures, with the occasional
 Tablet sidebar test reported as "flaky" (failed once, passed on the automatic retry) rather than failed.
 
+### PR 11 — Correction from real CI data — done
+
+The first actual CI run of the full 6-project matrix (GitHub Actions) took ~48 minutes and still failed —
+worse than anything the local verification in PRs 9-10 predicted. The CI log told a different story than local
+testing had:
+
+- **`color-contrast` was firing constantly, not occasionally.** Every one of 9 hard failures and 8 flaky
+  retries in that run was `color-contrast`, spread across many different elements (`CardGrid` descriptions, the
+  hero banner, more) on every WebKit-engine project — webkit, Mobile Safari, *and* Tablet. PR 9's framing of
+  this as a rare animation-timing race (mitigated with a settle delay) undersold it: axe-core's contrast check
+  samples *rendered* pixels, and font hinting / anti-aliasing differences between this repo's local macOS
+  testing and GitHub Actions' Linux runners shift the measured ratio enough to flip already-borderline
+  daisyUI color tokens unpredictably. Chasing this element-by-element (as PR 9 did for `.stat-title`) doesn't
+  scale to "any element, on a rendering environment this suite doesn't control." Disabled `color-contrast`
+  outright in `tests/e2e/fixtures/test-base.ts` — real contrast auditing belongs in a tool that isn't sensitive
+  to which machine rendered the page.
+- **The sidebar-navigation "highlights as active" tests failed the same way on all 3 retries — not flaky, just
+  wrong.** `Error: locator.getAttribute: Test timeout of 30000ms exceeded... waiting for locator('.drawer-side
+  ul').getByRole('link', { name: 'Experience' })`, deterministically, every attempt. The test clicks a nav
+  link, which (by design, per PR 9) also closes the drawer — below `lg`, an actual off-canvas close, not just a
+  state flag — then immediately tries to read a class attribute off that same now-unreachable link. Local
+  testing hadn't caught this because it happened to keep passing on this machine's rendering/timing; CI's
+  environment didn't get so lucky. Fixed by reopening the drawer before checking the highlight, which is the
+  first place this test suite's design assumed "closing on click" and "still checkable afterward" could both
+  be true without reconciling them.
+- **CI parallelism was probably too conservative, not too aggressive.** With most of the retry-driving failures
+  gone, a big share of that 48 minutes was retry overhead. Bumped CI to 2 workers (from a fully serial 1) as a
+  modest experiment now that the count of routinely-failing tests is expected to be near zero — not a proven
+  win, since `ubuntu-latest`'s exact core count wasn't verified directly; worth watching over the next several
+  runs rather than assumed safe.
+
+This is a direct correction of PR 10's "confirmed clean... under `--workers=1`, which is what CI actually uses"
+framing — that check was run on this machine's own WebKit build, not GitHub Actions', and missed both of the
+above because neither is specific to worker count. The lesson carried forward: local Playwright runs, even at
+matching worker counts, are not a reliable proxy for CI's actual rendering environment for anything that
+samples pixels or depends on precise interaction timing — real CI logs found problems local verification did
+not, and should be checked directly rather than inferred from local behavior.
+
 Remaining groups: none — all six of §2's journey groups are implemented. The accepted, documented gaps from
 PRs 7 and 9 (dropped `CardGrid` link text, no `<h1>` on any page, sidebar/BottomDock missing a landmark, the
 marginal `.stat-title` contrast shortfall, etc.) are real product/design-system work, not E2E-suite gaps —

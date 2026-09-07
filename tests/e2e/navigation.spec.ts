@@ -72,10 +72,23 @@ test.describe("Global chrome — sidebar navigation", () => {
 
     test(`"${label}" nav item navigates to ${path} and highlights as active`, async ({
       page,
+      header,
       sidebar,
     }) => {
+      const viewportWidth = page.viewportSize()?.width ?? 1280;
+
       await sidebar.clickNavItem(label);
       await expect(page).toHaveURL(pathPattern);
+
+      // Clicking a nav link also closes the drawer (NavItem's onClick, see
+      // ADR 0022 PR 9) — below `lg`, that's an off-canvas overlay actually
+      // closing, not just a state flag, so the just-clicked link can become
+      // unreachable to a follow-up query. Reopen before checking the
+      // highlight; at `lg` and up this is a no-op (CSS keeps it open
+      // regardless).
+      if (viewportWidth < LG_BREAKPOINT) {
+        await header.toggleDrawer();
+      }
       expect(await sidebar.isActive(label)).toBe(true);
     });
   }
