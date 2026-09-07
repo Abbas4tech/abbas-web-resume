@@ -57,7 +57,13 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm run dev",
+    // Next.js persists the Data Cache for `fetch()` calls to
+    // `.next/cache/fetch-cache` across dev-server restarts. Without clearing
+    // it first, a GraphQL response cached from a previous *unmocked* run
+    // (real Contentful data) would be served instead of MSW's fixture data,
+    // silently defeating the mocking below.
+    command:
+      "node -e \"require('fs').rmSync('.next/cache/fetch-cache',{recursive:true,force:true})\" && npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
     timeout: 240 * 1000,

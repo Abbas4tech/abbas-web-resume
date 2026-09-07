@@ -8,9 +8,9 @@ status: accepted
 
 ## Status
 
-Accepted. Companion to [0021](./0021-unit-component-test-coverage-remediation.md). No E2E code described below
-has been written yet — it lands as the phased implementation PRs sequenced in the companion report. Confirmed
-with the repo owner:
+Accepted. Companion to [0021](./0021-unit-component-test-coverage-remediation.md). Lands as the phased
+implementation PRs sequenced below; see [Implementation](#implementation) for progress. Confirmed with the repo
+owner:
 
 - Fixture strategy: build a **synthetic, CMS-agnostic fixture site** (Decision §1), not a mirror of the live
   Contentful content, since content changes independently of code and a fixture tied to today's real copy would
@@ -128,6 +128,53 @@ projects to the navigation + responsive-sweep groups (§2 groups 2 and 6) rather
 Wire `axe-playwright`'s `checkA11y` into the shared `tests/e2e/fixtures/test-base.ts` fixture (already the
 composition point for `header`/`sidebar`) so every journey spec gets an automated WCAG check for free, per
 group 5 above, rather than leaving the dependency installed and unused.
+
+## Implementation
+
+### PR 4 — Fixture foundation (§2 group 1) — done
+
+`tests/mocks/factories.ts` now exports schema-typed factories (`createMockIcon`, `createMockImage`,
+`createMockLink`, `createMockContentItem`, `createMockStatItem`, `createMockContentSection`,
+`createMockContentList`, `createMockPage`, `createMockLayout`) instead of the near-empty skeleton. On top of
+those, `tests/mocks/fixture-site.ts` assembles the actual synthetic site — a fictional persona ("Ada
+Sparkline"), a 6-item nav, and one page per registry branch: `/about` (`HeroBanner` + `SplitContentPanel`,
+see below for why these share a page), `/experience` (`TimelineSection`, one entry with a rich-text body
+covering a heading, a list, a bold mark, and an inline hyperlink), `/projects` (`CardGrid`, 4 items),
+`/skills` (`PanelShowcase`, 3 panels), and `/experiments` (an unregistered `ui: "Carousel"` value, to exercise
+`BlockPlaceholder`). `tests/mocks/handlers.ts` now routes `GetPageByPath` by the requested `path` variable
+against that page list instead of always returning the same single page. `example.spec.ts` and `smoke.spec.ts`
+were updated to assert against this real content (page heading, hero avatar, header title, nav item count)
+instead of just generic visibility.
+
+Three things surfaced during this work that weren't anticipated when this ADR was written:
+
+- **`src/middleware.ts` unconditionally redirects `/` to `/about`.** A fixture Page at path `/` is therefore
+  unreachable through real navigation — the `GetPageByPath({ path: "/" })` request is never made, because the
+  redirect happens before the route even resolves. The plan in §1 assumed `/` would render the `HeroBanner`;
+  in the real implementation the `HeroBanner` and the `SplitContentPanel` bio rows both live on `/about`
+  instead, since that's the page a visitor actually lands on.
+- **`SplitContentPanel` has no "reversed" layout variant.** `SplitContentPanelProps` (in
+  `split-content-panel.tsx`) is just `{ description, infoRows }` — there's no prop that flips its layout. The
+  "one page in each `reversed` state" idea in §1 doesn't correspond to anything the component actually
+  supports today, so it was dropped rather than fixture-testing a variant that doesn't exist.
+- **Next.js's on-disk fetch Data Cache was silently defeating MSW mocking.** `contentfulSdk`'s GraphQL calls
+  go through the default Next.js `fetch()` Data Cache, which persists to `.next/cache/fetch-cache` across dev
+  server restarts. Once that cache held a response from a real (unmocked) run, every subsequent "mocked" E2E
+  run kept serving the stale real Contentful data instead of MSW's fixture — silently, with no error, because
+  the cache hit short-circuits before the (correctly-listening) MSW interceptor ever sees a request. This had
+  apparently been true since ADR 0007 first set up MSW; it went unnoticed because the two original smoke specs
+  only asserted generic visibility (a header, *a* sidebar item) that real content also satisfies. It became
+  impossible to miss once the fixture's fictional persona ("Ada Sparkline") diverged sharply from the real
+  site's content. Fixed by having `playwright.config.ts`'s `webServer.command` clear
+  `.next/cache/fetch-cache` before every run.
+
+One more pre-existing bug came out of actually exercising the header BOM: `AppHeaderModel.titleLink` was
+`.navbar-start .btn-ghost`, which also matches the drawer toggle button (both carry `btn-ghost`) — a Playwright
+strict-mode violation the moment anything called `getTitle()`. Never caught before because nothing had. Fixed
+to `.navbar-start a.btn-ghost`.
+
+Remaining groups (2 — global chrome & navigation, 3 — per-block content journeys, 4 — routing & error
+surfaces, 5 — accessibility, 6 — device sweep) are not yet implemented.
 
 ## Considered Options
 

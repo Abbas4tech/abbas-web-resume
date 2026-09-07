@@ -97,7 +97,7 @@ const fullContentItem = {
 
 Recursive/deeply-nested fragment fields (e.g. rich text's `body.links`) are supplied with a minimal shape and cast via `as unknown as <FragmentType>` rather than fully satisfying the generated union — the goal is a realistic fixture for the adapter under test, not a byte-for-byte GraphQL response.
 
-`tests/mocks/factories.ts` still exists as a lightweight `createFactory` helper, but is currently a near-empty skeleton — it's earmarked for the shared Vitest/Playwright fixture work described in [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md), not yet built out.
+`tests/mocks/factories.ts` now exports the schema-typed factories used to build the Playwright E2E fixture site described in [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md) (`tests/mocks/fixture-site.ts`) — Vitest specs still prefer the fully-inline style shown above rather than importing these factories, since each adapter spec typically only needs one or two fields overridden.
 
 ### Running Tests
 
@@ -234,9 +234,11 @@ node-type mapping, the motion/behavioral elements, and `theme-toggle`/`drawer`'s
 Application code (excluding the generated GraphQL SDK and migration scripts) now measures ~92% statements / ~82%
 branches, enforced by the coverage floor documented above.
 
-**E2E side — not started.** [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site
-and journey suite (navigation, per-block content, routing/error surfaces, accessibility, expanded device matrix)
-is still just a plan.
+**E2E side — fixture foundation done, journey suite not started.** [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s
+synthetic fixture site (§2 group 1) is implemented: `tests/mocks/fixture-site.ts` now serves a fictional
+multi-page site exercising every registered Block, routed by path through `tests/mocks/handlers.ts`. The
+journey suite itself (navigation, per-block content, routing/error surfaces, accessibility, expanded device
+matrix — groups 2-6) is still just a plan.
 
 ## Related ADRs
 

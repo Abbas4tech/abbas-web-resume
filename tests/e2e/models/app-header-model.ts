@@ -12,7 +12,7 @@ export class AppHeaderModel {
     this.page = page;
     // Scoped to the header block
     this.root = page.locator("header").first();
-    this.titleLink = this.root.locator(".navbar-start .btn-ghost");
+    this.titleLink = this.root.locator(".navbar-start a.btn-ghost");
     this.drawerButton = this.root.locator("label.drawer-button");
     this.resumeLink = this.root.locator('.navbar-end a[target="_blank"]');
     this.themeToggle = this.root.locator(".navbar-end .dropdown");
