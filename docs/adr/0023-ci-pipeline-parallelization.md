@@ -40,7 +40,7 @@ Each job installs its own dependencies via `pnpm install --frozen-lockfile` (fas
 
 **3. Drop the Playwright browser-binary cache step** — per Playwright's CI docs, restoring it is roughly as slow as a fresh install, so it bought nothing.
 
-**4. Scope Contentful secrets to only the `build` job.** MSW (`tests/mocks/handlers.ts`) intercepts by GraphQL operation name, not URL or credentials, so `lint`, `typecheck`, `unit-test`, and `e2e-test` never needed `CONTENTFUL_*` secrets in the first place — only `next build`'s real static rendering does.
+**4. Scope Contentful *secrets* to only the `build` job — but `e2e-test` still needs placeholder values.** `lint`, `typecheck`, and `unit-test` never construct the Contentful endpoint at all, so they need nothing. `e2e-test` runs against MSW's mocked fixture site (`tests/mocks/handlers.ts` intercepts by GraphQL operation name, not URL or credentials) so it never needs the *real* secrets — but this was first shipped with no `CONTENTFUL_*` values at all, which broke the job outright. See "Correction" below.
 
 **5. Add `concurrency: { group: ci-${{ github.workflow }}-${{ github.ref }}, cancel-in-progress: true }`** so a new push to the same branch/PR cancels an in-flight run instead of letting a now-superseded run finish and consume runner minutes.
 
@@ -54,6 +54,20 @@ Each job installs its own dependencies via `pnpm install --frozen-lockfile` (fas
 - **`manage-release.py`'s branch-update path was unreachable-until-now and would have failed.** On the *second* release cycle (when `changeset-release/master` already exists remotely from an unmerged first "Version Packages" PR), the script ran `git checkout {branch_name}` with no prior fetch of that branch. `actions/checkout@v4` only fetches the single ref that triggered the workflow (`master`) — `fetch-depth: 0` just removes the depth limit on *that* ref's history, it does not fetch other branches — so the local repo has no knowledge of `origin/changeset-release/master` and the checkout would fail with "did not match any file(s) known to git." This bug was latent rather than ever observed, precisely because the `main`/`master` mismatch fixed above meant the release workflow could never previously run far enough to reach it. Fixed by adding `git fetch origin {branch_name}` before an idempotent `git checkout -B {branch_name} origin/{branch_name}`.
 
 **9. Fix the `main` → `master` mismatch.** `release.yml`'s trigger, `manage-release.py`'s three hardcoded references, `ci.yml`'s `pull_request.branches` list, and the branch-name references in `docs/10-deployment.md` / `docs/04-dev-workflow.md` now all say `master`, matching this repository's actual default branch. (The alternative — renaming the GitHub default branch to `main` instead — was considered and explicitly declined in favor of fixing the automation to match the branch that already exists.)
+
+## Correction — `e2e-test` needs placeholder Contentful values, not none
+
+Decision 4 above shipped with **no** `CONTENTFUL_*` values at all in `e2e-test`, on the reasoning that MSW intercepts by GraphQL operation name rather than URL or credentials — true, but incomplete. It missed a step that happens *before* MSW gets involved: `src/contentful/lib/client.ts` builds the GraphQL endpoint by string interpolation —
+
+```ts
+`${process.env.CONTENTFUL_API_BASE_URL}/${process.env.CONTENTFUL_SPACE_ID}/environments/${process.env.CONTENTFUL_ENVIRONMENT}`
+```
+
+— and with all three unset, this interpolates to the literal string `"undefined/undefined/environments/undefined"`. That string is not a valid absolute URL, and the Fetch API's `Request` constructor throws `TypeError: Invalid URL` on it synchronously, before MSW's interceptor ever runs. Every single Server Component render (`GetLayout`, `GetPageByPath`) hit this, so the dev server never produced a working response; Playwright's `webServer` health check timed out after 240s waiting for `/about` to come up, and the whole `e2e-test` job failed with "Timed out waiting 240000ms from config.webServer." This was caught from a real GitHub Actions run the user shared (`CI-E2E-Report.txt`) and reproduced locally by unsetting the same four variables — confirmed the exact same error, then confirmed the fix resolves it by re-running with placeholders in place (7 passed / 2 skipped, `navigation.spec.ts`, all projects).
+
+**Fix:** `e2e-test` now sets harmless placeholder values (`https://cdn.contentful.mock`, `mock-space-id`, `mock`, `mock-token`) — not real secrets, since MSW never inspects them, but real enough as *strings* to produce a syntactically valid URL. This keeps the least-privilege intent of decision 4 (the job still never touches a real Contentful secret) while fixing the actual defect: the code path needs *some* value, not the *right* value.
+
+This is the same category of mistake ADR 0022 PR 11 already documented once: reasoning about what a code path needs from reading it, without exercising the actual failure path (here, literally running with the variables unset) before shipping. That lesson evidently needed to be relearned once more here.
 
 ## Consequences
 
