@@ -2,6 +2,7 @@ import { expect } from "@playwright/test";
 import { test } from "./fixtures/test-base";
 
 const MOBILE_BREAKPOINT = 768;
+const LG_BREAKPOINT = 1024;
 const EXPERIENCE_PATH_PATTERN = /\/experience$/;
 
 const NAV_PAGES = [
@@ -46,13 +47,24 @@ test.describe("Global chrome — header", () => {
 });
 
 test.describe("Global chrome — sidebar navigation", () => {
-  test.beforeEach(({ page }) => {
+  test.beforeEach(async ({ page, header }) => {
     const viewportWidth = page.viewportSize()?.width ?? 1280;
     // biome-ignore lint/suspicious/noSkippedTests: viewport-conditional — the sidebar is replaced by the BottomDock below the mobile breakpoint, not a disabled/pending test.
     test.skip(
       viewportWidth < MOBILE_BREAKPOINT,
       "Sidebar is replaced by the BottomDock below the mobile breakpoint."
     );
+
+    await page.goto("/about");
+
+    // Between the mobile and lg breakpoints, the drawer is an off-canvas
+    // overlay that starts closed (see the comment on DrawerProvider's
+    // `open` state in drawer.tsx) — open it first. At lg and up,
+    // `lg:drawer-open` keeps the sidebar visible regardless, so this is a
+    // harmless no-op there.
+    if (viewportWidth < LG_BREAKPOINT) {
+      await header.toggleDrawer();
+    }
   });
 
   for (const { label, path } of NAV_PAGES) {
@@ -62,13 +74,48 @@ test.describe("Global chrome — sidebar navigation", () => {
       page,
       sidebar,
     }) => {
-      await page.goto("/about");
-
       await sidebar.clickNavItem(label);
       await expect(page).toHaveURL(pathPattern);
       expect(await sidebar.isActive(label)).toBe(true);
     });
   }
+});
+
+test.describe("Global chrome — drawer toggle (tablet)", () => {
+  test.beforeEach(({ page }) => {
+    const viewportWidth = page.viewportSize()?.width ?? 1280;
+    // The toggleable off-canvas drawer only exists in the 768-1023px gap:
+    // below 768px the fixture's dock-on-mobile variant hides DrawerButton
+    // entirely (the BottomDock takes over); at 1024px and up, DrawerButton
+    // is `lg:hidden`. See ADR 0022 PR 5, which found this gap and deferred
+    // it pending exactly this device project.
+    // biome-ignore lint/suspicious/noSkippedTests: viewport-conditional — see comment above, not a disabled/pending test.
+    test.skip(
+      viewportWidth < MOBILE_BREAKPOINT || viewportWidth >= LG_BREAKPOINT,
+      "The toggleable drawer only exists between the mobile and lg breakpoints."
+    );
+  });
+
+  test("opens and closes the sidebar drawer via the header toggle button", async ({
+    page,
+    header,
+  }) => {
+    await page.goto("/about");
+
+    // Starts collapsed — see the comment on DrawerProvider's `open` state
+    // (drawer.tsx) for why. Confirming that here is itself a regression
+    // guard: this same "opens by default at tablet width" bug is exactly
+    // what routing.spec.ts's NotFound test tripped over (the drawer's own
+    // overlay blocking the "Go back home" link) before the fix.
+    const drawer = page.locator(".drawer");
+    await expect(drawer).toHaveAttribute("data-state", "collapsed");
+
+    await header.toggleDrawer();
+    await expect(drawer).toHaveAttribute("data-state", "expanded");
+
+    await header.toggleDrawer();
+    await expect(drawer).toHaveAttribute("data-state", "collapsed");
+  });
 });
 
 test.describe("Global chrome — bottom dock (mobile)", () => {

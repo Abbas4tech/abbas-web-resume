@@ -57,6 +57,21 @@ export default defineConfig({
       name: "Mobile Chrome",
       use: { ...devices["Pixel 5"] },
     },
+    {
+      // Desktop WebKit doesn't emulate iOS Safari's viewport/touch/scroll
+      // behavior — this is the only WebKit-engine *mobile* coverage.
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 14"] },
+    },
+    {
+      // A 768px-wide viewport: >= the 768px mobile breakpoint (so the
+      // fixture's dock-on-mobile layout treats it as desktop — DrawerButton
+      // renders instead of the BottomDock) but < the 1024px `lg` breakpoint
+      // (so DrawerButton, `lg:hidden`, is still visible) — the one width
+      // range where the toggleable off-canvas drawer is reachable at all.
+      name: "Tablet",
+      use: { ...devices["iPad Mini"] },
+    },
   ],
 
   /* Run your local dev server before starting the tests */

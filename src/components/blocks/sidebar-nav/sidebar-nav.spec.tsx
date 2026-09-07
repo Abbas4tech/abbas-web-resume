@@ -1,6 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { Drawer } from "@/components/elements/ui/drawer/drawer";
+import { Drawer, DrawerButton } from "@/components/elements/ui/drawer/drawer";
 import { render, screen } from "@/test/utils";
 import { SidebarNav } from "./sidebar-nav";
 
@@ -55,11 +55,16 @@ describe("SidebarNav", () => {
     // Drawer so the resulting state change is observable.
     const { container } = render(
       <Drawer>
+        <DrawerButton data-testid="drawer-toggle" />
         <SidebarNav pages={mockPages} />
       </Drawer>
     );
 
     const drawer = container.querySelector(".drawer");
+    // Starts collapsed (see the comment on DrawerProvider's `open` state for
+    // why) — open it first so a nav-link click has something to close.
+    expect(drawer).toHaveAttribute("data-state", "collapsed");
+    fireEvent.click(screen.getByTestId("drawer-toggle"));
     expect(drawer).toHaveAttribute("data-state", "expanded");
 
     fireEvent.click(screen.getByRole("link", { name: HomeRegex }));

@@ -8,9 +8,9 @@ status: accepted
 
 ## Status
 
-Accepted. Companion to [0021](./0021-unit-component-test-coverage-remediation.md). Lands as the phased
-implementation PRs sequenced below; see [Implementation](#implementation) for progress. Confirmed with the repo
-owner:
+Accepted and implemented. Companion to [0021](./0021-unit-component-test-coverage-remediation.md). All six
+journey groups in §2 landed across PRs 4-10 — see [Implementation](#implementation) for what each one covers
+and the real bugs found along the way. Confirmed with the repo owner up front:
 
 - Fixture strategy: build a **synthetic, CMS-agnostic fixture site** (Decision §1), not a mirror of the live
   Contentful content, since content changes independently of code and a fixture tied to today's real copy would
@@ -360,8 +360,47 @@ workers, not a real defect. Mitigated with a flat `750ms` settle delay before in
 trade against occasional flakiness, not a claim about how long any specific animation takes. CI's existing
 `retries: 2` is the backstop if it still happens once in a while.
 
-Remaining groups (6 — device
-sweep) are not yet implemented.
+### PR 10 — Expanded device matrix (§2 group 6, §3) — done
+
+Added two projects to `playwright.config.ts`, taking the matrix from 4 to 6: **Mobile Safari**
+(`devices["iPhone 14"]` — WebKit engine, the only actual iOS Safari coverage; Desktop WebKit doesn't emulate
+iOS viewport/touch semantics) and **Tablet** (`devices["iPad Mini"]`, 768×1024 — chosen because 768px is
+*exactly* the mobile breakpoint boundary and 1024px, `iPad Mini`'s width, sits *just under* the `lg` breakpoint,
+landing precisely in the one gap identified back in PR 5: wide enough that the fixture's `dock-on-mobile`
+variant treats it as desktop (`DrawerButton` renders instead of being swapped for the BottomDock), narrow
+enough that `DrawerButton`'s `lg:hidden` hasn't kicked in yet — the only width range where the toggleable
+off-canvas drawer is reachable at all.
+
+Adding a project that could actually reach that drawer immediately found a real bug, not a fixture gap:
+
+- **The drawer defaulted open at every width below `lg`, including tablet — where "open" means an overlay
+  covering the page.** `DrawerProvider`'s `open` state was initialized as `useState(!isMobile)`. `useMobile()`
+  can only know the real viewport after its own `useEffect` runs, so on every component's *first* render, for
+  *every* device, `isMobile` reads `false` — meaning `open` always initialized to `true`, unconditionally. That
+  was invisible on desktop (`lg:drawer-open` forces the sidebar visible regardless of this state) and invisible
+  on mobile with the `dock-on-mobile` variant (the whole checkbox/overlay mechanism is swapped for `sr-only`
+  placeholders there) — but at a width that's off-canvas *and* not swapped out, exactly what the new Tablet
+  project exercises, it meant every fresh page load showed the drawer's overlay backdrop sitting on top of the
+  actual content, blocking it, until the user dismissed it. Caught by `routing.spec.ts`'s NotFound test, whose
+  "Go back home" click started timing out with `<label class="drawer-overlay">... intercepts pointer events`.
+  Fixed by initializing `open` to `false` outright — correct at every width this state has any visible effect,
+  including the two where it was already moot. `sidebar-nav.spec.tsx`'s "closes the drawer when a nav link is
+  clicked" test now opens the drawer first (there's something to close); `navigation.spec.ts`'s "sidebar
+  navigation" tests and `smoke.spec.ts`'s viewport-dependent test now open it too when running between the
+  mobile and `lg` breakpoints, matching what a real user would need to do.
+
+One environment-specific observation, not a suite defect: running the full 6-project matrix locally with
+Playwright's default worker count (one per CPU core — 9 here) produced a handful of failures that vanished
+both in isolation and under `pnpm exec playwright test --workers=1`. `playwright.config.ts` already sets
+`workers: process.env.CI ? 1 : undefined` — CI always runs serially — so this is purely an artifact of enough
+parallel browser instances competing for this machine's CPU to occasionally miss a click or (as in PR 9) catch
+an animation mid-transition, not something CI or a less-loaded machine would hit. Confirmed clean: 167 passed,
+19 skipped, 0 failed, `--workers=1` across all six projects.
+
+Remaining groups: none — all six of §2's journey groups are implemented. The accepted, documented gaps from
+PRs 7 and 9 (dropped `CardGrid` link text, no `<h1>` on any page, sidebar/BottomDock missing a landmark, the
+marginal `.stat-title` contrast shortfall, etc.) are real product/design-system work, not E2E-suite gaps —
+tracked here for whoever picks them up next, deliberately out of scope for a test-coverage initiative.
 
 ## Considered Options
 

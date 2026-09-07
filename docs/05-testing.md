@@ -145,6 +145,8 @@ export default defineConfig({
     { name: "firefox",  use: { ...devices["Desktop Firefox"] } },
     { name: "webkit",   use: { ...devices["Desktop Safari"] } },
     { name: "Mobile Chrome", use: { ...devices["Pixel 5"] } },
+    { name: "Mobile Safari", use: { ...devices["iPhone 14"] } },
+    { name: "Tablet", use: { ...devices["iPad Mini"] } }, // 768px — see ADR 0022 PR 10
   ],
   webServer: {
     // Defense-in-depth only — src/contentful/lib/client.ts sets
@@ -259,29 +261,29 @@ progress bar with no accessible name).
 
 ---
 
-## Known Gaps & Remediation Plan
+## Test Coverage Remediation (2026-09-07)
 
 An audit on 2026-09-07 found unit/component coverage at ~21.6% statements (concentrated gaps: only 2 of the 13
 files in `src/contentful/adapters/` had their own spec, and `rich-text.tsx` under-covered its node-type mapping)
-and an E2E suite consisting of two smoke-level specs against a single, near-empty mock page.
+and an E2E suite consisting of two smoke-level specs against a single, near-empty mock page. Both sides are now
+fully remediated.
 
-**Unit/component side — done.** [ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md)'s full P0/P1/P2
+**Unit/component side.** [ADR 0021](./adr/0021-unit-component-test-coverage-remediation.md)'s full P0/P1/P2
 backlog has landed: the Contentful adapters, the `ContentSection`/`ContentList` block registries, `rich-text.tsx`'s
 node-type mapping, the motion/behavioral elements, and `theme-toggle`/`drawer`'s branch coverage are all tested.
 Application code (excluding the generated GraphQL SDK and migration scripts) now measures ~92% statements / ~82%
 branches, enforced by the coverage floor documented above.
 
-**E2E side — fixture, navigation, per-block, routing/error, and accessibility done, device-matrix not started.**
-[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site (§2 group 1), global
-chrome/navigation journeys (§2 group 2), per-block content journeys (§2 group 3), routing/error surfaces (§2
-group 4), and automated accessibility scanning (§2 group 5) are implemented: `tests/mocks/fixture-site.ts`
-serves a fictional multi-page site exercising every registered Block, routed by path through
-`tests/mocks/handlers.ts`; `tests/e2e/navigation.spec.ts` covers the header and sidebar/BottomDock navigation; a
-spec per Block (`hero-banner`, `split-content-panel`, `timeline-section`, `card-grid`, `panel-showcase`) asserts
-against that fixture content; `tests/e2e/routing.spec.ts` covers direct navigation, the real `notFound()`
-branch, and the `error.tsx` boundary; and `axe-playwright` runs automatically after every test via a shared
-fixture hook, having already found and gotten fixed three real accessibility bugs. Only the expanded device
-matrix (group 6 — Mobile Safari, tablet) is still just a plan.
+**E2E side.** All six journey groups in [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md) are
+implemented: `tests/mocks/fixture-site.ts` serves a fictional multi-page site exercising every registered
+Block, routed by path through `tests/mocks/handlers.ts`; `tests/e2e/navigation.spec.ts` covers the header and
+sidebar/BottomDock navigation; a spec per Block (`hero-banner`, `split-content-panel`, `timeline-section`,
+`card-grid`, `panel-showcase`) asserts against that fixture content; `tests/e2e/routing.spec.ts` covers direct
+navigation, the real `notFound()` branch, and the `error.tsx` boundary; `axe-playwright` runs automatically
+after every test via a shared fixture hook; and the device matrix covers six projects (desktop
+Chrome/Firefox/WebKit, Mobile Chrome, Mobile Safari, and a 768px tablet project). Along the way this found and
+fixed several real bugs outside the test files themselves — see ADR 0022's Implementation section for the full
+list, including a drawer that defaulted open (blocking page content) at tablet widths.
 
 ## Related ADRs
 

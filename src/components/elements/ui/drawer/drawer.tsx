@@ -65,7 +65,18 @@ const DrawerProvider = forwardRef<HTMLDivElement, DrawerProviderProps>(
     ref
   ) => {
     const isMobile = useMobile();
-    const [open, setOpen] = useState(!isMobile);
+    // Not `useState(!isMobile)`: useMobile() can only know the real
+    // viewport width after its own effect runs, so on every first render —
+    // any device — `isMobile` reads as `false` and this would always
+    // initialize to `true`. That's invisible on desktop (`lg:drawer-open`
+    // forces the sidebar open regardless of this state) and on mobile with
+    // the dock-on-mobile variant (the whole checkbox/overlay mechanism is
+    // swapped for sr-only placeholders there), but between those — a
+    // "tablet" width, off-canvas but not dock-on-mobile-hidden — it meant
+    // the drawer's overlay defaulted open, blocking the page's own content
+    // until the user dismissed it. Starting closed is correct everywhere
+    // this state actually has any visible effect.
+    const [open, setOpen] = useState(false);
 
     const checkForSidebarState = useCallback(
       () => (open ? "expanded" : "collapsed"),

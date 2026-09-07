@@ -2,6 +2,7 @@ import { expect } from "@playwright/test";
 import { test } from "./fixtures/test-base";
 
 const MOBILE_BREAKPOINT = 768;
+const LG_BREAKPOINT = 1024;
 const ABOUT_PATH_PATTERN = /\/about$/;
 
 test.describe("E2E Smoke Test", () => {
@@ -28,6 +29,7 @@ test.describe("E2E Smoke Test", () => {
 
   test("navigation surfaces the full fixture nav depending on viewport", async ({
     page,
+    header,
     sidebar,
   }) => {
     await page.goto("/");
@@ -39,6 +41,14 @@ test.describe("E2E Smoke Test", () => {
       // sidebar is replaced by the BottomDock below this breakpoint.
       await expect(page.locator(".dock").first()).toBeVisible();
     } else {
+      // Between the mobile and lg breakpoints, the drawer is an off-canvas
+      // overlay that starts closed (see the comment on DrawerProvider's
+      // `open` state in drawer.tsx) — open it first. At lg and up,
+      // `lg:drawer-open` keeps the sidebar visible regardless, so this is a
+      // harmless no-op there.
+      if (viewportWidth < LG_BREAKPOINT) {
+        await header.toggleDrawer();
+      }
       await expect(sidebar.menuItems.first()).toBeVisible();
       expect(await sidebar.getNavItemsCount()).toBe(6);
     }
