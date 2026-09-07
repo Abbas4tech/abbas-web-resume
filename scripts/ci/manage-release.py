@@ -36,7 +36,15 @@ def main():
     remote_branches = run_command("git ls-remote --heads origin").stdout.strip()
     if branch_name in remote_branches:
         print(f"Branch {branch_name} already exists. Updating it...")
-        run_command(f"git checkout {branch_name}")
+        # actions/checkout only fetches the single ref that triggered the
+        # workflow (master here) -- it never fetches other remote branches,
+        # even with fetch-depth: 0 (that only removes the depth limit on
+        # master's own history). Without this explicit fetch,
+        # `git checkout {branch_name}` fails on every release after the
+        # first one with "did not match any file(s) known to git", since
+        # the local repo has never heard of origin/changeset-release/master.
+        run_command(f"git fetch origin {branch_name}")
+        run_command(f"git checkout -B {branch_name} origin/{branch_name}")
         run_command("git reset --hard master")
     else:
         print(f"Creating new branch {branch_name}...")

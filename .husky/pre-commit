@@ -9,9 +9,26 @@ if [ -z "$STAGED_FILES" ]; then
   exit 0
 fi
 
-# Run formatter
-pnpm exec ultracite fix
-FORMAT_EXIT_CODE=$?
+# Build a positional-parameter list of staged files (safe for filenames
+# with spaces — passing $STAGED_FILES unquoted below would word-split it).
+set --
+while IFS= read -r file; do
+  if [ -f "$file" ]; then
+    set -- "$@" "$file"
+  fi
+done <<EOF
+$STAGED_FILES
+EOF
+
+# Run formatter, scoped to the staged files only (not the whole repo).
+# `if` exempts this from `set -e`, so FORMAT_EXIT_CODE is always reached —
+# without it, `set -e` would abort the script the instant ultracite found
+# something unfixable, skipping the message below entirely.
+if pnpm exec ultracite fix "$@"; then
+  FORMAT_EXIT_CODE=0
+else
+  FORMAT_EXIT_CODE=$?
+fi
 
 # Re-stage files that were already staged
 echo "$STAGED_FILES" | while IFS= read -r file; do
