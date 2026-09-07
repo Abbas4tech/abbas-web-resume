@@ -389,13 +389,18 @@ Adding a project that could actually reach that drawer immediately found a real 
   navigation" tests and `smoke.spec.ts`'s viewport-dependent test now open it too when running between the
   mobile and `lg` breakpoints, matching what a real user would need to do.
 
-One environment-specific observation, not a suite defect: running the full 6-project matrix locally with
-Playwright's default worker count (one per CPU core — 9 here) produced a handful of failures that vanished
-both in isolation and under `pnpm exec playwright test --workers=1`. `playwright.config.ts` already sets
-`workers: process.env.CI ? 1 : undefined` — CI always runs serially — so this is purely an artifact of enough
-parallel browser instances competing for this machine's CPU to occasionally miss a click or (as in PR 9) catch
-an animation mid-transition, not something CI or a less-loaded machine would hit. Confirmed clean: 167 passed,
-19 skipped, 0 failed, `--workers=1` across all six projects.
+One environment-specific finding came out of this, addressed as a config change rather than left as trivia:
+running the full 6-project matrix locally with Playwright's default worker count (one per CPU core) produced a
+handful of failures — most often the Tablet project's sidebar-navigation tests, which open the drawer and then
+click a nav link in the same test, two state transitions back to back — that vanished both in isolation and
+under `pnpm exec playwright test --workers=1` (confirmed clean: 167 passed, 19 skipped, 0 failed). That
+matched CI exactly (`workers: process.env.CI ? 1 : undefined` already ran CI serially) but meant every local
+`pnpm test:e2e` run was gambling with however many cores happened to be free. Rather than rely on everyone
+remembering `--workers=1`, `playwright.config.ts` now caps local workers at `"50%"` of available cores and adds
+one local retry (`retries: process.env.CI ? 2 : 1`) — enough headroom that this specific class of contention
+flake resolves on its own re-run, while still leaving retries low enough that a real regression won't quietly
+hide behind them. Verified over two full local runs post-change: zero hard failures, with the occasional
+Tablet sidebar test reported as "flaky" (failed once, passed on the automatic retry) rather than failed.
 
 Remaining groups: none — all six of §2's journey groups are implemented. The accepted, documented gaps from
 PRs 7 and 9 (dropped `CardGrid` link text, no `<h1>` on any page, sidebar/BottomDock missing a landmark, the
