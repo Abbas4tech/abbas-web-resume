@@ -173,8 +173,37 @@ One more pre-existing bug came out of actually exercising the header BOM: `AppHe
 strict-mode violation the moment anything called `getTitle()`. Never caught before because nothing had. Fixed
 to `.navbar-start a.btn-ghost`.
 
-Remaining groups (2 — global chrome & navigation, 3 — per-block content journeys, 4 — routing & error
-surfaces, 5 — accessibility, 6 — device sweep) are not yet implemented.
+### PR 5 — Global chrome & navigation (§2 group 2) — done
+
+`tests/e2e/navigation.spec.ts` covers the header (resume link opens in a new tab, theme toggle switches
+`data-theme` across two theme choices) and the sidebar (every non-redirecting nav item navigates to its page
+and picks up the active-item highlight), plus a mobile-only BottomDock spec (all 6 nav items present, tapping
+one navigates). New Block Object Models: `ThemeToggleModel`, `BottomDockModel`; `SidebarNavModel` grew
+`navLink()`/`isActive()`. All four specs run per-viewport-conditional (`test.skip` based on
+`page.viewportSize()`) rather than as separate spec files, since the sidebar and dock are mutually exclusive
+depending on breakpoint.
+
+This group found three more real gaps, on top of PR 4's:
+
+- **The active-sidebar-item highlight blocked clicks on the already-active item.** `SidebarNav`'s
+  `layoutId="activeSidebarNav"` overlay `<div>` had no `pointer-events-none`, so re-clicking the current page's
+  own nav link (e.g. re-navigating to `/about` while already there) silently did nothing — the overlay ate the
+  click. Fixed in `sidebar-nav.tsx`.
+- **`ThemeToggle` never applies `defaultTheme` to the DOM on load.** `<html>` carries no `data-theme` attribute
+  at all until a user actively picks one from the dropdown — the component's initial React state matches
+  `defaultTheme`, but nothing calls `document.documentElement.setAttribute` until `handleThemeChange` fires
+  from a click. The plan text in §2 group 2 ("theme toggle ... persists across a reload") doesn't hold either:
+  there's no `localStorage`/cookie persistence anywhere in the component, so a reload always loses the
+  selection. Both are product-behavior facts the fixture/spec now assert as-is rather than an aspiration to
+  test against.
+- **Drawer open/close only has a testable window in the 768-1023px tablet range.** The fixture's layout uses
+  the `dock-on-mobile` drawer variant. Below 768px, `DrawerButton`/`DrawerSide` render `sr-only` placeholders
+  (the BottomDock takes over) — there's no way to open/close the sidebar drawer at all. At the current desktop
+  viewports (≥1024px), `DrawerButton` is `lg:hidden`. That leaves only the not-yet-added tablet project (§3) as
+  a place to actually exercise the toggleable drawer; group 2 does not cover it for that reason.
+
+Remaining groups (3 — per-block content journeys, 4 — routing & error surfaces, 5 — accessibility, 6 — device
+sweep) are not yet implemented.
 
 ## Considered Options
 

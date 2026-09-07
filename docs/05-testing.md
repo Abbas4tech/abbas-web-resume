@@ -234,11 +234,12 @@ node-type mapping, the motion/behavioral elements, and `theme-toggle`/`drawer`'s
 Application code (excluding the generated GraphQL SDK and migration scripts) now measures ~92% statements / ~82%
 branches, enforced by the coverage floor documented above.
 
-**E2E side — fixture foundation done, journey suite not started.** [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s
-synthetic fixture site (§2 group 1) is implemented: `tests/mocks/fixture-site.ts` now serves a fictional
-multi-page site exercising every registered Block, routed by path through `tests/mocks/handlers.ts`. The
-journey suite itself (navigation, per-block content, routing/error surfaces, accessibility, expanded device
-matrix — groups 2-6) is still just a plan.
+**E2E side — fixture foundation and navigation journeys done, per-block journeys not started.**
+[ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s synthetic fixture site (§2 group 1) and global
+chrome/navigation journeys (§2 group 2) are implemented: `tests/mocks/fixture-site.ts` serves a fictional
+multi-page site exercising every registered Block, routed by path through `tests/mocks/handlers.ts`, and
+`tests/e2e/navigation.spec.ts` covers the header and sidebar/BottomDock navigation. Per-block content journeys,
+routing/error surfaces, accessibility, and the expanded device matrix (groups 3-6) are still just a plan.
 
 ## Related ADRs
 

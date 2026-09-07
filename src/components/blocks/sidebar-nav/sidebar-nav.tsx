@@ -45,7 +45,7 @@ const SidebarNav = ({
           <DrawerSideItem className="relative" id={page.title} key={page.title}>
             {isActive && (
               <m.div
-                className="absolute inset-0 border-primary border-l-4 bg-primary/10"
+                className="pointer-events-none absolute inset-0 border-primary border-l-4 bg-primary/10"
                 layoutId="activeSidebarNav"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />

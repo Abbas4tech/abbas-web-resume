@@ -12,8 +12,17 @@ export class SidebarNavModel {
     this.menuItems = this.root.locator("li");
   }
 
+  navLink(name: string): Locator {
+    return this.root.getByRole("link", { name, exact: false });
+  }
+
   async clickNavItem(name: string) {
-    await this.menuItems.filter({ hasText: name }).click();
+    await this.navLink(name).click();
+  }
+
+  async isActive(name: string) {
+    const classes = await this.navLink(name).getAttribute("class");
+    return (classes ?? "").includes("font-bold");
   }
 
   async getNavItemsCount() {
