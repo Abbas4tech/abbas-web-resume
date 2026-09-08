@@ -533,6 +533,7 @@ async function main() {
           {
             in: [
               "TimelineSection",
+              "TimelineSectionWithBadges",
               "CardGrid",
               "PanelShowcase",
               "SplitContentPanel",

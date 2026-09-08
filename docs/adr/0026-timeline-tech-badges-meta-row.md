@@ -118,6 +118,58 @@ Verified against the live, running app afterward (`pnpm dev` + Playwright, not j
 now renders all three entries' tech stacks as `TechBadgeCloud` rows with correct icons, zero console errors,
 zero `Icon not found in registry` fallbacks.
 
+## Amendment — Explicit `ui` toggle, tags dropped entirely, and a live data bug
+
+A follow-up request asked for the same kind of editor-facing `ui` toggle — built, then fully reverted (code
+and live schema) after the repo owner clarified they'd meant `TimelineSection`, not `SplitContentPanel` — this
+time for `TimelineSection` itself. The first pass registered both `ui` values under one shared render
+function, on the (incorrect) assumption that badges already showing automatically wherever `subItems` existed
+meant the two values should be functionally identical. Corrected after the repo owner clarified the actual
+intent, twice — first that flat `tags` were never meant to be a data source at all (an autocorrect artifact in
+how that was phrased, not a real ask to reintroduce them), then that the two `ui` values must render the
+**same `subItems` data differently**, not identically:
+
+- `ui: "TimelineSection"` — the tech-stack row renders as the original single icon + comma-joined text, built
+  from `subItems.map(s => s.title).join(", ")`.
+- `ui: "TimelineSectionWithBadges"` — the same `subItems` render as a `TechBadgeCloud` instead, each with its
+  own icon.
+
+There is no `tags`-based path anywhere in `timeline-section.adapter.ts` — `subItems` is the only data source
+for either variant, split into two functions (`adaptTimelineSection`, `adaptTimelineSectionWithBadges`) that
+share a `buildBaseMetaRows` helper for the date/place/role rows and differ only in how they render the
+tech-stack row:
+
+```ts
+// ui: "TimelineSection"
+metaRows.push({
+  icon: { iconCode: "fa/FaStackOverflow", name: "Tech Stack", size: "18" },
+  text: item.subItems.map((subItem) => subItem.title).join(", "),
+});
+
+// ui: "TimelineSectionWithBadges"
+metaRows.push({
+  type: "badges",
+  items: item.subItems.map((subItem) => ({ label: subItem.title, icon: subItem.icons?.[0] })),
+});
+```
+
+`content-list.tsx` registers each `ui` key against its own adapter function accordingly. Pushed the
+`contentList.ui` schema addition live via `pnpm contentful:setup` and confirmed through the Management API.
+Verified against the real live site with the real "Experience — Timeline" data (which already has `subItems`
+from the ADR-0026 migration): with `ui: "TimelineSection"` selected, `/experience` renders the original
+comma-joined text line, not badges — toggling the entry to `TimelineSectionWithBadges` in Contentful is what
+switches it to the badge cloud.
+
+**A live bug surfaced while verifying this against the real site, unrelated to the code change itself:**
+`/experience` was rendering `BlockPlaceholder` instead of the timeline. The real "Experience — Timeline"
+`ContentList` entry's `ui` field was still literally set to `"SplitContentPanelWithBadges"` — a leftover from
+testing that value before its ADR-0027 revert. Removing a value from a Symbol field's `in` validation (what
+the revert did) does not retroactively fix entries whose stored value no longer matches the list; it only
+blocks *new* writes of that value going forward. Fixed by updating that one entry's `ui` field back to
+`"TimelineSection"` directly via the Management API and re-verified the live page. Worth remembering for any
+future `ui` enum revert: check whether a real entry was ever switched to the value being removed, the same way
+a dangling foreign key needs cleanup after a schema rollback.
+
 ## Considered Options
 
 - **Duplicate the badge-rendering JSX inline in `TimelineEntry` instead of sharing a component.** Rejected:

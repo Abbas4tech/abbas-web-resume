@@ -355,7 +355,11 @@ Located at `src/components/blocks/`.
 
 ### TimelineSection
 
-`timeline-section/` — Full vertical timeline section heading + list of `TimelineEntry` patterns. `timeline-section.adapter.ts` maps a `contentItem`'s `subItems` into a `TimelineEntry` badges meta row when present (falling back to a plain comma-joined `tags` text row otherwise) — see [ADR 0026](./adr/0026-timeline-tech-badges-meta-row.md).
+`timeline-section/` — Full vertical timeline section heading + list of `TimelineEntry` patterns. The tech-stack meta row is always sourced from `subItems` (flat `tags` are never read for it), but rendered two different ways depending on which `ui` value is selected — each with its own adapter function in `timeline-section.adapter.ts`:
+- `ui: "TimelineSection"` (`adaptTimelineSection`) — the original single icon + comma-joined text line, e.g. "React, TypeScript, Node.js".
+- `ui: "TimelineSectionWithBadges"` (`adaptTimelineSectionWithBadges`) — the same `subItems` rendered as a `TechBadgeCloud`, each with its own icon.
+
+See [ADR 0026](./adr/0026-timeline-tech-badges-meta-row.md).
 
 ---
 
@@ -369,7 +373,7 @@ production — see [ADR 0004](./adr/0004-contentful-renderers.md)).
 | Content type | Registered `ui` values |
 |---|---|
 | `ContentSection` (single entry) | `HeroBanner`, `SplitContentPanel`, `AnnouncementBanner` |
-| `ContentList` (multiple entries) | `TimelineSection`, `CardGrid`, `PanelShowcase`, `SplitContentPanel`, `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ContentTabs`, `TechBadgeCloud` |
+| `ContentList` (multiple entries) | `TimelineSection`, `TimelineSectionWithBadges`, `CardGrid`, `PanelShowcase`, `SplitContentPanel`, `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ContentTabs`, `TechBadgeCloud` |
 
 Adding a new CMS-toggleable Block is a registry entry plus a `setup-content-model.ts` enum value — not new
 component work, if a suitable Block already exists. See [ADR 0024](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md).

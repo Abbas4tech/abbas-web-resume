@@ -15,7 +15,10 @@ import { SplitContentPanel } from "@/components/blocks/split-content-panel/split
 import { adaptSplitContentPanel } from "@/components/blocks/split-content-panel/split-content-panel.adapter";
 import { adaptTechBadgeCloud } from "@/components/blocks/tech-badge-cloud/tech-badge-cloud.adapter";
 import { TimelineSection } from "@/components/blocks/timeline-section/timeline-section";
-import { adaptTimelineSection } from "@/components/blocks/timeline-section/timeline-section.adapter";
+import {
+  adaptTimelineSection,
+  adaptTimelineSectionWithBadges,
+} from "@/components/blocks/timeline-section/timeline-section.adapter";
 import { TechBadgeCloud } from "@/components/patterns/tech-badge-cloud/tech-badge-cloud";
 import type { AdaptedContentList } from "@/contentful/adapters/content-list";
 import { BlockPlaceholder } from "../element/block-placeholder";
@@ -31,6 +34,14 @@ const LIST_BLOCK_REGISTRY: Record<
 > = {
   TimelineSection: (data, className) => (
     <TimelineSection {...adaptTimelineSection(data)} className={className} />
+  ),
+  // Same subItems data source as "TimelineSection" — rendered as a
+  // TechBadgeCloud instead of comma-joined text. See ADR 0026.
+  TimelineSectionWithBadges: (data, className) => (
+    <TimelineSection
+      {...adaptTimelineSectionWithBadges(data)}
+      className={className}
+    />
   ),
   SplitContentPanel: (data, className) => (
     <SplitContentPanel
