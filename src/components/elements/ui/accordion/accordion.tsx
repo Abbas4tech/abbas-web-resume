@@ -22,7 +22,11 @@ const AccordionItem = memo(
         ref={ref}
         {...props}
       >
-        <input name={name} type="radio" />
+        <input
+          aria-label={typeof title === "string" ? title : name}
+          name={name}
+          type="radio"
+        />
         <div className="collapse-title font-semibold">{title}</div>
         <div className="collapse-content">{children}</div>
       </div>

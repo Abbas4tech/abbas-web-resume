@@ -7,6 +7,7 @@ import type { CardGridProps } from "./card-grid";
 export function adaptCardGrid(data: AdaptedContentList): CardGridProps {
   return {
     cards: data.customEntries.map((item) => ({
+      id: item.id,
       title: item.title,
       description: item.description || "",
       links: item.links,

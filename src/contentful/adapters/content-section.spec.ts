@@ -87,12 +87,12 @@ describe("adaptContentSection", () => {
     });
   });
 
-  it("defaults ui to 'Standard' when the CMS field is empty", () => {
+  it("defaults ui to 'HeroBanner' when the CMS field is empty", () => {
     const result = adaptContentSection({
       ...fullContentSection,
       ui: null,
     } as unknown as ContentSectionFieldsFragment);
-    expect(result?.ui).toBe("Standard");
+    expect(result?.ui).toBe("HeroBanner");
   });
 });
 

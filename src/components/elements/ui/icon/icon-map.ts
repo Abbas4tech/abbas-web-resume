@@ -51,6 +51,7 @@ import {
   IoStatsChartSharp,
 } from "react-icons/io5";
 import {
+  MdAccessTime,
   MdBusiness,
   MdClose,
   MdCode,
@@ -59,9 +60,12 @@ import {
   MdDateRange,
   MdEmail,
   MdError,
+  MdEventAvailable,
   MdFavorite,
   MdHome,
+  MdLanguage,
   MdLightMode,
+  MdLink,
   MdLocationOn,
   MdMenu,
   MdOpenInNew,
@@ -70,6 +74,7 @@ import {
   MdRefresh,
   MdSchool,
   MdSearchOff,
+  MdStorage,
   MdWork,
 } from "react-icons/md";
 import { PiFlagBannerFill } from "react-icons/pi";
@@ -79,6 +84,7 @@ import {
   SiAxios,
   SiContentful,
   SiDaisyui,
+  SiExpress,
   SiFramework,
   SiGmail,
   SiJavascript,
@@ -192,6 +198,7 @@ export const ICON_REGISTRY: Record<string, IconType> = {
   "io5/IoStatsChartSharp": IoStatsChartSharp,
 
   // Material Design (md)
+  "md/MdAccessTime": MdAccessTime,
   "md/MdBusiness": MdBusiness,
   "md/MdClose": MdClose,
   "md/MdCode": MdCode,
@@ -200,9 +207,12 @@ export const ICON_REGISTRY: Record<string, IconType> = {
   "md/MdDateRange": MdDateRange,
   "md/MdEmail": MdEmail,
   "md/MdError": MdError,
+  "md/MdEventAvailable": MdEventAvailable,
   "md/MdFavorite": MdFavorite,
   "md/MdHome": MdHome,
+  "md/MdLanguage": MdLanguage,
   "md/MdLightMode": MdLightMode,
+  "md/MdLink": MdLink,
   "md/MdLocationOn": MdLocationOn,
   "md/MdMenu": MdMenu,
   "md/MdOpenInNew": MdOpenInNew,
@@ -211,6 +221,7 @@ export const ICON_REGISTRY: Record<string, IconType> = {
   "md/MdRefresh": MdRefresh,
   "md/MdSchool": MdSchool,
   "md/MdSearchOff": MdSearchOff,
+  "md/MdStorage": MdStorage,
   "md/MdWork": MdWork,
 
   // Remix Icons (ri)
@@ -221,6 +232,7 @@ export const ICON_REGISTRY: Record<string, IconType> = {
   "si/SiAxios": SiAxios,
   "si/SiContentful": SiContentful,
   "si/SiDaisyui": SiDaisyui,
+  "si/SiExpress": SiExpress,
   "si/SiFramework": SiFramework,
   "si/SiGmail": SiGmail,
   "si/SiJavascript": SiJavascript,

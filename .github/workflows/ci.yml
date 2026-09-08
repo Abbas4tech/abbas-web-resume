@@ -285,3 +285,37 @@ jobs:
           name: storybook-static
           path: storybook-static/
           retention-days: 14
+
+  storybook-a11y:
+    name: Storybook Accessibility Tests
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10.29.1
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      # Only chromium: the test-runner's own preVisit/postVisit hooks
+      # (.storybook/test-runner.ts) run axe against one engine by design —
+      # this isn't a cross-browser visual check, unlike e2e-test's matrix.
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+      # Builds Storybook, serves the static output, waits for it to be
+      # reachable, then runs the test-runner (axe a11y checks) against every
+      # story. Previously this repo only ran `build-storybook` in CI — a
+      # bundling check that cannot catch a story failing to render at all
+      # (e.g. a missing Storybook context provider) or an accessibility
+      # regression, since neither requires the story to actually mount in a
+      # browser. See docs/06-storybook.md.
+      - name: Run Storybook accessibility tests
+        run: pnpm test-storybook:ci

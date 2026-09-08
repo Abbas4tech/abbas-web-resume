@@ -3,6 +3,9 @@ import { describe, expect, it, vi } from "vitest";
 import { ServerErrorBlock } from "./server-error";
 import { baseMock } from "./server-error.mock";
 
+const TRY_AGAIN_REGEX = /Try again/i;
+const REFRESH_REGEX = /Refresh/i;
+
 describe("ServerErrorBlock", () => {
   it("renders with default props and handles retry", () => {
     const handleRetry = vi.fn();
@@ -16,7 +19,7 @@ describe("ServerErrorBlock", () => {
       )
     ).toBeInTheDocument();
 
-    const retryButton = screen.getByRole("button", { name: "Try again" });
+    const retryButton = screen.getByRole("button", { name: TRY_AGAIN_REGEX });
     expect(retryButton).toBeInTheDocument();
 
     fireEvent.click(retryButton);
@@ -27,7 +30,7 @@ describe("ServerErrorBlock", () => {
     render(<ServerErrorBlock {...baseMock} onRetry={undefined} />);
 
     expect(
-      screen.queryByRole("button", { name: "Try again" })
+      screen.queryByRole("button", { name: TRY_AGAIN_REGEX })
     ).not.toBeInTheDocument();
   });
 
@@ -43,6 +46,8 @@ describe("ServerErrorBlock", () => {
 
     expect(screen.getByText("Custom Server Error")).toBeInTheDocument();
     expect(screen.getByText("Custom error message")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Refresh" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: REFRESH_REGEX })
+    ).toBeInTheDocument();
   });
 });

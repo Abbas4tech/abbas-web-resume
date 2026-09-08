@@ -57,6 +57,52 @@ describe("adaptTimelineSection", () => {
     const metaRows = result.entries[0].metaRows;
 
     expect(metaRows).toHaveLength(1);
-    expect(metaRows[0].text).toBe("January 2022 - Present");
+    expect(metaRows[0]).toMatchObject({ text: "January 2022 - Present" });
+  });
+
+  it("maps subItems into a badges meta row instead of joined text", () => {
+    const input: AdaptedContentList = {
+      customEntries: [
+        {
+          title: "Job Title",
+          subItems: [
+            { title: "React", icons: [{ iconCode: "si/SiReact" }] },
+            { title: "TypeScript", icons: [{ iconCode: "si/SiTypescript" }] },
+          ],
+          tags: ["React", "TypeScript"],
+        },
+      ],
+    } as unknown as AdaptedContentList;
+
+    const result = adaptTimelineSection(input);
+    const badgesRow = result.entries[0].metaRows.find(
+      (row) => row.type === "badges"
+    );
+
+    expect(badgesRow).toEqual({
+      type: "badges",
+      items: [
+        { label: "React", icon: { iconCode: "si/SiReact" } },
+        { label: "TypeScript", icon: { iconCode: "si/SiTypescript" } },
+      ],
+    });
+  });
+
+  it("falls back to a joined-text row when only flat tags are present", () => {
+    const input: AdaptedContentList = {
+      customEntries: [
+        {
+          title: "Job Title",
+          tags: ["React", "TypeScript"],
+        },
+      ],
+    } as unknown as AdaptedContentList;
+
+    const result = adaptTimelineSection(input);
+
+    expect(result.entries[0].metaRows).toContainEqual({
+      icon: { iconCode: "fa/FaStackOverflow", name: "Tech Stack", size: "18" },
+      text: "React, TypeScript",
+    });
   });
 });

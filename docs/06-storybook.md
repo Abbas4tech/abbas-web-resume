@@ -198,12 +198,37 @@ The static build outputs to `storybook-static/` and is uploaded as a CI artifact
 
 ## Chromatic Visual Regression
 
-Chromatic integration is configured via `chromatic.config.json`. On CI, the Storybook static build is automatically submitted to Chromatic for visual comparison against the baseline.
+Chromatic integration is configured via `chromatic.config.json` (a Chromatic project already exists for this
+repo — see its `projectId`), and the `chromatic` CLI is a devDependency with a `pnpm chromatic` script.
 
-If visual diffs are detected, Chromatic blocks the PR until a reviewer approves the changes.
+**Not yet wired into CI.** Despite the project being configured, no CI workflow currently invokes it — visual
+regression coverage is zero today. Run `pnpm chromatic` locally (requires a `CHROMATIC_PROJECT_TOKEN`, from
+the project's Chromatic dashboard, as an env var — never commit it) to try it before adding it to
+`.github/workflows/ci.yml`. See [ADR 0024](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md).
 
 ---
+
+## Accessibility Testing (`test-storybook`)
+
+`.storybook/test-runner.ts` injects `axe-playwright` into every story and fails the run on any violation,
+except `color-contrast` (disabled — see the comment in that file and [ADR 0022](./adr/0022-e2e-journey-and-fixture-expansion.md)'s
+"PR 11" for why: axe-core samples rendered pixels, and font hinting/anti-aliasing differences between local
+and CI rendering environments flip already-borderline DaisyUI color tokens unpredictably).
+
+```bash
+# Local: point it at a running dev server
+pnpm storybook &
+pnpm test-storybook
+
+# Self-contained (what CI runs): builds, serves, waits, then tests
+pnpm test-storybook:ci
+```
+
+This runs as the `storybook-a11y` job in CI, independent of `build-storybook` — the latter only checks that
+Storybook *bundles*, which cannot catch a story that fails to render (e.g. a missing context provider) or an
+accessibility regression, since neither requires the story to actually mount in a browser.
 
 ## Related ADRs
 
 - [ADR 0002 — Storybook Architecture and Conventions](./adr/0002-storybook-architecture-and-conventions.md)
+- [ADR 0024 — Storybook Runtime Fixes & CMS Block Registry Expansion](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md)

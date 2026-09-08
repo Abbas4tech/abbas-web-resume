@@ -536,6 +536,11 @@ async function main() {
               "CardGrid",
               "PanelShowcase",
               "SplitContentPanel",
+              "FaqAccordion",
+              "MetricsStrip",
+              "ProcessSteps",
+              "ContentTabs",
+              "TechBadgeCloud",
             ],
           },
         ],
@@ -615,7 +620,7 @@ async function main() {
         localized: false,
         validations: [
           {
-            in: ["HeroBanner"],
+            in: ["HeroBanner", "SplitContentPanel", "AnnouncementBanner"],
           },
         ],
       },

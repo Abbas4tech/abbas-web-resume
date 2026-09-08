@@ -13,7 +13,10 @@ export function adaptContentList(
     __typename: "ContentList" as const,
     id: item.sys.id || "",
     internalName: item.internalName || "",
-    ui: item.ui || "Grid",
+    // Falls back to an actually-registered LIST_BLOCK_REGISTRY key ("Grid"
+    // was never registered, so an entry left blank in Contentful used to
+    // render nothing in production — see ADR 0024).
+    ui: item.ui || "CardGrid",
     title: item.title || "",
     description: item.description?.json as Document,
     category: item.entries || "Custom",

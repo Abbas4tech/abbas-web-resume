@@ -234,28 +234,44 @@ Located at `src/components/patterns/`.
 - `stats: { label: string; value: string; description?: string }[]`
 - `direction?: "row" | "col"`
 
+### TechBadgeCloud
+
+`tech-badge-cloud/` — A wrapped row of icon + label badges (built on `Badge` + `Icon`), e.g. a tech-stack list. Used directly by `TimelineEntry`'s badges meta row (see below), and CMS-driven at the Block layer via `ContentList` (`ui: "TechBadgeCloud"`) — that registration still lives in `blocks/tech-badge-cloud/tech-badge-cloud.adapter.ts`, which imports this Pattern's component rather than owning a duplicate one. Moved here from the Block layer in [ADR 0026](./adr/0026-timeline-tech-badges-meta-row.md) after a Pattern (`TimelineEntry`) needed it and importing a Block from a Pattern would have violated the layer dependency rule.
+
+**Props:**
+- `items: { label: string; icon?: IconProps }[]`
+
 ### ThemeToggle
 
 `theme-toggle/` — DaisyUI theme switcher using the `Swap` element. Reads available themes from Contentful `Layout` data.
 
 ### TimelineEntry
 
-`timeline-entry/` — A single vertical timeline entry with date range, title, subtitle, body, and optional tech badge chips.
+`timeline-entry/` — A single vertical timeline entry with date range, title, subtitle, body, and meta rows. Each meta row is either the default icon + text line, or (since [ADR 0026](./adr/0026-timeline-tech-badges-meta-row.md)) a `TechBadgeCloud` — used for a tech-stack row so each skill can carry its own icon instead of being flattened into one comma-joined string.
 
 **Props:**
 - `title: string`
-- `subtitle?: string`
-- `startDate?: string`
-- `endDate?: string`
-- `body?: Document` (Rich Text)
-- `tags?: string[]`
-- `iconCode?: string`
+- `indicatorIcon?: IconProps`
+- `body: ReactNode`
+- `metaRows: TimelineEntryMetaRow[]` — a union of:
+  - `{ icon: IconProps; text: string; type?: "text" }` (default)
+  - `{ items: TechBadgeCloudItem[]; type: "badges" }` — renders as a bare `TechBadgeCloud`, no separate icon/label heading (the badges already carry their own icon + label each, so a "Tech Stack" caption above them was redundant)
 
 ---
 
 ## Layer 3 — Blocks
 
 Located at `src/components/blocks/`.
+
+### AnnouncementBanner
+
+`announcement-banner/` — A dismissible-style banner (built on the `Alert` element) for site-wide notices, e.g. "open to work". CMS-driven via `ContentSection` (`ui: "AnnouncementBanner"`).
+
+**Props:**
+- `message: string`
+- `variant?: "info" | "success" | "warning" | "error"` — derived from the entry's first matching tag
+- `icon?: IconProps`
+- `link?: AdaptedLink` — optional CTA
 
 ### AppHeader
 
@@ -271,11 +287,32 @@ Located at `src/components/blocks/`.
 
 `card-grid/` — Responsive grid of `MediaCard` patterns. Supports animated card entry via `MotionStagger`.
 
+### ContentTabs
+
+`content-tabs/` — Client-side tabbed rich-text content (built on the `Tabs`/`Tab` elements). Distinct from `PanelShowcase`, which pairs tabs with `MediaCard` media; this is plain text-only tabs. CMS-driven via `ContentList` (`ui: "ContentTabs"`).
+
+**Props:**
+- `tabs: { label: string; content: Document }[]`
+
+### FaqAccordion
+
+`faq-accordion/` — A list of question/answer pairs (built on the `Accordion`/`AccordionItem` elements). CMS-driven via `ContentList` (`ui: "FaqAccordion"`).
+
+**Props:**
+- `items: { question: string; answer: Document }[]`
+
 ### HeroBanner
 
 `hero-banner/` — Full-width hero section. Displays avatar, banner image, animated text, and social links.
 
 **Animation:** Uses `MotionWrapper` with `"fade-up"` variant for entry animation.
+
+### MetricsStrip
+
+`metrics-strip/` — A row of `StatGroup` cards (a label + big value + optional icon each), e.g. "5+ Years experience". CMS-driven via `ContentList` (`ui: "MetricsStrip"`).
+
+**Props:**
+- `stats: StatGroupProps[]`
 
 ### NotFound
 
@@ -289,6 +326,13 @@ Located at `src/components/blocks/`.
 
 `panel-showcase/` — Tabbed panel display. Each tab reveals a different `MediaCard` or content panel.
 
+### ProcessSteps
+
+`process-steps/` — A vertical numbered/iconed process (built on the `Step` element family), e.g. "how I approach a project". CMS-driven via `ContentList` (`ui: "ProcessSteps"`).
+
+**Props:**
+- `steps: { title: string; description?: string; icon?: IconProps }[]` — rendered in entry order, falling back to a numbered indicator when no icon is given
+
 ### ServerError
 
 `server-error/` — 500 error page layout with refresh action.
@@ -299,18 +343,36 @@ Located at `src/components/blocks/`.
 
 ### SplitContentPanel
 
-`split-content-panel/` — Side-by-side layout with text on one side and media on the other. Reversible via `reversed` prop. Used for about/bio sections.
+`split-content-panel/` — A rich-text block paired with a row of `StatGroup` info cards. Used for about/bio sections.
 
 **Props:**
-- `title: string`
-- `body?: Document`
-- `imageSrc?: string`
-- `imageAlt?: string`
-- `reversed?: boolean`
+- `description?: Document` — rich-text body
+- `infoRows: StatGroupProps[]` — e.g. Location, Experience, Availability
+
+**CMS-driven two ways**, via two distinct adapters in `split-content-panel.adapter.ts` (the two registries feed it structurally different data, so each earned its own adapter rather than forcing one shape through the other):
+- `ContentList` (`ui: "SplitContentPanel"`, the original path) — `description` comes from the list's own top-level rich-text field, `infoRows` from its `customEntries`.
+- `ContentSection` (`ui: "SplitContentPanel"`, added in [ADR 0024](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md)) — `description` comes from the single entry's rich-text `body`, `infoRows` from its `subItems`.
 
 ### TimelineSection
 
-`timeline-section/` — Full vertical timeline section heading + list of `TimelineEntry` patterns.
+`timeline-section/` — Full vertical timeline section heading + list of `TimelineEntry` patterns. `timeline-section.adapter.ts` maps a `contentItem`'s `subItems` into a `TimelineEntry` badges meta row when present (falling back to a plain comma-joined `tags` text row otherwise) — see [ADR 0026](./adr/0026-timeline-tech-badges-meta-row.md).
+
+---
+
+## CMS Block Registries
+
+Two content types carry a `ui` field an editor picks in Contentful, mapped to a Block by a `Record<string,
+...>` registry — `SECTION_BLOCK_REGISTRY` in `content-section.tsx` and `LIST_BLOCK_REGISTRY` in
+`content-list.tsx`. An unmapped `ui` value renders `BlockPlaceholder` (visible in development, `null` in
+production — see [ADR 0004](./adr/0004-contentful-renderers.md)).
+
+| Content type | Registered `ui` values |
+|---|---|
+| `ContentSection` (single entry) | `HeroBanner`, `SplitContentPanel`, `AnnouncementBanner` |
+| `ContentList` (multiple entries) | `TimelineSection`, `CardGrid`, `PanelShowcase`, `SplitContentPanel`, `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ContentTabs`, `TechBadgeCloud` |
+
+Adding a new CMS-toggleable Block is a registry entry plus a `setup-content-model.ts` enum value — not new
+component work, if a suitable Block already exists. See [ADR 0024](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md).
 
 ---
 

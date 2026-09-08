@@ -59,12 +59,12 @@ describe("adaptContentList", () => {
     expect(result?.customEntries[0]).toMatchObject({ id: "job-1" });
   });
 
-  it("defaults ui to 'Grid' when the CMS field is empty", () => {
+  it("defaults ui to 'CardGrid' when the CMS field is empty", () => {
     const result = adaptContentList({
       ...fullContentList,
       ui: null,
     } as unknown as ContentListFieldsFragment);
-    expect(result?.ui).toBe("Grid");
+    expect(result?.ui).toBe("CardGrid");
   });
 
   it("defaults category to 'Custom' when the entries field is empty", () => {

@@ -1,6 +1,12 @@
-import Link from "next/link";
-import { MdHome, MdSearchOff } from "react-icons/md";
-import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
+"use client";
+
+import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
+import {
+  MotionStaggerContainer,
+  MotionStaggerItem,
+} from "@/components/elements/behavior/motion-stagger/motion-stagger";
+import { Button } from "@/components/elements/ui/button/button";
+import { Icon } from "@/components/elements/ui/icon/icon";
 
 export interface NotFoundBlockProps {
   actionHref?: string;
@@ -16,46 +22,65 @@ export const NotFoundBlock = ({
   actionHref = "/",
 }: NotFoundBlockProps) => (
   <div className="flex min-h-[70vh] flex-col items-center justify-center px-4">
-    <MotionWrapper animation="fade-up" className="w-full max-w-md">
-      <div className="card border border-base-300 bg-base-200 shadow-xl">
-        <div className="card-body items-center text-center">
-          <div className="avatar placeholder mb-4">
-            <div className="w-24 rounded-full bg-primary text-primary-content shadow-inner ring ring-primary ring-offset-2 ring-offset-base-100">
-              <MdSearchOff aria-hidden="true" size={48} />
-            </div>
+    <MotionStaggerContainer
+      as="div"
+      className="card w-full max-w-md border border-base-300 bg-base-200 shadow-xl"
+    >
+      <div className="card-body items-center text-center">
+        <MotionStaggerItem className="avatar placeholder mb-4">
+          <div className="w-24 rounded-full bg-primary text-primary-content shadow-inner ring ring-primary ring-offset-2 ring-offset-base-100">
+            <Icon
+              iconCode="md/MdSearchOff"
+              name="Page not found"
+              showTooltip={false}
+              size="48"
+            />
           </div>
+        </MotionStaggerItem>
 
-          <h1 className="card-title mb-2 font-bold text-3xl text-primary tracking-tight">
-            {title}
-          </h1>
+        <MotionStaggerItem
+          as="h1"
+          className="card-title mb-2 font-bold text-3xl text-primary tracking-tight"
+        >
+          {title}
+        </MotionStaggerItem>
 
-          <p className="mb-6 text-base-content/80 text-lg">{message}</p>
+        <MotionStaggerItem as="p" className="mb-6 text-base-content/80 text-lg">
+          {message}
+        </MotionStaggerItem>
 
-          <div className="mb-6 w-full text-left">
-            <div className="mockup-code bg-base-300 text-base-content text-sm before:hidden">
-              <pre data-prefix=">">
-                <code>Status: 404 Not Found</code>
-              </pre>
-              <pre className="text-warning" data-prefix=">">
-                <code>Route: Unmatched</code>
-              </pre>
-              <pre className="text-success" data-prefix=">">
-                <code>Action: Redirecting...</code>
-              </pre>
-            </div>
+        <MotionStaggerItem as="div" className="mb-6 w-full text-left">
+          <div className="mockup-code bg-base-300 text-base-content text-sm before:hidden">
+            <pre data-prefix=">">
+              <code>Status: 404 Not Found</code>
+            </pre>
+            <pre className="text-warning" data-prefix=">">
+              <code>Route: Unmatched</code>
+            </pre>
+            <pre className="text-success" data-prefix=">">
+              <code>Action: Redirecting...</code>
+            </pre>
           </div>
+        </MotionStaggerItem>
 
-          <div className="card-actions w-full">
-            <Link
-              className="btn btn-primary w-full shadow-lg"
+        <MotionStaggerItem as="div" className="card-actions w-full">
+          <MotionHover className="block w-full" scale={1.02} tapScale={0.97}>
+            <Button
+              asLink
+              className="btn-primary w-full shadow-lg transition-shadow duration-300 hover:shadow-primary/40 hover:shadow-xl"
               href={actionHref}
             >
-              <MdHome size={20} />
+              <Icon
+                iconCode="md/MdHome"
+                name="Home"
+                showTooltip={false}
+                size="20"
+              />
               {actionLabel}
-            </Link>
-          </div>
-        </div>
+            </Button>
+          </MotionHover>
+        </MotionStaggerItem>
       </div>
-    </MotionWrapper>
+    </MotionStaggerContainer>
   </div>
 );

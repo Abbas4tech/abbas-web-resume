@@ -13,7 +13,16 @@ export type AnimationType =
 
 export interface MotionWrapperProps {
   animation?: AnimationType;
-  as?: "div" | "span" | "section" | "li" | "ul";
+  as?:
+    | "div"
+    | "span"
+    | "section"
+    | "li"
+    | "ul"
+    | "header"
+    | "nav"
+    | "footer"
+    | "article";
   children: ReactNode;
   className?: string;
   delay?: number;

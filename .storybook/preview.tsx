@@ -6,6 +6,14 @@ import "../src/app/globals.css";
 
 const preview: Preview = {
   parameters: {
+    // The app is App Router only (src/app/). Without this, @storybook/nextjs-vite
+    // mounts the Pages Router mock by default, and any component that calls
+    // next/navigation's useRouter()/usePathname() (e.g. the usePage hook used by
+    // SidebarNav, BottomDock, PageNavButton) throws "invariant expected app
+    // router to be mounted" and the story's error boundary swallows the render.
+    nextjs: {
+      appDirectory: true,
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

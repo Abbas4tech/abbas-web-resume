@@ -2,13 +2,13 @@ import type { IconProps } from "@/components/elements/ui/icon/icon";
 import type { AppHeaderProps } from "./app-header";
 
 const mockResumeIcon: IconProps = {
-  iconCode: "md/MdOutlineDocumentScanner",
+  iconCode: "fa/FaDownload",
   name: "Resume",
   showTooltip: true,
 };
 
 const mockThemeIcon: IconProps = {
-  iconCode: "md/MdOutlineColorLens",
+  iconCode: "md/MdColorLens",
   name: "Theme",
   showTooltip: true,
 };

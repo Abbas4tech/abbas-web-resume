@@ -1,6 +1,8 @@
 "use client";
 import type React from "react";
 import type { ComponentProps } from "react";
+import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
+import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import { Dock, DockItem } from "@/components/elements/ui/dock/dock";
 import { useDrawer } from "@/components/elements/ui/drawer/drawer";
 import { Icon } from "@/components/elements/ui/icon/icon";
@@ -32,20 +34,23 @@ const BottomDock = ({
 
   if (variant === "dock-on-mobile" && isMobile) {
     return (
-      <Dock className="bg-base-300" {...props}>
-        {items.map((item) => (
-          <DockItem
-            className={cn(
-              item.pageUrl === currentPageData.pageUrl && "dock-active"
-            )}
-            href={item.pageUrl}
-            icon={<Icon {...item.pageIcon} showTooltip={false} />}
-            key={item.title}
-          >
-            {item.title}
-          </DockItem>
-        ))}
-      </Dock>
+      <MotionWrapper animation="fade-up" as="div">
+        <Dock className="bg-base-300" {...props}>
+          {items.map((item) => (
+            <MotionHover as="div" key={item.title} scale={1.15} tapScale={0.9}>
+              <DockItem
+                className={cn(
+                  item.pageUrl === currentPageData.pageUrl && "dock-active"
+                )}
+                href={item.pageUrl}
+                icon={<Icon {...item.pageIcon} showTooltip={false} />}
+              >
+                {item.title}
+              </DockItem>
+            </MotionHover>
+          ))}
+        </Dock>
+      </MotionWrapper>
     );
   }
   return <span className="sr-only">BottomDock</span>;

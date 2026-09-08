@@ -28,12 +28,12 @@ export const ManyInfoRows: Story = {
       {
         label: "Languages",
         value: "English, Spanish",
-        icon: { iconCode: "md/MdLanguage" },
+        icon: { iconCode: "md/MdLanguage", name: "Languages" },
       },
       {
         label: "Timezone",
         value: "EST",
-        icon: { iconCode: "md/MdAccessTime" },
+        icon: { iconCode: "md/MdAccessTime", name: "Timezone" },
       },
     ],
   },

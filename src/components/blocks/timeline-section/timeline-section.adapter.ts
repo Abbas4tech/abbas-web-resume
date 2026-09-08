@@ -29,7 +29,21 @@ export function adaptTimelineSection(
           text: item.subtitle,
         });
       }
-      if (item.tags && item.tags.length > 0) {
+      if (item.subItems && item.subItems.length > 0) {
+        // subItems (badge entries) carry per-skill icons — render as a
+        // TechBadgeCloud instead of comma-joined text. See content model
+        // docs: "subItems ... For nested items like TechStack in an
+        // Experience."
+        metaRows.push({
+          type: "badges",
+          items: item.subItems.map((subItem) => ({
+            label: subItem.title,
+            icon: subItem.icons?.[0],
+          })),
+        });
+      } else if (item.tags && item.tags.length > 0) {
+        // Fallback for content authored with flat string tags and no
+        // per-tag icon data.
         metaRows.push({
           icon: {
             iconCode: "fa/FaStackOverflow",

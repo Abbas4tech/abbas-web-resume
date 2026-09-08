@@ -63,4 +63,28 @@ describe("TimelineEntry", () => {
     const row = screen.getByText("New York, NY").closest("div");
     expect(row).toHaveClass("text-sm", "md:text-lg");
   });
+
+  it("renders a badges meta row as a TechBadgeCloud instead of plain text", () => {
+    render(
+      <TimelineEntry
+        {...mockProps}
+        metaRows={[
+          ...mockProps.metaRows,
+          {
+            type: "badges",
+            items: [
+              {
+                label: "React",
+                icon: { iconCode: "si/SiReact", name: "React" },
+              },
+              { label: "TypeScript" },
+            ],
+          },
+        ]}
+      />
+    );
+
+    expect(screen.getByText("React")).toBeInTheDocument();
+    expect(screen.getByText("TypeScript")).toBeInTheDocument();
+  });
 });
