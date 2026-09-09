@@ -382,6 +382,17 @@ const experienceRichBody: Document = {
   ],
 } as Document;
 
+// timeline-section.adapter.ts reads the tech-stack row from `subItems`
+// only — flat `tags` are no longer a data source at all (ADR 0026,
+// "Amendment — Explicit `ui` toggle, tags dropped entirely...").
+const techSkill = (id: string, title: string, icon?: IconFieldsFragment) =>
+  createMockStatItem({
+    sys: mockContentfulSys(id),
+    internalName: title,
+    title,
+    iconsCollection: { items: icon ? [icon] : [] },
+  });
+
 const experienceEntries = [
   createMockContentItem({
     sys: mockContentfulSys("item-exp-1"),
@@ -391,9 +402,19 @@ const experienceEntries = [
     description: "Metropolis, Remote",
     startDate: "2023-01-06",
     endDate: null,
-    tags: ["TypeScript", "React", "GraphQL"],
     icon: fixtureIcons.experience,
     body: { json: experienceRichBody, links: emptyRichTextLinks() },
+    subItemsCollection: {
+      items: [
+        techSkill(
+          "skill-exp1-typescript",
+          "TypeScript",
+          fixtureIcons.typescript
+        ),
+        techSkill("skill-exp1-react", "React", fixtureIcons.react),
+        techSkill("skill-exp1-graphql", "GraphQL"),
+      ],
+    },
   }),
   createMockContentItem({
     sys: mockContentfulSys("item-exp-2"),
@@ -403,11 +424,16 @@ const experienceEntries = [
     description: "Metropolis, Remote",
     startDate: "2021-03-01",
     endDate: "2022-12-31",
-    tags: ["Node.js", "PostgreSQL"],
     icon: fixtureIcons.experience,
     body: {
       json: richTextDocument("Owned the checkout service rewrite end to end."),
       links: emptyRichTextLinks(),
+    },
+    subItemsCollection: {
+      items: [
+        techSkill("skill-exp2-node", "Node.js", fixtureIcons.node),
+        techSkill("skill-exp2-postgres", "PostgreSQL", fixtureIcons.postgres),
+      ],
     },
   }),
   createMockContentItem({
@@ -418,13 +444,18 @@ const experienceEntries = [
     description: "Metropolis, On-site",
     startDate: "2019-06-03",
     endDate: "2021-02-26",
-    tags: ["JavaScript", "Redux"],
     icon: fixtureIcons.experience,
     body: {
       json: richTextDocument(
         "Shipped the first version of the internal component library."
       ),
       links: emptyRichTextLinks(),
+    },
+    subItemsCollection: {
+      items: [
+        techSkill("skill-exp3-javascript", "JavaScript"),
+        techSkill("skill-exp3-redux", "Redux"),
+      ],
     },
   }),
 ];
