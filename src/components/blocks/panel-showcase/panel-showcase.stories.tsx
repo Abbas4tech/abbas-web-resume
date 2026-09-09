@@ -3,7 +3,7 @@ import { PanelShowcase } from "./panel-showcase";
 import { baseMock } from "./panel-showcase.mock";
 
 const meta = {
-  title: "Blocks/PanelShowcase",
+  title: "Blocks/Panel Showcase",
   component: PanelShowcase,
   parameters: {
     layout: "padded",

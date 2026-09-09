@@ -3,7 +3,7 @@ import { IconLink } from "./icon-link";
 import { baseMock } from "./icon-link.mock";
 
 const meta = {
-  title: "Patterns/IconLink",
+  title: "Patterns/Icon Link",
   component: IconLink,
   parameters: {
     layout: "centered",

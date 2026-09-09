@@ -3,7 +3,7 @@ import { TechBadgeCloud } from "./tech-badge-cloud";
 import { baseMock } from "./tech-badge-cloud.mock";
 
 const meta = {
-  title: "Patterns/TechBadgeCloud",
+  title: "Patterns/Tech Badge Cloud",
   component: TechBadgeCloud,
   parameters: {
     layout: "padded",

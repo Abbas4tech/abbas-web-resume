@@ -3,7 +3,7 @@ import { PageNavButton } from "./page-nav-button";
 import { baseMock } from "./page-nav-button.mock";
 
 const meta = {
-  title: "Patterns/PageNavButton",
+  title: "Patterns/Page Nav Button",
   component: PageNavButton,
   parameters: {
     layout: "centered",

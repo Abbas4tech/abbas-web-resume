@@ -3,7 +3,7 @@ import { MetricsStrip } from "./metrics-strip";
 import { baseMock } from "./metrics-strip.mock";
 
 const meta = {
-  title: "Blocks/MetricsStrip",
+  title: "Blocks/Metrics Strip",
   component: MetricsStrip,
   parameters: {
     layout: "padded",

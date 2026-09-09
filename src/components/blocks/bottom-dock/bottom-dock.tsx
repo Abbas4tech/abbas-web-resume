@@ -1,8 +1,7 @@
 "use client";
+import { m } from "motion/react";
 import type React from "react";
 import type { ComponentProps } from "react";
-import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
-import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import { Dock, DockItem } from "@/components/elements/ui/dock/dock";
 import { useDrawer } from "@/components/elements/ui/drawer/drawer";
 import { Icon } from "@/components/elements/ui/icon/icon";
@@ -34,23 +33,34 @@ const BottomDock = ({
 
   if (variant === "dock-on-mobile" && isMobile) {
     return (
-      <MotionWrapper animation="fade-up" as="div">
+      // Opacity-only entrance, deliberately not MotionWrapper/a transform:
+      // Dock is `position: fixed` (pinned to the viewport bottom by
+      // DaisyUI's own CSS), and any CSS `transform` on an ancestor — which
+      // is how Motion animates x/y/scale — makes that ancestor a new
+      // containing block for fixed-position descendants, silently
+      // detaching Dock from the viewport and collapsing it into normal
+      // document flow instead. Animating opacity alone never adds an
+      // inline `transform`, so the fixed positioning stays intact.
+      <m.div
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
         <Dock className="bg-base-300" {...props}>
           {items.map((item) => (
-            <MotionHover as="div" key={item.title} scale={1.15} tapScale={0.9}>
-              <DockItem
-                className={cn(
-                  item.pageUrl === currentPageData.pageUrl && "dock-active"
-                )}
-                href={item.pageUrl}
-                icon={<Icon {...item.pageIcon} showTooltip={false} />}
-              >
-                {item.title}
-              </DockItem>
-            </MotionHover>
+            <DockItem
+              className={cn(
+                item.pageUrl === currentPageData.pageUrl && "dock-active"
+              )}
+              href={item.pageUrl}
+              icon={<Icon {...item.pageIcon} showTooltip={false} />}
+              key={item.title}
+            >
+              {item.title}
+            </DockItem>
           ))}
         </Dock>
-      </MotionWrapper>
+      </m.div>
     );
   }
   return <span className="sr-only">BottomDock</span>;

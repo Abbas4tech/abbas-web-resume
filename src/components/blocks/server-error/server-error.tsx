@@ -36,7 +36,7 @@ export const ServerErrorBlock = ({
           as="div"
           className="mb-4 flex items-center justify-center gap-4 lg:justify-start"
         >
-          <div className="avatar placeholder">
+          <div className="avatar avatar-placeholder">
             <div className="w-16 rounded-full bg-error text-error-content shadow-inner ring ring-error ring-offset-2 ring-offset-base-200">
               <Icon
                 iconCode="md/MdError"

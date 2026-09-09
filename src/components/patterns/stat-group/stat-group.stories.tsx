@@ -3,7 +3,7 @@ import { StatGroup } from "./stat-group";
 import { baseMock } from "./stat-group.mock";
 
 const meta = {
-  title: "Patterns/StatGroup",
+  title: "Patterns/Stat Group",
   component: StatGroup,
   parameters: {
     layout: "centered",

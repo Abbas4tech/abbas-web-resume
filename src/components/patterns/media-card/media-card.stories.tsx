@@ -3,7 +3,7 @@ import { MediaCard } from "./media-card";
 import { baseMock } from "./media-card.mock";
 
 const meta = {
-  title: "Patterns/MediaCard",
+  title: "Patterns/Media Card",
   component: MediaCard,
   parameters: {
     layout: "centered",

@@ -3,7 +3,7 @@ import { HeroBanner } from "./hero-banner";
 import { baseMock } from "./hero-banner.mock";
 
 const meta = {
-  title: "Blocks/HeroBanner",
+  title: "Blocks/Hero Banner",
   component: HeroBanner,
   parameters: {
     layout: "fullscreen",

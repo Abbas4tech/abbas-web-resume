@@ -3,7 +3,7 @@ import { SplitContentPanel } from "./split-content-panel";
 import { baseMock } from "./split-content-panel.mock";
 
 const meta = {
-  title: "Blocks/SplitContentPanel",
+  title: "Blocks/Split Content Panel",
   component: SplitContentPanel,
   parameters: {
     layout: "centered",

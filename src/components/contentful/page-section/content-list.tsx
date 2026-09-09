@@ -35,8 +35,6 @@ const LIST_BLOCK_REGISTRY: Record<
   TimelineSection: (data, className) => (
     <TimelineSection {...adaptTimelineSection(data)} className={className} />
   ),
-  // Same subItems data source as "TimelineSection" — rendered as a
-  // TechBadgeCloud instead of comma-joined text. See ADR 0026.
   TimelineSectionWithBadges: (data, className) => (
     <TimelineSection
       {...adaptTimelineSectionWithBadges(data)}

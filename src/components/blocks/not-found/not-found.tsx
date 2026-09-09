@@ -27,7 +27,7 @@ export const NotFoundBlock = ({
       className="card w-full max-w-md border border-base-300 bg-base-200 shadow-xl"
     >
       <div className="card-body items-center text-center">
-        <MotionStaggerItem className="avatar placeholder mb-4">
+        <MotionStaggerItem className="avatar avatar-placeholder mb-4">
           <div className="w-24 rounded-full bg-primary text-primary-content shadow-inner ring ring-primary ring-offset-2 ring-offset-base-100">
             <Icon
               iconCode="md/MdSearchOff"
@@ -67,7 +67,7 @@ export const NotFoundBlock = ({
           <MotionHover className="block w-full" scale={1.02} tapScale={0.97}>
             <Button
               asLink
-              className="btn-primary w-full shadow-lg transition-shadow duration-300 hover:shadow-primary/40 hover:shadow-xl"
+              className="btn btn-primary btn-lg w-full shadow-lg transition-shadow duration-300 hover:shadow-primary/40 hover:shadow-xl"
               href={actionHref}
             >
               <Icon

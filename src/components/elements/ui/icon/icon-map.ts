@@ -38,6 +38,7 @@ import {
   FaLocationCrosshairs,
   FaLocationDot,
   FaPeopleGroup,
+  FaXTwitter,
 } from "react-icons/fa6";
 import { IoLogoCss3 } from "react-icons/io";
 import {
@@ -183,6 +184,7 @@ export const ICON_REGISTRY: Record<string, IconType> = {
   "fa6/FaLocationCrosshairs": FaLocationCrosshairs,
   "fa6/FaLocationDot": FaLocationDot,
   "fa6/FaPeopleGroup": FaPeopleGroup,
+  "fa6/FaXTwitter": FaXTwitter,
 
   // Ionicons (io)
   "io/IoLogoCss3": IoLogoCss3,

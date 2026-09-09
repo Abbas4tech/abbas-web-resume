@@ -3,7 +3,7 @@ import { ThemeToggle } from "./theme-toggle";
 import { baseMock } from "./theme-toggle.mock";
 
 const meta = {
-  title: "Patterns/ThemeToggle",
+  title: "Patterns/Theme Toggle",
   component: ThemeToggle,
   parameters: {
     layout: "centered",

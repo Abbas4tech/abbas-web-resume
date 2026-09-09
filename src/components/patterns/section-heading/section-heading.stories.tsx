@@ -3,7 +3,7 @@ import { SectionHeading } from "./section-heading";
 import { baseMock } from "./section-heading.mock";
 
 const meta = {
-  title: "Patterns/SectionHeading",
+  title: "Patterns/Section Heading",
   component: SectionHeading,
   parameters: {
     layout: "centered",

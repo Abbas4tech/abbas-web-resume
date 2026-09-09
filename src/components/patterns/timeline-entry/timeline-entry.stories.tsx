@@ -3,7 +3,7 @@ import { TimelineEntry } from "./timeline-entry";
 import { baseMock, withTechBadgesMock } from "./timeline-entry.mock";
 
 const meta = {
-  title: "Patterns/TimelineEntry",
+  title: "Patterns/Timeline Entry",
   component: TimelineEntry,
   parameters: {
     layout: "padded",

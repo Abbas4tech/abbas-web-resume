@@ -3,7 +3,7 @@ import { ProcessSteps } from "./process-steps";
 import { baseMock } from "./process-steps.mock";
 
 const meta = {
-  title: "Blocks/ProcessSteps",
+  title: "Blocks/Process Steps",
   component: ProcessSteps,
   parameters: {
     layout: "padded",

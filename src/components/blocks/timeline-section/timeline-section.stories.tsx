@@ -3,7 +3,7 @@ import { TimelineSection } from "./timeline-section";
 import { baseMock, withTechStackMock } from "./timeline-section.mock";
 
 const meta = {
-  title: "Blocks/TimelineSection",
+  title: "Blocks/Timeline Section",
   component: TimelineSection,
   parameters: {
     layout: "padded",

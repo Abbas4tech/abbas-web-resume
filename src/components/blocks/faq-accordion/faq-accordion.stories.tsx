@@ -3,7 +3,7 @@ import { FaqAccordion } from "./faq-accordion";
 import { baseMock } from "./faq-accordion.mock";
 
 const meta = {
-  title: "Blocks/FaqAccordion",
+  title: "Blocks/FAQ Accordion",
   component: FaqAccordion,
   parameters: {
     layout: "padded",

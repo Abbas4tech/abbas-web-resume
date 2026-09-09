@@ -3,7 +3,7 @@ import { CardGrid } from "./card-grid";
 import { baseMock } from "./card-grid.mock";
 
 const meta = {
-  title: "Blocks/CardGrid",
+  title: "Blocks/Card Grid",
   component: CardGrid,
   parameters: {
     layout: "padded",

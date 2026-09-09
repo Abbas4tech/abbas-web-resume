@@ -35,15 +35,15 @@ const MediaCard = memo(
     links,
   }: MediaCardProps) => (
     <MotionHover
-      className="group block h-full w-full"
+      className="group/card block h-full w-full"
       scale={1.02}
       tapScale={0.98}
     >
-      <Card className="h-full overflow-hidden border border-transparent transition-all duration-300 group-hover:border-primary/40 group-hover:shadow-primary/20 group-hover:shadow-xl">
+      <Card className="h-full overflow-hidden border border-transparent transition-all duration-300 group-hover/card:border-primary/40 group-hover/card:shadow-primary/20 group-hover/card:shadow-xl">
         {thumbnailSrc && (
           <CardImage
             alt={thumbnailAlt}
-            className="hidden transition-transform duration-500 group-hover:scale-105 md:block"
+            className="hidden transition-transform duration-500 group-hover/card:scale-105 md:block"
             height={thumbnailHeight}
             loading="lazy"
             src={thumbnailSrc}
@@ -51,7 +51,7 @@ const MediaCard = memo(
           />
         )}
         <CardContent className="p-4 md:p-6">
-          <CardTitle className="text-base transition-colors duration-300 group-hover:text-primary md:text-lg">
+          <CardTitle className="text-base transition-colors duration-300 group-hover/card:text-primary md:text-lg">
             {title}
           </CardTitle>
           <CardDescription className="text-xs md:text-base">

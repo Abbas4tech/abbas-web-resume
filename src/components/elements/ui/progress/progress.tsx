@@ -41,23 +41,26 @@ const Progress = memo(
           {...props}
         >
           <m.div
-            className="absolute top-0 left-0 h-full overflow-hidden rounded-2xl bg-warning"
+            className="absolute top-0 left-0 h-full rounded-2xl bg-warning"
             custom={count}
             variants={progressVariants}
           >
             {!prefersReducedMotion && (
-              <m.div
-                animate={{ x: ["-100%", "220%"] }}
-                className="absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-white/40 to-transparent"
-                transition={{
-                  duration: 1.6,
-                  repeat: Number.POSITIVE_INFINITY,
-                  repeatDelay: 0.6,
-                  ease: "easeInOut",
-                  delay: 0.6,
-                }}
-              />
+              <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                <m.div
+                  animate={{ x: ["-100%", "220%"] }}
+                  className="absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-white/40 to-transparent"
+                  transition={{
+                    duration: 1.6,
+                    repeat: Number.POSITIVE_INFINITY,
+                    repeatDelay: 0.6,
+                    ease: "easeInOut",
+                    delay: 0.6,
+                  }}
+                />
+              </div>
             )}
+            {/* Outside the overflow-hidden shimmer clip above so it isn't cut off. */}
             <span className="absolute -right-4 bottom-full mb-2 animate-pulse rounded-sm bg-slate-900 px-1 py-1 text-white text-xs">
               {count}%
             </span>

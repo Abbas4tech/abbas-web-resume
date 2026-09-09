@@ -3,7 +3,7 @@ import { AnnouncementBanner } from "./announcement-banner";
 import { baseMock } from "./announcement-banner.mock";
 
 const meta = {
-  title: "Blocks/AnnouncementBanner",
+  title: "Blocks/Announcement Banner",
   component: AnnouncementBanner,
   parameters: {
     layout: "padded",

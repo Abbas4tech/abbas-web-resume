@@ -3,7 +3,7 @@ import { ContentTabs } from "./content-tabs";
 import { baseMock } from "./content-tabs.mock";
 
 const meta = {
-  title: "Blocks/ContentTabs",
+  title: "Blocks/Content Tabs",
   component: ContentTabs,
   parameters: {
     layout: "padded",

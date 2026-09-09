@@ -3,7 +3,7 @@ import { IconProgressRow } from "./icon-progress-row";
 import { baseMock } from "./icon-progress-row.mock";
 
 const meta = {
-  title: "Patterns/IconProgressRow",
+  title: "Patterns/Icon Progress Row",
   component: IconProgressRow,
   parameters: {
     layout: "padded",

@@ -37,6 +37,7 @@ This directory contains Architecture Decision Records — documents that capture
 | [0024](./0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md) | Storybook Runtime Fixes & CMS Block Registry Expansion | ✅ accepted | 2026-09-07 |
 | [0025](./0025-motion-coverage-audit-and-error-page-redesign.md) | Motion Coverage Audit & Error Page Redesign | ✅ accepted | 2026-09-07 |
 | [0026](./0026-timeline-tech-badges-meta-row.md) | TimelineEntry Tech-Badges Meta Row & TechBadgeCloud Layer Correction | ✅ accepted | 2026-09-08 |
+| [0027](./0027-storybook-visual-bug-sweep-and-title-spacing.md) | Storybook Visual Bug Sweep and Story Title Spacing | ✅ accepted | 2026-09-09 |
 
 ---
 
