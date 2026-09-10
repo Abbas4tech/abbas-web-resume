@@ -222,17 +222,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
-      # Only this job talks to real Contentful (`next build` statically
-      # renders pages from it). `e2e-test` runs against the MSW-mocked
-      # fixture site instead (tests/mocks/handlers.ts matches by GraphQL
-      # operation name, not URL/credentials) but still needs *some* syntactically
-      # valid values here, just not real ones — see the placeholder env block
-      # on that job for why. lint/typecheck/unit-test never construct this
-      # endpoint at all, so they need nothing.
+      # These need to be *syntactically* valid (see `e2e-test`'s placeholder
+      # block for why), but do NOT actually need to be real, and this job's
+      # `CONTENTFUL_ENVIRONMENT` choice has no effect on what gets verified:
+      # the catch-all route (src/app/(app)/[[...slug]]/page.tsx) has no
+      # `generateStaticParams`, so it's fully dynamic and `next build` never
+      # calls its Contentful queries at all. A green build here only proves
+      # the code compiles — it proves nothing about whether a given
+      # environment's live schema still matches what the code queries.
+      # That's what the `verify-contentful-schema` job below is for.
       CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_CDA_TOKEN: ${{ secrets.CONTENTFUL_CDA_TOKEN }}
       CONTENTFUL_API_BASE_URL: ${{ secrets.CONTENTFUL_API_BASE_URL }}
-      CONTENTFUL_ENVIRONMENT: ${{ github.base_ref == 'master' && 'production' || 'development' }}
+      CONTENTFUL_ENVIRONMENT: development
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -256,6 +258,46 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Build Project
         run: pnpm build
+
+  # Actually exercises the app's real GraphQL queries (GetLayout,
+  # GetPageByPath for every real page) against both live Contentful
+  # environments, using the same generated SDK the deployed app calls at
+  # request time. Added after a real incident: `pnpm contentful:setup`
+  # schema pushes had only ever targeted `development`, so `production`
+  # silently drifted out of sync (a field present on one environment's
+  # content type but not the other) — invisible to `build` (never calls
+  # these queries — see its env block above) and to unit/E2E tests (MSW
+  # mocks always match the adapters, regardless of a real environment's
+  # actual schema). This is the only job that would have caught it before
+  # merge instead of in production. Runs unconditionally against both
+  # environments, regardless of which branch the PR targets, so drift in
+  # either direction fails CI immediately.
+  verify-contentful-schema:
+    name: Verify Contentful Schema (${{ matrix.environment }})
+    needs: check-changeset
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [development, production]
+    env:
+      CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+      CONTENTFUL_CDA_TOKEN: ${{ secrets.CONTENTFUL_CDA_TOKEN }}
+      CONTENTFUL_API_BASE_URL: ${{ secrets.CONTENTFUL_API_BASE_URL }}
+      CONTENTFUL_ENVIRONMENT: ${{ matrix.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Pure Python, stdlib only — reads the already-checked-out generated
+      # SDK file directly and talks to Contentful over plain HTTP, so this
+      # job needs no pnpm/Node install at all.
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify Contentful Schema
+        run: python scripts/contentful/verify-contentful-schema.py
 
   build-storybook:
     name: Build Storybook
