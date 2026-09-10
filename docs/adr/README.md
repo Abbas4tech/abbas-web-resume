@@ -42,6 +42,8 @@ This directory contains Architecture Decision Records — documents that capture
 | [0029](./0029-daisyui-expansion-phase-2-matrix-testimonials-mockups.md) | DaisyUI Component Library Expansion, Phase 2 — Skills Matrix, Testimonials, Mockup Gallery | ✅ accepted | 2026-09-09 |
 | [0030](./0030-daisyui-expansion-phase-3-availability-timeline-breadcrumbs.md) | DaisyUI Component Library Expansion, Phase 3 — Availability Banner, Timeline, Breadcrumbs | ✅ accepted | 2026-09-10 |
 | [0031](./0031-contentful-schema-parity-verification.md) | Contentful Schema Parity Verification | ✅ accepted | 2026-09-11 |
+| [0032](./0032-vercel-environment-variable-cleanup.md) | Vercel Environment Variable Cleanup & Per-Environment Contentful Mapping | ✅ accepted | 2026-09-11 |
+| [0033](./0033-release-pipeline-branch-reset-ordering.md) | Release Pipeline Branch-Reset Ordering Bug | ✅ accepted | 2026-09-11 |
 
 ---
 
@@ -107,7 +109,15 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0031]** — After a real incident (schema drift between Contentful's `development` and `production`
   environments 500'd every page in production, invisible to `build` and to MSW-mocked tests), added a
   pure-Python CI job that exercises the app's real GraphQL queries — parsed from the generated SDK, never
-  hand-copied — against both live environments on every PR
+  hand-copied — against both live environments on every PR; later amended after a related content-only
+  gap (a live Contentful Asset missing from `production` entirely) surfaced right after the schema fix
+- **[0032]** — Reduced Vercel's environment variables to exactly the 4 the deployed app reads, excluding
+  the write-capable Contentful Management Token entirely; found and fixed Production missing
+  `CONTENTFUL_ENVIRONMENT`/`CONTENTFUL_CDA_TOKEN` outright — the precondition for ADR 0031's incident to
+  even become visible
+- **[0033]** — Fixed a deterministic release-pipeline bug: `manage-release.py` ran `git reset --hard` on
+  the release branch *after* `changeset version` had already produced uncommitted changes, silently
+  discarding them on every release after the first; reordered so the branch resets before versioning runs
 
 ---
 

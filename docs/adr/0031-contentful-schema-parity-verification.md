@@ -124,3 +124,30 @@ let this ship.
   explicit omit-then-delete, which `contentful:setup`'s current field-array-replace approach
   doesn't do). Left as a known, non-blocking follow-up — `layout`'s queries already pass this
   new check as-is.
+
+## Amendment — Missing favicon content in production
+
+Fixing the schema (this ADR's original Decision) made every `verify-contentful-schema` query
+pass, but a separate, narrower gap surfaced right after: all 4 `SeoMetadata` entries in
+`production` (one per real page) had their `favicon` *field* correctly present in the schema
+now, but no *value* — `favicon: null` on every one, while every corresponding `development`
+entry pointed at the same real asset. Content and schema drift independently; fixing one
+doesn't imply the other is fixed. This is exactly the class of gap `verify-contentful-schema`
+is *not* designed to catch (it verifies the query succeeds, not that every field it returns is
+non-null) — a deliberate scope decision (see Consequences above), not an oversight, but worth
+noting as the practical edge of that scope.
+
+Root cause went one level deeper than a missing entry field: the underlying image **Asset**
+(`79EymWAl48qVLxSB7ifsFy`) didn't exist in `production` at all. Assets are scoped per
+environment exactly like entries and content types — `production` never had this file uploaded
+to it in the first place, so there was nothing for any entry to link to.
+
+Fixed by, all against the live Management API: creating the same asset (same ID, sourced from
+`development`'s already-hosted file) in `production`, processing and publishing it, then
+linking and publishing it on all 4 `production` `SeoMetadata` entries. Verified two ways: via
+the Management API (asset shows published in `production`) and via the real public CDA GraphQL
+endpoint (`GetPageByPath` for a real page now returns the same favicon title/image in both
+environments — each hosted under its own per-environment copy of the file, as expected).
+
+Confirmed `layout.globalSeo` is `null` in *both* environments, consistently — not a regression,
+not part of what "same as development" meant here, left untouched.
