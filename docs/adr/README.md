@@ -41,6 +41,7 @@ This directory contains Architecture Decision Records — documents that capture
 | [0028](./0028-daisyui-expansion-footer-radial-carousel.md) | DaisyUI Component Library Expansion — Footer, Radial Progress, Carousel | ✅ accepted | 2026-09-09 |
 | [0029](./0029-daisyui-expansion-phase-2-matrix-testimonials-mockups.md) | DaisyUI Component Library Expansion, Phase 2 — Skills Matrix, Testimonials, Mockup Gallery | ✅ accepted | 2026-09-09 |
 | [0030](./0030-daisyui-expansion-phase-3-availability-timeline-breadcrumbs.md) | DaisyUI Component Library Expansion, Phase 3 — Availability Banner, Timeline, Breadcrumbs | ✅ accepted | 2026-09-10 |
+| [0031](./0031-contentful-schema-parity-verification.md) | Contentful Schema Parity Verification | ✅ accepted | 2026-09-11 |
 
 ---
 
@@ -103,6 +104,10 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0024]** — Found (via a live headless-browser render pass, not just a bundling check) and fixed the root
   cause of three components crashing in Storybook (a missing App Router mock flag); added a `storybook-a11y`
   CI job so a story that fails to render or fails accessibility is now actually caught
+- **[0031]** — After a real incident (schema drift between Contentful's `development` and `production`
+  environments 500'd every page in production, invisible to `build` and to MSW-mocked tests), added a
+  pure-Python CI job that exercises the app's real GraphQL queries — parsed from the generated SDK, never
+  hand-copied — against both live environments on every PR
 
 ---
 
