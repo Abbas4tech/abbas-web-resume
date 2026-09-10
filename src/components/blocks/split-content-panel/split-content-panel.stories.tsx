@@ -3,7 +3,7 @@ import { SplitContentPanel } from "./split-content-panel";
 import { baseMock } from "./split-content-panel.mock";
 
 const meta = {
-  title: "Blocks/SplitContentPanel",
+  title: "Blocks/Split Content Panel",
   component: SplitContentPanel,
   parameters: {
     layout: "centered",
@@ -28,12 +28,12 @@ export const ManyInfoRows: Story = {
       {
         label: "Languages",
         value: "English, Spanish",
-        icon: { iconCode: "md/MdLanguage" },
+        icon: { iconCode: "md/MdLanguage", name: "Languages" },
       },
       {
         label: "Timezone",
         value: "EST",
-        icon: { iconCode: "md/MdAccessTime" },
+        icon: { iconCode: "md/MdAccessTime", name: "Timezone" },
       },
     ],
   },

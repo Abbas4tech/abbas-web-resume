@@ -9,6 +9,7 @@ describe("adaptCardGrid", () => {
       sectionId: "projects",
       customEntries: [
         {
+          id: "my-project",
           title: "My Project",
           description: "A subtitle",
           links: [{ href: "https://example.com/project" }],
@@ -27,6 +28,7 @@ describe("adaptCardGrid", () => {
 
     expect(result.cards).toHaveLength(1);
     expect(result.cards[0]).toEqual({
+      id: "my-project",
       title: "My Project",
       description: "A subtitle",
       links: [{ href: "https://example.com/project" }],

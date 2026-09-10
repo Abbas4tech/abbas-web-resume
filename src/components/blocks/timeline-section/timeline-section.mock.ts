@@ -1,5 +1,8 @@
 import { BLOCKS } from "@contentful/rich-text-types";
-import type { TimelineSectionProps } from "./timeline-section";
+import type {
+  TimelineSectionEntry,
+  TimelineSectionProps,
+} from "./timeline-section";
 
 export const baseMock: TimelineSectionProps = {
   entries: [
@@ -7,8 +10,14 @@ export const baseMock: TimelineSectionProps = {
       title: "Senior Full Stack Engineer",
       indicatorIcon: { iconCode: "md/MdWork", name: "Work" },
       metaRows: [
-        { text: "Tech Innovations Inc.", icon: { iconCode: "md/MdBusiness" } },
-        { text: "2021 - Present", icon: { iconCode: "md/MdDateRange" } },
+        {
+          text: "Tech Innovations Inc.",
+          icon: { iconCode: "md/MdBusiness", name: "Company" },
+        },
+        {
+          text: "2021 - Present",
+          icon: { iconCode: "md/MdDateRange", name: "Duration" },
+        },
       ],
       description: {
         document: {
@@ -36,8 +45,14 @@ export const baseMock: TimelineSectionProps = {
       title: "Frontend Developer",
       indicatorIcon: { iconCode: "md/MdCode", name: "Code" },
       metaRows: [
-        { text: "Creative Solutions LLC", icon: { iconCode: "md/MdBusiness" } },
-        { text: "2018 - 2021", icon: { iconCode: "md/MdDateRange" } },
+        {
+          text: "Creative Solutions LLC",
+          icon: { iconCode: "md/MdBusiness", name: "Company" },
+        },
+        {
+          text: "2018 - 2021",
+          icon: { iconCode: "md/MdDateRange", name: "Duration" },
+        },
       ],
       description: {
         document: {
@@ -62,4 +77,23 @@ export const baseMock: TimelineSectionProps = {
       },
     },
   ],
+};
+
+const techBadgesRow: TimelineSectionEntry["metaRows"][number] = {
+  type: "badges",
+  items: [
+    { label: "React", icon: { iconCode: "si/SiReact", name: "React" } },
+    {
+      label: "TypeScript",
+      icon: { iconCode: "si/SiTypescript", name: "TypeScript" },
+    },
+    { label: "Node.js", icon: { iconCode: "si/SiNodedotjs", name: "Node.js" } },
+  ],
+};
+
+export const withTechStackMock: TimelineSectionProps = {
+  entries: baseMock.entries.map((entry) => ({
+    ...entry,
+    metaRows: [...entry.metaRows, techBadgesRow],
+  })),
 };

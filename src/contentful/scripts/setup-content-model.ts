@@ -533,9 +533,22 @@ async function main() {
           {
             in: [
               "TimelineSection",
+              "TimelineSectionWithBadges",
               "CardGrid",
               "PanelShowcase",
               "SplitContentPanel",
+              "FaqAccordion",
+              "MetricsStrip",
+              "ProcessSteps",
+              "ContentTabs",
+              "TechBadgeCloud",
+              "PanelShowcaseWithRadialProgress",
+              "Carousel",
+              "SkillsMatrix",
+              "TestimonialWall",
+              "MockupGalleryBrowser",
+              "MockupGalleryPhone",
+              "ProcessStepsWithTimeline",
             ],
           },
         ],
@@ -615,7 +628,12 @@ async function main() {
         localized: false,
         validations: [
           {
-            in: ["HeroBanner"],
+            in: [
+              "HeroBanner",
+              "SplitContentPanel",
+              "AnnouncementBanner",
+              "AvailabilityBanner",
+            ],
           },
         ],
       },

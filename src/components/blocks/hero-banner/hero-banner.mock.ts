@@ -6,7 +6,7 @@ export const baseMock: HeroBannerProps = {
     id: "banner-1",
     internalName: "Coding setup",
     alternativeText: "Coding setup",
-    url: "https://placehold.co/1200x400/png",
+    url: "https://picsum.photos/seed/hero-banner-workspace/1200/400",
     title: "",
     description: "",
     width: 1200,
@@ -18,34 +18,31 @@ export const baseMock: HeroBannerProps = {
     id: "avatar-1",
     internalName: "Abbas Avatar",
     alternativeText: "Abbas Avatar",
-    url: "https://placehold.co/150x150/png",
+    url: "https://picsum.photos/seed/hero-banner-avatar/300/300",
     title: "",
     description: "",
     width: 150,
     height: 150,
     caption: "",
   },
+  // Real brand icons from the curated registry (see icon-map.ts) render
+  // through IconLink's `iconCode` path, so no iconSrc/placeholder image
+  // is needed here.
   iconLinks: [
     {
       label: "GitHub",
       href: "https://github.com",
-      iconSrc: "https://placehold.co/24x24/png",
-      iconHeight: 24,
-      iconWidth: 24,
+      iconCode: "fa/FaGithub",
     },
     {
       label: "LinkedIn",
       href: "https://linkedin.com",
-      iconSrc: "https://placehold.co/24x24/png",
-      iconHeight: 24,
-      iconWidth: 24,
+      iconCode: "fa/FaLinkedin",
     },
     {
       label: "Twitter",
       href: "https://twitter.com",
-      iconSrc: "https://placehold.co/24x24/png",
-      iconHeight: 24,
-      iconWidth: 24,
+      iconCode: "fa6/FaXTwitter",
     },
   ],
 };

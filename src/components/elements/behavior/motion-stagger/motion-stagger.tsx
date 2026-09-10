@@ -62,7 +62,7 @@ const MotionStaggerContainer = memo(
 MotionStaggerContainer.displayName = "MotionStaggerContainer";
 
 export interface MotionStaggerItemProps extends CleanHTMLAttributes {
-  as?: "div" | "li" | "span" | "article";
+  as?: "div" | "li" | "span" | "article" | "h1" | "h2" | "h3" | "p";
   children: ReactNode;
   className?: string;
   once?: boolean;

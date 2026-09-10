@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { TimelineEntry } from "./timeline-entry";
-import { baseMock } from "./timeline-entry.mock";
+import { baseMock, withTechBadgesMock } from "./timeline-entry.mock";
 
 const meta = {
-  title: "Patterns/TimelineEntry",
+  title: "Patterns/Timeline Entry",
   component: TimelineEntry,
   parameters: {
     layout: "padded",
@@ -24,5 +24,11 @@ export const WithoutMeta: Story = {
   args: {
     ...baseMock,
     metaRows: [],
+  },
+};
+
+export const WithTechBadges: Story = {
+  args: {
+    ...withTechBadgesMock,
   },
 };

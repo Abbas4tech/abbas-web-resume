@@ -3,7 +3,7 @@ import { NotFoundBlock } from "./not-found";
 import { baseMock } from "./not-found.mock";
 
 const meta = {
-  title: "Blocks/NotFound",
+  title: "Blocks/Not Found",
   component: NotFoundBlock,
   parameters: {
     layout: "fullscreen",

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { TimelineSection } from "./timeline-section";
-import { baseMock } from "./timeline-section.mock";
+import { baseMock, withTechStackMock } from "./timeline-section.mock";
 
 const meta = {
-  title: "Blocks/TimelineSection",
+  title: "Blocks/Timeline Section",
   component: TimelineSection,
   parameters: {
     layout: "padded",
@@ -24,5 +24,11 @@ export const SingleEntry: Story = {
   args: {
     ...baseMock,
     entries: [baseMock.entries[0]],
+  },
+};
+
+export const WithTechStack: Story = {
+  args: {
+    ...withTechStackMock,
   },
 };

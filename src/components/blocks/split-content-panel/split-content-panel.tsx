@@ -1,6 +1,10 @@
 import type { Document } from "@contentful/rich-text-types";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
+import {
+  MotionStaggerContainer,
+  MotionStaggerItem,
+} from "@/components/elements/behavior/motion-stagger/motion-stagger";
 import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import { RichText } from "@/components/patterns/rich-text/rich-text";
 import type { StatGroupProps } from "@/components/patterns/stat-group/stat-group";
@@ -32,15 +36,16 @@ const SplitContentPanel = memo(
           </MotionWrapper>
         )}
         {infoRows.length ? (
-          <MotionWrapper
-            animation="fade-up"
+          <MotionStaggerContainer
+            as="div"
             className="grid grid-cols-1 gap-4 rounded-xl md:grid-cols-2"
-            delay={0.2}
           >
             {infoRows.map((row) => (
-              <StatGroup key={row.label} {...row} />
+              <MotionStaggerItem as="div" key={row.label}>
+                <StatGroup {...row} />
+              </MotionStaggerItem>
             ))}
-          </MotionWrapper>
+          </MotionStaggerContainer>
         ) : null}
       </div>
     )

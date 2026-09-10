@@ -3,6 +3,7 @@ import type { CardGridProps } from "./card-grid";
 export const baseMock: CardGridProps = {
   cards: [
     {
+      id: "project-alpha",
       title: "Project Alpha",
       description: "A cool next.js project.",
       links: [
@@ -31,6 +32,7 @@ export const baseMock: CardGridProps = {
       thumbnailWidth: 600,
     },
     {
+      id: "project-beta",
       title: "Project Beta",
       description: "An innovative React application.",
       links: [

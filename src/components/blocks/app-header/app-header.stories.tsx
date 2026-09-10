@@ -3,7 +3,7 @@ import { AppHeader } from "./app-header";
 import { baseMock } from "./app-header.mock";
 
 const meta = {
-  title: "Blocks/AppHeader",
+  title: "Blocks/App Header",
   component: AppHeader,
   parameters: {
     layout: "fullscreen",

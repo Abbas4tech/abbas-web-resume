@@ -1,6 +1,7 @@
 "use client";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
+import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
 import { Button } from "@/components/elements/ui/button/button";
 import { Icon } from "@/components/elements/ui/icon/icon";
 import { cn } from "@/lib/utils";
@@ -43,12 +44,14 @@ const NavItem = memo(
           href={href}
           onClick={onClick}
         >
-          <Icon
-            classes={iconClasses ?? []}
-            iconCode={iconCode}
-            name={iconName}
-            showTooltip={false}
-          />
+          <MotionHover rotate={8} scale={1.15} tapScale={0.9}>
+            <Icon
+              classes={iconClasses ?? []}
+              iconCode={iconCode}
+              name={iconName}
+              showTooltip={false}
+            />
+          </MotionHover>
           {label}
         </Button>
       </div>

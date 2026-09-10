@@ -250,6 +250,19 @@ const aboutHero = createMockContentSection({
   }),
 });
 
+const aboutAvailability = createMockContentSection({
+  sys: mockContentfulSys("section-availability"),
+  internalName: "About availability banner",
+  ui: "AvailabilityBanner",
+  entry: createMockContentItem({
+    sys: mockContentfulSys("item-availability"),
+    entryField: "availability",
+    title: "Open to new roles",
+    description: "Open to new roles",
+    tags: ["success"],
+  }),
+});
+
 const aboutInfoRows = [
   createMockContentItem({
     sys: mockContentfulSys("item-about-location"),
@@ -287,6 +300,45 @@ const aboutPanel = createMockContentList({
   customEntriesCollection: { items: aboutInfoRows },
 });
 
+const testimonialEntries = [
+  createMockContentItem({
+    sys: mockContentfulSys("item-testimonial-1"),
+    entryField: "testimonial",
+    title: "Priya Fixture",
+    subtitle: "Engineering Manager, Mock Market",
+    description:
+      "Shipped ahead of schedule and the design system paid for itself within a quarter.",
+    image: createMockImage({
+      sys: mockContentfulSys("image-testimonial-1"),
+      internalName: "Priya Fixture headshot",
+      alternativeText: "Priya Fixture headshot",
+      image: {
+        url: "/fixtures/avatar.png",
+        title: "Priya Fixture",
+        description: null,
+        width: 96,
+        height: 96,
+      },
+    }),
+  }),
+  createMockContentItem({
+    sys: mockContentfulSys("item-testimonial-2"),
+    entryField: "testimonial",
+    title: "Sam Fixture",
+    subtitle: "Staff Engineer, Fixture Robotics",
+    description:
+      "The clearest technical writing and the most reliable delivery on the team.",
+  }),
+];
+
+const testimonialsList = createMockContentList({
+  sys: mockContentfulSys("list-testimonials"),
+  internalName: "About testimonials",
+  ui: "TestimonialWall",
+  title: "What people say",
+  customEntriesCollection: { items: testimonialEntries },
+});
+
 const aboutPage = createMockPage({
   sys: mockContentfulSys("page-about"),
   internalName: "About page",
@@ -300,8 +352,8 @@ const aboutPage = createMockPage({
     links: emptyRichTextLinks(),
   },
   seo: pageSeo("seo-about", "About", "About the fixture persona."),
-  topContentAreaCollection: { items: [aboutHero] },
-  bottomContentAreaCollection: { items: [aboutPanel] },
+  topContentAreaCollection: { items: [aboutHero, aboutAvailability] },
+  bottomContentAreaCollection: { items: [aboutPanel, testimonialsList] },
 });
 
 // ---------------------------------------------------------------------------
@@ -382,6 +434,17 @@ const experienceRichBody: Document = {
   ],
 } as Document;
 
+// timeline-section.adapter.ts reads the tech-stack row from `subItems`
+// only — flat `tags` are no longer a data source at all (ADR 0026,
+// "Amendment — Explicit `ui` toggle, tags dropped entirely...").
+const techSkill = (id: string, title: string, icon?: IconFieldsFragment) =>
+  createMockStatItem({
+    sys: mockContentfulSys(id),
+    internalName: title,
+    title,
+    iconsCollection: { items: icon ? [icon] : [] },
+  });
+
 const experienceEntries = [
   createMockContentItem({
     sys: mockContentfulSys("item-exp-1"),
@@ -391,9 +454,19 @@ const experienceEntries = [
     description: "Metropolis, Remote",
     startDate: "2023-01-06",
     endDate: null,
-    tags: ["TypeScript", "React", "GraphQL"],
     icon: fixtureIcons.experience,
     body: { json: experienceRichBody, links: emptyRichTextLinks() },
+    subItemsCollection: {
+      items: [
+        techSkill(
+          "skill-exp1-typescript",
+          "TypeScript",
+          fixtureIcons.typescript
+        ),
+        techSkill("skill-exp1-react", "React", fixtureIcons.react),
+        techSkill("skill-exp1-graphql", "GraphQL"),
+      ],
+    },
   }),
   createMockContentItem({
     sys: mockContentfulSys("item-exp-2"),
@@ -403,11 +476,16 @@ const experienceEntries = [
     description: "Metropolis, Remote",
     startDate: "2021-03-01",
     endDate: "2022-12-31",
-    tags: ["Node.js", "PostgreSQL"],
     icon: fixtureIcons.experience,
     body: {
       json: richTextDocument("Owned the checkout service rewrite end to end."),
       links: emptyRichTextLinks(),
+    },
+    subItemsCollection: {
+      items: [
+        techSkill("skill-exp2-node", "Node.js", fixtureIcons.node),
+        techSkill("skill-exp2-postgres", "PostgreSQL", fixtureIcons.postgres),
+      ],
     },
   }),
   createMockContentItem({
@@ -418,13 +496,18 @@ const experienceEntries = [
     description: "Metropolis, On-site",
     startDate: "2019-06-03",
     endDate: "2021-02-26",
-    tags: ["JavaScript", "Redux"],
     icon: fixtureIcons.experience,
     body: {
       json: richTextDocument(
         "Shipped the first version of the internal component library."
       ),
       links: emptyRichTextLinks(),
+    },
+    subItemsCollection: {
+      items: [
+        techSkill("skill-exp3-javascript", "JavaScript"),
+        techSkill("skill-exp3-redux", "Redux"),
+      ],
     },
   }),
 ];
@@ -522,6 +605,59 @@ const projectsList = createMockContentList({
   customEntriesCollection: { items: projectEntries },
 });
 
+// Carousel reads `coverImage` (a wide banner-style image), not `image` (the
+// CardGrid thumbnail above) — see carousel.adapter.ts.
+const carouselSlide = (id: string, title: string, description: string) =>
+  createMockContentItem({
+    sys: mockContentfulSys(id),
+    entryField: "project-highlight",
+    title,
+    description,
+    coverImage: createMockImage({
+      sys: mockContentfulSys(`${id}-cover`),
+      internalName: `${title} cover`,
+      alternativeText: `${title} cover artwork`,
+      image: {
+        url: "/fixtures/hero-banner.png",
+        title,
+        description: null,
+        width: 1600,
+        height: 500,
+      },
+    }),
+  });
+
+const projectHighlightsList = createMockContentList({
+  sys: mockContentfulSys("list-project-highlights"),
+  internalName: "Project highlights carousel",
+  ui: "Carousel",
+  title: "Highlights",
+  customEntriesCollection: {
+    items: [
+      carouselSlide(
+        "item-highlight-dashboard",
+        "Fixture Dashboard",
+        "Featured build: an analytics dashboard used to stress-test the CardGrid block."
+      ),
+      carouselSlide(
+        "item-highlight-cli",
+        "Fixture CLI",
+        "Featured build: a command-line tool that scaffolds fake content for local testing."
+      ),
+    ],
+  },
+});
+
+// MockupGallery reads `image` — the same field CardGrid uses — so it can
+// reuse a subset of projectEntries directly (see mockup-gallery.adapter.ts).
+const projectMockupGalleryList = createMockContentList({
+  sys: mockContentfulSys("list-project-mockups"),
+  internalName: "Project mockup gallery",
+  ui: "MockupGalleryBrowser",
+  title: "Live previews",
+  customEntriesCollection: { items: projectEntries.slice(0, 2) },
+});
+
 const projectsPage = createMockPage({
   sys: mockContentfulSys("page-projects"),
   internalName: "Projects page",
@@ -529,7 +665,9 @@ const projectsPage = createMockPage({
   title: "Projects",
   icon: fixtureIcons.projects,
   seo: pageSeo("seo-projects", "Projects", "Fixture project showcase."),
-  bottomContentAreaCollection: { items: [projectsList] },
+  bottomContentAreaCollection: {
+    items: [projectHighlightsList, projectMockupGalleryList, projectsList],
+  },
 });
 
 // ---------------------------------------------------------------------------

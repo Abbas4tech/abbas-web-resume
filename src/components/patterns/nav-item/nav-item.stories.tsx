@@ -3,7 +3,7 @@ import { NavItem } from "./nav-item";
 import { baseMock } from "./nav-item.mock";
 
 const meta = {
-  title: "Patterns/NavItem",
+  title: "Patterns/Nav Item",
   component: NavItem,
   parameters: {
     layout: "centered",

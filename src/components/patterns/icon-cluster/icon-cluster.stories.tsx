@@ -3,7 +3,7 @@ import { IconCluster } from "./icon-cluster";
 import { baseMock } from "./icon-cluster.mock";
 
 const meta = {
-  title: "Patterns/IconCluster",
+  title: "Patterns/Icon Cluster",
   component: IconCluster,
   parameters: {
     layout: "centered",

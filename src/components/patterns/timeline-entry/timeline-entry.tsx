@@ -13,11 +13,23 @@ import {
   StepSeparator,
   StepTitle,
 } from "@/components/elements/ui/step/step";
+import type { TechBadgeCloudItem } from "@/components/patterns/tech-badge-cloud/tech-badge-cloud";
+import { TechBadgeCloud } from "@/components/patterns/tech-badge-cloud/tech-badge-cloud";
 
-export interface TimelineEntryMetaRow {
+export interface TimelineEntryTextMetaRow {
   icon: IconProps;
   text: string;
+  type?: "text";
 }
+
+export interface TimelineEntryBadgesMetaRow {
+  items: TechBadgeCloudItem[];
+  type: "badges";
+}
+
+export type TimelineEntryMetaRow =
+  | TimelineEntryBadgesMetaRow
+  | TimelineEntryTextMetaRow;
 
 export interface TimelineEntryProps {
   body: ReactNode;
@@ -159,16 +171,25 @@ const TimelineEntry = memo(
                 className="flex flex-col gap-2"
                 variants={metaContainerVariants}
               >
-                {metaRows.map((row) => (
-                  <m.div
-                    className="flex items-center gap-2 text-base-content/80 text-sm md:text-lg"
-                    key={row.text}
-                    variants={metaRowVariants}
-                  >
-                    <Icon {...row.icon} />
-                    <span>{row.text}</span>
-                  </m.div>
-                ))}
+                {metaRows.map((row) =>
+                  row.type === "badges" ? (
+                    <m.div
+                      key={`badges-${row.items.map((item) => item.label).join("-")}`}
+                      variants={metaRowVariants}
+                    >
+                      <TechBadgeCloud items={row.items} />
+                    </m.div>
+                  ) : (
+                    <m.div
+                      className="flex items-center gap-2 text-base-content/80 text-sm md:text-lg"
+                      key={row.text}
+                      variants={metaRowVariants}
+                    >
+                      <Icon {...row.icon} />
+                      <span>{row.text}</span>
+                    </m.div>
+                  )
+                )}
               </m.div>
             </StepContent>
             <m.div className="mt-4 w-full" variants={bodyVariants}>

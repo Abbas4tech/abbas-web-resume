@@ -25,7 +25,7 @@ const CardGrid = memo(
         {...props}
       >
         {cards.map((card) => (
-          <MotionStaggerItem key={card.title}>
+          <MotionStaggerItem key={card.id ?? card.title}>
             <MediaCard {...card} />
           </MotionStaggerItem>
         ))}

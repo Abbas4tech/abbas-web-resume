@@ -1,4 +1,5 @@
 "use client";
+import { m } from "motion/react";
 import type React from "react";
 import type { ComponentProps } from "react";
 import { Dock, DockItem } from "@/components/elements/ui/dock/dock";
@@ -32,20 +33,26 @@ const BottomDock = ({
 
   if (variant === "dock-on-mobile" && isMobile) {
     return (
-      <Dock className="bg-base-300" {...props}>
-        {items.map((item) => (
-          <DockItem
-            className={cn(
-              item.pageUrl === currentPageData.pageUrl && "dock-active"
-            )}
-            href={item.pageUrl}
-            icon={<Icon {...item.pageIcon} showTooltip={false} />}
-            key={item.title}
-          >
-            {item.title}
-          </DockItem>
-        ))}
-      </Dock>
+      <m.div
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Dock className="bg-base-300" {...props}>
+          {items.map((item) => (
+            <DockItem
+              className={cn(
+                item.pageUrl === currentPageData.pageUrl && "dock-active"
+              )}
+              href={item.pageUrl}
+              icon={<Icon {...item.pageIcon} showTooltip={false} />}
+              key={item.title}
+            >
+              {item.title}
+            </DockItem>
+          ))}
+        </Dock>
+      </m.div>
     );
   }
   return <span className="sr-only">BottomDock</span>;

@@ -11,7 +11,7 @@ export const baseMock: SidebarNavProps = {
     {
       title: "About",
       pageUrl: "/about",
-      pageIcon: { iconCode: "md/MdPerson", name: "About" },
+      pageIcon: { iconCode: "io5/IoPerson", name: "About" },
     },
     {
       title: "Projects",

@@ -7,10 +7,12 @@ export const baseMock: SwapProps = {
   rotate: true,
   onContent: React.createElement(Icon, {
     iconCode: "md/MdLightMode",
+    name: "Light mode",
     className: "w-8 h-8",
   }),
   offContent: React.createElement(Icon, {
     iconCode: "md/MdDarkMode",
+    name: "Dark mode",
     className: "w-8 h-8",
   }),
 };

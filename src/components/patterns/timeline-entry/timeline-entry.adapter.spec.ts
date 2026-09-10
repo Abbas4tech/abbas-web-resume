@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
+import type { TimelineEntryMetaRow } from "./timeline-entry";
 import { adaptTimelineEntry } from "./timeline-entry.adapter";
+
+/** Every row this adapter produces today is the plain icon+text variant. */
+function textOf(row: TimelineEntryMetaRow): string {
+  return row.type === "badges" ? "" : row.text;
+}
 
 describe("adaptTimelineEntry", () => {
   const baseInput = {
@@ -33,16 +39,16 @@ describe("adaptTimelineEntry", () => {
     expect(result.metaRows).toHaveLength(4);
 
     // Location
-    expect(result.metaRows[0].text).toBe("San Francisco, CA");
+    expect(textOf(result.metaRows[0])).toBe("San Francisco, CA");
 
     // Duration
-    expect(result.metaRows[1].text).toBe("May 2021 - August 2023");
+    expect(textOf(result.metaRows[1])).toBe("May 2021 - August 2023");
 
     // Role
-    expect(result.metaRows[2].text).toBe("Senior Engineer");
+    expect(textOf(result.metaRows[2])).toBe("Senior Engineer");
 
     // Tech Stack
-    expect(result.metaRows[3].text).toBe("React, TypeScript, Node.js");
+    expect(textOf(result.metaRows[3])).toBe("React, TypeScript, Node.js");
   });
 
   it("handles currently working state", () => {
@@ -53,7 +59,7 @@ describe("adaptTimelineEntry", () => {
     };
 
     const result = adaptTimelineEntry(input);
-    expect(result.metaRows[1].text).toBe("January 2022 - Present");
+    expect(textOf(result.metaRows[1])).toBe("January 2022 - Present");
   });
 
   it("appends ' - Remote' to location when workedRemotely is true", () => {
@@ -63,6 +69,6 @@ describe("adaptTimelineEntry", () => {
     };
 
     const result = adaptTimelineEntry(input);
-    expect(result.metaRows[0].text).toBe("San Francisco, CA - Remote");
+    expect(textOf(result.metaRows[0])).toBe("San Francisco, CA - Remote");
   });
 });

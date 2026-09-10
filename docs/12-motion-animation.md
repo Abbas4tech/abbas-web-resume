@@ -83,13 +83,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 General-purpose animation boundary. Applies entry animations when the element enters the viewport (`whileInView`).
 
-**Props:**
+**Props (matching the actual `MotionWrapperProps` in code — see [ADR 0025](./adr/0025-motion-coverage-audit-and-error-page-redesign.md) for a correction to this table's previous drift):**
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `animation` | `AnimationVariant` | `"fade-up"` | Named animation to apply |
-| `duration` | `number` | `0.5` | Animation duration in seconds |
-| `delay` | `number` | `0` | Delay before animation starts |
+| `animation` | `"fade-up" \| "fade-in" \| "slide-left" \| "slide-right" \| "zoom-in"` | `"fade-up"` | Named animation to apply |
+| `as` | `"div" \| "span" \| "section" \| "li" \| "ul" \| "header" \| "nav" \| "footer" \| "article"` | `"div"` | Underlying element/tag to render |
+| `delay` | `number` | `0` | Delay before animation starts, in seconds |
 | `once` | `boolean` | `true` | Whether to animate only on first entry |
 | `children` | `ReactNode` | — | Content to animate |
 | `className` | `string` | — | Additional CSS classes |
@@ -156,14 +156,24 @@ Makes children draggable within configurable axis constraints using Motion's `dr
 
 **Path:** `motion-stagger/motion-stagger.tsx`
 
-Staggered entry animations for lists of children. Each child receives an incrementing `delay` based on its index.
+Two components, not one: `MotionStaggerContainer` (a structural wrapper, no animation of its own) and
+`MotionStaggerItem` (each item tracks its own scroll visibility independently via `whileInView`, so a card
+only animates once it's itself in view — deliberately not one shared trigger for the whole list).
 
-**Props:**
+**`MotionStaggerContainer` props:**
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `staggerDelay` | `number` | `0.1` | Delay increment per child (seconds) |
-| `animation` | `AnimationVariant` | `"fade-up"` | Animation applied to each child |
+| `as` | `"div" \| "ul" \| "ol" \| "section"` | `"div"` | Underlying element/tag |
+| `children` | `ReactNode` | — | |
+| `className` | `string` | — | |
+
+**`MotionStaggerItem` props:**
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `as` | `"div" \| "li" \| "span" \| "article" \| "h1" \| "h2" \| "h3" \| "p"` | `"div"` | Underlying element/tag — extended in [ADR 0025](./adr/0025-motion-coverage-audit-and-error-page-redesign.md) to cover semantic headings/paragraphs (e.g. a staggered card title that must stay an `<h1>`) |
+| `once` | `boolean` | `true` | Whether to animate only on first entry |
 | `children` | `ReactNode` | — | |
 
 ---
@@ -242,6 +252,13 @@ This produces a heavy, damped settling motion rather than a fast, cheap animatio
 
 ---
 
+## Motion Coverage by Block
+
+Every Block either has a motion treatment fitted to its shape, or a documented reason it's deliberately
+static — see [ADR 0025](./adr/0025-motion-coverage-audit-and-error-page-redesign.md) for the full per-Block
+table and rationale (stagger for lists, hover for interactive cards/icons, `AnimatePresence` for
+interaction-driven tab switches, and why `PageWrapper`/`SidebarNav` are intentionally left alone).
+
 ## Related ADRs
 
 - [ADR 0011 — Remove AOS Animation Library](./adr/0011-remove-aos-animation-library.md)
@@ -249,3 +266,4 @@ This produces a heavy, damped settling motion rather than a fast, cheap animatio
 - [ADR 0014 — Advanced Motion Integration](./adr/0014-advanced-motion-integration.md)
 - [ADR 0015 — Motion Components in Element Layer](./adr/0015-motion-components-in-element-layer.md)
 - [ADR 0017 — Animated Grid Card Physics](./adr/0017-animated-grid-card-physics.md)
+- [ADR 0025 — Motion Coverage Audit & Error Page Redesign](./adr/0025-motion-coverage-audit-and-error-page-redesign.md)

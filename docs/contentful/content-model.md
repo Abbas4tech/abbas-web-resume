@@ -64,13 +64,18 @@ Reusable, flexible content blocks used for experiences, projects, or articles.
 ### 💎 Content Section (`contentSection`)
 Two-column content layouts with image positioning or hero areas.
 * **internalName** (Symbol, Required)
-* **ui** (Symbol, Required): The generic UI block mapping (e.g., `HeroBanner`, `SplitContentPanel`).
+* **ui** (Symbol, Required): The generic UI block mapping. Registered values (see
+  `SECTION_BLOCK_REGISTRY` in `content-section.tsx`): `HeroBanner`, `SplitContentPanel`,
+  `AnnouncementBanner`. Falls back to `HeroBanner` if left blank — see [ADR 0024](../adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md).
 * **entry** (Entry Link to `contentItem`)
 
 ### 💎 Content List (`contentList`)
 Lists of content items for page layouts.
 * **internalName** (Symbol, Required)
-* **ui** (Symbol, Required): The generic UI mapping (e.g., `CardGrid`, `PanelShowcase`).
+* **ui** (Symbol, Required): The generic UI mapping. Registered values (see `LIST_BLOCK_REGISTRY` in
+  `content-list.tsx`): `TimelineSection`, `CardGrid`, `PanelShowcase`, `SplitContentPanel`,
+  `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ContentTabs`, `TechBadgeCloud`. Falls back to
+  `CardGrid` if left blank — see [ADR 0024](../adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md).
 * **title** / **description** (Symbol / Text)
 * **entries** (Symbol, Required): The category of entries to fetch (e.g., `Experience`, `Projects`, `Custom`).
 * **customEntries** (Array of `contentItem` entries): Manual override array.

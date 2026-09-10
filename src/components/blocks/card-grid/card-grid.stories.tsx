@@ -3,7 +3,7 @@ import { CardGrid } from "./card-grid";
 import { baseMock } from "./card-grid.mock";
 
 const meta = {
-  title: "Blocks/CardGrid",
+  title: "Blocks/Card Grid",
   component: CardGrid,
   parameters: {
     layout: "padded",
@@ -30,6 +30,11 @@ export const SingleCard: Story = {
 export const ManyCards: Story = {
   args: {
     ...baseMock,
-    cards: [...baseMock.cards, ...baseMock.cards, ...baseMock.cards],
+    cards: Array.from({ length: 3 }, (_, batch) =>
+      baseMock.cards.map((card) => ({
+        ...card,
+        id: `${card.id}-batch-${batch}`,
+      }))
+    ).flat(),
   },
 };

@@ -19,9 +19,13 @@ export const Default: Story = {
     ...baseMock,
   },
   render: (args) => (
-    <ul className="steps">
+    // A plain div, not <ul>: Step renders a <div> (see timeline-entry.tsx, its
+    // real consumer, which mounts it directly with no list wrapper at all) —
+    // wrapping bare <Step> divs in <ul> here would claim list/listitem
+    // semantics the markup doesn't have.
+    <div className="steps">
       <Step {...args} />
       <Step>Step 2</Step>
-    </ul>
+    </div>
   ),
 };

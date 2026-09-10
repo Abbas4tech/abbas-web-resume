@@ -3,7 +3,7 @@ import { SidebarNav } from "./sidebar-nav";
 import { baseMock } from "./sidebar-nav.mock";
 
 const meta = {
-  title: "Blocks/SidebarNav",
+  title: "Blocks/Sidebar Nav",
   component: SidebarNav,
   parameters: {
     layout: "centered",

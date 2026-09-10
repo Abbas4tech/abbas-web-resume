@@ -39,10 +39,13 @@
     "@vitejs/plugin-react": "^6.0.2",
     "@vitest/coverage-v8": "^4.1.9",
     "axe-playwright": "^2.2.2",
+    "chromatic": "^18.7.2",
     "clsx": "^2.1.1",
+    "concurrently": "^10.0.5",
     "contentful-management": "^12.5.1",
     "daisyui": "^5.1.18",
     "dotenv": "^17.4.2",
+    "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "msw": "^2.14.6",
@@ -54,7 +57,8 @@
     "ultracite": "^7.8.2",
     "vite": "^8.0.16",
     "vite-tsconfig-paths": "^6.1.1",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.8",
+    "wait-on": "^9.1.0"
   },
   "name": "abbas-web-resume",
   "scripts": {
@@ -69,6 +73,9 @@
     "generate": "graphql-codegen",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "test-storybook": "test-storybook",
+    "test-storybook:ci": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm build-storybook --quiet && pnpm exec http-server storybook-static --port 6006 --silent\" \"pnpm exec wait-on tcp:6006 && pnpm test-storybook --maxWorkers=2\"",
+    "chromatic": "chromatic",
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",

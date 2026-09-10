@@ -25,13 +25,17 @@ export const baseMock: SplitContentPanelProps = {
     {
       label: "Location",
       value: "New York, USA",
-      icon: { iconCode: "md/MdLocationOn" },
+      icon: { iconCode: "md/MdLocationOn", name: "Location" },
     },
-    { label: "Experience", value: "5+ Years", icon: { iconCode: "md/MdWork" } },
+    {
+      label: "Experience",
+      value: "5+ Years",
+      icon: { iconCode: "md/MdWork", name: "Experience" },
+    },
     {
       label: "Availability",
       value: "Open to opportunities",
-      icon: { iconCode: "md/MdEventAvailable" },
+      icon: { iconCode: "md/MdEventAvailable", name: "Availability" },
     },
   ],
 };

@@ -17,7 +17,10 @@ export function adaptContentSection(
     __typename: "ContentSection" as const,
     id: item.sys.id || "",
     internalName: item.internalName || "",
-    ui: item.ui || "Standard",
+    // Falls back to an actually-registered SECTION_BLOCK_REGISTRY key
+    // ("Standard" and "Grid" were never registered, so an entry left blank
+    // in Contentful used to render nothing in production — see ADR 0024).
+    ui: item.ui || "HeroBanner",
     entry,
   };
 }

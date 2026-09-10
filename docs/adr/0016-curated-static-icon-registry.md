@@ -51,3 +51,12 @@ To prevent resolution warnings when icons are loaded from Contentful or adapters
 - **Positive**: Eliminates layout thrashing and dynamic component recreation, resulting in fluid and instant icon renders.
 - **Positive**: Enhanced resilience against partial/empty CMS settings and adapter default mappings.
 - **Negative**: Adding a new icon in the Contentful CMS requires a developer to add its static import and registration key in the code. We accept this trade-off to guarantee production performance.
+
+## Amendment (2026-09-07) — Registry/mock drift audit
+
+A Storybook audit found that several `.mock.ts` fixtures referenced icon codes that were never added to the registry, so `Icon` silently rendered its `MdError` fallback for them (in Storybook and would have in production). Resolved two ways:
+
+1. **Repointed to an already-curated equivalent** where one existed, instead of growing the registry: `md/MdOutlineDocumentScanner` → `fa/FaDownload` (AppHeader resume action), `md/MdOutlineColorLens` → `md/MdColorLens` (AppHeader theme toggle), `md/MdPerson` → `io5/IoPerson` (NavItem/SidebarNav "About"), `si/SiNextdotjs` → `ri/RiNextjsFill` (PanelShowcase tech list — both are the Next.js logo, only one was registered).
+2. **Registered as new**, where no curated equivalent fit the intended meaning: `md/MdLink`, `md/MdStorage`, `si/SiExpress`, `md/MdEventAvailable`, `md/MdLanguage`, `md/MdAccessTime`.
+
+Takeaway for future mock/content authoring: check `ICON_REGISTRY` in `icon-map.ts` before picking an icon code, the same way you'd check an existing design token before inventing a new color.

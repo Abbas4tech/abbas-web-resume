@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MotionWrapper } from "./motion-wrapper";
 
 const meta = {
-  title: "Elements/Behavior/MotionWrapper",
+  title: "Elements/Behavior/Motion Wrapper",
   component: MotionWrapper,
   parameters: {
     layout: "centered",

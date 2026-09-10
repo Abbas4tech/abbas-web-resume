@@ -1,7 +1,10 @@
 import { BLOCKS } from "@contentful/rich-text-types";
 import { describe, expect, it } from "vitest";
 import type { AdaptedContentList } from "@/contentful/adapters/content-list";
-import { adaptTimelineSection } from "./timeline-section.adapter";
+import {
+  adaptTimelineSection,
+  adaptTimelineSectionWithBadges,
+} from "./timeline-section.adapter";
 
 describe("adaptTimelineSection", () => {
   it("adapts ContentList into TimelineSectionProps", () => {
@@ -57,6 +60,78 @@ describe("adaptTimelineSection", () => {
     const metaRows = result.entries[0].metaRows;
 
     expect(metaRows).toHaveLength(1);
-    expect(metaRows[0].text).toBe("January 2022 - Present");
+    expect(metaRows[0]).toMatchObject({ text: "January 2022 - Present" });
+  });
+
+  it("renders subItems as a comma-joined text row, not badges", () => {
+    const input: AdaptedContentList = {
+      customEntries: [
+        {
+          title: "Job Title",
+          subItems: [
+            { title: "React", icons: [{ iconCode: "si/SiReact" }] },
+            { title: "TypeScript", icons: [{ iconCode: "si/SiTypescript" }] },
+          ],
+        },
+      ],
+    } as unknown as AdaptedContentList;
+
+    const result = adaptTimelineSection(input);
+    const metaRows = result.entries[0].metaRows;
+
+    expect(metaRows.some((row) => row.type === "badges")).toBe(false);
+    expect(metaRows).toContainEqual({
+      icon: { iconCode: "fa/FaStackOverflow", name: "Tech Stack", size: "18" },
+      text: "React, TypeScript",
+    });
+  });
+
+  it("renders no tech-stack row when subItems is empty", () => {
+    const input: AdaptedContentList = {
+      customEntries: [{ title: "Job Title" }],
+    } as unknown as AdaptedContentList;
+
+    const result = adaptTimelineSection(input);
+
+    expect(result.entries[0].metaRows).toHaveLength(0);
+  });
+});
+
+describe("adaptTimelineSectionWithBadges", () => {
+  it("renders the same subItems as a badges meta row instead of text", () => {
+    const input: AdaptedContentList = {
+      customEntries: [
+        {
+          title: "Job Title",
+          subItems: [
+            { title: "React", icons: [{ iconCode: "si/SiReact" }] },
+            { title: "TypeScript", icons: [{ iconCode: "si/SiTypescript" }] },
+          ],
+        },
+      ],
+    } as unknown as AdaptedContentList;
+
+    const result = adaptTimelineSectionWithBadges(input);
+    const badgesRow = result.entries[0].metaRows.find(
+      (row) => row.type === "badges"
+    );
+
+    expect(badgesRow).toEqual({
+      type: "badges",
+      items: [
+        { label: "React", icon: { iconCode: "si/SiReact" } },
+        { label: "TypeScript", icon: { iconCode: "si/SiTypescript" } },
+      ],
+    });
+  });
+
+  it("renders no tech-stack row when subItems is empty", () => {
+    const input: AdaptedContentList = {
+      customEntries: [{ title: "Job Title" }],
+    } as unknown as AdaptedContentList;
+
+    const result = adaptTimelineSectionWithBadges(input);
+
+    expect(result.entries[0].metaRows).toHaveLength(0);
   });
 });

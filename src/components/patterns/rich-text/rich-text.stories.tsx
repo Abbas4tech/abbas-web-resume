@@ -3,7 +3,7 @@ import { RichText } from "./rich-text";
 import { baseMock } from "./rich-text.mock";
 
 const meta = {
-  title: "Patterns/RichText",
+  title: "Patterns/Rich Text",
   component: RichText,
   parameters: {
     layout: "padded",

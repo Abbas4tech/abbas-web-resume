@@ -3,7 +3,7 @@ import { MockupWindow } from "./mockup-window";
 import { baseMock } from "./mockup-window.mock";
 
 const meta = {
-  title: "Elements/UI/MockupWindow",
+  title: "Elements/UI/Mockup Window",
   component: MockupWindow,
   parameters: {
     layout: "padded",

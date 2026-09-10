@@ -10,7 +10,10 @@ export const baseMock: DockProps = {
       {
         key: "home",
         href: "/",
-        icon: React.createElement(Icon, { iconCode: "md/MdHome" }),
+        icon: React.createElement(Icon, {
+          iconCode: "md/MdHome",
+          name: "Home",
+        }),
       },
       "Home"
     ),
@@ -19,7 +22,10 @@ export const baseMock: DockProps = {
       {
         key: "projects",
         href: "/projects",
-        icon: React.createElement(Icon, { iconCode: "md/MdWork" }),
+        icon: React.createElement(Icon, {
+          iconCode: "md/MdWork",
+          name: "Projects",
+        }),
       },
       "Projects"
     ),
@@ -28,7 +34,10 @@ export const baseMock: DockProps = {
       {
         key: "contact",
         href: "/contact",
-        icon: React.createElement(Icon, { iconCode: "md/MdEmail" }),
+        icon: React.createElement(Icon, {
+          iconCode: "md/MdEmail",
+          name: "Contact",
+        }),
       },
       "Contact"
     ),

@@ -3,7 +3,7 @@ import { ServerErrorBlock } from "./server-error";
 import { baseMock } from "./server-error.mock";
 
 const meta = {
-  title: "Blocks/ServerError",
+  title: "Blocks/Server Error",
   component: ServerErrorBlock,
   parameters: {
     layout: "fullscreen",
