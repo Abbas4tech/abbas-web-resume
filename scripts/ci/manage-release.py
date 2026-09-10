@@ -20,22 +20,22 @@ def main():
     run_command('git config user.name "github-actions[bot]"')
     run_command('git config user.email "github-actions[bot]@users.noreply.github.com"')
 
-    print("Running changeset version to consume .md files and update CHANGELOGs...")
-    run_command("pnpm changeset version")
-    
-    status_result = run_command("git status --porcelain")
-    status = status_result.stdout.strip()
-    
-    if not status:
-        print("No changesets found or no changes made. Nothing to release.")
-        sys.exit(0)
-        
     branch_name = "changeset-release/master"
 
-    # Check if the branch already exists remotely
+    # Position the branch on top of master's current commit *before* running
+    # `changeset version`, not after. Doing this the other way around (as
+    # this script used to) discards the version-bump changes it's supposed
+    # to commit: `git reset --hard master` unconditionally wipes uncommitted
+    # working-tree changes, so if it runs *after* `changeset version` has
+    # already produced them, they're gone before `git add .` ever sees them
+    # -- the commit then fails with "nothing to commit, working tree clean"
+    # on every release after the first, i.e. every time this branch already
+    # exists from a prior unmerged Version Packages PR. Resetting first also
+    # means the branch is always exactly "master + one version-bump commit"
+    # after this script runs, instead of accumulating drift across releases.
     remote_branches = run_command("git ls-remote --heads origin").stdout.strip()
     if branch_name in remote_branches:
-        print(f"Branch {branch_name} already exists. Updating it...")
+        print(f"Branch {branch_name} already exists. Resetting it to match master...")
         # actions/checkout only fetches the single ref that triggered the
         # workflow (master here) -- it never fetches other remote branches,
         # even with fetch-depth: 0 (that only removes the depth limit on
@@ -49,6 +49,16 @@ def main():
     else:
         print(f"Creating new branch {branch_name}...")
         run_command(f"git checkout -b {branch_name}")
+
+    print("Running changeset version to consume .md files and update CHANGELOGs...")
+    run_command("pnpm changeset version")
+
+    status_result = run_command("git status --porcelain")
+    status = status_result.stdout.strip()
+
+    if not status:
+        print("No changesets found or no changes made. Nothing to release.")
+        sys.exit(0)
 
     # Add and commit the changes
     run_command("git add .")
