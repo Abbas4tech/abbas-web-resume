@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import { AnnouncementBanner } from "@/components/blocks/announcement-banner/announcement-banner";
 import { adaptAnnouncementBanner } from "@/components/blocks/announcement-banner/announcement-banner.adapter";
+import { AvailabilityBanner } from "@/components/blocks/availability-banner/availability-banner";
+import { adaptAvailabilityBanner } from "@/components/blocks/availability-banner/availability-banner.adapter";
 import { HeroBanner } from "@/components/blocks/hero-banner/hero-banner";
 import { adaptHeroBanner } from "@/components/blocks/hero-banner/hero-banner.adapter";
 import { SplitContentPanel } from "@/components/blocks/split-content-panel/split-content-panel";
@@ -33,6 +35,12 @@ const SECTION_BLOCK_REGISTRY: Record<
   AnnouncementBanner: (data, className) => (
     <AnnouncementBanner
       {...adaptAnnouncementBanner(data)}
+      className={className}
+    />
+  ),
+  AvailabilityBanner: (data, className) => (
+    <AvailabilityBanner
+      {...adaptAvailabilityBanner(data)}
       className={className}
     />
   ),

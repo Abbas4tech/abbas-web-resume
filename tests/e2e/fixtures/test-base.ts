@@ -1,28 +1,38 @@
 import { test as base } from "@playwright/test";
 import { checkA11y, injectAxe } from "axe-playwright";
 import { AppHeaderModel } from "../models/app-header-model";
+import { AvailabilityBannerModel } from "../models/availability-banner-model";
 import { BottomDockModel } from "../models/bottom-dock-model";
 import { CardGridModel } from "../models/card-grid-model";
+import { CarouselModel } from "../models/carousel-model";
+import { FooterModel } from "../models/footer-model";
 import { HeroBannerModel } from "../models/hero-banner-model";
+import { MockupGalleryModel } from "../models/mockup-gallery-model";
 import { NotFoundModel } from "../models/not-found-model";
 import { PanelShowcaseModel } from "../models/panel-showcase-model";
 import { ServerErrorModel } from "../models/server-error-model";
 import { SidebarNavModel } from "../models/sidebar-nav-models";
 import { SplitContentPanelModel } from "../models/split-content-panel-model";
+import { TestimonialWallModel } from "../models/testimonial-wall-model";
 import { ThemeToggleModel } from "../models/theme-toggle-model";
 import { TimelineSectionModel } from "../models/timeline-section-model";
 
 interface CustomFixtures {
+  availabilityBanner: AvailabilityBannerModel;
   bottomDock: BottomDockModel;
   cardGrid: CardGridModel;
+  carousel: CarouselModel;
+  footer: FooterModel;
   header: AppHeaderModel;
   heroBanner: HeroBannerModel;
   mockContentful: (mockData: Record<string, unknown>) => Promise<void>;
+  mockupGallery: MockupGalleryModel;
   notFound: NotFoundModel;
   panelShowcase: PanelShowcaseModel;
   serverError: ServerErrorModel;
   sidebar: SidebarNavModel;
   splitContentPanel: SplitContentPanelModel;
+  testimonialWall: TestimonialWallModel;
   themeToggle: ThemeToggleModel;
   timelineSection: TimelineSectionModel;
 }
@@ -30,6 +40,9 @@ interface CustomFixtures {
 export const test = base.extend<CustomFixtures>({
   header: async ({ page }, use) => {
     await use(new AppHeaderModel(page));
+  },
+  availabilityBanner: async ({ page }, use) => {
+    await use(new AvailabilityBannerModel(page));
   },
   sidebar: async ({ page }, use) => {
     await use(new SidebarNavModel(page));
@@ -40,17 +53,29 @@ export const test = base.extend<CustomFixtures>({
   bottomDock: async ({ page }, use) => {
     await use(new BottomDockModel(page));
   },
+  footer: async ({ page }, use) => {
+    await use(new FooterModel(page));
+  },
   heroBanner: async ({ page }, use) => {
     await use(new HeroBannerModel(page));
   },
+  mockupGallery: async ({ page }, use) => {
+    await use(new MockupGalleryModel(page));
+  },
   cardGrid: async ({ page }, use) => {
     await use(new CardGridModel(page));
+  },
+  carousel: async ({ page }, use) => {
+    await use(new CarouselModel(page));
   },
   timelineSection: async ({ page }, use) => {
     await use(new TimelineSectionModel(page));
   },
   splitContentPanel: async ({ page }, use) => {
     await use(new SplitContentPanelModel(page));
+  },
+  testimonialWall: async ({ page }, use) => {
+    await use(new TestimonialWallModel(page));
   },
   panelShowcase: async ({ page }, use) => {
     await use(new PanelShowcaseModel(page));
