@@ -38,6 +38,9 @@ This directory contains Architecture Decision Records — documents that capture
 | [0025](./0025-motion-coverage-audit-and-error-page-redesign.md) | Motion Coverage Audit & Error Page Redesign | ✅ accepted | 2026-09-07 |
 | [0026](./0026-timeline-tech-badges-meta-row.md) | TimelineEntry Tech-Badges Meta Row & TechBadgeCloud Layer Correction | ✅ accepted | 2026-09-08 |
 | [0027](./0027-storybook-visual-bug-sweep-and-title-spacing.md) | Storybook Visual Bug Sweep and Story Title Spacing | ✅ accepted | 2026-09-09 |
+| [0028](./0028-daisyui-expansion-footer-radial-carousel.md) | DaisyUI Component Library Expansion — Footer, Radial Progress, Carousel | ✅ accepted | 2026-09-09 |
+| [0029](./0029-daisyui-expansion-phase-2-matrix-testimonials-mockups.md) | DaisyUI Component Library Expansion, Phase 2 — Skills Matrix, Testimonials, Mockup Gallery | ✅ accepted | 2026-09-09 |
+| [0030](./0030-daisyui-expansion-phase-3-availability-timeline-breadcrumbs.md) | DaisyUI Component Library Expansion, Phase 3 — Availability Banner, Timeline, Breadcrumbs | ✅ accepted | 2026-09-10 |
 
 ---
 
@@ -54,6 +57,22 @@ This directory contains Architecture Decision Records — documents that capture
   Block registries from 1/4 reachable variants to 3/9, adding six new Blocks (FaqAccordion, MetricsStrip,
   ProcessSteps, ContentTabs, TechBadgeCloud, AnnouncementBanner) built from previously CMS-unreachable
   Elements/Patterns
+- **[0028]** — DaisyUI catalog gap analysis (cross-checked against the project's own version-pinned skill,
+  not the live marketing site); added `Footer` (closing a dead `footerText` data gap), a
+  `PanelShowcaseWithRadialProgress` variant (`radial-progress` Element, same `subItems` data as
+  `PanelShowcase`), and a new `Carousel` `ContentList` Block (closing the fixture's own long-unregistered
+  placeholder)
+- **[0029]** — Phase 2 of the same expansion: a `SkillsMatrix` table-layout variant of `PanelShowcase`,
+  a `TestimonialWall` Block (`ChatBubble` Element + `ChatMessageRow` Pattern, quotes read from
+  `description` not `body`), and a `MockupGallery` Block (`MockupBrowser`/`MockupCode`/`MockupPhone`
+  Elements + `MockupShowcaseFrame` Pattern) — deliberately block-level, not per-item, framing to avoid
+  a second live-schema-field cycle beyond simple `ui` enum additions
+- **[0030]** — Phase 3, closing the roadmap: `AvailabilityBanner` (new `Status`/`Countdown` Elements,
+  reusing `AnnouncementBanner`'s adapter shape and the already-fetched `startDate` field for a
+  render-time — not live-ticking — countdown), a native-Timeline variant of `ProcessSteps`, and
+  `Breadcrumbs`/`BreadcrumbTrail` built as tested but deliberately unused primitives (the site's flat
+  routes have nowhere for a real trail to point yet). Fixed two real a11y bugs surfaced during the pass
+  itself (invalid `aria-label` on a roleless `Status` span; an unlabeled icon in a Storybook mock)
 
 ### Testing
 - **[0005]** — Vitest with jsdom, centralized mock factories, and colocated spec files

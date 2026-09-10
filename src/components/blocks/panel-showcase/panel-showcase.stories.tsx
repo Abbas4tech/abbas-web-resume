@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { PanelShowcase } from "./panel-showcase";
-import { baseMock } from "./panel-showcase.mock";
+import { baseMock, radialMock, tableMock } from "./panel-showcase.mock";
 
 const meta = {
   title: "Blocks/Panel Showcase",
@@ -24,5 +24,17 @@ export const SinglePanel: Story = {
   args: {
     ...baseMock,
     panels: [baseMock.panels[0]],
+  },
+};
+
+export const WithRadialProgress: Story = {
+  args: {
+    ...radialMock,
+  },
+};
+
+export const AsSkillsMatrix: Story = {
+  args: {
+    ...tableMock,
   },
 };

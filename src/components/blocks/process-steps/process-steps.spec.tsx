@@ -25,4 +25,14 @@ describe("ProcessSteps", () => {
     expect(screen.getByText("1")).toBeInTheDocument();
     expect(screen.getByText("2")).toBeInTheDocument();
   });
+
+  it("renders a native Timeline when layout is timeline", () => {
+    const { container } = render(
+      <ProcessSteps {...mockProps} layout="timeline" />
+    );
+
+    expect(container.querySelector(".timeline")).toBeInTheDocument();
+    expect(screen.getByText("Discover")).toBeInTheDocument();
+    expect(screen.getByText("Understand the problem.")).toBeInTheDocument();
+  });
 });

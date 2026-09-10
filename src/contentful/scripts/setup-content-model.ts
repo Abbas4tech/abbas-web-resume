@@ -542,6 +542,13 @@ async function main() {
               "ProcessSteps",
               "ContentTabs",
               "TechBadgeCloud",
+              "PanelShowcaseWithRadialProgress",
+              "Carousel",
+              "SkillsMatrix",
+              "TestimonialWall",
+              "MockupGalleryBrowser",
+              "MockupGalleryPhone",
+              "ProcessStepsWithTimeline",
             ],
           },
         ],
@@ -621,7 +628,12 @@ async function main() {
         localized: false,
         validations: [
           {
-            in: ["HeroBanner", "SplitContentPanel", "AnnouncementBanner"],
+            in: [
+              "HeroBanner",
+              "SplitContentPanel",
+              "AnnouncementBanner",
+              "AvailabilityBanner",
+            ],
           },
         ],
       },
