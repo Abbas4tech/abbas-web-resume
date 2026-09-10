@@ -33,14 +33,6 @@ const BottomDock = ({
 
   if (variant === "dock-on-mobile" && isMobile) {
     return (
-      // Opacity-only entrance, deliberately not MotionWrapper/a transform:
-      // Dock is `position: fixed` (pinned to the viewport bottom by
-      // DaisyUI's own CSS), and any CSS `transform` on an ancestor — which
-      // is how Motion animates x/y/scale — makes that ancestor a new
-      // containing block for fixed-position descendants, silently
-      // detaching Dock from the viewport and collapsing it into normal
-      // document flow instead. Animating opacity alone never adds an
-      // inline `transform`, so the fixed positioning stays intact.
       <m.div
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
