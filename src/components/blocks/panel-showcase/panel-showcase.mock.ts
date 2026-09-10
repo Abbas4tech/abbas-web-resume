@@ -48,3 +48,15 @@ export const baseMock: PanelShowcaseProps = {
     },
   ],
 };
+
+export const radialMock: PanelShowcaseProps = {
+  panels: baseMock.panels.map((panel) => ({
+    ...panel,
+    rows: panel.rows.map((row) => ({ ...row, variant: "radial" as const })),
+  })),
+};
+
+export const tableMock: PanelShowcaseProps = {
+  layout: "table",
+  panels: baseMock.panels,
+};

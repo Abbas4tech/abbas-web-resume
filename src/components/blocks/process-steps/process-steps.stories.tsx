@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ProcessSteps } from "./process-steps";
-import { baseMock } from "./process-steps.mock";
+import { baseMock, timelineMock } from "./process-steps.mock";
 
 const meta = {
   title: "Blocks/Process Steps",
@@ -26,5 +26,11 @@ export const WithoutIcons: Story = {
       title,
       description,
     })),
+  },
+};
+
+export const AsTimeline: Story = {
+  args: {
+    ...timelineMock,
   },
 };

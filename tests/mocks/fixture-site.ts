@@ -250,6 +250,19 @@ const aboutHero = createMockContentSection({
   }),
 });
 
+const aboutAvailability = createMockContentSection({
+  sys: mockContentfulSys("section-availability"),
+  internalName: "About availability banner",
+  ui: "AvailabilityBanner",
+  entry: createMockContentItem({
+    sys: mockContentfulSys("item-availability"),
+    entryField: "availability",
+    title: "Open to new roles",
+    description: "Open to new roles",
+    tags: ["success"],
+  }),
+});
+
 const aboutInfoRows = [
   createMockContentItem({
     sys: mockContentfulSys("item-about-location"),
@@ -287,6 +300,45 @@ const aboutPanel = createMockContentList({
   customEntriesCollection: { items: aboutInfoRows },
 });
 
+const testimonialEntries = [
+  createMockContentItem({
+    sys: mockContentfulSys("item-testimonial-1"),
+    entryField: "testimonial",
+    title: "Priya Fixture",
+    subtitle: "Engineering Manager, Mock Market",
+    description:
+      "Shipped ahead of schedule and the design system paid for itself within a quarter.",
+    image: createMockImage({
+      sys: mockContentfulSys("image-testimonial-1"),
+      internalName: "Priya Fixture headshot",
+      alternativeText: "Priya Fixture headshot",
+      image: {
+        url: "/fixtures/avatar.png",
+        title: "Priya Fixture",
+        description: null,
+        width: 96,
+        height: 96,
+      },
+    }),
+  }),
+  createMockContentItem({
+    sys: mockContentfulSys("item-testimonial-2"),
+    entryField: "testimonial",
+    title: "Sam Fixture",
+    subtitle: "Staff Engineer, Fixture Robotics",
+    description:
+      "The clearest technical writing and the most reliable delivery on the team.",
+  }),
+];
+
+const testimonialsList = createMockContentList({
+  sys: mockContentfulSys("list-testimonials"),
+  internalName: "About testimonials",
+  ui: "TestimonialWall",
+  title: "What people say",
+  customEntriesCollection: { items: testimonialEntries },
+});
+
 const aboutPage = createMockPage({
   sys: mockContentfulSys("page-about"),
   internalName: "About page",
@@ -300,8 +352,8 @@ const aboutPage = createMockPage({
     links: emptyRichTextLinks(),
   },
   seo: pageSeo("seo-about", "About", "About the fixture persona."),
-  topContentAreaCollection: { items: [aboutHero] },
-  bottomContentAreaCollection: { items: [aboutPanel] },
+  topContentAreaCollection: { items: [aboutHero, aboutAvailability] },
+  bottomContentAreaCollection: { items: [aboutPanel, testimonialsList] },
 });
 
 // ---------------------------------------------------------------------------
@@ -553,6 +605,59 @@ const projectsList = createMockContentList({
   customEntriesCollection: { items: projectEntries },
 });
 
+// Carousel reads `coverImage` (a wide banner-style image), not `image` (the
+// CardGrid thumbnail above) — see carousel.adapter.ts.
+const carouselSlide = (id: string, title: string, description: string) =>
+  createMockContentItem({
+    sys: mockContentfulSys(id),
+    entryField: "project-highlight",
+    title,
+    description,
+    coverImage: createMockImage({
+      sys: mockContentfulSys(`${id}-cover`),
+      internalName: `${title} cover`,
+      alternativeText: `${title} cover artwork`,
+      image: {
+        url: "/fixtures/hero-banner.png",
+        title,
+        description: null,
+        width: 1600,
+        height: 500,
+      },
+    }),
+  });
+
+const projectHighlightsList = createMockContentList({
+  sys: mockContentfulSys("list-project-highlights"),
+  internalName: "Project highlights carousel",
+  ui: "Carousel",
+  title: "Highlights",
+  customEntriesCollection: {
+    items: [
+      carouselSlide(
+        "item-highlight-dashboard",
+        "Fixture Dashboard",
+        "Featured build: an analytics dashboard used to stress-test the CardGrid block."
+      ),
+      carouselSlide(
+        "item-highlight-cli",
+        "Fixture CLI",
+        "Featured build: a command-line tool that scaffolds fake content for local testing."
+      ),
+    ],
+  },
+});
+
+// MockupGallery reads `image` — the same field CardGrid uses — so it can
+// reuse a subset of projectEntries directly (see mockup-gallery.adapter.ts).
+const projectMockupGalleryList = createMockContentList({
+  sys: mockContentfulSys("list-project-mockups"),
+  internalName: "Project mockup gallery",
+  ui: "MockupGalleryBrowser",
+  title: "Live previews",
+  customEntriesCollection: { items: projectEntries.slice(0, 2) },
+});
+
 const projectsPage = createMockPage({
   sys: mockContentfulSys("page-projects"),
   internalName: "Projects page",
@@ -560,7 +665,9 @@ const projectsPage = createMockPage({
   title: "Projects",
   icon: fixtureIcons.projects,
   seo: pageSeo("seo-projects", "Projects", "Fixture project showcase."),
-  bottomContentAreaCollection: { items: [projectsList] },
+  bottomContentAreaCollection: {
+    items: [projectHighlightsList, projectMockupGalleryList, projectsList],
+  },
 });
 
 // ---------------------------------------------------------------------------

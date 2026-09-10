@@ -27,3 +27,8 @@ export const baseMock: ProcessStepsProps = {
     },
   ],
 };
+
+export const timelineMock: ProcessStepsProps = {
+  layout: "timeline",
+  steps: baseMock.steps,
+};
