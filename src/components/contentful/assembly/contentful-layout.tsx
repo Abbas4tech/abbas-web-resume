@@ -3,8 +3,6 @@ import { AppHeader } from "@/components/blocks/app-header/app-header";
 import { adaptAppHeader } from "@/components/blocks/app-header/app-header.adapter";
 import { BottomDock } from "@/components/blocks/bottom-dock/bottom-dock";
 import { adaptBottomDock } from "@/components/blocks/bottom-dock/bottom-dock.adapter";
-import { Footer } from "@/components/blocks/footer/footer";
-import { adaptFooter } from "@/components/blocks/footer/footer.adapter";
 import { PageWrapper } from "@/components/blocks/page-wrapper/page-wrapper";
 import { adaptPageWrapper } from "@/components/blocks/page-wrapper/page-wrapper.adapter";
 import { SidebarNav } from "@/components/blocks/sidebar-nav/sidebar-nav";
@@ -53,7 +51,6 @@ export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
         </DrawerSide>
         <BottomDock {...adaptBottomDock(data)} />
       </Drawer>
-      <Footer {...adaptFooter(data)} />
     </DrawerProvider>
   );
 };
