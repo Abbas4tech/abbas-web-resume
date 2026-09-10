@@ -154,28 +154,3 @@ test.describe("Global chrome — bottom dock (mobile)", () => {
     await expect(page).toHaveURL(EXPERIENCE_PATH_PATTERN);
   });
 });
-
-test.describe("Global chrome — footer", () => {
-  test("renders footer text and every nav link", async ({ page, footer }) => {
-    await page.goto("/about");
-
-    await expect(footer.root).toBeVisible();
-    expect(await footer.links.count()).toBe(NAV_PAGES.length + 1);
-
-    for (const { label, path } of NAV_PAGES) {
-      await expect(footer.link(label)).toHaveAttribute("href", path);
-    }
-  });
-
-  test("mailto link uses the layout's email address", async ({
-    page,
-    footer,
-  }) => {
-    await page.goto("/about");
-
-    await expect(footer.emailLink("ada@fixture.dev")).toHaveAttribute(
-      "href",
-      "mailto:ada@fixture.dev"
-    );
-  });
-});

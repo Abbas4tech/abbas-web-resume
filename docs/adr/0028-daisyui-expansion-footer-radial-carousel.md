@@ -129,3 +129,15 @@ content areas already support mixed `ContentSection`/`ContentList` arrays
   (`motion/react`-driven) in favor of DaisyUI's static `--value`-based ring — a real visual
   regression *if* animation parity were required, accepted here since DaisyUI's own
   `radial-progress` component has no equivalent built-in motion primitive to match against.
+
+## Amendment — Footer removed
+
+The repo owner decided against a global `Footer` after seeing it live and reviewed the rest of
+this ADR's scope (`PanelShowcaseWithRadialProgress`, `Carousel`) separately from that call —
+those two ship as originally decided above; only Decision §1 was reversed. Removed
+`src/components/blocks/footer/` entirely (component, adapter, mock, stories, both spec files),
+its mount point in `contentful-layout.tsx`, the `Global chrome — footer` E2E suite in
+`navigation.spec.ts`, and its `FooterModel`/fixture wiring. `layout.footerText` goes back to
+being fetched-but-unrendered — the original gap this ADR's Context section identified — until a
+future decision revisits it. Nothing else in this ADR (or in ADR 0029/0030, which build on
+Phase 1 but never touched `Footer`) is affected.

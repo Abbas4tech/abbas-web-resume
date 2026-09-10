@@ -58,10 +58,10 @@ This directory contains Architecture Decision Records — documents that capture
   ProcessSteps, ContentTabs, TechBadgeCloud, AnnouncementBanner) built from previously CMS-unreachable
   Elements/Patterns
 - **[0028]** — DaisyUI catalog gap analysis (cross-checked against the project's own version-pinned skill,
-  not the live marketing site); added `Footer` (closing a dead `footerText` data gap), a
-  `PanelShowcaseWithRadialProgress` variant (`radial-progress` Element, same `subItems` data as
-  `PanelShowcase`), and a new `Carousel` `ContentList` Block (closing the fixture's own long-unregistered
-  placeholder)
+  not the live marketing site); added a `PanelShowcaseWithRadialProgress` variant (`radial-progress`
+  Element, same `subItems` data as `PanelShowcase`) and a new `Carousel` `ContentList` Block (closing
+  the fixture's own long-unregistered placeholder). A `Footer` Block was also built to close a dead
+  `footerText` data gap, but later removed by the repo owner after review — see the ADR's Amendment
 - **[0029]** — Phase 2 of the same expansion: a `SkillsMatrix` table-layout variant of `PanelShowcase`,
   a `TestimonialWall` Block (`ChatBubble` Element + `ChatMessageRow` Pattern, quotes read from
   `description` not `body`), and a `MockupGallery` Block (`MockupBrowser`/`MockupCode`/`MockupPhone`

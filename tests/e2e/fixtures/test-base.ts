@@ -5,7 +5,6 @@ import { AvailabilityBannerModel } from "../models/availability-banner-model";
 import { BottomDockModel } from "../models/bottom-dock-model";
 import { CardGridModel } from "../models/card-grid-model";
 import { CarouselModel } from "../models/carousel-model";
-import { FooterModel } from "../models/footer-model";
 import { HeroBannerModel } from "../models/hero-banner-model";
 import { MockupGalleryModel } from "../models/mockup-gallery-model";
 import { NotFoundModel } from "../models/not-found-model";
@@ -22,7 +21,6 @@ interface CustomFixtures {
   bottomDock: BottomDockModel;
   cardGrid: CardGridModel;
   carousel: CarouselModel;
-  footer: FooterModel;
   header: AppHeaderModel;
   heroBanner: HeroBannerModel;
   mockContentful: (mockData: Record<string, unknown>) => Promise<void>;
@@ -52,9 +50,6 @@ export const test = base.extend<CustomFixtures>({
   },
   bottomDock: async ({ page }, use) => {
     await use(new BottomDockModel(page));
-  },
-  footer: async ({ page }, use) => {
-    await use(new FooterModel(page));
   },
   heroBanner: async ({ page }, use) => {
     await use(new HeroBannerModel(page));
