@@ -1,0 +1,62 @@
+fragment PageFields on Page {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  path
+  title
+  icon {
+    ...IconFields
+  }
+  description {
+    json
+    links {
+      entries {
+        block {
+          sys {
+            id
+          }
+          ... on Image {
+            ...ImageFields
+          }
+        }
+      }
+      assets {
+        block {
+          sys {
+            id
+          }
+          url
+          title
+          description
+          width
+          height
+        }
+      }
+    }
+  }
+  seo {
+    ...SeoMetadataFields
+  }
+  topContentAreaCollection(limit: 5) {
+    items {
+      ... on ContentList {
+        ...ContentListFields
+      }
+      ... on ContentSection {
+        ...ContentSectionFields
+      }
+    }
+  }
+  bottomContentAreaCollection(limit: 5) {
+    items {
+      ... on ContentList {
+        ...ContentListFields
+      }
+      ... on ContentSection {
+        ...ContentSectionFields
+      }
+    }
+  }
+}

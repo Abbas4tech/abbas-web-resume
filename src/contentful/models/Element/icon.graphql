@@ -1,0 +1,13 @@
+fragment IconFields on Icon {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  name
+  library
+  title
+  color
+  iconCode
+  showTooltip
+}

@@ -1,0 +1,24 @@
+fragment SeoMetadataFields on SeoMetadata {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  title
+  description
+  keywords
+  siteName
+  publisher
+  creator
+  countryName
+  canonicalUrl
+  noIndex
+  noFollow
+  ogImage {
+    ...ImageFields
+  }
+  favicon {
+    url
+    title
+  }
+}

@@ -1,0 +1,21 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { PageNavButton } from "./page-nav-button";
+import { baseMock } from "./page-nav-button.mock";
+
+const meta = {
+  title: "Patterns/Page Nav Button",
+  component: PageNavButton,
+  parameters: {
+    layout: "centered",
+  },
+  tags: ["autodocs"],
+} satisfies Meta<typeof PageNavButton>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    ...baseMock,
+  },
+};

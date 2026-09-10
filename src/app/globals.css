@@ -1,18 +1,46 @@
 @import "tailwindcss";
-@import "aos/dist/aos.css";
+
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake, dracula, night,
-    bumblebee, emerald, corporate, synthwave, retro, cyberpunk, valentine,
-    halloween, garden, forest, aqua, lofi, pastel, fantasy, wireframe, black,
-    luxury, dracula, cmyk, autumn, business, night, coffee, winter, caramellatte,
-    abyss, silk;
+  themes:
+    light --default,
+    dark --prefersdark,
+    cupcake,
+    dracula,
+    night,
+    bumblebee,
+    emerald,
+    corporate,
+    synthwave,
+    retro,
+    cyberpunk,
+    valentine,
+    halloween,
+    garden,
+    forest,
+    aqua,
+    lofi,
+    pastel,
+    fantasy,
+    wireframe,
+    black,
+    luxury,
+    dracula,
+    cmyk,
+    autumn,
+    business,
+    night,
+    coffee,
+    winter,
+    caramellatte,
+    abyss,
+    silk;
 }
 
 @utility scrollbar-hide {
+  scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
   }
-  scrollbar-width: none;
 }
 
 @utility gradient-45 {
@@ -32,4 +60,24 @@
       background-position: 100% 50%;
     }
   }
+}
+
+/* Custom View Transition for left-to-right swipe theme changes */
+@keyframes swipe-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+::view-transition-old(root) {
+  mix-blend-mode: normal;
+  animation: none;
+}
+
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation: 1s cubic-bezier(0.16, 1, 0.3, 1) both swipe-reveal;
 }

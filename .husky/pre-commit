@@ -1,2 +1,45 @@
-npm run lint
-npm run build
+#!/bin/sh
+# Exit on any error
+set -e
+
+# Check if there are any staged files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR)
+if [ -z "$STAGED_FILES" ]; then
+  echo "No staged files to format"
+  exit 0
+fi
+
+# Build a positional-parameter list of staged files (safe for filenames
+# with spaces — passing $STAGED_FILES unquoted below would word-split it).
+set --
+while IFS= read -r file; do
+  if [ -f "$file" ]; then
+    set -- "$@" "$file"
+  fi
+done <<EOF
+$STAGED_FILES
+EOF
+
+# Run formatter, scoped to the staged files only (not the whole repo).
+# `if` exempts this from `set -e`, so FORMAT_EXIT_CODE is always reached —
+# without it, `set -e` would abort the script the instant ultracite found
+# something unfixable, skipping the message below entirely.
+if pnpm exec ultracite fix "$@"; then
+  FORMAT_EXIT_CODE=0
+else
+  FORMAT_EXIT_CODE=$?
+fi
+
+# Re-stage files that were already staged
+echo "$STAGED_FILES" | while IFS= read -r file; do
+  if [ -f "$file" ]; then
+    git add -- "$file"
+  fi
+done
+
+if [ $FORMAT_EXIT_CODE -ne 0 ]; then
+  echo "Ultracite found issues that could not be auto-fixed."
+  exit $FORMAT_EXIT_CODE
+fi
+
+echo "✨ Files formatted by Ultracite"

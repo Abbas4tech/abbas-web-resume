@@ -1,0 +1,59 @@
+fragment ContentItemFields on ContentItem {
+  __typename
+  sys {
+    id
+  }
+  entryField
+  title
+  subtitle
+  description
+  body {
+    json
+    links {
+      entries {
+        block {
+          sys {
+            id
+          }
+          ... on Image {
+            ...ImageFields
+          }
+        }
+      }
+      assets {
+        block {
+          sys {
+            id
+          }
+          url
+          title
+          description
+          width
+          height
+        }
+      }
+    }
+  }
+  startDate
+  endDate
+  image {
+    ...ImageFields
+  }
+  coverImage {
+    ...ImageFields
+  }
+  icon {
+    ...IconFields
+  }
+  linksCollection(limit: 5) {
+    items {
+      ...LinkFields
+    }
+  }
+  subItemsCollection(limit: 10) {
+    items {
+      ...StatItemFields
+    }
+  }
+  tags
+}

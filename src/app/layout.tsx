@@ -1,9 +1,11 @@
-import React, { JSX } from "react";
 import { Poppins } from "next/font/google";
+import type React from "react";
+import type { JSX } from "react";
+import { MotionProvider } from "@/components/elements/behavior/motion-provider/motion-provider";
 
 import "./globals.css";
 
-const inter = Poppins({ subsets: ["latin"], weight: ["400"] });
+const inter = Poppins({ subsets: ["latin-ext"], weight: ["400", "700"] });
 
 export default async function RootLayout({
   children,
@@ -11,8 +13,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>): Promise<JSX.Element> {
   return (
-    <html lang="en" className="scrollbar-hide">
-      <body className={inter.className}>{children}</body>
+    <html className="scrollbar-hide" lang="en">
+      <body className={inter.className}>
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

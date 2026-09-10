@@ -1,0 +1,36 @@
+fragment LayoutFields on Layout {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  title
+  role
+  resume {
+    url
+    title
+  }
+  globalSeo {
+    ...SeoMetadataFields
+  }
+  defaultTheme
+  themeList
+  siteLogo {
+    ...ImageFields
+  }
+  email
+  footerText
+  resumeIcon {
+    ...IconFields
+  }
+  themeIcon {
+    ...IconFields
+  }
+  drawerVariant
+  drawerSide
+  navigationLinksCollection(limit: 10) {
+    items {
+      ...LinkFields
+    }
+  }
+}

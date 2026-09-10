@@ -8,16 +8,16 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# Check if npm is installed
-if ! command_exists npm; then
-  echo "npm is not installed. Please install it first."
+# Check if pnpm is installed
+if ! command_exists pnpm; then
+  echo "pnpm is not installed. Please install it first: https://pnpm.io/installation"
   exit 1
 fi
 
 # Check if vercel CLI is installed; if not, install it
 if ! command_exists vercel; then
   echo "Vercel CLI not found. Installing it..."
-  npm install -g vercel
+  pnpm add -g vercel
 fi
 
 # Login to Vercel (this opens the browser for authentication)

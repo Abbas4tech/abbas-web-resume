@@ -1,0 +1,29 @@
+import react from "@vitejs/plugin-react";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  plugins: [react(), tsconfigPaths()],
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: ["./tests/setup.tsx"],
+    include: ["src/**/*.spec.{ts,tsx}"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: [
+        "src/**/*.mock.ts",
+        "src/**/*.stories.tsx",
+        "src/contentful/generated/**",
+        "src/contentful/scripts/**",
+      ],
+      thresholds: {
+        statements: 75,
+        lines: 75,
+        branches: 65,
+      },
+    },
+  },
+});
