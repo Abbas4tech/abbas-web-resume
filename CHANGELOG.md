@@ -1,5 +1,12 @@
 # abbas-web-resume
 
+## 4.2.1
+
+### Patch Changes
+
+- c832fc3: Added a live Contentful schema-parity check (ADR 0031) after a real production incident: `pnpm contentful:setup` schema pushes had only ever targeted the `development` environment, so `production` silently drifted out of sync and 500'd on every page after a merge. New pure-Python CI job (`scripts/contentful/verify-contentful-schema.py`, stdlib only) exercises the app's real GraphQL queries — parsed directly from the generated SDK so it can never drift from what the app actually queries — against both `development` and `production` on every PR, regardless of target branch. Also corrected the `build` CI job's env-block comment, which incorrectly claimed `next build` statically renders pages from Contentful (the app's catch-all route is fully dynamic, so it never actually calls these queries at build time).
+- c327611: Fixed a deterministic bug in the release pipeline (`scripts/ci/manage-release.py`) that failed every release after the first one that had an unmerged prior "Version Packages" PR still open. The script ran `pnpm changeset version` (producing uncommitted version-bump/CHANGELOG changes) _before_ resetting the `changeset-release/master` branch to match `master`, and that reset used `git reset --hard`, which unconditionally discards uncommitted changes — wiping out the version-bump work before it could be committed, and failing with "nothing to commit, working tree clean". Reordered so the branch is reset to match `master` first, then `changeset version` runs on that clean base — this also means the branch can no longer accumulate drift across releases, since it's always rebuilt as exactly "master + one version-bump commit" each run.
+
 ## 4.2.0
 
 ### Minor Changes
