@@ -2,6 +2,10 @@
 
 This chapter documents the data interfaces exposed by the application: the Contentful GraphQL API, the TypeScript generated SDK, adapted types, and the patterns used to consume them.
 
+> Every fragment, query, and type shown here is copied from (or trivially simplified from) the actual source
+> files — `src/contentful/models/**/*.graphql`, `src/contentful/queries/*.graphql`, and
+> `src/contentful/adapters/*.ts`. If in doubt, those files are authoritative; this chapter is a reading aid.
+
 ---
 
 ## GraphQL API
@@ -10,29 +14,34 @@ The application fetches all content from the **Contentful Content Delivery API (
 
 | Property | Value |
 |----------|-------|
-| **Endpoint** | `https://graphql.contentful.com/content/v1/spaces/{SPACE_ID}` |
-| **Auth** | Bearer token via `CONTENTFUL_API_KEY` header |
+| **Endpoint** | `${CONTENTFUL_API_BASE_URL}/{CONTENTFUL_SPACE_ID}/environments/{CONTENTFUL_ENVIRONMENT}` |
+| **Auth** | Bearer token via `CONTENTFUL_CDA_TOKEN` header |
 | **Client** | `graphql-request` v7 |
 | **Type Generation** | `@graphql-codegen/cli` |
+
+There are two live environments in the space — `development` and `production` — selected by
+`CONTENTFUL_ENVIRONMENT`. See [Chapter 08 — CMS Handling](./08-cms-handling.md#environment-configuration).
 
 ---
 
 ## GraphQL Fragments
 
-Fragments are co-located with their content model in `src/contentful/models/`:
+Fragments are co-located with their content model in `src/contentful/models/`, matching the folder layout
+shown in [Chapter 08](./08-cms-handling.md#graphql-queries).
 
 ### `IconFields` Fragment
 
 ```graphql
 fragment IconFields on Icon {
+  __typename
   sys { id }
   internalName
   name
-  iconCode
-  showTooltip
   library
   title
   color
+  iconCode
+  showTooltip
 }
 ```
 
@@ -40,10 +49,11 @@ fragment IconFields on Icon {
 
 ```graphql
 fragment ImageFields on Image {
+  __typename
   sys { id }
   internalName
+  image { url title description width height }
   alternativeText
-  image { url title width height }
   caption
 }
 ```
@@ -52,18 +62,23 @@ fragment ImageFields on Image {
 
 ```graphql
 fragment LinkFields on Link {
+  __typename
   sys { id }
   internalName
   text
   url
-  page { path title }
+  page { sys { id } path }
+  icon { ...IconFields }
 }
 ```
 
-### `BadgeFields` Fragment
+### `StatItemFields` Fragment
+
+Renamed from the legacy `BadgeFields`/`Badge` — the underlying content type is `StatItem`.
 
 ```graphql
-fragment BadgeFields on Badge {
+fragment StatItemFields on StatItem {
+  __typename
   sys { id }
   internalName
   title
@@ -78,21 +93,32 @@ fragment BadgeFields on Badge {
 
 ```graphql
 fragment ContentItemFields on ContentItem {
+  __typename
   sys { id }
   entryField
   title
   subtitle
   description
-  body { json links { entries { block { sys { id } } } } }
+  body {
+    json
+    links {
+      entries { block { sys { id } ... on Image { ...ImageFields } } }
+      assets { block { sys { id } url title description width height } }
+    }
+  }
   startDate
   endDate
   image { ...ImageFields }
+  coverImage { ...ImageFields }
   icon { ...IconFields }
   linksCollection(limit: 5) { items { ...LinkFields } }
-  subItemsCollection(limit: 20) { items { ...BadgeFields } }
+  subItemsCollection(limit: 10) { items { ...StatItemFields } }
   tags
 }
 ```
+
+> The `contentItem` content type also has a `progress` field ([`content-model.md`](./contentful/content-model.md#-content-item-contentitem)),
+> but this fragment does not currently fetch it — it's schema-present, not yet wired into a query or adapter.
 
 ### `ContentListFields` Fragment
 
@@ -102,9 +128,9 @@ fragment ContentListFields on ContentList {
   internalName
   ui
   title
-  description
+  description { json }
   entries
-  customEntriesCollection(limit: 20) {
+  customEntriesCollection(limit: 10) {
     items { ...ContentItemFields }
   }
 }
@@ -112,12 +138,39 @@ fragment ContentListFields on ContentList {
 
 ### `ContentSectionFields` Fragment
 
+`entry` is polymorphic — it can resolve to either a `ContentItem` or a `StatItem`:
+
 ```graphql
 fragment ContentSectionFields on ContentSection {
   sys { id }
   internalName
   ui
-  entry { ...ContentItemFields }
+  entry {
+    ... on ContentItem { ...ContentItemFields }
+    ... on StatItem { ...StatItemFields }
+  }
+}
+```
+
+### `SeoMetadataFields` Fragment
+
+```graphql
+fragment SeoMetadataFields on SeoMetadata {
+  __typename
+  sys { id }
+  internalName
+  title
+  description
+  keywords
+  siteName
+  publisher
+  creator
+  countryName
+  canonicalUrl
+  noIndex
+  noFollow
+  ogImage { ...ImageFields }
+  favicon { url title }
 }
 ```
 
@@ -125,21 +178,27 @@ fragment ContentSectionFields on ContentSection {
 
 ```graphql
 fragment PageFields on Page {
+  __typename
   sys { id }
   internalName
   path
   title
+  icon { ...IconFields }
   description {
     json
-    links { entries { block { sys { id } ... on Image { ...ImageFields } } } assets { block { sys { id } url title description width height } } }
+    links {
+      entries { block { sys { id } ... on Image { ...ImageFields } } }
+      assets { block { sys { id } url title description width height } }
+    }
   }
-  topContentAreaCollection(limit: 10) {
+  seo { ...SeoMetadataFields }
+  topContentAreaCollection(limit: 5) {
     items {
       ... on ContentList { ...ContentListFields }
       ... on ContentSection { ...ContentSectionFields }
     }
   }
-  bottomContentAreaCollection(limit: 10) {
+  bottomContentAreaCollection(limit: 5) {
     items {
       ... on ContentList { ...ContentListFields }
       ... on ContentSection { ...ContentSectionFields }
@@ -152,19 +211,25 @@ fragment PageFields on Page {
 
 ```graphql
 fragment LayoutFields on Layout {
+  __typename
   sys { id }
   internalName
   title
   role
+  resume { url title }
+  globalSeo { ...SeoMetadataFields }
   defaultTheme
   themeList
+  siteLogo { ...ImageFields }
   email
   footerText
-  logo { url title }
-  resume { url }
   resumeIcon { ...IconFields }
   themeIcon { ...IconFields }
-  navigation { ...ContentListFields }
+  drawerVariant
+  drawerSide
+  navigationLinksCollection(limit: 10) {
+    items { ...LinkFields }
+  }
 }
 ```
 
@@ -178,8 +243,8 @@ The codegen output exports a typed `getSdk` factory. All queries are called thro
 import { GraphQLClient } from "graphql-request";
 import { getSdk } from "@/contentful/generated/contentful-sdk.generated";
 
-const client = new GraphQLClient(process.env.CONTENTFUL_BASE_URL!, {
-  headers: { Authorization: `Bearer ${process.env.CONTENTFUL_API_KEY}` },
+const client = new GraphQLClient(endpoint, {
+  headers: { Authorization: `Bearer ${process.env.CONTENTFUL_CDA_TOKEN}` },
 });
 
 const sdk = getSdk(client);
@@ -187,17 +252,25 @@ const sdk = getSdk(client);
 
 ### Available Queries
 
+There are exactly two queries defined (`src/contentful/queries/*.graphql`) — there is no
+category/collection-listing query beyond what `GetPageByPath` already returns via each page's own
+`contentList`/`contentSection` slots:
+
 | Query | Parameters | Returns |
 |-------|-----------|--------|
-| `GetPageByPath` | `path: string` | `PageFieldsFragment \| null` |
-| `GetLayout` | `id: string` | `LayoutFieldsFragment \| null` |
-| `GetContentItemsByCategory` | `category: string` | `ContentItemFieldsFragment[]` |
+| `GetLayout` | `preview?: boolean` (default `false`) | `{ layoutCollection: { items: LayoutFieldsFragment[] } }` |
+| `GetPageByPath` | `path: string`, `preview?: boolean` (default `false`) | `{ pageCollection: { items: PageFieldsFragment[] } }` |
+
+Both return a `limit: 1` collection rather than a single entry directly — callers take `.items[0]`.
 
 ---
 
 ## Adapted Types
 
-All raw GraphQL types are transformed by adapter functions. The adapted types are the **public API** consumed by all React components.
+All raw GraphQL types are transformed by adapter functions (`src/contentful/adapters/`). The adapted types
+are the **public API** consumed by all React components — Blocks never see a raw `*FieldsFragment` type.
+Every adapter returns `null`/`undefined` for a missing source entry rather than throwing, so adapted types
+are typically exported as `NonNullable<ReturnType<typeof adaptX>>`.
 
 ### `AdaptedIcon`
 
@@ -205,12 +278,13 @@ All raw GraphQL types are transformed by adapter functions. The adapted types ar
 type AdaptedIcon = {
   __typename: "Icon";
   id: string;
-  name: string;       // e.g. "FaGithub"
-  library: string;    // e.g. "fa"
-  iconCode: string;   // e.g. "fa/FaGithub"
-  color?: string;
+  internalName: string;
+  name: string;        // accessible name / tooltip text, e.g. "Typescript"
+  library: string;      // e.g. "fa"
+  iconCode: string;     // e.g. "fa/FaGithub" — what the Icon Element resolves against the curated registry
+  color: string;
+  title: string;        // adapted but not currently rendered anywhere
   showTooltip: boolean;
-  title?: string;
 };
 ```
 
@@ -220,11 +294,14 @@ type AdaptedIcon = {
 type AdaptedImage = {
   __typename: "Image";
   id: string;
-  src: string;
-  alt: string;
-  caption?: string;
-  width?: number;
-  height?: number;
+  internalName: string;
+  alternativeText: string;
+  caption: string;
+  url: string;
+  title: string;
+  description: string;
+  width: number;
+  height: number;
 };
 ```
 
@@ -234,20 +311,24 @@ type AdaptedImage = {
 type AdaptedLink = {
   __typename: "Link";
   id: string;
+  internalName: string;
   text: string;
-  href: string;       // external URL or internal path
-  isExternal: boolean;
+  href: string;         // item.url, or item.page.path, or "#" as a last resort
+  icon: AdaptedIcon | undefined;
 };
 ```
 
-### `AdaptedBadge`
+### `AdaptedStatItem`
+
+Renamed from `AdaptedBadge` — the underlying content type is `StatItem`.
 
 ```ts
-type AdaptedBadge = {
-  __typename: "Badge";
+type AdaptedStatItem = {
+  __typename: "StatItem";
   id: string;
+  internalName: string;
   title: string;
-  progress?: number;  // 0–100
+  progress: number;     // 0–100, defaults to 0
   icons: AdaptedIcon[];
 };
 ```
@@ -258,18 +339,23 @@ type AdaptedBadge = {
 type AdaptedContentItem = {
   __typename: "ContentItem";
   id: string;
+  entryField: string;
   title: string;
-  subtitle?: string;
-  description?: string;
-  body?: Document;    // Contentful Rich Text Document
-  startDate?: string;
-  endDate?: string;
-  image?: AdaptedImage;
-  icon?: AdaptedIcon;
+  subtitle: string;
+  description: string;
+  body: Document | null;   // Contentful Rich Text Document
+  startDate: Date | null;
+  endDate: Date | null;
+  image: AdaptedImage | null;
+  coverImage: AdaptedImage | null;
+  icon: AdaptedIcon | undefined;
   links: AdaptedLink[];
-  subItems: AdaptedBadge[];
+  subItems: AdaptedStatItem[];
   tags: string[];
 };
+
+// A ContentSection's `entry` can resolve to either shape:
+type AdaptedEntry = AdaptedContentItem | AdaptedStatItem;
 ```
 
 ### `AdaptedContentList`
@@ -278,10 +364,12 @@ type AdaptedContentItem = {
 type AdaptedContentList = {
   __typename: "ContentList";
   id: string;
-  ui: string;         // e.g. "CardGrid" | "TimelineSection"
-  title?: string;
-  description?: string;
-  entries: AdaptedContentItem[];
+  internalName: string;
+  ui: string;              // e.g. "CardGrid" | "TimelineSection" — falls back to "CardGrid" if blank
+  title: string;
+  description: Document | undefined;
+  category: string;        // the `entries` field's value, e.g. "Experience" | "Projects" | "Custom"
+  customEntries: AdaptedContentItem[];
 };
 ```
 
@@ -291,10 +379,37 @@ type AdaptedContentList = {
 type AdaptedContentSection = {
   __typename: "ContentSection";
   id: string;
-  ui: string;         // e.g. "HeroBanner" | "SplitContentPanel"
-  entry?: AdaptedContentItem;
+  internalName: string;
+  ui: string;              // e.g. "HeroBanner" | "SplitContentPanel" — falls back to "HeroBanner" if blank
+  entry: AdaptedEntry;      // ContentItem or StatItem — narrow with __typename before use
 };
 ```
+
+### `AdaptedSeoMetadata`
+
+```ts
+type AdaptedSeoMetadata = {
+  __typename: "SeoMetadata";
+  id: string;
+  internalName: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  siteName: string;
+  publisher: string;
+  creator: string;
+  countryName: string;
+  canonicalUrl: string;
+  noIndex: boolean;
+  noFollow: boolean;
+  ogImage: AdaptedImage | null;
+  favicon: { url: string; title: string } | null;
+};
+```
+
+Consumed directly by `adaptPageMetadata` (`src/contentful/adapters/page-metadata.ts`) to build the Next.js
+`Metadata` object returned from `generateMetadata` — every field above feeds a real `next/metadata` output
+(OpenGraph, Twitter card, robots directives, canonical link, favicon), not just title/description.
 
 ### `AdaptedPage`
 
@@ -302,9 +417,12 @@ type AdaptedContentSection = {
 type AdaptedPage = {
   __typename: "Page";
   id: string;
-  path: string;
+  internalName: string;
   title: string;
-  description: Document | null;  // rendered below the section heading
+  path: string;
+  icon: AdaptedIcon | undefined;
+  description: Document | null;   // rendered below the section heading
+  seo: AdaptedSeoMetadata | null;
   topContentArea: (AdaptedContentList | AdaptedContentSection)[];
   bottomContentArea: (AdaptedContentList | AdaptedContentSection)[];
 };
@@ -316,15 +434,21 @@ type AdaptedPage = {
 type AdaptedLayout = {
   __typename: "Layout";
   id: string;
+  internalName: string;
+  title: string;
+  role: string;
+  resume: { url: string; title: string } | null;
+  globalSeo: AdaptedSeoMetadata | null;
   defaultTheme: string;
   themeList: string[];
-  email?: string;
-  footerText?: string;
-  logo?: AdaptedImage;
-  resume?: { url: string };
-  resumeIcon?: AdaptedIcon;
-  themeIcon?: AdaptedIcon;
-  navigation?: AdaptedContentList;
+  siteLogo: AdaptedImage | null;
+  email: string;
+  footerText: string;
+  resumeIcon: AdaptedIcon | undefined;
+  themeIcon: AdaptedIcon | undefined;
+  drawerVariant: string;
+  drawerSide: string;
+  navigationLinks: AdaptedLink[];
 };
 ```
 
@@ -338,7 +462,7 @@ Each adapted type ships with a User-Defined Type Guard for polymorphic narrowing
 import {
   isAdaptedContentList,
   isAdaptedContentSection,
-} from "@/contentful/adapters";
+} from "@/contentful/adapters/content-list"; // and content-section
 
 for (const item of page.topContentArea) {
   if (isAdaptedContentList(item)) {
@@ -355,12 +479,25 @@ Never use `as unknown as Type` — always use type guards.
 
 ## Block Adapter Signatures
 
-Each Block has its own adapter for transforming adapted CMS types into Block props:
+Each Block has its own adapter for transforming adapted CMS types into Block props — see
+[`docs/07-component-architecture.md`](./07-component-architecture.md) for the full catalog. A few
+representative signatures, showing that the input type (`AdaptedContentList` vs.
+`AdaptedContentSection`) depends on which content type the Block's registry entry is registered under,
+not on the Block itself — the same Block can even have adapters for both, when it's reachable from either
+registry:
 
 ```ts
-// Pattern: adapt{BlockName}(adapted: AdaptedX): BlockProps
-adaptHeroBanner(item: AdaptedContentItem): HeroBannerProps
-adaptTimelineSection(list: AdaptedContentList): TimelineSectionProps
-adaptCardGrid(list: AdaptedContentList): CardGridProps
-adaptSplitContentPanel(item: AdaptedContentItem): SplitContentPanelProps
+// LIST_BLOCK_REGISTRY entries take AdaptedContentList
+adaptCardGrid(data: AdaptedContentList): CardGridProps
+adaptTimelineSection(data: AdaptedContentList): TimelineSectionProps
+adaptTimelineSectionWithBadges(data: AdaptedContentList): TimelineSectionProps
+adaptSplitContentPanel(data: AdaptedContentList): SplitContentPanelProps
+
+// SECTION_BLOCK_REGISTRY entries take AdaptedContentSection
+adaptHeroBanner(data: AdaptedContentSection): HeroBannerProps
+adaptSplitContentPanelFromSection(data: AdaptedContentSection): SplitContentPanelProps
 ```
+
+`SplitContentPanel` is the one Block registered under **both** registries — `adaptSplitContentPanel` reads
+a list's `customEntries`, `adaptSplitContentPanelFromSection` reads a single section entry's `body`/
+`subItems` — both producing the same `SplitContentPanelProps` shape.

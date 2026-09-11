@@ -46,7 +46,11 @@ The lowest layer. Elements carry **no domain meaning** and **no business logic**
 
 #### UI Elements (`src/components/elements/ui/`)
 
-Thin wrappers around DaisyUI CSS classes. The component name mirrors the DaisyUI class it wraps.
+Thin wrappers around DaisyUI CSS classes. The component name mirrors the DaisyUI class it wraps. This is a
+representative sample — see [`docs/07-component-architecture.md`](./07-component-architecture.md) for the
+complete, currently-maintained catalog (33 UI Elements as of ADR 0030, including the DaisyUI-expansion
+additions: `Breadcrumbs`, `ChatBubble`, `Countdown`, `MockupBrowser`, `MockupCode`, `MockupPhone`,
+`RadialProgress`, `Status`, `Table`, `Timeline`).
 
 | Component | DaisyUI Class | Purpose |
 |-----------|--------------|---------|
@@ -57,7 +61,8 @@ Thin wrappers around DaisyUI CSS classes. The component name mirrors the DaisyUI
 | `Drawer` | `.drawer` | Side panel |
 | `Tabs` | `.tabs` | Tab navigation |
 | `Avatar` | `.avatar` | Profile images |
-| `Progress` | `.progress` | Progress bar |
+| `Progress` | `.progress` | Linear progress bar |
+| `RadialProgress` | `.radial-progress` | Circular progress indicator |
 | `Stat` | `.stat` | Statistic display |
 | `Tooltip` | `.tooltip` | Hover tooltip |
 | `Accordion` | `.accordion` | Expandable sections |
@@ -67,12 +72,16 @@ Thin wrappers around DaisyUI CSS classes. The component name mirrors the DaisyUI
 | `Swap` | `.swap` | Toggle between two children |
 | `Kbd` | `.kbd` | Keyboard key display |
 | `Step` | `.step` | Step indicator |
+| `Timeline` | `.timeline` | Native DaisyUI timeline primitive |
 | `Dock` | `.dock` | Bottom navigation bar |
 | `Dropdown` | `.dropdown` | Dropdown menu |
 | `Menu` | `.menu` | List navigation |
 | `Divider` | `.divider` | Visual separator |
 | `Container` | — | Layout max-width wrapper |
-| `MockupWindow` | `.mockup-window` | Window frame mockup |
+| `MockupWindow` | `.mockup-window` | Generic window frame mockup |
+| `MockupBrowser` | `.mockup-browser` | Browser-chrome frame mockup |
+| `MockupCode` | `.mockup-code` | Terminal/code-block mockup |
+| `MockupPhone` | `.mockup-phone` | Phone-frame mockup |
 | `Page` | — | Full-page layout wrapper |
 | `Icon` | — | Icon registry renderer |
 
@@ -106,11 +115,12 @@ Styling-agnostic helpers that provide structural, animation, layout, or browser-
 
 ### Layer 2 — Patterns
 
-Compositions of Elements that encode a **reusable visual structure**. Patterns carry no domain meaning and are independently swappable.
+Compositions of Elements that encode a **reusable visual structure**. Patterns carry no domain meaning and are independently swappable. See [`docs/07-component-architecture.md`](./07-component-architecture.md) for the complete, currently-maintained catalog (17 Patterns as of ADR 0030).
 
 | Pattern | Visual Role |
 |---------|------------|
-| `IconProgressRow` | Row with icon, label, and progress bar |
+| `IconProgressRow` | Row with icon, label, and linear progress bar |
+| `IconRadialProgressRow` | Row with icon, label, and radial progress indicator |
 | `IconCluster` | Grouped icon grid |
 | `IconLink` | Hyperlink presented as an icon |
 | `MediaCard` | Card pairing media with text |
@@ -121,6 +131,12 @@ Compositions of Elements that encode a **reusable visual structure**. Patterns c
 | `StatGroup` | Group of statistics |
 | `ThemeToggle` | DaisyUI theme switcher |
 | `TimelineEntry` | Single entry in a timeline |
+| `BreadcrumbTrail` | A trail of `Breadcrumbs`/`BreadcrumbsItem` |
+| `ChatMessageRow` | A `ChatBubble` wired to a testimonial-style quote |
+| `CountdownUnit` | A single labeled `Countdown` segment |
+| `MockupShowcaseFrame` | Wraps a mockup Element with a caption |
+| `StatusIndicator` | A `Status` dot with its label |
+| `TechBadgeCloud` | A wrapping cloud of tech-stack `Badge` Elements |
 
 **Rules for Patterns:**
 - Named after visual structure, not domain content (e.g. `IconProgressRow` not `SkillRow`)
@@ -131,7 +147,7 @@ Compositions of Elements that encode a **reusable visual structure**. Patterns c
 
 ### Layer 3 — Blocks
 
-Compositions of Patterns and/or Elements that **occupy a named visual slot** in the page layout.
+Compositions of Patterns and/or Elements that **occupy a named visual slot** in the page layout. See [`docs/07-component-architecture.md`](./07-component-architecture.md) for the complete, currently-maintained catalog and the full CMS `ui` registry mapping (21 Blocks as of ADR 0030).
 
 | Block | Visual Slot |
 |-------|------------|
@@ -140,12 +156,25 @@ Compositions of Patterns and/or Elements that **occupy a named visual slot** in 
 | `SidebarNav` | Left/right navigation panel |
 | `BottomDock` | Mobile bottom navigation dock |
 | `CardGrid` | Responsive grid of MediaCards |
-| `PanelShowcase` | Tabbed panel layout |
+| `Carousel` | Sliding gallery of cover-image slides |
+| `PanelShowcase` | Tabbed panel layout (also renders `PanelShowcaseWithRadialProgress` / `SkillsMatrix` via a `layout` prop) |
 | `SplitContentPanel` | Side-by-side text and media |
-| `TimelineSection` | Vertical timeline of entries |
+| `TimelineSection` | Vertical timeline of entries (also renders `TimelineSectionWithBadges` via a `layout` prop) |
+| `ProcessSteps` | Numbered process steps (also renders `ProcessStepsWithTimeline` via a `layout` prop) |
+| `AvailabilityBanner` | Status + countdown banner |
+| `MockupGallery` | Gallery of browser/code/phone mockups |
+| `TestimonialWall` | Wall of chat-bubble quotes |
+| `FaqAccordion` | Accordion of question/answer pairs |
+| `MetricsStrip` | Row of key-metric stats |
+| `ContentTabs` | Tabbed content switcher |
+| `AnnouncementBanner` | Dismissible top-of-page banner |
+| `TechBadgeCloud` | CMS-driven tech-badge cloud (thin wrapper around the Pattern of the same name) |
 | `PageWrapper` | Global page layout wrapper |
 | `NotFound` | 404 error page |
 | `ServerError` | 500 error page |
+
+A `Footer` Block existed briefly (ADR 0028) and was removed after review — see
+[`docs/07-component-architecture.md`](./07-component-architecture.md) for why.
 
 **Rules for Blocks:**
 - Named after the visual slot, not domain content (e.g. `HeroBanner` not `ProfileBanner`)
@@ -192,32 +221,36 @@ When the Contentful schema changes, **only the adapter changes**. The Block, its
 
 | File | Role |
 |------|------|
-| `contentful-page.tsx` | Renders a full `AdaptedPage` by composing content areas |
-| `contentful-layout.tsx` | Renders the `AdaptedLayout` (global nav, header, theme) |
-| `content-list.tsx` | Maps `ui` field → Block component (e.g. `CardGrid`) |
-| `content-section.tsx` | Maps `ui` field → Block component (e.g. `HeroBanner`) |
-| `content-item.tsx` | Renders a single `AdaptedContentItem` |
-| `icon.tsx` | Resolves Contentful icon entries via the Icon Registry |
-| `image.tsx` | Renders Contentful image assets with Next.js `<Image>` |
-| `link.tsx` | Renders Contentful link entries (internal + external) |
-| `stat-item.tsx` | Renders `AdaptedBadge` items as `<Stat>` elements |
+| `assembly/contentful-page.tsx` | Renders a full `AdaptedPage` by composing content areas |
+| `assembly/contentful-layout.tsx` | Renders the `AdaptedLayout` (global nav, header, theme) |
+| `page-section/content-list.tsx` | Maps `ui` field → Block component via `LIST_BLOCK_REGISTRY` (e.g. `CardGrid`) |
+| `page-section/content-section.tsx` | Maps `ui` field → Block component via `SECTION_BLOCK_REGISTRY` (e.g. `HeroBanner`) |
+| `element/icon.tsx` | Resolves Contentful icon entries via the Icon Registry |
+| `element/image.tsx` | Renders Contentful image assets with Next.js `<Image>` |
+| `element/link.tsx` | Renders Contentful link entries (internal + external) |
+| `element/block-placeholder.tsx` | Dev-mode fallback for an unrecognized `ui` value |
+
+There is no standalone renderer for `AdaptedContentItem`/`AdaptedStatItem` — that data is passed straight to
+whichever Block's adapter the `ui` registry selects. See [Chapter 08 — CMS Handling](./08-cms-handling.md#contentful-renderer-components-srccomponentscontentful)
+for the full picture.
 
 ---
 
 ## Data Flow Example
 
-A request for `/experience` follows this path:
+A request for `/experience` (a page whose `topContentArea` includes a `ContentList` entry with
+`ui: "TimelineSection"`) follows this path:
 
 ```
-1. Next.js App Router matches /experience route
-2. app/(app)/experience/page.tsx → fetches AdaptedPage via Contentful GraphQL
+1. Next.js App Router matches the catch-all route (src/app/(app)/[[...slug]]/page.tsx)
+2. GetPageByPath query runs → PageFieldsFragment → adaptPage() → AdaptedPage
 3. <ContentfulPage data={adaptedPage} />
 4. ContentfulPage loops through topContentArea
-5. For each ContentList entry → <ContentList data={item} />
-6. ContentList reads item.ui === "Experience Timeline"
-7. Renders <TimelineSection entries={item.entries} />
+5. For the ContentList entry → <ContentList data={item} />
+6. ContentList reads item.ui === "TimelineSection" → looks it up in LIST_BLOCK_REGISTRY
+7. Calls adaptTimelineSection(item) → TimelineSectionProps, renders <TimelineSection {...props} />
 8. TimelineSection composes <TimelineEntry> Patterns
-9. TimelineEntry composes <Avatar>, <Badge>, <Progress> Elements
+9. TimelineEntry composes <Avatar>, <TechBadgeCloud>/<Badge>, <Progress> Elements
 ```
 
 ---

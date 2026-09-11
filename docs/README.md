@@ -69,6 +69,17 @@ pnpm build-storybook  # Static Storybook build
 │   └── setup.tsx               # Global Vitest setup
 ├── docs/
 │   ├── adr/                    # Architecture Decision Records
+│   ├── contentful/             # Contentful content model & migration reference
 │   └── *.md                    # This documentation set
 └── .storybook/                 # Storybook configuration
 ```
+
+### Contentful Reference Docs (`docs/contentful/`)
+
+| Doc | Covers |
+|-----|--------|
+| [`content-model.md`](./contentful/content-model.md) | Full field-by-field content type reference, kept in sync with `setup-content-model.ts` |
+| [`environment-migration.md`](./contentful/environment-migration.md) | Audit/migrate workflow for content drift between the `development` and `production` environments |
+| [`legacy-space-migration-field-mapping.md`](./contentful/legacy-space-migration-field-mapping.md) | One-time legacy-space → composable-space schema mapping ([ADR 0019](./adr/0019-legacy-space-cross-schema-content-migration.md)) |
+| [`legacy-space-migration-execution-log.md`](./contentful/legacy-space-migration-execution-log.md) | Execution log of that one-time migration |
+| [`contentful-renderers-plan.md`](./contentful/contentful-renderers-plan.md) | Planning notes behind the renderer components ([ADR 0004](./adr/0004-contentful-renderers.md)) |
