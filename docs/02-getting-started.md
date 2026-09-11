@@ -49,17 +49,16 @@ Fill in all required values in `.env.local`:
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `CONTENTFUL_SPACE_ID` | ✅ | Your Contentful Space ID |
-| `CONTENTFUL_API_KEY` | ✅ | Contentful Content Delivery API token |
-| `CONTENTFUL_BASE_URL` | ✅ | GraphQL endpoint (e.g. `https://graphql.contentful.com/content/v1/spaces/{SPACE_ID}`) |
-| `CONTENTFUL_ENVIRONMENT_ID` | ✅ | `development` (local) or `master` (production) |
-| `CONTENTFUL_APPLICATION_DATA_ID` | ✅ | Entry ID of the root `Layout` content type |
-| `CONTENTFUL_HOME_PAGE_KEY` | ✅ | Entry ID of the home `Page` |
-| `CONTENTFUL_EXPERIENCE_PAGE_KEY` | ✅ | Entry ID of the experience `Page` |
-| `CONTENTFUL_PROJECTS_PAGE_KEY` | ✅ | Entry ID of the projects `Page` |
-| `CONTENTFUL_SKILLS_PAGE_KEY` | ✅ | Entry ID of the skills `Page` |
-| `CONTENTFUL_PAGES_KEY` | ✅ | Entry ID list for navigation pages |
-| `STARTING_URL` | ✅ | Base URL for local dev (`http://localhost:3000`) |
-| `VERCEL_OIDC_TOKEN` | ⬜ | Required only for Vercel deployments |
+| `CONTENTFUL_CDA_TOKEN` | ✅ | Contentful Content Delivery API (read-only) token |
+| `CONTENTFUL_API_BASE_URL` | ✅ | GraphQL endpoint (e.g. `https://graphql.contentful.com/content/v1/spaces/{SPACE_ID}`) |
+| `CONTENTFUL_ENVIRONMENT` | ✅ | `development` or `production` — which Contentful environment to query |
+| `CONTENTFUL_MANAGEMENT_TOKEN` | ✅ (for schema scripts only) | Write-capable Management API token, used only by `pnpm contentful:setup` and the other scripts under `src/contentful/scripts/` — the running app never reads it, and it is deliberately **not** set in the deployed Vercel runtime (see [ADR 0032](./adr/0032-vercel-environment-variable-cleanup.md)) |
+| `VERCEL_OIDC_TOKEN` | ⬜ | Auto-managed by Vercel; not something you set by hand |
+
+This is the current, reduced variable set (see [ADR 0032](./adr/0032-vercel-environment-variable-cleanup.md)) —
+if you have an older checkout with `CONTENTFUL_API_KEY`, `CONTENTFUL_BASE_URL`, `CONTENTFUL_ENVIRONMENT_ID`,
+`CONTENTFUL_APPLICATION_DATA_ID`, `CONTENTFUL_*_PAGE_KEY`, `CONTENTFUL_PAGES_KEY`, or `STARTING_URL` in your
+`.env.local`, they're dead — the app no longer reads them.
 
 > **Never commit `.env.local`** — it is listed in `.gitignore`.
 
@@ -131,6 +130,8 @@ Storybook will start at **http://localhost:6006** and shows all components isola
 | `pnpm test:e2e:ui` | Playwright with interactive UI |
 | `pnpm test:e2e:debug` | Playwright with debug inspector |
 | `pnpm test:e2e:codegen` | Playwright codegen to record new tests |
+| `pnpm test:e2e:install` | Install Playwright browser binaries (`playwright install --with-deps`) |
+| `pnpm test-storybook:ci` | Build + serve Storybook, then run axe accessibility checks against every story |
 
 ---
 
