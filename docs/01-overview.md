@@ -71,7 +71,7 @@ Next.js App Router Server Components handle all data fetching. Client components
 | Property | Value |
 |----------|-------|
 | **GitHub** | `Abbas4tech/abbas-web-resume` |
-| **Version** | `4.1.8` |
+| **Version** | `4.2.0` |
 | **Node** | `>=18` |
 | **pnpm** | `>=10` |
 | **Deployment** | Vercel (production + preview environments) |
