@@ -36,7 +36,7 @@ This directory contains Architecture Decision Records — documents that capture
 | [0023](./0023-ci-pipeline-parallelization.md) | CI Pipeline Parallelization & Branch-Name Correction | ✅ accepted | 2026-09-07 |
 | [0024](./0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md) | Storybook Runtime Fixes & CMS Block Registry Expansion | ✅ accepted | 2026-09-07 |
 | [0025](./0025-motion-coverage-audit-and-error-page-redesign.md) | Motion Coverage Audit & Error Page Redesign | ✅ accepted | 2026-09-07 |
-| [0026](./0026-timeline-tech-badges-meta-row.md) | TimelineEntry Tech-Badges Meta Row & TechBadgeCloud Layer Correction | ✅ accepted | 2026-09-08 |
+| [0026](./0026-timeline-tech-badges-meta-row.md) | TimelineEntry Tech-Badges Meta Row & TechBadgeCloud Layer Correction | ✅ accepted | 2026-09-08 (amended 2026-09-11) |
 | [0027](./0027-storybook-visual-bug-sweep-and-title-spacing.md) | Storybook Visual Bug Sweep and Story Title Spacing | ✅ accepted | 2026-09-09 |
 | [0028](./0028-daisyui-expansion-footer-radial-carousel.md) | DaisyUI Component Library Expansion — Footer, Radial Progress, Carousel | ✅ accepted | 2026-09-09 |
 | [0029](./0029-daisyui-expansion-phase-2-matrix-testimonials-mockups.md) | DaisyUI Component Library Expansion, Phase 2 — Skills Matrix, Testimonials, Mockup Gallery | ✅ accepted | 2026-09-09 |
@@ -118,6 +118,10 @@ This directory contains Architecture Decision Records — documents that capture
 - **[0033]** — Fixed a deterministic release-pipeline bug: `manage-release.py` ran `git reset --hard` on
   the release branch *after* `changeset version` had already produced uncommitted changes, silently
   discarding them on every release after the first; reordered so the branch resets before versioning runs
+- **[0026 amendment]** — Production's Experience tech-stack badges were missing entirely because
+  `migrate-timeline-tech-badges.ts` had only ever been run against `development`; also fixed a dormant bug
+  where the script's list-selection query stopped matching anything the moment `ui` was switched to
+  `TimelineSectionWithBadges`, silently turning every re-run (in either environment) into a no-op
 
 ---
 

@@ -240,9 +240,15 @@ async function main() {
     `${APPLY ? "APPLYING" : "DRY RUN"}: migrating tags -> subItems on environment "${environmentId}"`
   );
 
+  // Matches both "TimelineSection" and "TimelineSectionWithBadges" — the
+  // latter was introduced by ADR 0026 *after* this script's original run,
+  // by switching existing lists' `ui` value post-migration. An exact-match
+  // filter on "TimelineSection" alone stops finding any qualifying list the
+  // moment it's been switched to the WithBadges variant, silently turning
+  // every subsequent run of this script into a no-op.
   const timelineLists = await environment.getEntries({
     content_type: "contentList",
-    "fields.ui": "TimelineSection",
+    "fields.ui[in]": "TimelineSection,TimelineSectionWithBadges",
     limit: 100,
   });
 

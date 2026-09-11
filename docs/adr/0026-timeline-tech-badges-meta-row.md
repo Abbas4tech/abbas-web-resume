@@ -170,6 +170,55 @@ blocks *new* writes of that value going forward. Fixed by updating that one entr
 future `ui` enum revert: check whether a real entry was ever switched to the value being removed, the same way
 a dangling foreign key needs cleanup after a schema rollback.
 
+## Amendment — Production never received the migration, and a dormant query bug
+
+The "Amendment — Live content migration" section above ran `migrate-timeline-tech-badges.ts --apply` only
+against `development` — `production` was never brought in line, and nothing at the time flagged that as a
+gap. Surfaced by the repo owner noticing the Experience page's tech-stack badges were missing entirely in
+production while working correctly in development/preview.
+
+Investigating found two things, not one:
+
+1. **Production genuinely never got the migration.** A direct comparison of the two environments'
+   "Experience — Timeline" `contentList` entries (same `internalName`, same three experience titles, same
+   `tags` arrays — but entirely different `sys.id`s, confirming these environments hold independent entry
+   copies, not a shared/aliased dataset) showed development's three `contentItem` entries with 7/10/7
+   `subItems` respectively, and production's with **zero** on all three. `tags` were fully intact in
+   production, meaning the migration's source data was never the problem — the script just hadn't been run
+   there.
+2. **The script's own list-selection query would have found nothing even if re-run as-is.** The query
+   filtered for `"fields.ui": "TimelineSection"` (exact match) — correct at the time this script was
+   written, but the very next amendment above (`Explicit ui toggle...`) switched both environments' real
+   list entries to `ui: "TimelineSectionWithBadges"`. An exact-match filter on the old value silently stops
+   matching the moment that switch happens, turning every future run of this script — in either
+   environment — into a silent no-op that reports finding zero qualifying lists rather than erroring.
+
+## Decision (amendment)
+
+Fixed the query to match both `ui` values in one request (`"fields.ui[in]":
+"TimelineSection,TimelineSectionWithBadges"`), then ran the now-working script against `production` with the
+repo owner's explicit go-ahead:
+
+1. Dry run first — confirmed it found the same three entries, reused 15 of 18 already-existing production
+   `icon`/`statItem` entries by name/title match (created only the three genuinely missing icons — `Vitest`,
+   `Azure Devops`, `Jest` — mirroring exactly the three gaps the original development migration also had to
+   fill), and produced an identical `subItems` link plan to what development already has.
+2. Ran with `--apply`. Re-verified with a direct read (Management API) that production's three entries now
+   show `subItems: 7/10/7`, matching development exactly — same tags, same order.
+3. Verified against the **real Content Delivery API** (not just the Management API used to make the change),
+   querying production's `contentListCollection` the same way the live app does — confirmed each entry's
+   `subItemsCollection` now returns the correct tech-stack titles.
+
+No other content type's drift (a much larger, pre-existing gap between the two environments across nearly
+every content type — `page`, `contentItem`, `statItem`, `icon`, `link`, `image`, and more, most with
+matched-count `missingInTarget`/`targetOnly` pairs suggesting independently-authored parallel content rather
+than one environment being simply "behind" the other) was touched by this fix. That broader drift is a
+separate, much larger investigation — see [`docs/contentful/environment-migration.md`](../contentful/environment-migration.md)
+for the audit tooling that surfaced it — and was deliberately left alone here rather than blanket-migrated,
+since `migrate-missing-content.ts` creates entries by ID and would have produced duplicate content rather
+than reconciling it, for content that already exists independently (under different IDs) in both
+environments.
+
 ## Considered Options
 
 - **Duplicate the badge-rendering JSX inline in `TimelineEntry` instead of sharing a component.** Rejected:
