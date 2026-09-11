@@ -78,8 +78,14 @@ The generated file in `.changeset/` must be committed alongside your code change
 
 On merge to `master`, a Python release script (`scripts/ci/manage-release.py`) runs:
 
-1. Executes `pnpm changeset version` — bumps `package.json` version and updates `CHANGELOG.md`
-2. Opens a "Version Packages" PR with the version bump
+1. Positions the `changeset-release/master` branch cleanly on top of `master`'s current commit
+2. Executes `pnpm changeset version` — bumps `package.json` version and updates `CHANGELOG.md`
+3. Opens (or updates) a "Version Packages" PR with the version bump
+
+See [ADR 0033](./adr/0033-release-pipeline-branch-reset-ordering.md) for why step 1 has to happen *before*
+step 2 (a real bug this project hit and fixed). A changeset with no package name in its frontmatter
+(`---\n---\n`) is valid and satisfies the `check-changeset` gate without producing a version bump — use one
+for a docs-only or CI-only change that has nothing to publish.
 
 ---
 
@@ -177,11 +183,18 @@ All schema changes **must** go through the TypeScript migration scripts:
 # Edit the script first
 src/contentful/scripts/setup-content-model.ts
 
-# Then run it
+# Then run it, once per environment (CONTENTFUL_ENVIRONMENT in .env.local
+# controls which one is targeted)
 pnpm contentful:setup
 ```
 
-**Never** edit the schema directly in the Contentful Web App. The migration scripts are the single source of truth, versioned in Git.
+**Never** edit the schema directly in the Contentful Web App. The migration scripts are the single source of
+truth, versioned in Git.
+
+**Push to both `development` and `production`.** A schema change applied to only one environment is exactly
+the drift that caused a real production incident — see [ADR 0031](./adr/0031-contentful-schema-parity-verification.md).
+CI's `verify-contentful-schema` job checks both environments on every PR specifically to catch this before
+merge, but it can't fix a one-sided push for you — that's still a manual step.
 
 ---
 
