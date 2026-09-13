@@ -22,9 +22,23 @@ concurrency:
 env:
   PLAYWRIGHT_SHARD_TOTAL: 4
 
+# ---------------------------------------------------------------------------
+# Workflow controls — set as GitHub repository variables (Settings → Variables)
+# to enable/disable pipeline stages without code changes.
+#
+#   ENABLE_CI          "false" → skip every job (master kill switch)
+#   ENABLE_CHANGESET   "false" → skip check-changeset only; all other jobs
+#                                still run (useful during initial setup or
+#                                when changesets are intentionally omitted)
+#   ENABLE_E2E         "false" → skip e2e-test and merge-e2e-reports
+#
+# Absent variable = enabled (safe default for fresh forks).
+# ---------------------------------------------------------------------------
+
 jobs:
   check-changeset:
     name: Check Changeset
+    if: vars.ENABLE_CI != 'false' && vars.ENABLE_CHANGESET != 'false'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -49,6 +63,10 @@ jobs:
   lint:
     name: Lint & Format
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -71,6 +89,10 @@ jobs:
   typecheck:
     name: Typecheck
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -93,6 +115,10 @@ jobs:
   unit-test:
     name: Unit & Component Tests
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -122,6 +148,11 @@ jobs:
   e2e-test:
     name: E2E Tests (${{ matrix.shardIndex }}/${{ strategy.job-total }})
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      vars.ENABLE_E2E != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -183,8 +214,13 @@ jobs:
 
   merge-e2e-reports:
     name: Merge E2E Reports
-    if: ${{ !cancelled() }}
     needs: e2e-test
+    if: >-
+      !cancelled() &&
+      vars.ENABLE_CI != 'false' &&
+      vars.ENABLE_E2E != 'false' &&
+      (needs.e2e-test.result == 'success' ||
+       needs.e2e-test.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -219,6 +255,10 @@ jobs:
   build:
     name: Build Project
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
@@ -275,6 +315,10 @@ jobs:
   verify-contentful-schema:
     name: Verify Contentful Schema (${{ matrix.environment }})
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -302,6 +346,10 @@ jobs:
   build-storybook:
     name: Build Storybook
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -331,6 +379,10 @@ jobs:
   storybook-a11y:
     name: Storybook Accessibility Tests
     needs: check-changeset
+    if: >-
+      vars.ENABLE_CI != 'false' &&
+      (needs.check-changeset.result == 'success' ||
+       needs.check-changeset.result == 'skipped')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
