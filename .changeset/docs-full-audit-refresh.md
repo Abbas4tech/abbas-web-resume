@@ -1,4 +1,0 @@
----
----
-
-Documentation only, no code or behavior change: full audit of `docs/` against the current codebase structure. Rewrote `docs/08-cms-handling.md`, `docs/10-deployment.md`, `docs/11-api-docs.md`, and `docs/contentful/content-model.md` to match the actual current Contentful schema, GraphQL fragments, adapters, and CI job graph (fixing stale terminology, a broken link, fabricated/outdated type shapes, and an incorrect CI environment-selection claim). Corrected the three-layer catalog tables in `docs/03-architecture.md`. Refreshed `docs/02-getting-started.md` and `.env.example` to the reduced 5-variable Contentful env set from ADR 0032 (previously still listing 10+ removed legacy variables). Created `docs/contentful/environment-migration.md`, previously referenced by `migrate-missing-content.ts` but missing.

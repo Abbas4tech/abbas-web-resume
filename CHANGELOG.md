@@ -1,5 +1,11 @@
 # abbas-web-resume
 
+## 5.0.0
+
+### Major Changes
+
+- 6174e5b: Fixed UI issues and bugs related to appearance and functionality
+
 ## 4.2.1
 
 ### Patch Changes
