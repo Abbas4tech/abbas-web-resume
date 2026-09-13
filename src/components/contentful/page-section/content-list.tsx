@@ -15,11 +15,7 @@ import {
   adaptMockupGalleryPhone,
 } from "@/components/blocks/mockup-gallery/mockup-gallery.adapter";
 import { PanelShowcase } from "@/components/blocks/panel-showcase/panel-showcase";
-import {
-  adaptPanelShowcase,
-  adaptPanelShowcaseWithRadialProgress,
-  adaptSkillsMatrix,
-} from "@/components/blocks/panel-showcase/panel-showcase.adapter";
+import { adaptPanelShowcase } from "@/components/blocks/panel-showcase/panel-showcase.adapter";
 import { ProcessSteps } from "@/components/blocks/process-steps/process-steps";
 import {
   adaptProcessSteps,
@@ -77,15 +73,6 @@ const LIST_BLOCK_REGISTRY: Record<
   ),
   PanelShowcase: (data, className) => (
     <PanelShowcase {...adaptPanelShowcase(data)} className={className} />
-  ),
-  PanelShowcaseWithRadialProgress: (data, className) => (
-    <PanelShowcase
-      {...adaptPanelShowcaseWithRadialProgress(data)}
-      className={className}
-    />
-  ),
-  SkillsMatrix: (data, className) => (
-    <PanelShowcase {...adaptSkillsMatrix(data)} className={className} />
   ),
   FaqAccordion: (data, className) => (
     <FaqAccordion {...adaptFaqAccordion(data)} className={className} />

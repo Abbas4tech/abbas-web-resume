@@ -22,8 +22,10 @@ describe("AppHeader", () => {
     expect(titleLink).toBeInTheDocument();
     expect(titleLink).toHaveAttribute("href", "/home");
 
-    // Drawer button toggle
-    const toggleLabel = await screen.findByText(OpenDrawerRegex);
+    // Drawer button toggle — identified by aria-label, not inner text,
+    // because DrawerButton renders its Icon children rather than the
+    // sr-only fallback span when children are provided.
+    const toggleLabel = await screen.findByLabelText(OpenDrawerRegex);
     expect(toggleLabel).toBeInTheDocument();
 
     // Resume button

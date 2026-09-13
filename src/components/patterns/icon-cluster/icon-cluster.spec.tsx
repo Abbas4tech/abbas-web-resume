@@ -13,7 +13,7 @@ describe("IconCluster", () => {
 
     const cluster = screen.getByTestId("cluster");
     expect(cluster).toBeInTheDocument();
-    expect(cluster).toHaveClass("flex", "gap-4", "text-xl", "md:text-4xl");
+    expect(cluster).toHaveClass("flex", "min-w-0", "flex-wrap", "gap-2");
 
     expect(screen.getByText("Child 1")).toBeInTheDocument();
     expect(screen.getByText("Child 2")).toBeInTheDocument();

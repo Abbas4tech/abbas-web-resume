@@ -39,19 +39,19 @@ describe("PanelShowcase", () => {
     expect(progressBar).toHaveAttribute("aria-valuenow", "85");
   });
 
-  it("renders a radial progress indicator when a row's variant is radial", () => {
+  it("renders multiple panels inside mockup windows", () => {
     render(
       <PanelShowcase
         panels={[
+          ...mockProps.panels,
           {
-            title: "My Skills",
-            headingIcon: { iconCode: "fa/FaCode", name: "Code Icon" },
+            title: "Backend Skills",
+            headingIcon: { iconCode: "md/MdStorage", name: "Storage Icon" },
             rows: [
               {
-                label: "React",
-                progress: 85,
-                variant: "radial",
-                icons: [{ iconCode: "fa/FaReact", name: "React Icon" }],
+                label: "Node.js",
+                progress: 75,
+                icons: [{ iconCode: "si/SiNodedotjs", name: "Node.js Icon" }],
               },
             ],
           },
@@ -59,38 +59,9 @@ describe("PanelShowcase", () => {
       />
     );
 
-    const progressBar = screen.getByRole("progressbar", { name: "React" });
-    expect(progressBar).toHaveClass("radial-progress");
-    expect(progressBar).toHaveAttribute("aria-valuenow", "85");
-  });
-
-  it("renders a dense skills-matrix table when layout is table", () => {
-    render(
-      <PanelShowcase
-        layout="table"
-        panels={[
-          {
-            title: "Frontend",
-            headingIcon: { iconCode: "fa/FaCode", name: "Code Icon" },
-            rows: [
-              {
-                label: "React",
-                progress: 85,
-                icons: [{ iconCode: "fa/FaReact", name: "React Icon" }],
-              },
-            ],
-          },
-        ]}
-      />
-    );
-
-    expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(
-      screen.getByRole("columnheader", { name: "Category" })
-    ).toBeInTheDocument();
-    expect(screen.getByRole("cell", { name: "Frontend" })).toBeInTheDocument();
-
-    const progressBar = screen.getByRole("progressbar", { name: "React" });
-    expect(progressBar).toHaveAttribute("value", "85");
+    expect(screen.getByText("My Skills")).toBeInTheDocument();
+    expect(screen.getByText("Backend Skills")).toBeInTheDocument();
+    const bars = screen.getAllByRole("progressbar");
+    expect(bars).toHaveLength(2);
   });
 });
