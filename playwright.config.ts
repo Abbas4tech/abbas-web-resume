@@ -94,6 +94,17 @@ export default defineConfig({
       name: "Tablet",
       use: { ...devices["iPad Mini"] },
     },
+    {
+      // 1280×800: a common "below laptop" resolution that sits in the lg+
+      // breakpoint range (sidebar always visible) but shorter than the
+      // Desktop Chrome default height. This is the viewport where the double
+      // scroll-container bug and avatar layout regressions were first spotted.
+      name: "Laptop",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: { width: 1280, height: 800 },
+      },
+    },
   ],
 
   /* Run your local dev server before starting the tests */

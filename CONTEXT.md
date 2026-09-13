@@ -117,3 +117,9 @@ _Avoid_: referencing static credentials or using inconsistent environments acros
 **Icon Synchronisation Tooling**:
 A utility process is used to harvest existing icon identifiers (e.g. from the legacy Contentful Space) and push them safely as unique, deterministic `icon` content entries (e.g. ID `icon-vsc-vscazuredevops`) into the target space's environments, avoiding duplicate content.
 
+
+### CI / DevOps
+
+**Workflow control**:
+A GitHub repository variable (`Settings → Variables → Actions`) that enables or disables a CI pipeline stage without a code change or PR. Absent variable = enabled (safe default). Current controls: `ENABLE_CI` (master kill switch), `ENABLE_CHANGESET` (gates changeset enforcement), `ENABLE_E2E` (gates E2E test jobs).
+_Avoid_: feature flag (reserved for runtime app behaviour), env var (too broad — secrets and env vars are different things)

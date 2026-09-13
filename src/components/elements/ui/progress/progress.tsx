@@ -41,7 +41,7 @@ const Progress = memo(
           {...props}
         >
           <m.div
-            className="absolute top-0 left-0 h-full rounded-2xl bg-warning"
+            className="absolute top-0 left-0 h-full rounded-2xl bg-gradient-to-r from-secondary to-primary"
             custom={count}
             variants={progressVariants}
           >

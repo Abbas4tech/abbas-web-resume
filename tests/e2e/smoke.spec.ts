@@ -53,4 +53,37 @@ test.describe("E2E Smoke Test", () => {
       expect(await sidebar.getNavItemsCount()).toBe(6);
     }
   });
+
+  test("layout has exactly one scroll container inside drawer-content", async ({
+    page,
+  }) => {
+    await page.goto("/about");
+
+    // Count overflow-y-auto nodes directly inside .drawer-content.
+    // The scroll container now uses overflow-y-auto + overflow-x-hidden
+    // (split from overflow-auto) to prevent horizontal scroll bleed while
+    // keeping vertical scroll working. More than one means a nested scroll
+    // container is present — the bug that broke tooltip positioning.
+    const scrollContainerCount = await page
+      .locator(".drawer-content .overflow-y-auto")
+      .count();
+    expect(scrollContainerCount).toBe(1);
+
+    // The scroll container must also clamp horizontal overflow — any content
+    // wider than the container (e.g. parallax motion divs) must not create
+    // a horizontal scrollbar.
+    const scrollContainerClasses = await page
+      .locator(".drawer-content .overflow-y-auto")
+      .first()
+      .getAttribute("class");
+    expect(scrollContainerClasses).toContain("overflow-x-hidden");
+
+    // The <main> element (PageWrapper) must NOT be a scroll container — its
+    // parent wrapper div in contentful-layout.tsx owns scrolling exclusively.
+    const mainClasses = await page
+      .locator("main")
+      .first()
+      .getAttribute("class");
+    expect(mainClasses).not.toContain("overflow-auto");
+  });
 });

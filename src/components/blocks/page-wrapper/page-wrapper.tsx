@@ -14,10 +14,7 @@ const PageWrapper: FC<PageWrapperProps> = ({
   pages,
   ...props
 }) => (
-  <main
-    className={cn("scrollbar-hide flex flex-col overflow-auto", className)}
-    {...props}
-  >
+  <main className={cn("scrollbar-hide flex flex-col", className)} {...props}>
     {children}
     <PageNavButton pages={pages} />
   </main>

@@ -54,7 +54,7 @@ const MediaCard = memo(
           <CardTitle className="text-base transition-colors duration-300 group-hover/card:text-primary md:text-lg">
             {title}
           </CardTitle>
-          <CardDescription className="text-xs md:text-base">
+          <CardDescription className="text-xs group-hover/card:text-secondary md:text-base">
             {description}
           </CardDescription>
           <CardFooter className="justify-end gap-2">

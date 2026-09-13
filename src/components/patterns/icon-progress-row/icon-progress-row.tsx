@@ -18,12 +18,14 @@ const IconProgressRow = memo(
   forwardRef<HTMLDivElement, IconProgressRowProps>(
     ({ className, progress, label, children, ...props }, ref) => (
       <div
-        className={cn("grid grid-cols-2 items-center", className)}
+        className={cn("grid grid-cols-2 items-center gap-y-1", className)}
         ref={ref}
         {...props}
       >
-        <div className="flex gap-4 text-xl md:text-4xl">{children}</div>
-        <Progress aria-label={label} count={progress} />
+        <div className="min-w-0">{children}</div>
+        <div className="min-w-0">
+          <Progress aria-label={label} count={progress} />
+        </div>
       </div>
     )
   )
