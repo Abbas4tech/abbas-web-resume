@@ -8,7 +8,7 @@ const IconCluster = memo(
   forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
     ({ className, ...props }, ref) => (
       <div
-        className={cn("flex gap-4 text-xl md:text-4xl", className)}
+        className={cn("flex min-w-0 flex-wrap gap-2", className)}
         ref={ref}
         {...props}
       />

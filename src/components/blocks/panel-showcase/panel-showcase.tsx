@@ -59,8 +59,16 @@ function PanelRows({ panel }: Readonly<{ panel: PanelShowcasePanel }>) {
             <IconCluster>
               {row.icons.map((iconProps) => (
                 <Icon
+                  classes={[
+                    "w-5",
+                    "h-5",
+                    "sm:h-7",
+                    "sm:w-7",
+                    "lg:w-9",
+                    "lg:h-9",
+                  ]}
                   key={`${panel.title}-progress-${row.progress}-${iconProps.iconCode || iconProps.name}`}
-                  size="36"
+                  size="20"
                   {...iconProps}
                 />
               ))}

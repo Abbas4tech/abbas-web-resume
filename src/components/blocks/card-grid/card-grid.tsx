@@ -18,7 +18,7 @@ const CardGrid = memo(
       <MotionStaggerContainer
         as="div"
         className={cn(
-          "my-2 grid grid-cols-1 gap-4 rounded-xl md:grid-cols-2",
+          "my-2 grid grid-cols-1 gap-5 rounded-xl md:grid-cols-2",
           className
         )}
         ref={ref as React.Ref<HTMLDivElement>}

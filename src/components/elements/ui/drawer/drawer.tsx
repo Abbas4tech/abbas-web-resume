@@ -181,7 +181,7 @@ const DrawerButton = memo(
           ref={ref}
           {...props}
         >
-          <span className="sr-only">Open drawer</span>
+          {props.children ?? <span className="sr-only">Open drawer</span>}
         </label>
       );
     }

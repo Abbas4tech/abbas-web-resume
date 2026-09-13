@@ -1,7 +1,6 @@
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo, useMemo } from "react";
 import { Image as ContentfulImage } from "@/components/contentful/element/image";
-import { MotionParallax } from "@/components/elements/behavior/motion-parallax/motion-parallax";
 import { MotionWrapper } from "@/components/elements/behavior/motion-wrapper/motion-wrapper";
 import type { IconLinkProps } from "@/components/patterns/icon-link/icon-link";
 import { IconLink } from "@/components/patterns/icon-link/icon-link";
@@ -32,22 +31,19 @@ const HeroBanner = memo(
           {...props}
         >
           {bannerImage && (
-            <MotionParallax
-              className="relative h-[25vh] max-h-90 min-h-50 w-full overflow-hidden md:h-[35vh]"
-              speed={0.3}
-            >
+            <div className="relative w-full overflow-hidden">
               <ContentfulImage
-                className="pointer-events-none absolute inset-x-0 top-1/2 h-[130%] w-full -translate-y-1/2 select-none object-contain"
+                className="pointer-events-none block h-auto w-full select-none"
                 data={bannerImage}
                 priority
               />
-            </MotionParallax>
+            </div>
           )}
 
           {avatarImage && (
             <MotionWrapper
               animation="zoom-in"
-              className="avatar -mt-8 md:-mt-24"
+              className="avatar -mt-12 md:-mt-24"
               delay={0.2}
             >
               <div className="w-24 rounded-full ring ring-base-100 ring-offset-2 ring-offset-base-100 md:w-48">
@@ -63,7 +59,7 @@ const HeroBanner = memo(
           {iconLinks.length > 0 && (
             <MotionWrapper
               animation="fade-up"
-              className="-mt-12 flex w-full items-center justify-between pb-4 md:-mt-20 md:pb-12"
+              className="-mt-6 flex w-full items-center justify-between pb-4 md:-mt-12 md:pb-12"
               delay={0.4}
             >
               <div className="flex gap-4">

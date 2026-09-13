@@ -123,6 +123,15 @@ test.describe("Global chrome — drawer toggle (tablet)", () => {
     const drawer = page.locator(".drawer");
     await expect(drawer).toHaveAttribute("data-state", "collapsed");
 
+    // The toggle button must have a real, visible bounding box — a zero-size
+    // or null box means the icon failed to load or the element is sr-only.
+    const drawerButtonBox = await header.drawerButton.boundingBox();
+    expect(drawerButtonBox).not.toBeNull();
+    if (drawerButtonBox) {
+      expect(drawerButtonBox.width).toBeGreaterThan(0);
+      expect(drawerButtonBox.height).toBeGreaterThan(0);
+    }
+
     await header.toggleDrawer();
     await expect(drawer).toHaveAttribute("data-state", "expanded");
 

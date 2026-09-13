@@ -34,4 +34,37 @@ test.describe("HeroBanner (/about)", () => {
       );
     }
   });
+
+  test("avatar overlaps the bottom edge of the banner (half-in/half-out)", async ({
+    heroBanner,
+  }) => {
+    // Both elements must be present before measuring geometry.
+    await expect(heroBanner.bannerImage).toBeVisible();
+    await expect(heroBanner.avatarImage).toBeVisible();
+
+    const bannerBox = await heroBanner.bannerImage.boundingBox();
+    const avatarBox = await heroBanner.avatarImage.boundingBox();
+
+    // Geometry must be resolvable — a null box means the element is not rendered.
+    expect(bannerBox).not.toBeNull();
+    expect(avatarBox).not.toBeNull();
+
+    if (!(bannerBox && avatarBox)) {
+      return;
+    }
+
+    const bannerBottom = bannerBox.y + bannerBox.height;
+    const avatarTop = avatarBox.y;
+    const avatarBottom = avatarBox.y + avatarBox.height;
+
+    // The avatar must start above the banner's bottom edge (it overlaps in).
+    expect(avatarTop).toBeLessThan(bannerBottom);
+
+    // The avatar must also extend below the banner's bottom edge (half out).
+    expect(avatarBottom).toBeGreaterThan(bannerBottom);
+
+    // Sanity: the avatar has real positive dimensions.
+    expect(avatarBox.width).toBeGreaterThan(0);
+    expect(avatarBox.height).toBeGreaterThan(0);
+  });
 });

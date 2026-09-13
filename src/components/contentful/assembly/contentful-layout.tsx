@@ -42,7 +42,7 @@ export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
       <AppHeader {...adaptAppHeader(data, defaultRoute)} />
       <Drawer className="scrollbar-hide h-[calc(100vh-5rem)] overflow-hidden text-sm md:text-lg">
         <DrawerPageContent>
-          <div className="scrollbar-hide relative h-[calc(100vh-5rem)] overflow-auto p-4">
+          <div className="scrollbar-hide relative h-[calc(100vh-5rem)] overflow-y-auto overflow-x-hidden p-4">
             <PageWrapper {...adaptPageWrapper(data, children)} />
           </div>
         </DrawerPageContent>
