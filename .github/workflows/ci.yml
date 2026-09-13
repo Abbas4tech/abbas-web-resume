@@ -273,7 +273,7 @@ jobs:
   # environments, regardless of which branch the PR targets, so drift in
   # either direction fails CI immediately.
   verify-contentful-schema:
-    name: Verify Contentful Schema (${{ matrix.environment }})
+    name: Verify Contentful Schema
     needs: check-changeset
     runs-on: ubuntu-latest
     timeout-minutes: 10
