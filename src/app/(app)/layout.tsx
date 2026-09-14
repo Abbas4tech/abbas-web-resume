@@ -1,12 +1,9 @@
 import type { FC, PropsWithChildren } from "react";
+import { getLayoutData } from "@/app/layout";
 import { ContentfulLayout } from "@/components/contentful/assembly/contentful-layout";
-import { adaptLayout } from "@/contentful/adapters/layout";
-import { contentfulSdk } from "@/contentful/lib/client";
 
 const layout: FC<PropsWithChildren> = async ({ children }) => {
-  const response = await contentfulSdk.GetLayout();
-  const rawLayout = response.data?.layoutCollection?.items?.[0];
-  const layoutData = adaptLayout(rawLayout);
+  const layoutData = await getLayoutData();
 
   if (!layoutData) {
     throw new Error("Layout data missing");
