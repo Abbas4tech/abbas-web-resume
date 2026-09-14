@@ -2,7 +2,6 @@ import { Poppins } from "next/font/google";
 import type React from "react";
 import type { JSX } from "react";
 import { cache } from "react";
-import { InitialLoadAnimation } from "@/components/elements/behavior/initial-load-animation/initial-load-animation";
 import { MotionProvider } from "@/components/elements/behavior/motion-provider/motion-provider";
 import { adaptLayout } from "@/contentful/adapters/layout";
 import { contentfulSdk } from "@/contentful/lib/client";
@@ -28,9 +27,7 @@ export default async function RootLayout({
   return (
     <html className="scrollbar-hide" data-theme={defaultTheme} lang="en">
       <body className={inter.className}>
-        <MotionProvider>
-          <InitialLoadAnimation>{children}</InitialLoadAnimation>
-        </MotionProvider>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

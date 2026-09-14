@@ -2,41 +2,45 @@
 
 ## Status
 
-Proposed
+Accepted
 
 ## Context
 
-The user experience during page navigation needs improvement. Currently, navigating between pages might retain the scroll position of the previous page, and the transition is abrupt.
+The user experience during page navigation needed improvement. Originally, navigating between pages retained the scroll position of the previous page, and the transition felt abrupt.
 
-We need to implement:
-1. **Scroll Restoration/Top Reset**: Whenever a route change occurs, the viewport should scroll to the top so the main container (banner/data) is immediately visible.
-2. **Page Transitions**: Smooth animations during route changes. Specifically, the current page content should slide/swipe up smoothly, followed by the new page content fading or sliding in.
+We required:
+1. **Scroll Restoration/Top Reset**: Whenever a route change occurs, the viewport should scroll to the top smoothly so the main container is immediately visible before the next page loads.
+2. **Page Transitions**: Smooth exit and entry animations during route changes.
 
-Next.js App Router (which this project uses) has specific mechanisms for handling transitions. Since we are using `motion` (Framer Motion) as per `package.json` (`"motion": "^12.40.0"`), we will leverage it for page-level animations.
+Initial implementations explored wrapping Next.js navigations and forcing UI components (like `Button`) to act as `<Link>` wrappers to handle the transitions. This led to severe styling regressions and tight coupling. Furthermore, because the layout employs a custom scroll container (`#main-scroll-container`) rather than `window.scrollTo`, native scroll event listeners and standard Next.js scroll restoration behaviors were ineffective.
+
+An initial "black and white" site load animation was also introduced but later removed as it introduced unnecessary delays and visual disjointedness.
 
 ## Decision
 
-1. **Scroll to Top on Navigation**:
-   - We will implement a `ScrollToTop` component using Next.js `usePathname` hook. Whenever the pathname changes, we will trigger `window.scrollTo(0, 0)`.
-   - Next.js has some default scroll behavior, but a dedicated client component ensures consistent behavior across all navigations.
+1. **Hook-Based Scroll Interception (`usePageTransition`)**:
+   - The scroll-to-top logic and imperative routing are abstracted into a custom `usePageTransition` hook.
+   - It intercepts standard navigation, uses `motion/react` (`animate`) to deterministically scroll `#main-scroll-container` to the top, and invokes `router.push(href)` in the `onComplete` callback.
 
-2. **Animated Page Transitions with Motion**:
-   - We will utilize Framer Motion's `AnimatePresence` to handle exit and entry animations for page transitions.
-   - We will create a `PageTransitionWrapper` component that wraps the main content of each page or the root layout's children.
-   - The animation will consist of:
-     - **Exit Animation**: The current content swipes up (`y: "-100%"` or `y: -50`, `opacity: 0`).
-     - **Entry Animation**: The new content swipes in from the bottom or fades in smoothly (`y: 50` to `y: 0`, `opacity: 0` to `opacity: 1`).
+2. **Custom Link Component for Declarative Usage**:
+   - We implemented a custom `Link` component (in `src/components/elements/ui/link/link.tsx`) that wraps `next/link`.
+   - It intercepts `onClick` events, calls `e.preventDefault()`, and triggers the `usePageTransition` hook to handle the scroll-then-navigate sequence. This applies the transition globally to structural links (e.g. Sidebar, Dock).
 
-3. **Implementation Details in Next.js App Router**:
-   - In Next.js App Router, page transitions with `AnimatePresence` require wrapping the `{children}` in a `template.tsx` file instead of `layout.tsx`, because `template.tsx` creates a new instance (and thus a new DOM element with a unique key) on every navigation, which is necessary for `AnimatePresence` to detect exit/entry.
+3. **Decoupled UI Components for Imperative Usage**:
+   - For UI elements like `PageNavButton` that operate on programmatic hooks (e.g., `usePage`), we avoid forcing them into `<Link>` representations (which breaks styling). Instead, they remain standard `<button>` elements, and their backing hooks utilize `usePageTransition` directly.
+
+4. **Next.js App Router Transitions**:
+   - Exit/entry animations are handled via `AnimatePresence` in `src/app/(app)/template.tsx`. `template.tsx` is strictly utilized instead of `layout.tsx` because it creates a new instance on every navigation, allowing `AnimatePresence` to detect route changes and execute the "swipe up" and "fade in" animations correctly.
+
+5. **Removal of Initial Load Animation**:
+   - The `InitialLoadAnimation` component that blanketed the layout on initial render was removed for better immediate perceptual performance.
 
 ## Consequences
 
-- **Positive**: Smoother, app-like user experience during navigation. Consistent scroll position (top of page) on every new page view.
-- **Negative**: Adds a slight delay to page navigation due to the exit animation duration. Need to carefully tune the animation duration (e.g., 0.3s - 0.4s) to ensure it feels snappy and not sluggish.
-
-## Action Items
-
-1. Create a `ScrollToTop` client component and add it to the root layout.
-2. Create an `AnimatedTemplate` (or `template.tsx` at the root) using `AnimatePresence` and `motion.div`.
-3. Configure the exit and initial/animate states in the template to achieve the "swipe up" behavior.
+- **Positive**:
+  - Predictable, app-like scrolling and transition behavior.
+  - No CSS regressions or tight-coupling in UI components since the transition logic is abstracted to a reusable Hook.
+  - Deterministic scroll animations via `framer-motion` ensure the transition to the next page only occurs when the scroll naturally completes.
+- **Negative**:
+  - Custom scroll interception bypasses some of Next.js's native prefetching and navigation heuristics during the interception window.
+  - Requires developers to consistently use the custom `Link` component or the `usePageTransition` hook rather than native `router.push` or `next/link`.

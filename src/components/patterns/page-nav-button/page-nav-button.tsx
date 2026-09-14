@@ -16,17 +16,12 @@ export type PageNavButtonProps = usePageProps<PageNavItem> & {
 const PageNavButton = memo(
   forwardRef<HTMLButtonElement, PageNavButtonProps>(
     ({ pages, className }, ref) => {
-      const { nextPage, defaultPage } = usePage({ pages });
+      const { changePage, nextPage } = usePage({ pages });
       return (
         <MotionHover className="self-end justify-self-end" scale={1.05}>
           <Button
-            asLink={true}
             className={cn("mt-4 w-full", className)}
-            href={
-              nextPage.pageUrl === defaultPage.pageUrl
-                ? defaultPage.pageUrl
-                : nextPage.pageUrl
-            }
+            onClick={changePage}
             ref={ref}
           >
             {nextPage.title}
