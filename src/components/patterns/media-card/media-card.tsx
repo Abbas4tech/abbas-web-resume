@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { memo } from "react";
 import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
 import {
@@ -10,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/elements/ui/card/card";
 import { Icon } from "@/components/elements/ui/icon/icon";
+import { Link } from "@/components/elements/ui/link/link";
 import type { AdaptedLink } from "@/contentful/adapters/link";
 
 export interface MediaCardProps {

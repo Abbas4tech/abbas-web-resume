@@ -1,11 +1,11 @@
 import NextImage from "next/image";
-import Link from "next/link";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
 import {
   MotionStaggerContainer,
   MotionStaggerItem,
 } from "@/components/elements/behavior/motion-stagger/motion-stagger";
+import { Link } from "@/components/elements/ui/link/link";
 import type { MockupShowcaseFrameVariant } from "@/components/patterns/mockup-showcase-frame/mockup-showcase-frame";
 import { MockupShowcaseFrame } from "@/components/patterns/mockup-showcase-frame/mockup-showcase-frame";
 import type { AdaptedLink } from "@/contentful/adapters/link";

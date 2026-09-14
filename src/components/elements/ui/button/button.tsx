@@ -1,4 +1,3 @@
-import Link, { type LinkProps } from "next/link";
 import {
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
@@ -6,6 +5,8 @@ import {
   memo,
   type Ref,
 } from "react";
+import type { LinkProps } from "@/components/elements/ui/link/link";
+import { Link } from "@/components/elements/ui/link/link";
 import { cn } from "@/lib/utils";
 
 export type LinkButtonProps = LinkProps &
@@ -39,7 +40,7 @@ const Button = memo(
         : false;
 
       if (asLink) {
-        const { href, ...rest } = props as LinkProps &
+        const { href, enableTransition, ...rest } = props as LinkProps &
           AnchorHTMLAttributes<HTMLAnchorElement> & { asLink: true };
         return (
           <Link
@@ -48,6 +49,7 @@ const Button = memo(
               !hasVariant && "bg-base-300 text-base-content",
               className
             )}
+            enableTransition={enableTransition}
             href={href}
             {...rest}
             ref={ref as Ref<HTMLAnchorElement>}

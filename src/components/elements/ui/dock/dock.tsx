@@ -1,7 +1,7 @@
-import type { LinkProps } from "next/link";
-import Link from "next/link";
 import type { AnchorHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { type ComponentRef, forwardRef, memo } from "react";
+import type { LinkProps } from "@/components/elements/ui/link/link";
+import { Link } from "@/components/elements/ui/link/link";
 import { cn } from "@/lib/utils";
 
 export type DockProps = HTMLAttributes<HTMLDivElement>;

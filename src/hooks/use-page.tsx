@@ -1,5 +1,6 @@
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCallback, useMemo } from "react";
+import { usePageTransition } from "./use-page-transition";
 
 export interface PageLike {
   isDefaultPage?: boolean;
@@ -21,7 +22,6 @@ interface usePageReturn<T extends PageLike> {
 const usePage = <T extends PageLike>({
   pages,
 }: usePageProps<T>): usePageReturn<T> => {
-  const router = useRouter();
   const currentPath = usePathname();
 
   const { currentPageData, nextPageData, defaultPage } = useMemo(() => {
@@ -35,13 +35,15 @@ const usePage = <T extends PageLike>({
     return { currentPageData, nextPageData, defaultPage };
   }, [pages, currentPath]);
 
+  const { navigateWithTransition } = usePageTransition();
+
   const changePage = useCallback(() => {
-    router.push(
+    navigateWithTransition(
       nextPageData.pageUrl === defaultPage.pageUrl
         ? defaultPage.pageUrl
         : nextPageData.pageUrl
     );
-  }, [nextPageData, defaultPage, router]);
+  }, [nextPageData, defaultPage, navigateWithTransition]);
 
   return {
     currentPageData,

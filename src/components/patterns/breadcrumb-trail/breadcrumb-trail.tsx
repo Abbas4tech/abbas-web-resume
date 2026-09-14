@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { HTMLAttributes } from "react";
 import { forwardRef, memo } from "react";
 import {
@@ -8,6 +7,7 @@ import {
 } from "@/components/elements/ui/breadcrumbs/breadcrumbs";
 import type { IconProps } from "@/components/elements/ui/icon/icon";
 import { Icon } from "@/components/elements/ui/icon/icon";
+import { Link } from "@/components/elements/ui/link/link";
 import { cn } from "@/lib/utils";
 
 export interface BreadcrumbTrailItem {

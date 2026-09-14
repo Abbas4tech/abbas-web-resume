@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
 import { forwardRef, type HTMLAttributes, memo } from "react";
 import { MotionHover } from "@/components/elements/behavior/motion-hover/motion-hover";
 import { Icon } from "@/components/elements/ui/icon/icon";
+import { Link } from "@/components/elements/ui/link/link";
 import { cn } from "@/lib/utils";
 
 export interface IconLinkProps {
