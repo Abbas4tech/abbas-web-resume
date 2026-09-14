@@ -1,5 +1,11 @@
 # abbas-web-resume
 
+## 5.1.0
+
+### Minor Changes
+
+- b2c732f: Refactored page transitions to a hook-based architecture (`usePageTransition`) to decouple scroll behavior from the UI layer, preventing CSS regressions in components like `PageNavButton`. Removed the initial load animation to improve immediate visual performance. Updated ADR 0038 to reflect these changes.
+
 ## 5.0.0
 
 ### Major Changes
