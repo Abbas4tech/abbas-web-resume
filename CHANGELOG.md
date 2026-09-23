@@ -1,5 +1,11 @@
 # abbas-web-resume
 
+## 5.1.1
+
+### Patch Changes
+
+- 4d27ca7: Expand the top-level README with a project overview, tech stack, architecture summary, and an index into the full docs/ chapter set.
+
 ## 5.1.0
 
 ### Minor Changes
