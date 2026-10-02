@@ -19,9 +19,50 @@ async function main() {
 
   const client = createClient({ accessToken }, { type: "legacy" });
 
+  // Reduces a field to only the properties this script controls, with
+  // Contentful's defaults filled in, so a stored field and a desired one
+  // compare equal when nothing meaningful differs.
+  const normalizeValidations = (validations: any) => validations ?? [];
+  const normalizeField = (field: any) => ({
+    id: field.id,
+    name: field.name,
+    type: field.type,
+    linkType: field.linkType ?? null,
+    required: Boolean(field.required),
+    localized: Boolean(field.localized),
+    validations: normalizeValidations(field.validations),
+    items: field.items
+      ? {
+          type: field.items.type,
+          linkType: field.items.linkType ?? null,
+          validations: normalizeValidations(field.items.validations),
+        }
+      : null,
+  });
+  const normalizeDefinition = (def: any) =>
+    JSON.stringify({
+      name: def.name,
+      description: def.description ?? "",
+      displayField: def.displayField ?? null,
+      fields: def.fields.map(normalizeField),
+    });
+
+  const summary = { created: 0, updated: 0, unchanged: 0, failed: 0 };
+
   async function upsertContentType(environment: any, id: string, data: any) {
     try {
       const existing = await environment.getContentType(id);
+
+      // Skip the update + publish round-trip (and the extra Contentful
+      // version it creates) when the published definition already matches.
+      const isPublishedAndCurrent =
+        !(existing.isDraft() || existing.isUpdated()) &&
+        normalizeDefinition(existing) === normalizeDefinition(data);
+      if (isPublishedAndCurrent) {
+        summary.unchanged += 1;
+        console.log(`⏭  Unchanged content type: ${id}`);
+        return;
+      }
 
       existing.name = data.name;
       existing.description = data.description;
@@ -31,13 +72,16 @@ async function main() {
       const updated = await existing.update();
       await updated.publish();
 
+      summary.updated += 1;
       console.log(`✅ Updated content type: ${id}`);
     } catch (error: any) {
       if (error.name === "NotFound") {
         const created = await environment.createContentTypeWithId(id, data);
         await created.publish();
+        summary.created += 1;
         console.log(`✅ Created content type: ${id}`);
       } else {
+        summary.failed += 1;
         console.error(`❌ Error with ${id}`, error);
       }
     }
@@ -1030,7 +1074,12 @@ async function main() {
     console.warn("⚠️ Could not update editor interface for layout", e);
   }
 
-  console.log("🎉 All composable content types created/updated successfully!");
+  console.log(
+    `🎉 Content model in sync — ${summary.created} created, ${summary.updated} updated, ${summary.unchanged} unchanged, ${summary.failed} failed`
+  );
+  if (summary.failed > 0) {
+    process.exitCode = 1;
+  }
 }
 
 main().catch(console.error);

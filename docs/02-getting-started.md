@@ -86,7 +86,7 @@ After configuring your space, generate the TypeScript types from the live Conten
 pnpm generate
 ```
 
-This runs `graphql-codegen` and outputs types into `src/contentful/generated/`. Commit the generated files — they are part of the repository.
+This runs `graphql-codegen` and outputs types into `src/contentful/generated/`, then generates TypeScript unions for dropdown (`in`-validated) fields via `pnpm generate:unions`, which needs `CONTENTFUL_MANAGEMENT_TOKEN`. Commit the generated files — they are part of the repository.
 
 ---
 
@@ -119,8 +119,9 @@ Storybook will start at **http://localhost:6006** and shows all components isola
 | `pnpm start` | Serve the production build locally |
 | `pnpm fix` | Auto-fix all linting and formatting issues (Biome) |
 | `pnpm check` | Dry-run check — linting and formatting (no writes) |
-| `pnpm generate` | Regenerate TypeScript types from GraphQL schema |
-| `pnpm contentful:setup` | Bootstrap Contentful content model |
+| `pnpm generate` | Regenerate TypeScript types from GraphQL schema, then the dropdown field unions |
+| `pnpm generate:unions` | Regenerate only the field unions and `docs/contentful/constrained-fields.md` (needs `CONTENTFUL_MANAGEMENT_TOKEN`) |
+| `pnpm contentful:setup` | Bootstrap Contentful content model, then regenerate the field unions |
 | `pnpm storybook` | Start Storybook dev server (port 6006) |
 | `pnpm build-storybook` | Build static Storybook |
 | `pnpm test` | Vitest in watch mode |

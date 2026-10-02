@@ -117,7 +117,13 @@ Whenever the Contentful schema changes (new field, new content type), regenerate
 pnpm generate
 ```
 
-This runs `graphql-codegen` using the config in `codegen.ts`. The generated output lives in `src/contentful/generated/`. Commit the generated files — they are part of the build.
+This runs `graphql-codegen` using the config in `codegen.ts`, then `pnpm generate:unions`. The generated output lives in `src/contentful/generated/`. Commit the generated files — they are part of the build.
+
+`generate:unions` produces TypeScript unions for every Contentful field restricted by an `in` validation
+(dropdowns such as `contentList.ui`), plus `docs/contentful/constrained-fields.md`. GraphQL codegen cannot
+produce these because Contentful types all `Symbol` fields as `String` — see
+[ADR 0039](./adr/0039-generated-field-unions-from-contentful-validations.md). It needs
+`CONTENTFUL_MANAGEMENT_TOKEN` and can also be run on its own: `pnpm generate:unions`.
 
 ### Configuration (`codegen.ts`)
 
@@ -125,6 +131,7 @@ The codegen configuration:
 - Points to the Contentful GraphQL endpoint
 - Reads queries from `src/contentful/queries/` and fragments from `src/contentful/models/`
 - Outputs typed SDK to `src/contentful/generated/contentful-sdk.generated.ts`
+- Field unions are *not* produced by codegen; they come from `scripts/generate-field-unions.ts`
 
 ---
 
@@ -184,9 +191,17 @@ All schema changes **must** go through the TypeScript migration scripts:
 src/contentful/scripts/setup-content-model.ts
 
 # Then run it, once per environment (CONTENTFUL_ENVIRONMENT in .env.local
-# controls which one is targeted)
+# controls which one is targeted). Also regenerates the field unions and
+# docs/contentful/constrained-fields.md from the schema it just pushed.
 pnpm contentful:setup
 ```
+
+`contentful:setup` only updates and publishes content types whose definition actually differs, and
+`generate:unions` only rewrites files whose content changes, so re-running either on an unchanged model is a
+safe no-op (look for `⏭` in the log). Every schema change has a documentation and generated-artifact trail. Follow the checklist in
+[`docs/contentful/schema-change-workflow.md`](./contentful/schema-change-workflow.md); CI's
+`check-contentful-sync` job fails a PR that edits `setup-content-model.ts` without updating
+`docs/contentful/content-model.md`, or edits a `.graphql` source without regenerating the SDK.
 
 **Never** edit the schema directly in the Contentful Web App. The migration scripts are the single source of
 truth, versioned in Git.

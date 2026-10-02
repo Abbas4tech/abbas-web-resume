@@ -6,6 +6,10 @@ This document serves as the reference for the composable content model used in t
 > [`src/contentful/scripts/setup-content-model.ts`](../../src/contentful/scripts/setup-content-model.ts), which is the
 > script that actually creates/updates these content types (`pnpm contentful:setup`). If the two ever disagree, the
 > script is correct — treat a mismatch as a bug in this file, not in the script.
+>
+> Fields restricted to a fixed value list (`in` validation) also have a generated TypeScript union; the
+> full, auto-generated list is [`constrained-fields.md`](./constrained-fields.md). The process for keeping
+> all of this current is [`schema-change-workflow.md`](./schema-change-workflow.md).
 
 ## 1. Elements (Atoms)
 
@@ -75,7 +79,7 @@ Reusable, flexible content blocks used for experiences, projects, skills, or art
 ### 💎 Content Section (`contentSection`)
 Two-column content layouts, hero areas, or single-entry banners.
 * **internalName** (Symbol, Required)
-* **ui** (Symbol, Required): The generic UI block mapping. Registered values (see
+* **ui** (Symbol, Required, typed `ContentSectionUi`): The generic UI block mapping. Registered values (see
   `SECTION_BLOCK_REGISTRY` in `src/components/contentful/page-section/content-section.tsx`):
   `HeroBanner`, `SplitContentPanel`, `AnnouncementBanner`, `AvailabilityBanner`. Falls back to
   `HeroBanner` if left blank — see [ADR 0024](../adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md).
@@ -89,17 +93,20 @@ Lists of content items for page layouts.
 * **ui** (Symbol, Required): The generic UI mapping. Registered values (see `LIST_BLOCK_REGISTRY` in
   `src/components/contentful/page-section/content-list.tsx`):
   `TimelineSection`, `TimelineSectionWithBadges`, `SplitContentPanel`, `CardGrid`, `Carousel`,
-  `MockupGalleryBrowser`, `MockupGalleryPhone`, `PanelShowcase`, `PanelShowcaseWithRadialProgress`,
-  `SkillsMatrix`, `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ProcessStepsWithTimeline`,
-  `ContentTabs`, `TechBadgeCloud`, `TestimonialWall`. Falls back to `CardGrid` if left blank — see
+  `MockupGalleryBrowser`, `MockupGalleryPhone`, `PanelShowcase`, `FaqAccordion`, `MetricsStrip`,
+  `ProcessSteps`, `ProcessStepsWithTimeline`, `ContentTabs`, `TechBadgeCloud`, `TestimonialWall`. This is
+  also the field's `in` validation, typed as `ContentListUi`. (`PanelShowcaseWithRadialProgress` and
+  `SkillsMatrix` were retired and removed from this validation by
+  [ADR 0036](../adr/0036-panel-showcase-variant-simplification.md); an entry still holding one now falls back
+  to `CardGrid` in the adapter.)
+  Falls back to `CardGrid` if left blank or unrecognised — see
   [ADR 0024](../adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md). Several of
-  these pairs (`TimelineSection`/`WithBadges`, `PanelShowcase`/`WithRadialProgress`/`SkillsMatrix`,
-  `ProcessSteps`/`WithTimeline`) are rendered by the **same component** selected via a `layout`/data
+  these pairs (`TimelineSection`/`WithBadges`, `ProcessSteps`/`WithTimeline`) are rendered by the **same component** selected via a `layout`/data
   prop, not separate components — see
   [`docs/07-component-architecture.md`](../07-component-architecture.md) for the full Block catalog.
 * **title** / **description** (Symbol / RichText)
-* **entries** (Symbol, Required): The category of entries to fetch — one of `Articles`, `Products`,
-  `Collections`, `Custom`, `Experience`, `Skills`, `Projects`.
+* **entries** (Symbol, Required, typed `ContentListEntries`): The category of entries to fetch — one of
+  `Articles`, `Products`, `Collections`, `Custom`, `Experience`, `Skills`, `Projects`. Falls back to `Custom`.
 * **customEntries** (Array of `contentItem` entries): Manual override array, used when `entries` is
   `Custom` (e.g. `Carousel` slides, `TestimonialWall` quotes).
 
@@ -127,15 +134,15 @@ Site-wide configuration (formerly `AppData`).
 * **resume** (Asset Link): Downloadable resume file.
 * **globalSeo** (Entry Link to `seoMetadata`): Site-wide SEO fallback, distinct from each page's own
   `seo` link.
-* **defaultTheme** (Symbol): One of the DaisyUI theme names in the script's `DAISY_THEMES` list.
-* **themeList** (Array of Symbols, each constrained to `DAISY_THEMES`): The themes exposed in the
+* **defaultTheme** (Symbol, typed `LayoutDefaultTheme`): One of the DaisyUI theme names in the script's `DAISY_THEMES` list.
+* **themeList** (Array of Symbols, each constrained to `DAISY_THEMES`, typed `LayoutThemeList`): The themes exposed in the
   theme switcher.
 * **siteLogo** (Entry Link to `image`) — **not** `logo`; an earlier version of this doc used the wrong
   field name.
 * **email** / **footerText** (Symbol)
 * **resumeIcon** / **themeIcon** (Entry Link to `icon`)
-* **drawerVariant** (Symbol): `default` or `dock-on-mobile`.
-* **drawerSide** (Symbol): `left` or `right`.
+* **drawerVariant** (Symbol, typed `LayoutDrawerVariant`): `default` or `dock-on-mobile`.
+* **drawerSide** (Symbol, typed `LayoutDrawerSide`): `left` or `right`.
 * **navigationLinks** (Array of Entry Links to `link`) — see
   [ADR 0009](../adr/0009-navigation-links-array.md).
 

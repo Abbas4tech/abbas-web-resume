@@ -13,6 +13,10 @@ Default label vocabulary (`needs-triage`, `needs-info`, `ready-for-agent`, `read
 Single-context layout — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
 
 
+### Contentful content model
+
+Any change to the Contentful content model — `src/contentful/scripts/setup-content-model.ts`, `src/contentful/**/*.graphql`, or the adapters that consume them — must follow `docs/contentful/schema-change-workflow.md`. In particular: run `pnpm contentful:setup` / `pnpm generate` (which regenerates the field unions in `src/contentful/generated/field-unions.generated.ts` and `docs/contentful/constrained-fields.md` — never hand-edit those), update `docs/contentful/content-model.md` by hand, narrow dropdown (`in`) fields in adapters with `narrowUnion`, add an ADR for shape/convention changes, and add a changeset. See ADR 0039.
+
 # Ultracite Code Standards
 
 This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.

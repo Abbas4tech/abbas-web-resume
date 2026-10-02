@@ -79,6 +79,8 @@ pnpm build-storybook  # Static Storybook build
 | Doc | Covers |
 |-----|--------|
 | [`content-model.md`](./contentful/content-model.md) | Full field-by-field content type reference, kept in sync with `setup-content-model.ts` |
+| [`constrained-fields.md`](./contentful/constrained-fields.md) | **Generated** table of every dropdown (`in`-validated) field and its TypeScript union ([ADR 0039](./adr/0039-generated-field-unions-from-contentful-validations.md)) |
+| [`schema-change-workflow.md`](./contentful/schema-change-workflow.md) | Checklist and artifact map for every content-model change, plus a change log |
 | [`environment-migration.md`](./contentful/environment-migration.md) | Audit/migrate workflow for content drift between the `development` and `production` environments |
 | [`legacy-space-migration-field-mapping.md`](./contentful/legacy-space-migration-field-mapping.md) | One-time legacy-space → composable-space schema mapping ([ADR 0019](./adr/0019-legacy-space-cross-schema-content-migration.md)) |
 | [`legacy-space-migration-execution-log.md`](./contentful/legacy-space-migration-execution-log.md) | Execution log of that one-time migration |

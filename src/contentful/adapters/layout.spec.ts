@@ -72,7 +72,7 @@ const fullLayout = {
   footerText: "© 2026 Abbas",
   resumeIcon: icon,
   themeIcon: icon,
-  drawerVariant: "permanent",
+  drawerVariant: "default",
   drawerSide: "left",
   navigationLinksCollection: { items: [navLink] },
 } as unknown as LayoutFieldsFragment;
@@ -94,7 +94,7 @@ describe("adaptLayout", () => {
       defaultTheme: "light",
       email: "abbas@example.com",
       footerText: "© 2026 Abbas",
-      drawerVariant: "permanent",
+      drawerVariant: "default",
       drawerSide: "left",
     });
     expect(result?.resume).toEqual({

@@ -1,4 +1,11 @@
 import type { LayoutFieldsFragment } from "../generated/contentful-sdk.generated";
+import {
+  LayoutDefaultThemeValues,
+  LayoutDrawerSideValues,
+  LayoutDrawerVariantValues,
+  LayoutThemeListValues,
+} from "../generated/field-unions.generated";
+import { narrowUnion } from "../lib/narrow-union";
 import { adaptIcon } from "./icon";
 import { adaptImage } from "./image";
 import { adaptLink } from "./link";
@@ -22,16 +29,21 @@ export function adaptLayout(item: LayoutFieldsFragment | null | undefined) {
         }
       : null,
     globalSeo: adaptSeoMetadata(item.globalSeo),
-    defaultTheme: item.defaultTheme || "",
-    themeList:
-      item.themeList?.filter((t): t is string => typeof t === "string") || [],
+    defaultTheme: narrowUnion(LayoutDefaultThemeValues, item.defaultTheme, ""),
+    themeList: (item.themeList ?? []).flatMap(
+      (t) => narrowUnion(LayoutThemeListValues, t, null) ?? []
+    ),
     email: item.email || "",
     footerText: item.footerText || "",
     siteLogo: adaptImage(item.siteLogo),
     resumeIcon: adaptIcon(item.resumeIcon),
     themeIcon: adaptIcon(item.themeIcon),
-    drawerVariant: item.drawerVariant || "",
-    drawerSide: item.drawerSide || "",
+    drawerVariant: narrowUnion(
+      LayoutDrawerVariantValues,
+      item.drawerVariant,
+      ""
+    ),
+    drawerSide: narrowUnion(LayoutDrawerSideValues, item.drawerSide, ""),
     navigationLinks:
       item.navigationLinksCollection?.items
         .map(adaptLink)
