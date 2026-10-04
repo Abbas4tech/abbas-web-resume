@@ -25,6 +25,7 @@ The app presents work experience, skills, and projects, and doubles as a referen
 - **Typed CMS access** — GraphQL Codegen generates types straight from the live Contentful schema
 - **Deterministic E2E tests** — Playwright + MSW intercept Contentful calls at the network layer, so E2E runs never depend on live data
 - **Componentized in isolation** — every Element/Pattern/Block has a Storybook story, checked for accessibility via `axe-playwright` and visually regression-tested via Chromatic
+- **Infrastructure as Code** — Vercel project settings, custom domains, and environment variable scopes (`production`, `preview`, `development`) are managed declaratively via Terraform ([`infra/`](./infra/), [ADR 0039](./docs/adr/0039-infrastructure-as-code-vercel-terraform.md))
 - **Changeset-gated CI** — pull requests must carry a changeset before merge
 
 ## Tech Stack
@@ -39,6 +40,7 @@ The app presents work experience, skills, and projects, and doubles as a referen
 | GraphQL client | graphql-request + GraphQL Codegen |
 | Package manager | pnpm 10 |
 | Hosting | Vercel |
+| Infrastructure / IaC | Terraform (Vercel Provider) |
 | Linting/formatting | Ultracite (Biome) |
 | Unit/component tests | Vitest + Testing Library |
 | E2E tests | Playwright + MSW |
@@ -75,6 +77,7 @@ A lower layer never imports from a higher one. See [`CONTEXT.md`](./CONTEXT.md) 
 │   ├── hooks/                # Custom React hooks
 │   ├── lib/                  # Shared utilities
 │   └── types/                 # Global TypeScript types
+├── infra/                    # Terraform IaC for Vercel project, domains & env vars
 ├── tests/
 │   ├── e2e/                  # Playwright E2E tests
 │   └── mocks/                 # Shared MSW/test factories
@@ -138,10 +141,11 @@ Full documentation set lives in [`docs/`](./docs/README.md):
 | [07 — Component Architecture](./docs/07-component-architecture.md) | Elements/Patterns/Blocks catalog, naming rules |
 | [08 — CMS Handling](./docs/08-cms-handling.md) | Content model, GraphQL codegen, adapters |
 | [09 — Code Quality](./docs/09-code-quality.md) | Ultracite/Biome, TypeScript, Husky hooks |
-| [10 — Deployment](./docs/10-deployment.md) | Vercel hosting, CI/CD, environments |
+| [10 — Deployment](./docs/10-deployment.md) | Vercel hosting, CI/CD, environments, Terraform IaC |
 | [11 — API Docs](./docs/11-api-docs.md) | GraphQL schema, generated SDK |
 | [12 — Motion & Animation](./docs/12-motion-animation.md) | Motion strategy, spring physics |
-| [ADR Index](./docs/adr/README.md) | Architecture Decision Records |
+| [13 — ADR Index](./docs/adr/README.md) | Architecture Decision Records |
+| [Terraform IaC Guide](./infra/README.md) | Vercel infrastructure, domains & environment variables via Terraform |
 
 ## Contributing
 
