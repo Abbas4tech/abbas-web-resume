@@ -17,10 +17,11 @@ A personal resume/portfolio application built with **Next.js 14**, **Tailwind CS
 | [07 — Component Architecture](./07-component-architecture.md) | Elements, Patterns, Blocks catalog and naming rules |
 | [08 — CMS Handling](./08-cms-handling.md) | Contentful content model, GraphQL codegen, adapters |
 | [09 — Code Quality](./09-code-quality.md) | Ultracite/Biome, TypeScript, Husky git hooks |
-| [10 — Deployment](./10-deployment.md) | Vercel hosting, CI/CD pipeline, environments |
+| [10 — Deployment](./10-deployment.md) | Vercel hosting, CI/CD pipeline, environments, Terraform IaC |
 | [11 — API Docs](./11-api-docs.md) | GraphQL schema, generated SDK, query patterns |
 | [12 — Motion & Animation](./12-motion-animation.md) | Motion library strategy, behavioral elements, spring physics |
 | [13 — ADR Index](./adr/README.md) | Architecture Decision Records index |
+| [Terraform IaC Guide](../infra/README.md) | Vercel infrastructure, domains & environment variables via Terraform |
 
 ---
 
@@ -63,6 +64,7 @@ pnpm build-storybook  # Static Storybook build
 │   ├── hooks/                  # Custom React hooks
 │   ├── lib/                    # Shared utilities
 │   └── types/                  # Global TypeScript types
+├── infra/                      # Terraform IaC for Vercel project, domains & env vars
 ├── tests/
 │   ├── e2e/                    # Playwright E2E tests
 │   ├── mocks/                  # Shared test factory functions

@@ -27,6 +27,7 @@ The application is designed to:
 | **GraphQL Client** | graphql-request | `^7.4` |
 | **Package Manager** | pnpm | `10.29.1` |
 | **Hosting** | Vercel | Native integration |
+| **Infrastructure as Code** | Terraform (Vercel Provider) | `>= 1.5` |
 | **Linting/Formatting** | Ultracite (Biome) | `^7.8` |
 | **Unit Testing** | Vitest + Testing Library | `^4.1` |
 | **E2E Testing** | Playwright | `^1.60` |
