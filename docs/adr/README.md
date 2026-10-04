@@ -122,6 +122,11 @@ This directory contains Architecture Decision Records — documents that capture
   `migrate-timeline-tech-badges.ts` had only ever been run against `development`; also fixed a dormant bug
   where the script's list-selection query stopped matching anything the moment `ui` was switched to
   `TimelineSectionWithBadges`, silently turning every re-run (in either environment) into a no-op
+- **[0039]** — Introduced Terraform in `infra/` with the official `vercel/vercel` provider to manage Vercel
+  project settings, environment variables across scopes (Production, Preview, Dev per ADR 0032), and custom
+  domains as declarative Infrastructure as Code (IaC), eliminating configuration drift while preserving
+  Vercel's native Git deployment integration
+
 
 ---
 
