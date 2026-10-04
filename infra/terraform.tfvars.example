@@ -1,0 +1,15 @@
+# Vercel Authentication & Project Configuration
+# Get your token from: https://vercel.com/account/tokens
+vercel_api_token    = "YOUR_VERCEL_API_TOKEN"
+vercel_team_id      = "" # Optional: leave empty if personal account
+vercel_project_name = "abbas-web-resume"
+github_repository   = "Abbas4tech/abbas-web-resume"
+
+# Contentful Configuration
+# Values match .env.local / ADR 0032
+contentful_space_id     = "YOUR_CONTENTFUL_SPACE_ID"
+contentful_api_base_url = "https://graphql.contentful.com/content/v1/spaces"
+contentful_cda_token    = "YOUR_CONTENTFUL_CDA_TOKEN"
+
+# Optional Custom Domain (leave empty if using default vercel.app domain)
+custom_domain = ""

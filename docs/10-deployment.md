@@ -168,15 +168,23 @@ Contentful secrets are injected from GitHub repository secrets, used by both `bu
 
 ---
 
+## Infrastructure as Code (Terraform)
+
+Vercel project settings, framework presets, custom domains, and environment variable scopes (`production`, `preview`, `development`) are managed declaratively via Terraform in the [`infra/`](../infra/) directory using the official `vercel/vercel` provider. See [ADR 0039](./adr/0039-infrastructure-as-code-vercel-terraform.md) and [ADR 0032](./adr/0032-vercel-environment-variable-cleanup.md).
+
+- **Project Configuration**: Declared in [`infra/main.tf`](../infra/main.tf) with GitHub integration (`Abbas4tech/abbas-web-resume`).
+- **Environment Variables**: Declared in [`infra/env_variables.tf`](../infra/env_variables.tf), guaranteeing that all scopes have exact and parity-checked values without manual dashboard drift.
+- **Application Deployments**: Day-to-day preview builds and production releases remain automatically triggered by GitHub pushes via Vercel's native integration.
+
+---
+
 ## Vercel Setup Script
 
 `vercel-setup.sh` (repo root) is a helper for a developer's local machine: it checks that `pnpm`/`vercel`
 CLI are installed (installing the Vercel CLI globally via `pnpm add -g vercel` if missing), runs
 `vercel login`, then `vercel env pull` to fetch the project's current environment variables into a local
-`.env` file. It does not configure or modify Vercel's project settings — see
-[ADR 0032](./adr/0032-vercel-environment-variable-cleanup.md) for how that variable set is actually managed
-(currently a manual `vercel env` audit via the Vercel CLI, cross-referenced against
-`src/contentful/lib/client.ts`'s actual `process.env` reads — there is no automated drift check yet).
+`.env` file. It does not configure or modify Vercel's project settings — project settings and environment
+variables across scopes are declaratively codified via Terraform in [`infra/`](../infra/) ([ADR 0039](./adr/0039-infrastructure-as-code-vercel-terraform.md)).
 
 ---
 
@@ -202,7 +210,7 @@ Before merging a PR to `master`:
 - [ ] Contentful schema scripts updated (if schema changed) and pushed to **both** environments via `pnpm contentful:setup` (targeting each via `CONTENTFUL_ENVIRONMENT`) — a push to only one environment is exactly the drift `verify-contentful-schema` exists to catch
 - [ ] Generated types committed (`pnpm generate`)
 - [ ] Storybook build and `storybook-a11y` checks pass
-- [ ] Vercel environment variables still match what `src/contentful/lib/client.ts` (and the rest of the app) actually reads, if you touched env var usage — see [ADR 0032](./adr/0032-vercel-environment-variable-cleanup.md)
+- [ ] Vercel environment variables still match what `src/contentful/lib/client.ts` (and the rest of the app) actually reads, if you touched env var usage — see [ADR 0032](./adr/0032-vercel-environment-variable-cleanup.md) and [ADR 0039](./adr/0039-infrastructure-as-code-vercel-terraform.md)
 
 ---
 
@@ -215,3 +223,5 @@ Before merging a PR to `master`:
 - [ADR 0031 — Contentful Schema Parity Verification](./adr/0031-contentful-schema-parity-verification.md)
 - [ADR 0032 — Vercel Environment Variable Cleanup](./adr/0032-vercel-environment-variable-cleanup.md)
 - [ADR 0033 — Release Pipeline Branch-Reset Ordering Bug](./adr/0033-release-pipeline-branch-reset-ordering.md)
+- [ADR 0039 — Infrastructure as Code for Vercel Management (Terraform)](./adr/0039-infrastructure-as-code-vercel-terraform.md)
+
