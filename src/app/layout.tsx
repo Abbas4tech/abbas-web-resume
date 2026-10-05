@@ -2,7 +2,7 @@ import { Poppins } from "next/font/google";
 import type React from "react";
 import type { JSX } from "react";
 import { MotionProvider } from "@/components/elements/behavior/motion-provider/motion-provider";
-import { getLayoutData } from "@/lib/get-layout-data";
+import { getLayoutData } from "@/contentful/lib/get-layout-data";
 
 import "./globals.css";
 

@@ -122,7 +122,11 @@ _Avoid_: hand-written copies of an allowed-values list, or "enum" (these are not
 A utility process is used to harvest existing icon identifiers (e.g. from the legacy Contentful Space) and push them safely as unique, deterministic `icon` content entries (e.g. ID `icon-vsc-vscazuredevops`) into the target space's environments, avoiding duplicate content.
 
 
-### CI / DevOps
+### Infrastructure & DevOps
+
+**Infrastructure as Code (IaC) / Terraform**:
+Declarative infrastructure configuration in `infra/` using the official `vercel/vercel` Terraform provider. Manages Vercel project settings, framework presets, custom domains, and exact environment variable mappings across scopes (`production`, `preview`, `development`) to eliminate configuration drift (ADR 0039, ADR 0032). Day-to-day preview builds and production releases remain automated by Vercel's native GitHub integration rather than being deployed via Terraform.
+_Avoid_: configuring Vercel environment variables or project settings manually via the web UI dashboard.
 
 **Workflow control**:
 A GitHub repository variable (`Settings → Variables → Actions`) that enables or disables a CI pipeline stage without a code change or PR. Absent variable = enabled (safe default). Current controls: `ENABLE_CI` (master kill switch), `ENABLE_CHANGESET` (gates changeset enforcement), `ENABLE_E2E` (gates E2E test jobs).
