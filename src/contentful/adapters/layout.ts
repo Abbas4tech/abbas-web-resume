@@ -29,7 +29,11 @@ export function adaptLayout(item: LayoutFieldsFragment | null | undefined) {
         }
       : null,
     globalSeo: adaptSeoMetadata(item.globalSeo),
-    defaultTheme: narrowUnion(LayoutDefaultThemeValues, item.defaultTheme, ""),
+    defaultTheme: narrowUnion(
+      LayoutDefaultThemeValues,
+      item.defaultTheme,
+      "light"
+    ),
     themeList: (item.themeList ?? []).flatMap(
       (t) => narrowUnion(LayoutThemeListValues, t, null) ?? []
     ),
@@ -41,9 +45,9 @@ export function adaptLayout(item: LayoutFieldsFragment | null | undefined) {
     drawerVariant: narrowUnion(
       LayoutDrawerVariantValues,
       item.drawerVariant,
-      ""
+      "dock-on-mobile"
     ),
-    drawerSide: narrowUnion(LayoutDrawerSideValues, item.drawerSide, ""),
+    drawerSide: narrowUnion(LayoutDrawerSideValues, item.drawerSide, "left"),
     navigationLinks:
       item.navigationLinksCollection?.items
         .map(adaptLink)
