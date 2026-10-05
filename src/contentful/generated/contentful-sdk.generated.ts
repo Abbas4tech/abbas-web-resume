@@ -5901,6 +5901,13 @@ export type ContentSectionFieldsFragment = { internalName: string | null, ui: st
     | { __typename: 'StatItem', internalName: string | null, title: string | null, progress: number | null, sys: { id: string }, iconsCollection: { items: Array<{ __typename: 'Icon', internalName: string | null, name: string | null, library: string | null, title: string | null, color: string | null, iconCode: string | null, showTooltip: boolean | null, sys: { id: string } } | null> } | null }
    | null };
 
+export type getAllPathsQueryVariables = Exact<{
+  preview?: boolean | null | undefined;
+}>;
+
+
+export type getAllPathsQuery = { pageCollection: { items: Array<{ path: string | null } | null> } | null };
+
 export type GetLayoutQueryVariables = Exact<{
   preview?: boolean | null | undefined;
 }>;
@@ -6303,6 +6310,15 @@ ${ImageFieldsFragmentDoc}
 ${SeoMetadataFieldsFragmentDoc}
 ${ContentListFieldsFragmentDoc}
 ${ContentSectionFieldsFragmentDoc}`;
+export const getAllPathsDocument = gql`
+    query getAllPaths($preview: Boolean = false) {
+  pageCollection(preview: $preview) {
+    items {
+      path
+    }
+  }
+}
+    `;
 export const GetLayoutDocument = gql`
     query GetLayout($preview: Boolean = false) {
   layoutCollection(limit: 1, preview: $preview) {
@@ -6326,10 +6342,14 @@ export type SdkFunctionWrapper = <T>(action: (requestHeaders?:Record<string, str
 
 
 const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationType, _variables) => action();
+const getAllPathsDocumentString = print(getAllPathsDocument);
 const GetLayoutDocumentString = print(GetLayoutDocument);
 const GetPageByPathDocumentString = print(GetPageByPathDocument);
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
+    getAllPaths(variables?: getAllPathsQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: getAllPathsQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
+        return withWrapper((wrappedRequestHeaders) => client.rawRequest<getAllPathsQuery>(getAllPathsDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'getAllPaths', 'query', variables);
+    },
     GetLayout(variables?: GetLayoutQueryVariables, requestHeaders?: GraphQLClientRequestHeaders): Promise<{ data: GetLayoutQuery; errors?: GraphQLError[]; extensions?: any; headers: Headers; status: number; }> {
         return withWrapper((wrappedRequestHeaders) => client.rawRequest<GetLayoutQuery>(GetLayoutDocumentString, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'GetLayout', 'query', variables);
     },

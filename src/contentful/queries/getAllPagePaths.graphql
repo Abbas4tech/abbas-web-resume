@@ -1,0 +1,7 @@
+query getAllPaths($preview: Boolean = false) {
+  pageCollection(preview: $preview) {
+    items {
+      path
+    }
+  }
+}

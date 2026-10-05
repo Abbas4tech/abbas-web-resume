@@ -1,4 +1,4 @@
-directive @contentSourceMaps on QUERY
+directive @contentSourceMaps(outsidePreview: Boolean) on QUERY
 
 directive @contentfulSchemaMetadata(contentTypePublishedCounters: JSON) on SCHEMA
 
