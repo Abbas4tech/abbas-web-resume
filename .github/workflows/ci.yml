@@ -53,6 +53,23 @@ jobs:
       - name: Check Changeset
         run: python scripts/ci/check-changeset.py
 
+  check-contentful-sync:
+    name: Check Contentful Docs & Generated Sync
+    if: vars.ENABLE_CI != 'false'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Required for git diff to compare against origin/<base>
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check Contentful sync
+        run: python scripts/ci/check-contentful-sync.py
+
   # lint / typecheck / unit-test / e2e-test / build / build-storybook all only
   # need check-changeset, not each other — they used to run as sequential
   # steps in one job (~25-48 min end to end). Running them as sibling jobs

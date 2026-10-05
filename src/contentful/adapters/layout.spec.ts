@@ -72,7 +72,7 @@ const fullLayout = {
   footerText: "© 2026 Abbas",
   resumeIcon: icon,
   themeIcon: icon,
-  drawerVariant: "permanent",
+  drawerVariant: "default",
   drawerSide: "left",
   navigationLinksCollection: { items: [navLink] },
 } as unknown as LayoutFieldsFragment;
@@ -94,7 +94,7 @@ describe("adaptLayout", () => {
       defaultTheme: "light",
       email: "abbas@example.com",
       footerText: "© 2026 Abbas",
-      drawerVariant: "permanent",
+      drawerVariant: "default",
       drawerSide: "left",
     });
     expect(result?.resume).toEqual({
@@ -139,7 +139,7 @@ describe("adaptLayout", () => {
   });
 });
 
-it("defaults every optional text field to an empty string when the CMS leaves it blank", () => {
+it("defaults some optional text field to an empty string or fallback (of CMS) when the CMS leaves it blank", () => {
   const result = adaptLayout({
     ...fullLayout,
     internalName: null,
@@ -156,11 +156,11 @@ it("defaults every optional text field to an empty string when the CMS leaves it
     internalName: "",
     title: "",
     role: "",
-    defaultTheme: "",
+    defaultTheme: "light",
     email: "",
     footerText: "",
-    drawerVariant: "",
-    drawerSide: "",
+    drawerVariant: "dock-on-mobile",
+    drawerSide: "left",
   });
 });
 

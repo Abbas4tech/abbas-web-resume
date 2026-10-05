@@ -3,7 +3,7 @@ status: accepted
 date: 2026-10-05
 ---
 
-# 40. Root Path Routing and Edge Middleware Removal
+# 41. Root Path Routing and Edge Middleware Removal
 
 ## Context
 

@@ -1,4 +1,6 @@
 import type { ContentSectionFieldsFragment } from "../generated/contentful-sdk.generated";
+import { ContentSectionUiValues } from "../generated/field-unions.generated";
+import { narrowUnion } from "../lib/narrow-union";
 import { adaptEntry } from "./content-item";
 
 export function adaptContentSection(
@@ -20,7 +22,7 @@ export function adaptContentSection(
     // Falls back to an actually-registered SECTION_BLOCK_REGISTRY key
     // ("Standard" and "Grid" were never registered, so an entry left blank
     // in Contentful used to render nothing in production — see ADR 0024).
-    ui: item.ui || "HeroBanner",
+    ui: narrowUnion(ContentSectionUiValues, item.ui, "HeroBanner" as const),
     entry,
   };
 }

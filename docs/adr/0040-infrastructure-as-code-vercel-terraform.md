@@ -3,7 +3,7 @@ status: accepted
 date: 2026-10-04
 ---
 
-# 39. Infrastructure as Code for Vercel Management (Terraform)
+# 40. Infrastructure as Code for Vercel Management (Terraform)
 
 ## Context
 

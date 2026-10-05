@@ -74,7 +74,7 @@ const structuralContentListBlock = {
   ui: "TimelineSection",
   title: "Experience",
   description: null,
-  entries: "Job",
+  entries: "Experience",
   customEntriesCollection: { items: [] },
 };
 
@@ -129,7 +129,10 @@ describe("adaptPage", () => {
     const list = result?.topContentArea.find(
       (block) => block.__typename === "ContentList"
     );
-    expect(list).toMatchObject({ ui: "TimelineSection", category: "Job" });
+    expect(list).toMatchObject({
+      ui: "TimelineSection",
+      category: "Experience",
+    });
   });
 
   it("drops blocks that match neither shape, rather than throwing", () => {

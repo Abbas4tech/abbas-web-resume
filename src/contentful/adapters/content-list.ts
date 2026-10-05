@@ -1,5 +1,10 @@
 import type { Document } from "@contentful/rich-text-types";
 import type { ContentListFieldsFragment } from "../generated/contentful-sdk.generated";
+import {
+  ContentListEntriesValues,
+  ContentListUiValues,
+} from "../generated/field-unions.generated";
+import { narrowUnion } from "../lib/narrow-union";
 import { adaptContentItem } from "./content-item";
 
 export function adaptContentList(
@@ -16,10 +21,14 @@ export function adaptContentList(
     // Falls back to an actually-registered LIST_BLOCK_REGISTRY key ("Grid"
     // was never registered, so an entry left blank in Contentful used to
     // render nothing in production — see ADR 0024).
-    ui: item.ui || "CardGrid",
+    ui: narrowUnion(ContentListUiValues, item.ui, "CardGrid" as const),
     title: item.title || "",
     description: item.description?.json as Document,
-    category: item.entries || "Custom",
+    category: narrowUnion(
+      ContentListEntriesValues,
+      item.entries,
+      "Custom" as const
+    ),
     customEntries: (item.customEntriesCollection?.items || [])
       .map((entry) => adaptContentItem(entry))
       .filter(
