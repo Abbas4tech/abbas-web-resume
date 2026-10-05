@@ -1,5 +1,16 @@
 # abbas-web-resume
 
+## 5.2.0
+
+### Minor Changes
+
+- 1c1fc97: Introduce declarative Infrastructure as Code via Terraform in `infra/` for Vercel project configuration, environment variable scoping (Production, Preview, Development), and custom domains (ADR 0039). Refactor layout data fetching to a dedicated Contentful lib helper.
+- 617b613: Generate TypeScript unions for Contentful dropdown (`in`-validated) fields from the live content model, narrow them in the layout/contentList/contentSection adapters, and add a CI gate plus documentation (ADR 0039, schema change workflow, constrained-fields reference) so the content model, docs and generated files stay in sync.
+
+### Patch Changes
+
+- 4d27ca7: Expand the top-level README with a project overview, tech stack, architecture summary, and an index into the full docs/ chapter set.
+
 ## 5.1.0
 
 ### Minor Changes
