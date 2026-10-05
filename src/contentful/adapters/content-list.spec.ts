@@ -34,7 +34,7 @@ const fullContentList = {
   ui: "TimelineSection",
   title: "Experience",
   description: { json: emptyDocument },
-  entries: "Job",
+  entries: "Experience",
   customEntriesCollection: { items: [contentItem] },
 } as unknown as ContentListFieldsFragment;
 
@@ -53,7 +53,7 @@ describe("adaptContentList", () => {
       internalName: "Experience timeline",
       ui: "TimelineSection",
       title: "Experience",
-      category: "Job",
+      category: "Experience",
     });
     expect(result?.customEntries).toHaveLength(1);
     expect(result?.customEntries[0]).toMatchObject({ id: "job-1" });

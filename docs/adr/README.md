@@ -44,6 +44,7 @@ This directory contains Architecture Decision Records — documents that capture
 | [0031](./0031-contentful-schema-parity-verification.md) | Contentful Schema Parity Verification | ✅ accepted | 2026-09-11 |
 | [0032](./0032-vercel-environment-variable-cleanup.md) | Vercel Environment Variable Cleanup & Per-Environment Contentful Mapping | ✅ accepted | 2026-09-11 |
 | [0033](./0033-release-pipeline-branch-reset-ordering.md) | Release Pipeline Branch-Reset Ordering Bug | ✅ accepted | 2026-09-11 |
+| [0039](./0039-generated-field-unions-from-contentful-validations.md) | Generated Field Unions from Contentful Validations | ✅ accepted | 2026-10-02 |
 
 ---
 
@@ -76,6 +77,10 @@ This directory contains Architecture Decision Records — documents that capture
   `Breadcrumbs`/`BreadcrumbTrail` built as tested but deliberately unused primitives (the site's flat
   routes have nowhere for a real trail to point yet). Fixed two real a11y bugs surfaced during the pass
   itself (invalid `aria-label` on a roleless `Status` span; an unlabeled icon in a Storybook mock)
+
+- **[0039]** — Typed the `in`-validated dropdown fields (`ui`, `entries`, themes, drawer) by generating unions
+  and a constrained-fields doc from the live content model via the Management API, since GraphQL codegen
+  can't see Contentful validations; added a CI gate tying schema/GraphQL changes to docs and generated files
 
 ### Testing
 - **[0005]** — Vitest with jsdom, centralized mock factories, and colocated spec files

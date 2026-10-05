@@ -146,9 +146,41 @@ The generated SDK (`src/contentful/generated/contentful-sdk.generated.ts`) expor
 - All GraphQL fragment types
 - A typed `getSdk(client)` factory for all queries
 
+`pnpm generate` also runs `pnpm generate:unions`, covered in [Typed Dropdown Fields](#typed-dropdown-fields-generated-unions) below.
+
 Commit the generated file — it is part of the build. It is also the parsed source that
 `scripts/contentful/verify-contentful-schema.py` reads directly (see [Schema Verification](#schema-verification-in-ci)
 below) so that CI always exercises the app's real, current queries rather than a hand-copied second set.
+
+---
+
+## Typed Dropdown Fields (Generated Unions)
+
+Fields constrained to a fixed list in `setup-content-model.ts` (`in` validation — `contentList.ui`,
+`contentList.entries`, `contentSection.ui`, `layout.defaultTheme`, `layout.drawerVariant`,
+`layout.drawerSide`, `layout.themeList`) appear as plain `string` in `schema-types.generated.ts`: Contentful's
+GraphQL schema types every `Symbol` as `String` and does not expose validations. Their unions are generated
+separately by `src/contentful/scripts/generate-field-unions.ts`, which reads the live content model from the
+Management API (the Delivery API omits `in` from `Symbol` fields) and writes:
+
+- `src/contentful/generated/field-unions.generated.ts` — `export type ContentListUi = "CardGrid" | …` and
+  `ContentListUiValues` (an `as const` array).
+- [`docs/contentful/constrained-fields.md`](./contentful/constrained-fields.md) — a table of every
+  constrained field and its allowed values.
+
+Adapters narrow the GraphQL `string` to the union with `narrowUnion` (`src/contentful/lib/narrow-union.ts`),
+falling back to the field's default for an unrecognised value:
+
+```ts
+import { ContentListUiValues } from "../generated/field-unions.generated";
+import { narrowUnion } from "../lib/narrow-union";
+
+ui: narrowUnion(ContentListUiValues, item.ui, "CardGrid" as const),
+```
+
+New dropdown fields are picked up automatically — no generator change. See
+[ADR 0039](./adr/0039-generated-field-unions-from-contentful-validations.md) and the
+[schema change workflow](./contentful/schema-change-workflow.md).
 
 ---
 
@@ -239,6 +271,9 @@ pnpm contentful:setup
 
 Script location: `src/contentful/scripts/setup-content-model.ts` — this is the single source of schema
 truth; [`docs/contentful/content-model.md`](./contentful/content-model.md) is a human-readable mirror of it.
+Follow the [schema change workflow](./contentful/schema-change-workflow.md) checklist for every change — it
+lists the generated artifacts and docs that must move with the schema, and CI's `check-contentful-sync` job
+enforces part of it (`scripts/ci/check-contentful-sync.py`).
 
 ### Icon Synchronisation
 
@@ -309,4 +344,5 @@ the recursion at the schema level. See [ADR 0003](./adr/0003-composable-content-
 - [ADR 0024 — Storybook Runtime Fixes & CMS Block Registry Expansion](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md)
 - [ADR 0026 — TimelineEntry Tech-Badges Meta Row](./adr/0026-timeline-tech-badges-meta-row.md)
 - [ADR 0031 — Contentful Schema Parity Verification](./adr/0031-contentful-schema-parity-verification.md)
+- [ADR 0039 — Generated Field Unions from Contentful Validations](./adr/0039-generated-field-unions-from-contentful-validations.md)
 - [ADR 0032 — Vercel Environment Variable Cleanup](./adr/0032-vercel-environment-variable-cleanup.md)

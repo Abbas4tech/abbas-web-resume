@@ -114,6 +114,10 @@ _Avoid_: mousemove-linked spring calculations on grid cards that cause layout th
 The application connects to a primary Contentful Space hosting both `development` and `master` environments. Schema definitions, fields, and icon entries are synchronised across both environments to ensure parity between dev/staging runs and production.
 _Avoid_: referencing static credentials or using inconsistent environments across development branches.
 
+**Field union**:
+A TypeScript union (and matching `...Values` `as const` array) generated from a Contentful field's `in` validation, e.g. `ContentListUi`. Contentful's GraphQL schema types these fields as plain `String`, so GraphQL codegen cannot produce them; `pnpm generate:unions` reads the live content model from the Management API instead and also writes `docs/contentful/constrained-fields.md`. Adapters narrow with `narrowUnion`. See ADR 0039 and `docs/contentful/schema-change-workflow.md`.
+_Avoid_: hand-written copies of an allowed-values list, or "enum" (these are not GraphQL enums)
+
 **Icon Synchronisation Tooling**:
 A utility process is used to harvest existing icon identifiers (e.g. from the legacy Contentful Space) and push them safely as unique, deterministic `icon` content entries (e.g. ID `icon-vsc-vscazuredevops`) into the target space's environments, avoiding duplicate content.
 

@@ -70,6 +70,7 @@ As of [ADR 0023](./adr/0023-ci-pipeline-parallelization.md), everything past the
 
 ```
 check-changeset
+check-contentful-sync   (PRs only: content-model docs / generated SDK must move with source)
       │
       ├── lint
       ├── typecheck

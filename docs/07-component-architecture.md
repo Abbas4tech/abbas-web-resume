@@ -504,12 +504,13 @@ production — see [ADR 0004](./adr/0004-contentful-renderers.md)).
 | Content type | Registered `ui` values |
 |---|---|
 | `ContentSection` (single entry) | `HeroBanner`, `SplitContentPanel`, `AnnouncementBanner`, `AvailabilityBanner` |
-| `ContentList` (multiple entries) | `TimelineSection`, `TimelineSectionWithBadges`, `SplitContentPanel`, `CardGrid`, `Carousel`, `MockupGalleryBrowser`, `MockupGalleryPhone`, `PanelShowcase`, `PanelShowcaseWithRadialProgress`, `SkillsMatrix`, `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ProcessStepsWithTimeline`, `ContentTabs`, `TechBadgeCloud`, `TestimonialWall` |
+| `ContentList` (multiple entries) | `TimelineSection`, `TimelineSectionWithBadges`, `SplitContentPanel`, `CardGrid`, `Carousel`, `MockupGalleryBrowser`, `MockupGalleryPhone`, `PanelShowcase`, `FaqAccordion`, `MetricsStrip`, `ProcessSteps`, `ProcessStepsWithTimeline`, `ContentTabs`, `TechBadgeCloud`, `TestimonialWall` |
 
 Adding a new CMS-toggleable Block is a registry entry plus a `setup-content-model.ts` enum value (and a
-live `pnpm contentful:setup` push before an editor can actually select it) — not new component work, if a
-suitable Block already exists, or a new same-data variant of one (the `WithRadialProgress`/`SkillsMatrix`/
-`WithTimeline`/`MockupGallery*` pattern above). See [ADR 0024](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md)
+live `pnpm contentful:setup` push before an editor can actually select it — which also regenerates the
+`ContentListUi`/`ContentSectionUi` unions and [`constrained-fields.md`](./contentful/constrained-fields.md);
+see the [schema change workflow](./contentful/schema-change-workflow.md)) — not new component work, if a
+suitable Block already exists, or a new same-data variant of one (the `WithTimeline`/`MockupGallery*` pattern above). See [ADR 0024](./adr/0024-storybook-runtime-fixes-and-cms-block-registry-expansion.md)
 for the original registry expansion and [ADRs 0028–0030](./adr/0028-daisyui-expansion-footer-radial-carousel.md)
 for the DaisyUI-catalog-driven expansion that added everything from `Carousel` onward.
 

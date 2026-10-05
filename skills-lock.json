@@ -55,6 +55,12 @@
       "skillPath": "skills/community/motion-react/SKILL.md",
       "computedHash": "def581a9f41a0b6235ed5403bbba79dd3feb676ce38dd16acf72d7d1637936c4"
     },
+    "pagespeed-insights": {
+      "source": "enderpuentes/ai-agent-skills",
+      "sourceType": "github",
+      "skillPath": "pagespeed-insights/SKILL.md",
+      "computedHash": "060ab0c75f7a9ae1e02c8948118deb01c5b93f9789283255b356ab3bea15fff4"
+    },
     "playwright-best-practices": {
       "source": "currents-dev/playwright-best-practices-skill",
       "sourceType": "github",
