@@ -44,6 +44,13 @@ This directory contains Architecture Decision Records — documents that capture
 | [0031](./0031-contentful-schema-parity-verification.md) | Contentful Schema Parity Verification | ✅ accepted | 2026-09-11 |
 | [0032](./0032-vercel-environment-variable-cleanup.md) | Vercel Environment Variable Cleanup & Per-Environment Contentful Mapping | ✅ accepted | 2026-09-11 |
 | [0033](./0033-release-pipeline-branch-reset-ordering.md) | Release Pipeline Branch-Reset Ordering Bug | ✅ accepted | 2026-09-11 |
+| [0034](./0034-daisyui-semantic-color-enforcement.md) | DaisyUI Semantic Color Enforcement | ✅ accepted | 2026-09-12 |
+| [0035](./0035-ci-pipeline-workflow-controls.md) | CI Pipeline Workflow Controls | ✅ accepted | 2026-09-15 |
+| [0036](./0036-panel-showcase-variant-simplification.md) | Panel Showcase Variant Simplification | ✅ accepted | 2026-09-16 |
+| [0037](./0037-hero-banner-static-image-strategy.md) | Hero Banner Static Image Strategy | ✅ accepted | 2026-09-18 |
+| [0038](./0038-page-transitions-and-scroll-restoration.md) | Page Transitions and Scroll Restoration | ✅ accepted | 2026-10-02 |
+| [0039](./0039-infrastructure-as-code-vercel-terraform.md) | Infrastructure as Code for Vercel Management (Terraform) | ✅ accepted | 2026-10-04 |
+| [0040](./0040-root-path-routing-and-middleware-removal.md) | Root Path Routing and Edge Middleware Removal | ✅ accepted | 2026-10-05 |
 
 ---
 

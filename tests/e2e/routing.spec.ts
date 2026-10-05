@@ -5,7 +5,7 @@ import {
 } from "../mocks/fixture-site";
 import { test } from "./fixtures/test-base";
 
-const ABOUT_PATH_PATTERN = /\/about$/;
+const ROOT_PATH_PATTERN = /\/$/;
 
 test.describe("Routing & error surfaces", () => {
   test("direct navigation to a valid nested path renders that page", async ({
@@ -27,14 +27,13 @@ test.describe("Routing & error surfaces", () => {
     expect(response?.status()).toBe(404);
     await expect(notFound.heading).toBeVisible();
 
-    // "Go back home" points at "/", which src/middleware.ts redirects to
-    // "/about" — following through proves the link is actually wired up,
+    // "Go back home" points at "/" — following through proves the link is actually wired up,
     // not just present. Racing the click against waitForURL (rather than
     // clicking, then separately asserting the URL) avoids a hydration-timing
     // flake: under load, the client-side Link handler can attach later than
     // the default expect() timeout allows for.
     await Promise.all([
-      page.waitForURL(ABOUT_PATH_PATTERN),
+      page.waitForURL(ROOT_PATH_PATTERN),
       notFound.homeLink.click(),
     ]);
   });

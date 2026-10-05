@@ -1,13 +1,13 @@
 import { expect, test } from "@playwright/test";
 
-const ABOUT_REGEX = /\/about$/;
+const ROOT_REGEX = /\/$/;
 const EXPERIENCE_REGEX = /\/experience$/;
 
 test.describe("Page Transitions and Scroll Behavior", () => {
   test("smooth scrolls to top then navigates sequentially", async ({
     page,
   }) => {
-    await page.goto("/about");
+    await page.goto("/");
 
     const scrollContainer = page.locator("#main-scroll-container");
     await expect(scrollContainer).toBeVisible();
@@ -24,7 +24,7 @@ test.describe("Page Transitions and Scroll Behavior", () => {
     const experienceLink = page.locator('a[href="/experience"]').first();
     await experienceLink.click();
 
-    await expect(page).toHaveURL(ABOUT_REGEX);
+    await expect(page).toHaveURL(ROOT_REGEX);
 
     await expect(scrollContainer).toHaveJSProperty("scrollTop", 0);
 

@@ -6,7 +6,7 @@ const LG_BREAKPOINT = 1024;
 const EXPERIENCE_PATH_PATTERN = /\/experience$/;
 
 const NAV_PAGES = [
-  { label: "About", path: "/about" },
+  { label: "About", path: "/" },
   { label: "Experience", path: "/experience" },
   { label: "Projects", path: "/projects" },
   { label: "Skills", path: "/skills" },
@@ -18,7 +18,7 @@ test.describe("Global chrome — header", () => {
     page,
     header,
   }) => {
-    await page.goto("/about");
+    await page.goto("/");
 
     await expect(header.resumeLink).toHaveAttribute(
       "href",
@@ -31,7 +31,7 @@ test.describe("Global chrome — header", () => {
     page,
     themeToggle,
   }) => {
-    await page.goto("/about");
+    await page.goto("/");
 
     // The layout's `defaultTheme` is only applied to the DOM once a theme is
     // actively selected — `<html>` carries no `data-theme` attribute at all
@@ -55,7 +55,7 @@ test.describe("Global chrome — sidebar navigation", () => {
       "Sidebar is replaced by the BottomDock below the mobile breakpoint."
     );
 
-    await page.goto("/about");
+    await page.goto("/");
 
     // Between the mobile and lg breakpoints, the drawer is an off-canvas
     // overlay that starts closed (see the comment on DrawerProvider's
@@ -113,7 +113,7 @@ test.describe("Global chrome — drawer toggle (tablet)", () => {
     page,
     header,
   }) => {
-    await page.goto("/about");
+    await page.goto("/");
 
     // Starts collapsed — see the comment on DrawerProvider's `open` state
     // (drawer.tsx) for why. Confirming that here is itself a regression
@@ -154,10 +154,10 @@ test.describe("Global chrome — bottom dock (mobile)", () => {
     page,
     bottomDock,
   }) => {
-    await page.goto("/about");
+    await page.goto("/");
 
     await expect(bottomDock.root).toBeVisible();
-    expect(await bottomDock.items.count()).toBe(6);
+    expect(await bottomDock.items.count()).toBe(5);
 
     await bottomDock.item("Experience").click();
     await expect(page).toHaveURL(EXPERIENCE_PATH_PATTERN);

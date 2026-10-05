@@ -1,9 +1,9 @@
 import { expect } from "@playwright/test";
 import { test } from "./fixtures/test-base";
 
-test.describe("SplitContentPanel (/about)", () => {
+test.describe("SplitContentPanel (/)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/about");
+    await page.goto("/");
   });
 
   test("renders the description rich text", async ({ page }) => {

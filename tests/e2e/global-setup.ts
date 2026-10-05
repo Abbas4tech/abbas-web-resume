@@ -1,7 +1,7 @@
 import type { FullConfig } from "@playwright/test";
 
 const FIXTURE_MARKER = "Ada Sparkline";
-const GUARD_PATH = "/about";
+const GUARD_PATH = "/";
 
 /**
  * Runs once before the whole E2E suite, against whatever server

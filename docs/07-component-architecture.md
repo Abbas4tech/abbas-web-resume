@@ -28,7 +28,7 @@ Located at `src/components/elements/ui/`. Each element wraps a DaisyUI component
 
 ### Breadcrumbs
 
-`breadcrumbs/breadcrumbs.tsx` — Page hierarchy trail (`.breadcrumbs`). Sub-components: `BreadcrumbsList` (`<ul>`), `BreadcrumbsItem` (`<li>`). Built and tested, but not yet wired into any live page — the site's routes are still flat (`/about`, `/experience`, `/projects`, `/skills`, `/experiments`), so there's nowhere a trail would show more than one meaningful level. See the `BreadcrumbTrail` Pattern below and [ADR 0030](./adr/0030-daisyui-expansion-phase-3-availability-timeline-breadcrumbs.md).
+`breadcrumbs/breadcrumbs.tsx` — Page hierarchy trail (`.breadcrumbs`). Sub-components: `BreadcrumbsList` (`<ul>`), `BreadcrumbsItem` (`<li>`). Built and tested, but not yet wired into any live page — the site's routes are still flat (`/`, `/experience`, `/projects`, `/skills`, `/experiments`), so there's nowhere a trail would show more than one meaningful level. See the `BreadcrumbTrail` Pattern below and [ADR 0030](./adr/0030-daisyui-expansion-phase-3-availability-timeline-breadcrumbs.md).
 
 ### Button
 

@@ -174,7 +174,7 @@ export default defineConfig({
 
 `reuseExistingServer: !process.env.CI` means that locally, if anything is already listening on port 3000 — most commonly a plain `next dev` left running from unrelated work, or even one Playwright itself started for a previous run — Playwright reuses it as-is and never runs `webServer.command` (or its `NEXT_PUBLIC_API_MOCKING=enabled`) at all. A server started that way serves real Contentful content instead of the fixture, and every test that expects fixture content would fail in confusing, hard-to-place ways with no single obvious cause.
 
-`globalSetup` requests `/about` before the suite starts and asserts the fixture's fictional persona name ("Ada Sparkline") appears in the response. If it doesn't, the whole run fails immediately with one specific error telling you to stop the stray server — instead of a scattered handful of assertion failures across unrelated spec files. If your local `pnpm test:e2e` run fails at this step, that's the fix: stop whatever's already running on port 3000 and re-run.
+`globalSetup` requests `/` before the suite starts and asserts the fixture's fictional persona name ("Ada Sparkline") appears in the response. If it doesn't, the whole run fails immediately with one specific error telling you to stop the stray server — instead of a scattered handful of assertion failures across unrelated spec files. If your local `pnpm test:e2e` run fails at this step, that's the fix: stop whatever's already running on port 3000 and re-run.
 
 ### Network Mocking Strategy
 

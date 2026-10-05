@@ -134,17 +134,10 @@ export const fixtureLayout = createMockLayout({
   navigationLinksCollection: {
     items: [
       createMockLink({
-        sys: mockContentfulSys("nav-home"),
-        internalName: "Home",
-        text: "Home",
-        url: "/",
-        icon: fixtureIcons.home,
-      }),
-      createMockLink({
         sys: mockContentfulSys("nav-about"),
         internalName: "About",
         text: "About",
-        url: "/about",
+        url: "/",
         icon: fixtureIcons.about,
       }),
       createMockLink({
@@ -180,13 +173,10 @@ export const fixtureLayout = createMockLayout({
 });
 
 // ---------------------------------------------------------------------------
-// About ("/about") — the app's actual landing page.
+// About ("/") — the app's actual landing page.
 //
-// `src/middleware.ts` unconditionally redirects "/" to "/about", so a Page
-// fixture at path "/" would never be reachable through real navigation (the
-// GraphQL request for it is never even made). The HeroBanner therefore lives
-// on "/about" alongside the SplitContentPanel bio rows, matching what a
-// visitor actually lands on.
+// The root "/" path is served directly as the primary landing page (HeroBanner
+// + SplitContentPanel bio rows) without middleware redirects.
 // ---------------------------------------------------------------------------
 
 const aboutHero = createMockContentSection({
@@ -342,7 +332,7 @@ const testimonialsList = createMockContentList({
 const aboutPage = createMockPage({
   sys: mockContentfulSys("page-about"),
   internalName: "About page",
-  path: "/about",
+  path: "/",
   title: "About",
   icon: fixtureIcons.about,
   description: {

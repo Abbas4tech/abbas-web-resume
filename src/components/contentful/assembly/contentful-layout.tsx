@@ -32,7 +32,7 @@ export const ContentfulLayout: FC<ContentfulLayoutProps> = ({
     .map((i) => i.toLowerCase())
     .join("-") as DrawerVariants;
 
-  const defaultRoute = "/about";
+  const defaultRoute = data.navigationLinks[0]?.href || "/";
 
   return (
     <DrawerProvider
