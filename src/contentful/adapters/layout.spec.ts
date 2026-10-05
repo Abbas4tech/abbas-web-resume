@@ -139,7 +139,7 @@ describe("adaptLayout", () => {
   });
 });
 
-it("defaults every optional text field to an empty string when the CMS leaves it blank", () => {
+it("defaults some optional text field to an empty string or fallback (of CMS) when the CMS leaves it blank", () => {
   const result = adaptLayout({
     ...fullLayout,
     internalName: null,
@@ -156,11 +156,11 @@ it("defaults every optional text field to an empty string when the CMS leaves it
     internalName: "",
     title: "",
     role: "",
-    defaultTheme: "",
+    defaultTheme: "light",
     email: "",
     footerText: "",
-    drawerVariant: "",
-    drawerSide: "",
+    drawerVariant: "dock-on-mobile",
+    drawerSide: "left",
   });
 });
 
