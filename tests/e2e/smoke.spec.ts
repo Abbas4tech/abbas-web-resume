@@ -3,7 +3,7 @@ import { test } from "./fixtures/test-base";
 
 const MOBILE_BREAKPOINT = 768;
 const LG_BREAKPOINT = 1024;
-const ABOUT_PATH_PATTERN = /\/about$/;
+const ROOT_PATH_PATTERN = /\/$/;
 
 test.describe("E2E Smoke Test", () => {
   test("Loads the app with the mocked fixture layout", async ({
@@ -12,8 +12,8 @@ test.describe("E2E Smoke Test", () => {
   }) => {
     await page.goto("/");
 
-    // `src/middleware.ts` redirects "/" to "/about" unconditionally.
-    await expect(page).toHaveURL(ABOUT_PATH_PATTERN);
+    // The root "/" path is served directly as the About landing page.
+    await expect(page).toHaveURL(ROOT_PATH_PATTERN);
     await expect(page.locator("main").first()).toBeVisible();
 
     await expect(header.root).toBeVisible();
@@ -50,14 +50,14 @@ test.describe("E2E Smoke Test", () => {
         await header.toggleDrawer();
       }
       await expect(sidebar.menuItems.first()).toBeVisible();
-      expect(await sidebar.getNavItemsCount()).toBe(6);
+      expect(await sidebar.getNavItemsCount()).toBe(5);
     }
   });
 
   test("layout has exactly one scroll container inside drawer-content", async ({
     page,
   }) => {
-    await page.goto("/about");
+    await page.goto("/");
 
     // Count overflow-y-auto nodes directly inside .drawer-content.
     // The scroll container now uses overflow-y-auto + overflow-x-hidden

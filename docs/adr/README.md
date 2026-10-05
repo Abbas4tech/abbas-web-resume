@@ -44,7 +44,14 @@ This directory contains Architecture Decision Records — documents that capture
 | [0031](./0031-contentful-schema-parity-verification.md) | Contentful Schema Parity Verification | ✅ accepted | 2026-09-11 |
 | [0032](./0032-vercel-environment-variable-cleanup.md) | Vercel Environment Variable Cleanup & Per-Environment Contentful Mapping | ✅ accepted | 2026-09-11 |
 | [0033](./0033-release-pipeline-branch-reset-ordering.md) | Release Pipeline Branch-Reset Ordering Bug | ✅ accepted | 2026-09-11 |
+| [0034](./0034-daisyui-semantic-color-enforcement.md) | DaisyUI Semantic Color Enforcement | ✅ accepted | 2026-09-12 |
+| [0035](./0035-ci-pipeline-workflow-controls.md) | CI Pipeline Workflow Controls | ✅ accepted | 2026-09-15 |
+| [0036](./0036-panel-showcase-variant-simplification.md) | Panel Showcase Variant Simplification | ✅ accepted | 2026-09-16 |
+| [0037](./0037-hero-banner-static-image-strategy.md) | Hero Banner Static Image Strategy | ✅ accepted | 2026-09-18 |
+| [0038](./0038-page-transitions-and-scroll-restoration.md) | Page Transitions and Scroll Restoration | ✅ accepted | 2026-10-02 |
 | [0039](./0039-generated-field-unions-from-contentful-validations.md) | Generated Field Unions from Contentful Validations | ✅ accepted | 2026-10-02 |
+| [0040](./0040-infrastructure-as-code-vercel-terraform.md) | Infrastructure as Code for Vercel Management (Terraform) | ✅ accepted | 2026-10-04 |
+| [0041](./0041-root-path-routing-and-middleware-removal.md) | Root Path Routing and Edge Middleware Removal | ✅ accepted | 2026-10-05 |
 
 ---
 
@@ -127,10 +134,13 @@ This directory contains Architecture Decision Records — documents that capture
   `migrate-timeline-tech-badges.ts` had only ever been run against `development`; also fixed a dormant bug
   where the script's list-selection query stopped matching anything the moment `ui` was switched to
   `TimelineSectionWithBadges`, silently turning every re-run (in either environment) into a no-op
-- **[0039]** — Introduced Terraform in `infra/` with the official `vercel/vercel` provider to manage Vercel
+- **[0040]** — Introduced Terraform in `infra/` with the official `vercel/vercel` provider to manage Vercel
   project settings, environment variables across scopes (Production, Preview, Dev per ADR 0032), and custom
   domains as declarative Infrastructure as Code (IaC), eliminating configuration drift while preserving
   Vercel's native Git deployment integration
+- **[0041]** — Transitioned primary landing page from `/about` to root `/` in Contentful, removed Next.js Edge Middleware
+  (`src/middleware.ts`) for direct 200 responses, dynamically derived `AppHeader` default route from `Layout.navigationLinks`,
+  and aligned E2E test suites with root landing routing
 
 
 ---

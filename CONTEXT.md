@@ -71,7 +71,7 @@ The single source of truth for all global, persistent site configurations. This 
 _Avoid_: AppData, userInfo, GlobalSettings
 
 **Page**:
-A strictly routable entity that defines a specific URL path. A Page contains composable lists and sections (`topContentArea`, `bottomContentArea`).
+A strictly routable entity that defines a specific URL path (e.g. `/`, `/experience`, `/projects`, `/skills`). A Page contains composable lists and sections (`topContentArea`, `bottomContentArea`). The root path `"/"` serves the primary landing page directly without Edge Middleware redirects (ADR 0041).
 _Avoid_: route component
 
 **Contentful wrappers / Block renderers**:

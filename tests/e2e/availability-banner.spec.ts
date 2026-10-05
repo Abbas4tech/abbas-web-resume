@@ -1,9 +1,9 @@
 import { expect } from "@playwright/test";
 import { test } from "./fixtures/test-base";
 
-test.describe("AvailabilityBanner (/about)", () => {
+test.describe("AvailabilityBanner (/)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/about");
+    await page.goto("/");
   });
 
   test("renders the status message with no countdown", async ({

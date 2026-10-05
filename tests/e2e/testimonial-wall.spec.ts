@@ -1,9 +1,9 @@
 import { expect } from "@playwright/test";
 import { test } from "./fixtures/test-base";
 
-test.describe("TestimonialWall (/about)", () => {
+test.describe("TestimonialWall (/)", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/about");
+    await page.goto("/");
   });
 
   test("renders every testimonial", async ({ testimonialWall }) => {
